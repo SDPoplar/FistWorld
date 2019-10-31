@@ -1,2 +1,0 @@
-D:\Work\Games\FistWorld\Intermediate\Build\Win64\UE4Editor\Development\FistWorld\Definitions.FistWorld.h
-D:\Work\Games\FistWorld\Source\FistWorld\FistWorld.h

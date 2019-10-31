@@ -1,3 +1,0 @@
-D:\Work\Games\FistWorld\Source\FistWorld\FistWorld.Build.cs
-D:\Work\Games\FistWorld\Source\FistWorld.Target.cs
-D:\Work\Games\FistWorld\Source\FistWorldEditor.Target.cs
