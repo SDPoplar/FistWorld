@@ -15,11 +15,11 @@ UPopupWidget* UPopupWidget::Popup( UWorld* world )
     UPopupWidget *widget = CreateWidgetInstance( world, )
 }
 
+*/
 void UPopupWidget::Quit()
 {
     this->RemoveFromViewport();
 }
-*/
 
 void UPopupWidget::Popup()
 {

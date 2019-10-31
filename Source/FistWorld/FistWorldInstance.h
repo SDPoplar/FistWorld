@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
+//  #include "FistWorldSave.h"
 #include "Story/Kingdom.h"
 //  #include "Engine/DataTable.h"
 #include "FistWorldInstance.generated.h"
@@ -24,7 +25,6 @@ public:
     bool HasGame() const;
     bool HasGameLoaded() const;
 
-    bool CreateGame( int nChapterId );
     bool LoadGame();
 
 protected:
@@ -32,7 +32,6 @@ protected:
     UKingdom* m_player_kingdom;
 
     bool m_b_game_exists;
-    bool m_b_game_loaded;
 
     //  static UDataTable* g_chapters;
 };

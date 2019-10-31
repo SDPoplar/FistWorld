@@ -19,7 +19,7 @@ public:
     void Popup();
     //UPopupWidget( const FObjectInitializer& ObjectInitializer );
     //static UPopupWidget* Popup( UWorld* world );
-    //void Quit();
+    void Quit();
 
 protected:
     //virtual TSubclassOf<UPopupWidget> GetInstanceClass() = 0;

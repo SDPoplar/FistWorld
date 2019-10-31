@@ -33,3 +33,9 @@
 
 # Visual studio
 .vs/
+
+# UE4 tmp files
+Binaries/
+Intermediate/
+Saved/
+
