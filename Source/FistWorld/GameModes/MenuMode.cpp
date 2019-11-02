@@ -2,12 +2,14 @@
 
 
 #include "MenuMode.h"
-#include "Controllers/MenuController.h"
 #include "Kismet/GameplayStatics.h"
+#include "Controllers/MenuController.h"
+#include "Huds/MainMenuHud.h"
 
 AMenuMode::AMenuMode()
 {
     this->PlayerControllerClass = AMenuController::StaticClass();
+    this->HUDClass = AMainMenuHud::StaticClass();
 }
 
 void AMenuMode::StartPlay()

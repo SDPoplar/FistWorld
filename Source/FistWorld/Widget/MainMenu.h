@@ -4,8 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Widget/PopupMenuWidget.h"
 #include "MainMenu.generated.h"
-
 /**
  * 
  */
@@ -15,10 +15,7 @@ class FISTWORLD_API UMainMenu : public UUserWidget
 	GENERATED_BODY()
 	
 public:
-    /*
-    UMainMenu();
-    UMainMenu( const FObjectInitializer& ObjectInitializer );
-    */
+    //UMainMenu( const FObjectInitializer& ObjectInitializer );
 
     UFUNCTION( BlueprintCallable )
     bool HasGame() const;
@@ -26,6 +23,23 @@ public:
     UFUNCTION( BlueprintCallable )
     void ExitGame();
 
+    UFUNCTION( BlueprintCallable )
+    void ShowAboutWidget();
+
+    UFUNCTION( BlueprintCallable )
+    void ShowCreateGameWidget();
 protected:
     void StartExistsGame();
+
+    UFUNCTION( BlueprintImplementableEvent )
+    UPopupMenuWidget* MakeCreateGameWidget( APlayerController* pc );
+
+    UFUNCTION( BlueprintImplementableEvent )
+    UPopupMenuWidget* MakeAboutWidget( APlayerController* pc );
+    
+    /*
+    UPopupMenuWidget* CreatePopupMenu( TSubclassOf<UPopupMenuWidget> className, FName name );
+    TSubclassOf<UPopupMenuWidget> createGameWidgetClass, aboutWidgetClass;
+    */
+    UPopupMenuWidget *createGameWidget, *aboutWidget;
 };
