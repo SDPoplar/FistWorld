@@ -19,8 +19,24 @@ public:
     void Popup();
     //UPopupWidget( const FObjectInitializer& ObjectInitializer );
     //static UPopupWidget* Popup( UWorld* world );
+
+    UFUNCTION( BlueprintCallable )
     void Quit();
 
 protected:
     //virtual TSubclassOf<UPopupWidget> GetInstanceClass() = 0;
+    //virtual bool OverrideInputMode( bool &showMouseCursor );
+    virtual bool OverrideShowMouseCursor( bool& showMouseCursor );
+
+    struct {
+        bool setted;
+        bool origin;
+    } m_override_mouse;
+    struct {
+        bool setted;
+        FInputModeDataBase* origin;
+    } m_override_input_mode;
+
+private:
+    APlayerController* GetPlayerController( APlayerController* &pc );
 };
