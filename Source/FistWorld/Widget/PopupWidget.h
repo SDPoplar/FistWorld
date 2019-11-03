@@ -16,12 +16,15 @@ class FISTWORLD_API UPopupWidget : public UUserWidget
 	
 public:
     UFUNCTION( BlueprintCallable )
-    void Popup();
+    void Popup( int baseZOrder = 0 );
     //UPopupWidget( const FObjectInitializer& ObjectInitializer );
     //static UPopupWidget* Popup( UWorld* world );
 
     UFUNCTION( BlueprintCallable )
     void Quit();
+
+    UFUNCTION( BlueprintImplementableEvent )
+    void RefreshData();
 
 protected:
     //virtual TSubclassOf<UPopupWidget> GetInstanceClass() = 0;

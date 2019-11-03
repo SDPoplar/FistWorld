@@ -72,6 +72,18 @@ void UMainMenu::ShowCreateGameWidget()
     }
 }
 
+void UMainMenu::ShowOptionWidget()
+{
+    if( !this->optionWidget )
+    {
+        this->optionWidget = this->MakeOptionWidget( UGameplayStatics::GetPlayerController( this, 0 ) );
+    }
+    if( this->optionWidget )
+    {
+        this->optionWidget->Popup();
+    }
+}
+
 /*
 UPopupMenuWidget* UMainMenu::CreatePopupMenu( TSubclassOf<UPopupMenuWidget> cls, FName name )
 {

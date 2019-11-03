@@ -28,14 +28,16 @@ void UPopupWidget::Quit()
     this->RemoveFromViewport();
 }
 
-void UPopupWidget::Popup()
+void UPopupWidget::Popup( int baseZOrder )
 {
-    this->AddToViewport( 1000 );
+    this->AddToViewport( baseZOrder + 100 );
+    this->RefreshData();
 
     APlayerController* pc = nullptr;
 
     bool smc;
-    if( this->OverrideShowMouseCursor( smc ) && ( this->GetPlayerController( pc )->bShowMouseCursor != smc ) )
+    if( this->OverrideShowMouseCursor( smc ) && ( this->GetPlayerController( pc )
+        && pc->bShowMouseCursor != smc ) )
     {
         this->m_override_mouse.setted = true;
         this->m_override_mouse.origin = pc->bShowMouseCursor;

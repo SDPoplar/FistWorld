@@ -28,6 +28,10 @@ public:
 
     UFUNCTION( BlueprintCallable )
     void ShowCreateGameWidget();
+
+    UFUNCTION( BlueprintCallable )
+    void ShowOptionWidget();
+
 protected:
     void StartExistsGame();
 
@@ -36,10 +40,13 @@ protected:
 
     UFUNCTION( BlueprintImplementableEvent )
     UPopupMenuWidget* MakeAboutWidget( APlayerController* pc );
+
+    UFUNCTION( BlueprintImplementableEvent )
+    UPopupMenuWidget* MakeOptionWidget( APlayerController* pc );
     
     /*
     UPopupMenuWidget* CreatePopupMenu( TSubclassOf<UPopupMenuWidget> className, FName name );
     TSubclassOf<UPopupMenuWidget> createGameWidgetClass, aboutWidgetClass;
     */
-    UPopupMenuWidget *createGameWidget, *aboutWidget;
+    UPopupMenuWidget *createGameWidget, *aboutWidget, *optionWidget;
 };
