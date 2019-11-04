@@ -4,7 +4,21 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
+#include "Engine/DataTable.h"
 #include "Warrior.generated.h"
+
+USTRUCT( BlueprintType )
+struct FWarriorBaseData : public FTableRowBase
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+    UPROPERTY( BlueprintReadOnly )
+    int id;
+
+    UPROPERTY( BlueprintReadOnly )
+    FString name;
+};
 
 /**
  * 
@@ -20,4 +34,5 @@ public:
 	
 protected:
     int m_n_id;
+    FString m_s_name;
 };
