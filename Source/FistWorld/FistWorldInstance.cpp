@@ -63,3 +63,8 @@ bool UFistWorldInstance::HasGameLoaded( void ) const
 {
     return !!this->m_player_kingdom;
 }
+
+bool UFistWorldInstance::IsPlayerKingdom( int kingdomId ) const noexcept
+{
+    return this->m_player_kingdom ? ( this->m_player_kingdom->GetKingdomId() == kingdomId ) : false;
+}

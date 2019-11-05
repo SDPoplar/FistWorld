@@ -4,8 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Components/StaticMeshComponent.h"
-#include "Components/WidgetComponent.h"
 #include "TownActor.generated.h"
 
 UCLASS()
@@ -24,7 +22,10 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-    UStaticMeshComponent* m_mesh_town;
+    UPROPERTY( EditDefaultsOnly, Category = "Data" )
+    int m_bind_town;
+
+    class UStaticMeshComponent* m_mesh_town;
 
 public:	
 	// Called every frame

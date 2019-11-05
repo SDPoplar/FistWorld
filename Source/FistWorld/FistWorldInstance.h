@@ -27,6 +27,9 @@ public:
 
     bool LoadGame();
 
+    UFUNCTION( BlueprintCallable )
+    bool IsPlayerKingdom( int kingdomId ) const noexcept;
+
 protected:
     TArray<UKingdom*> m_kingdoms;
     UKingdom* m_player_kingdom;

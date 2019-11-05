@@ -2,8 +2,9 @@
 
 
 #include "TownActor.h"
-
+#include "Components/StaticMeshComponent.h"
 #include "UObject/ConstructorHelpers.h"
+//  #include "Components/WidgetComponent.h"
 
 // Sets default values
 ATownActor::ATownActor()
