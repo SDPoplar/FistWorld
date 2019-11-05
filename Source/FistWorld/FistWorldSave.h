@@ -4,29 +4,57 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/SaveGame.h"
+#include "Story/Warrior.h"
 #include "FistWorldSave.generated.h"
 
 USTRUCT()
-struct FSaveKingdomTown
+struct FSaveTown
 {
     GENERATED_USTRUCT_BODY()
 
 public:
-    UPROPERTY()
+    //UPROPERTY( BlueprintReadOnly )
     int TownId;
+
+    //UPROPERTY( BlueprintReadOnly )
+    int KingdomId;
+
+    //UPROPERTY( BlueprintReadOnly )
+    int Money;
+
+    //UPROPERTY( BlueprintReadOnly )
+    int Food;
+
+    //UPROPERTY( BlueprintReadOnly )
+    int Soldiers;
 };
 
 USTRUCT()
-struct FSaveKingdomWarrior
+struct FSaveWarrior
 {
     GENERATED_USTRUCT_BODY()
 
 public:
-    UPROPERTY()
-    int WarriaId;
+    //UPROPERTY( BlueprintReadOnly )
+    int WarriorId;
 
-    UPROPERTY()
+    //UPROPERTY( BlueprintReadOnly )
+    int KingdomId;
+
+    //UPROPERTY( BlueprintReadOnly )
     int InTown;
+
+    //UPROPERTY( BlueprintReadOnly )
+    EWarriorStatus Status;
+
+    //UPROPERTY( BlueprintReadOnly )
+    int Level;
+
+    //UPROPERTY( BlueprintReadOnly )
+    int Exp;
+
+    //UPROPERTY( BlueprintReadOnly )
+    int Soldiers;
 };
 
 USTRUCT()
@@ -36,17 +64,11 @@ struct FSaveKingdom
 
 public:
 
-    UPROPERTY()
+    //UPROPERTY()
     int KingdomId;
 
-    UPROPERTY()
+    //UPROPERTY()
     bool IsPlayerKingdom;
-
-    UPROPERTY()
-    TArray<FSaveKingdomTown> Towns;
-
-    UPROPERTY()
-    TArray<FSaveKingdomWarrior> Warriors;
 };
 
 /**
@@ -66,4 +88,8 @@ public:
 	
     UPROPERTY()
     TArray<FSaveKingdom> kingdoms;
+    UPROPERTY()
+    TArray<FSaveTown> towns;
+    UPROPERTY()
+    TArray<FSaveWarrior> warriors;
 };

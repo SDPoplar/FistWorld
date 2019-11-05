@@ -7,6 +7,16 @@
 #include "Engine/DataTable.h"
 #include "Warrior.generated.h"
 
+UENUM( BlueprintType )
+enum class EWarriorStatus : uint8
+{
+    NORMAL,
+    WORKING,
+    MISSING,
+    PRISON,
+    DEAD,
+};
+
 USTRUCT( BlueprintType )
 struct FWarriorBaseData : public FTableRowBase
 {

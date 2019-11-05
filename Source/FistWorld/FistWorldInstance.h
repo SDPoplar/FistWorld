@@ -34,6 +34,9 @@ protected:
     TArray<UKingdom*> m_kingdoms;
     UKingdom* m_player_kingdom;
 
+    TArray<class UTown*> m_towns;
+    TArray<class UWarrior*> m_warriors;
+
     bool m_b_game_exists;
 
     //  static UDataTable* g_chapters;

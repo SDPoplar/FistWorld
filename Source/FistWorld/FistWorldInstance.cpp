@@ -5,6 +5,8 @@
 #include "FistWorldSave.h"
 #include "Kismet/GameplayStatics.h"
 #include "Story/Warrior.h"
+#include "Story/Kingdom.h"
+#include "Story/Town.h"
 
 UFistWorldInstance::UFistWorldInstance() : m_player_kingdom( nullptr )
 {
@@ -41,21 +43,28 @@ bool UFistWorldInstance::LoadGame()
         auto ins = NewObject<UKingdom>();
         ins->SetKingdomId( item.KingdomId, true );
         ins->SetPlayerKingdom( item.IsPlayerKingdom );
-        for( auto w : item.Warriors )
-        {
-            auto wi = NewObject<UWarrior>();
-            ins->AppendWarrior( wi );
-        }
-
-        for( auto t : item.Towns )
-        { }
-        
+        this->m_kingdoms.Push( ins );
         if( item.IsPlayerKingdom )
         {
             this->m_player_kingdom = ins;
         }
-        this->m_kingdoms.Push( ins );
     }
+
+    for( auto item : save->warriors )
+    {
+        auto ins = NewObject<UWarrior>();
+        
+        this->m_warriors.Push( ins );
+    }
+
+    for( auto item : save->towns )
+    {
+        auto ins = NewObject<UTown>();
+        ins->SetTownId( item.TownId, true );
+        ins->SetOwnerKingdom( item.KingdomId );
+        this->m_towns.Push( ins );
+    }
+
     return true;
 }
 
