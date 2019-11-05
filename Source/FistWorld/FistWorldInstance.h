@@ -30,6 +30,15 @@ public:
     UFUNCTION( BlueprintCallable )
     bool IsPlayerKingdom( int kingdomId ) const noexcept;
 
+    UFUNCTION( BlueprintCallable )
+    UKingdom* FindKingdom( int kingdomId );
+
+    UFUNCTION( BlueprintCallable )
+    class UTown* FindTown( int townId );
+
+    UFUNCTION( BlueprintCallable )
+    class UWarrior* FindWarrior( int warriorId );
+
 protected:
     TArray<UKingdom*> m_kingdoms;
     UKingdom* m_player_kingdom;

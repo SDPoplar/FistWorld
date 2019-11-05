@@ -47,7 +47,7 @@ bool UKingdom::SetKingdomId( int id, bool load )
 
     //  todo: load data from lib
     char lineIndex[ 8 ] = "";
-    sprintf( lineIndex, "%d", this->m_n_kingdom_id );
+    sprintf_s( lineIndex, 8, "%d", this->m_n_kingdom_id );
     FKingdomBaseData* line = UKingdom::g_lib->FindRow<FKingdomBaseData>( FName( "id" ), FString( lineIndex ) );
     this->m_s_name = line->name;
 

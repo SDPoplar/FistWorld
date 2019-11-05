@@ -4,6 +4,7 @@
 #include "TownActor.h"
 #include "Components/StaticMeshComponent.h"
 #include "UObject/ConstructorHelpers.h"
+#include "FistWorldInstance.h"
 //  #include "Components/WidgetComponent.h"
 
 // Sets default values
@@ -20,13 +21,15 @@ ATownActor::ATownActor()
     {
         this->m_mesh_town->SetStaticMesh( mesh.Object );
     }
+
+    this->m_o_town = nullptr;
 }
 
 // Called when the game starts or when spawned
 void ATownActor::BeginPlay()
 {
 	Super::BeginPlay();
-	
+    this->m_o_town = UFistWorldInstance::GetInstance( this )->FindTown( this->m_bind_town );
 }
 
 // Called every frame

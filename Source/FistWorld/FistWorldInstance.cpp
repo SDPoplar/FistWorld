@@ -53,7 +53,13 @@ bool UFistWorldInstance::LoadGame()
     for( auto item : save->warriors )
     {
         auto ins = NewObject<UWarrior>();
-        
+        ins->SetWarriorId( item.WarriorId, true );
+        ins->SetBelongKingdom( item.KingdomId );
+        ins->SetInTown( item.InTown );
+        ins->SetStatus( item.Status );
+        ins->SetWarriorLevel( item.Level );
+        ins->SetWarriorExp( item.Exp );
+        ins->SetSoldierNumber( item.Soldiers );
         this->m_warriors.Push( ins );
     }
 
@@ -62,6 +68,9 @@ bool UFistWorldInstance::LoadGame()
         auto ins = NewObject<UTown>();
         ins->SetTownId( item.TownId, true );
         ins->SetOwnerKingdom( item.KingdomId );
+        ins->SetMoney( item.Money );
+        ins->SetFood( item.Food );
+        ins->SetSoldierNumber( item.Soldiers );
         this->m_towns.Push( ins );
     }
 
@@ -76,4 +85,40 @@ bool UFistWorldInstance::HasGameLoaded( void ) const
 bool UFistWorldInstance::IsPlayerKingdom( int kingdomId ) const noexcept
 {
     return this->m_player_kingdom ? ( this->m_player_kingdom->GetKingdomId() == kingdomId ) : false;
+}
+
+UKingdom* UFistWorldInstance::FindKingdom( int kingdomId )
+{
+    for( auto item : this->m_kingdoms )
+    {
+        if( item->GetKingdomId() == kingdomId )
+        {
+            return item;
+        }
+    }
+    return nullptr;
+}
+
+UTown* UFistWorldInstance::FindTown( int townId )
+{
+    for( auto item : this->m_towns )
+    {
+        if( item->GetTownId() == townId )
+        {
+            return item;
+        }
+    }
+    return nullptr;
+}
+
+UWarrior* UFistWorldInstance::FindWarrior( int warriorId )
+{
+    for( auto item : this->m_warriors )
+    {
+        if( *item == warriorId )
+        {
+            return item;
+        }
+    }
+    return nullptr;
 }

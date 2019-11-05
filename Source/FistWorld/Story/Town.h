@@ -49,10 +49,25 @@ public:
 
     void SetOwnerKingdom( int kingdomId );
 
+    void SetMoney( int money );
+    UFUNCTION( BlueprintCallable )
+    int GetMoney() const noexcept;
+
+    void SetFood( int food );
+    UFUNCTION( BlueprintCallable )
+    int GetFood() const noexcept;
+
+    void SetSoldierNumber( int num );
+    UFUNCTION( BlueprintCallable )
+    int GetSoldierNumber() const noexcept;
+
 protected:
     static UDataTable* g_lib;
 
     int m_n_town_id;
     FString m_s_town_name;
     int m_n_own_by_kingdom;
+    int m_n_money;
+    int m_n_food;
+    int m_n_soldier_num;
 };

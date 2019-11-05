@@ -26,8 +26,9 @@ protected:
     int m_bind_town;
 
     class UStaticMeshComponent* m_mesh_town;
+    class UTown* m_o_town;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 

@@ -17,3 +17,10 @@ UFistWorldSave* UFistWorldSave::LoadSave()
         ? Cast<UFistWorldSave>( UGameplayStatics::LoadGameFromSlot( UFistWorldSave::SaveSlotName, 0 ) )
         : nullptr;
 }
+
+bool UFistWorldSave::CreateNewSave( int chapter, int kingdom )
+{
+    auto save = UGameplayStatics::CreateSaveGameObject( UFistWorldSave::StaticClass() );
+    //  todo: write default data
+    return UGameplayStatics::SaveGameToSlot( save, UFistWorldSave::SaveSlotName, 0 );
+}

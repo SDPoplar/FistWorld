@@ -82,7 +82,7 @@ public:
     UFUNCTION( BlueprintCallable )
     static bool FileExists();
     static UFistWorldSave* LoadSave();
-    static void CreateNewSave( int chapter, int kingdom );
+    static bool CreateNewSave( int chapter, int kingdom );
 
     const static FString SaveSlotName;
 	

@@ -6,7 +6,7 @@
 
 UDataTable* UTown::g_lib = nullptr;
 
-UTown::UTown() : m_n_town_id( 0 ), m_n_own_by_kingdom( 0 ), m_s_town_name( "" )
+UTown::UTown() : m_n_town_id( 0 ), m_n_own_by_kingdom( 0 ), m_s_town_name( "" ), m_n_money( 0 ), m_n_food( 0 ), m_n_soldier_num( 0 )
 {
     if( !UTown::g_lib )
     {
@@ -35,7 +35,7 @@ bool UTown::SetTownId( int id, bool load )
         return false;
     }
     char lineIndex[ 8 ];
-    sprintf( lineIndex, "%d", this->m_n_town_id );
+    sprintf_s( lineIndex, 8, "%d", this->m_n_town_id );
     FTownBaseData* data = UTown::g_lib->FindRow<FTownBaseData>( "id", lineIndex );
     if( !data )
     {
@@ -70,4 +70,34 @@ bool UTown::OwnByKingdom() const noexcept
 int UTown::GetKingdomId() const noexcept
 {
     return this->m_n_own_by_kingdom;
+}
+
+void UTown::SetMoney( int money )
+{
+    this->m_n_money = money;
+}
+
+int UTown::GetMoney( void ) const noexcept
+{
+    return this->m_n_money;
+}
+
+void UTown::SetFood( int food )
+{
+    this->m_n_food = food;
+}
+
+int UTown::GetFood( void ) const noexcept
+{
+    return this->m_n_food;
+}
+
+void UTown::SetSoldierNumber( int num )
+{
+    this->m_n_soldier_num = num;
+}
+
+int UTown::GetSoldierNumber( void ) const noexcept
+{
+    return this->m_n_soldier_num;
 }
