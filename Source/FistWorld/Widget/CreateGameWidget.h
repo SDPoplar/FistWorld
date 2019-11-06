@@ -42,6 +42,12 @@ public:
     UFUNCTION( BlueprintCallable )
     UComboBoxString* RefreshChapter( UComboBoxString* holder );
 
+    UFUNCTION( BlueprintCallable )
+    FString GetChapterDescribe( int nChapChooserOptionIndex );
+
+    UFUNCTION( BlueprintCallable )
+    bool CreateGame( int nChapChooserOptionIndex, int kingdomId );
+
 protected:
     static UDataTable* GetChapterTable();
     static UDataTable* chapters;

@@ -49,6 +49,10 @@ bool UKingdom::SetKingdomId( int id, bool load )
     char lineIndex[ 8 ] = "";
     sprintf_s( lineIndex, 8, "%d", this->m_n_kingdom_id );
     FKingdomBaseData* line = UKingdom::g_lib->FindRow<FKingdomBaseData>( FName( "id" ), FString( lineIndex ) );
+    if( !line )
+    {
+        return false;
+    }
     this->m_s_name = line->name;
 
     return true;

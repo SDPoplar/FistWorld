@@ -1,0 +1,14 @@
+[
+	{"line": 1, "chapter": 1, "id": 1, "kingdom": 1, "money": 1000, "food": 1000},
+	{"line": 2, "chapter": 1, "id": 2, "kingdom": 2, "money": 1000, "food": 1000},
+	{"line": 3, "chapter": 1, "id": 3, "kingdom": 3, "money": 1000, "food": 1000},
+	{"line": 4, "chapter": 1, "id": 4, "kingdom": 4, "money": 1000, "food": 1000},
+	{"line": 5, "chapter": 1, "id": 5, "kingdom": 3, "money": 1000, "food": 1000},
+	{"line": 6, "chapter": 1, "id": 6, "kingdom": 3, "money": 1000, "food": 1000},
+	{"line": 7, "chapter": 1, "id": 7, "kingdom": 0, "money": 1000, "food": 1000},
+	{"line": 8, "chapter": 1, "id": 8, "kingdom": 0, "money": 1000, "food": 1000},
+	{"line": 9, "chapter": 1, "id": 9, "kingdom": 0, "money": 1000, "food": 1000},
+	{"line": 10, "chapter": 1, "id": 10, "kingdom": 2, "money": 1000, "food": 1000},
+	{"line": 11, "chapter": 1, "id": 11, "kingdom": 4, "money": 1000, "food": 1000},
+	{"line": 12, "chapter": 1, "id": 12, "kingdom": 2, "money": 1000, "food": 1000}
+]

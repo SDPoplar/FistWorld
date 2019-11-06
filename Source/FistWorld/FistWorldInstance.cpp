@@ -41,7 +41,11 @@ bool UFistWorldInstance::LoadGame()
     for( auto item : save->kingdoms )
     {
         auto ins = NewObject<UKingdom>();
-        ins->SetKingdomId( item.KingdomId, true );
+        if( !ins || !ins->SetKingdomId( item.KingdomId, true ) )
+        {
+            UE_LOG( LogTemp, Error, TEXT( "Failed to load kingdom[ID:%d]" ), item.KingdomId );
+            continue;
+        }
         ins->SetPlayerKingdom( item.IsPlayerKingdom );
         this->m_kingdoms.Push( ins );
         if( item.IsPlayerKingdom )
@@ -53,7 +57,11 @@ bool UFistWorldInstance::LoadGame()
     for( auto item : save->warriors )
     {
         auto ins = NewObject<UWarrior>();
-        ins->SetWarriorId( item.WarriorId, true );
+        if( !ins || !ins->SetWarriorId( item.WarriorId, true ) )
+        {
+            UE_LOG( LogTemp, Error, TEXT( "Failed to load warrior[ID:%d]" ), item.WarriorId );
+            continue;
+        }
         ins->SetBelongKingdom( item.KingdomId );
         ins->SetInTown( item.InTown );
         ins->SetStatus( item.Status );
@@ -66,7 +74,11 @@ bool UFistWorldInstance::LoadGame()
     for( auto item : save->towns )
     {
         auto ins = NewObject<UTown>();
-        ins->SetTownId( item.TownId, true );
+        if( !ins || !ins->SetTownId( item.TownId, true ) )
+        {
+            UE_LOG( LogTemp, Error, TEXT( "Failed to load town[ID:%d]" ), item.TownId );
+            continue;
+        }
         ins->SetOwnerKingdom( item.KingdomId );
         ins->SetMoney( item.Money );
         ins->SetFood( item.Food );

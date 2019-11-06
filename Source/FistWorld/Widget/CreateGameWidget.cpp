@@ -2,6 +2,8 @@
 
 #include "CreateGameWidget.h"
 #include "ComboBoxString.h"
+#include "FistWorldSave.h"
+#include "FistWorldInstance.h"
 
 UDataTable* UCreateGameWidget::chapters = nullptr;
 
@@ -71,4 +73,15 @@ UComboBoxString* UCreateGameWidget::RefreshChapter( UComboBoxString* holder )
         holder->SetSelectedIndex( 0 );
     }
     return holder;
+}
+
+FString UCreateGameWidget::GetChapterDescribe( int optIndex )
+{
+    //  todo: return describe for given chapter
+    return FString( "Hello world" );
+}
+
+bool UCreateGameWidget::CreateGame( int optIndex, int kingdomId )
+{
+    return UFistWorldSave::CreateNewSave( 1, 1 ) && UFistWorldInstance::GetInstance( this )->LoadGame();
 }
