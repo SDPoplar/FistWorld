@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "WorldMapElement.h"
 #include "TownActor.generated.h"
 
 UCLASS()
-class FISTWORLD_API ATownActor : public AActor
+class FISTWORLD_API ATownActor : public AActor, public WorldMapElement
 {
 	GENERATED_BODY()
 	
@@ -21,6 +22,8 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+    virtual UObject* SelfPointer() override;
 
     UPROPERTY( EditDefaultsOnly, Category = "Data" )
     int m_bind_town;

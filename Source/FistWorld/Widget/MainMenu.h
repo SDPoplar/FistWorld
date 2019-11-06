@@ -6,6 +6,9 @@
 #include "Blueprint/UserWidget.h"
 #include "Widget/PopupMenuWidget.h"
 #include "MainMenu.generated.h"
+
+class UCreateGameWidget;
+
 /**
  * 
  */
@@ -32,11 +35,14 @@ public:
     UFUNCTION( BlueprintCallable )
     void ShowOptionWidget();
 
-protected:
+    UFUNCTION( BlueprintCallable )
+    void BtnContinueClicked();
+
     void StartExistsGame();
+protected:
 
     UFUNCTION( BlueprintImplementableEvent )
-    UPopupMenuWidget* MakeCreateGameWidget( APlayerController* pc );
+    UCreateGameWidget* MakeCreateGameWidget( APlayerController* pc );
 
     UFUNCTION( BlueprintImplementableEvent )
     UPopupMenuWidget* MakeAboutWidget( APlayerController* pc );
@@ -48,5 +54,6 @@ protected:
     UPopupMenuWidget* CreatePopupMenu( TSubclassOf<UPopupMenuWidget> className, FName name );
     TSubclassOf<UPopupMenuWidget> createGameWidgetClass, aboutWidgetClass;
     */
-    UPopupMenuWidget *createGameWidget, *aboutWidget, *optionWidget;
+    UPopupMenuWidget *aboutWidget, *optionWidget;
+    UCreateGameWidget* createGameWidget;
 };

@@ -14,7 +14,8 @@ ATownActor::ATownActor()
 	PrimaryActorTick.bCanEverTick = true;
 
     this->m_mesh_town = CreateDefaultSubobject<UStaticMeshComponent>( TEXT( "Mesh" ) );
-    this->m_mesh_town->SetupAttachment( RootComponent );
+    RootComponent = this->m_mesh_town;
+    //  this->m_mesh_town->SetupAttachment( RootComponent );
 
     static ConstructorHelpers::FObjectFinder<UStaticMesh> mesh( TEXT( "/Game/Levels/Res_lv_world/town_01" ) );
     if( mesh.Succeeded() )
@@ -37,5 +38,10 @@ void ATownActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+UObject* ATownActor::SelfPointer()
+{
+    return this;
 }
 

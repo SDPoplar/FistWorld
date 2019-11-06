@@ -32,13 +32,13 @@ bool UWarrior::SetWarriorId( int id, bool load )
     {
         return true;
     }
-    if( !UWarrior::g_lib )
+    if( ( id == 0 ) || !UWarrior::g_lib )
     {
         return false;
     }
     char lineIndex[ 8 ];
     sprintf_s( lineIndex, 8, "%d", this->m_n_id );
-    FWarriorBaseData* data = UWarrior::g_lib->FindRow<FWarriorBaseData>( "id", lineIndex );
+    FWarriorBaseData* data = UWarrior::g_lib->FindRow<FWarriorBaseData>( lineIndex, "id" );
     if( !data )
     {
         return false;

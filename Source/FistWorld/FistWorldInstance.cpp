@@ -10,7 +10,8 @@
 
 UFistWorldInstance::UFistWorldInstance() : m_player_kingdom( nullptr )
 {
-    this->LoadGame();
+    this->m_b_game_exists = UFistWorldSave::FileExists();
+    //this->LoadGame();
 }
 
 UFistWorldInstance* UFistWorldInstance::GetInstance( const UObject* getter )
@@ -38,6 +39,8 @@ bool UFistWorldInstance::LoadGame()
         return false;
     }
 
+    this->m_b_game_exists = true;
+
     for( auto item : save->kingdoms )
     {
         auto ins = NewObject<UKingdom>();
@@ -51,6 +54,7 @@ bool UFistWorldInstance::LoadGame()
         if( item.IsPlayerKingdom )
         {
             this->m_player_kingdom = ins;
+            UE_LOG( LogTemp, Display, TEXT( "Setting player kingdom: ID - %d" ), item.KingdomId );
         }
     }
 

@@ -5,6 +5,7 @@
 #include "Kismet/KismetSystemLibrary.h"
 #include "Engine.h"
 #include "FistWorldInstance.h"
+#include "Widget/CreateGameWidget.h"
 //  #include "Widget/PopupMenuWidget.h"
 //  #include "UObject/ConstructorHelpers.h"
 
@@ -65,6 +66,10 @@ void UMainMenu::ShowCreateGameWidget()
             ->StaticClass(), FName( "Create game" ) );
             */
         this->createGameWidget = this->MakeCreateGameWidget( UGameplayStatics::GetPlayerController( this, 0 ) );
+        if( this->createGameWidget )
+        {
+            this->createGameWidget->BindParent( this );
+        }
     }
     if( this->createGameWidget )
     {
@@ -96,3 +101,12 @@ UPopupMenuWidget* UMainMenu::CreatePopupMenu( TSubclassOf<UPopupMenuWidget> cls,
     return Cast<UPopupMenuWidget>( widget );
 }
 */
+
+void UMainMenu::BtnContinueClicked( void )
+{
+    auto gi = UFistWorldInstance::GetInstance( this );
+    if( gi->LoadGame() )
+    {
+        this->StartExistsGame();
+    }
+}

@@ -6,7 +6,7 @@
 
 UDataTable* UTown::g_lib = nullptr;
 
-UTown::UTown() : m_n_town_id( 0 ), m_n_own_by_kingdom( 0 ), m_s_town_name( "" ), m_n_money( 0 ), m_n_food( 0 ), m_n_soldier_num( 0 )
+UTown::UTown() : m_n_town_id( 0 ), m_s_town_name( "" ), m_n_own_by_kingdom( 0 ), m_n_money( 0 ), m_n_food( 0 ), m_n_soldier_num( 0 )
 {
     if( !UTown::g_lib )
     {
@@ -30,13 +30,13 @@ bool UTown::SetTownId( int id, bool load )
     {
         return true;
     }
-    if( !UTown::g_lib )
+    if( ( id == 0 ) || !UTown::g_lib )
     {
         return false;
     }
     char lineIndex[ 8 ];
     sprintf_s( lineIndex, 8, "%d", this->m_n_town_id );
-    FTownBaseData* data = UTown::g_lib->FindRow<FTownBaseData>( "id", lineIndex );
+    FTownBaseData* data = UTown::g_lib->FindRow<FTownBaseData>( lineIndex, "id" );
     if( !data )
     {
         return false;

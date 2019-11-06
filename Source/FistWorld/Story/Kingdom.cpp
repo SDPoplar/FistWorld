@@ -9,7 +9,7 @@ UDataTable* UKingdom::g_lib = nullptr;
 UTexture2D* UKingdom::defKingdomLogo = nullptr;
 std::map<int, UTexture2D*> UKingdom::logolib;
 
-UKingdom::UKingdom() : m_n_kingdom_id( 0 ), m_b_own_by_player( false ), m_s_name( "" )
+UKingdom::UKingdom() : m_n_kingdom_id( 0 ), m_s_name( "" ), m_b_own_by_player( false )
 {
     if( !g_lib )
     {
@@ -35,7 +35,7 @@ bool UKingdom::SetKingdomId( int id, bool load )
     {
         return true;
     }
-    if( !UKingdom::g_lib || !UKingdom::defKingdomLogo )
+    if( ( id == 0 ) || !UKingdom::g_lib || !UKingdom::defKingdomLogo )
     {
         return false;
     }
@@ -48,7 +48,7 @@ bool UKingdom::SetKingdomId( int id, bool load )
     //  todo: load data from lib
     char lineIndex[ 8 ] = "";
     sprintf_s( lineIndex, 8, "%d", this->m_n_kingdom_id );
-    FKingdomBaseData* line = UKingdom::g_lib->FindRow<FKingdomBaseData>( FName( "id" ), FString( lineIndex ) );
+    FKingdomBaseData* line = UKingdom::g_lib->FindRow<FKingdomBaseData>( lineIndex , "id" );
     if( !line )
     {
         return false;

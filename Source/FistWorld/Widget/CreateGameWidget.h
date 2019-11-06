@@ -48,7 +48,10 @@ public:
     UFUNCTION( BlueprintCallable )
     bool CreateGame( int nChapChooserOptionIndex, int kingdomId );
 
+    void BindParent( class UMainMenu* parent );
 protected:
     static UDataTable* GetChapterTable();
     static UDataTable* chapters;
+
+    class UMainMenu* m_parent;
 };

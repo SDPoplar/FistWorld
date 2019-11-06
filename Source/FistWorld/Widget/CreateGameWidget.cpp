@@ -4,6 +4,7 @@
 #include "ComboBoxString.h"
 #include "FistWorldSave.h"
 #include "FistWorldInstance.h"
+#include "Widget/MainMenu.h"
 
 UDataTable* UCreateGameWidget::chapters = nullptr;
 
@@ -83,5 +84,19 @@ FString UCreateGameWidget::GetChapterDescribe( int optIndex )
 
 bool UCreateGameWidget::CreateGame( int optIndex, int kingdomId )
 {
-    return UFistWorldSave::CreateNewSave( 1, 1 ) && UFistWorldInstance::GetInstance( this )->LoadGame();
+    if( !UFistWorldSave::CreateNewSave( 1, 1 ) || !UFistWorldInstance::GetInstance( this )->LoadGame() )
+    {
+        return false;
+    }
+    //  todo: enter level( WorldMap );
+    if( this->m_parent )
+    {
+        this->m_parent->StartExistsGame();
+    }
+    return true;
+}
+
+void UCreateGameWidget::BindParent( UMainMenu* parent )
+{
+    this->m_parent = parent;
 }

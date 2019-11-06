@@ -41,22 +41,22 @@ public:
     FSaveTown();
     FSaveTown( const FChapterDefaultTown& def );
 
-    //UPROPERTY( BlueprintReadOnly )
+    UPROPERTY()
     int TownId;
 
-    //UPROPERTY( BlueprintReadOnly )
+    UPROPERTY()
     int KingdomId;
 
-    //UPROPERTY( BlueprintReadOnly )
+    UPROPERTY()
     int Money;
 
-    //UPROPERTY( BlueprintReadOnly )
+    UPROPERTY()
     int Food;
 
-    //UPROPERTY( BlueprintReadOnly )
+    UPROPERTY()
     int Soldiers;
 
-    //  FSaveTown& operator = ( const FChapterDefaultTown& def );
+    //FSaveTown& operator = ( const FChapterDefaultTown& def );
 };
 
 USTRUCT( BlueprintType )
@@ -96,25 +96,25 @@ public:
     FSaveWarrior();
     FSaveWarrior( const FChapterDefaultWarrior& def );
 
-    //UPROPERTY( BlueprintReadOnly )
+    UPROPERTY()
     int WarriorId;
 
-    //UPROPERTY( BlueprintReadOnly )
+    UPROPERTY()
     int KingdomId;
 
-    //UPROPERTY( BlueprintReadOnly )
+    UPROPERTY()
     int InTown;
 
-    //UPROPERTY( BlueprintReadOnly )
+    UPROPERTY()
     EWarriorStatus Status;
 
-    //UPROPERTY( BlueprintReadOnly )
+    UPROPERTY()
     int Level;
 
-    //UPROPERTY( BlueprintReadOnly )
+    UPROPERTY()
     int Exp;
 
-    //UPROPERTY( BlueprintReadOnly )
+    UPROPERTY()
     int Soldiers;
 };
 
@@ -146,11 +146,13 @@ struct FSaveKingdom
 
 public:
     FSaveKingdom();
+    //FSaveKingdom( const FSaveKingdom& obj );
     FSaveKingdom( const FChapterDefaultKingdom& def );
-    //UPROPERTY()
+
+    UPROPERTY()
     int KingdomId;
 
-    //UPROPERTY()
+    UPROPERTY()
     bool IsPlayerKingdom;
 };
 
@@ -169,10 +171,10 @@ public:
 
     const static FString SaveSlotName;
 	
-    UPROPERTY()
+    UPROPERTY( SaveGame )
     TArray<FSaveKingdom> kingdoms;
-    UPROPERTY()
+    UPROPERTY( SaveGame )
     TArray<FSaveTown> towns;
-    UPROPERTY()
+    UPROPERTY( SaveGame )
     TArray<FSaveWarrior> warriors;
 };
