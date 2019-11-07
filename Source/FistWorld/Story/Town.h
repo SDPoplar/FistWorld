@@ -20,54 +20,70 @@ public:
         FString name;
 };
 
-/**
- * 
- */
-UCLASS()
-class FISTWORLD_API UTown : public UObject
+class UTown
 {
-    GENERATED_BODY()
-
 public:
     UTown();
-
+    virtual ~UTown();
     bool SetTownId( int id, bool load = true );
-    UFUNCTION( BlueprintCallable )
-    int GetTownId() const noexcept;
-
-    UFUNCTION( BlueprintCallable )
-    FString GetTownName() const noexcept;
-
-    UFUNCTION( BlueprintCallable )
-    bool OwnByPlayer() const noexcept;
-
-    UFUNCTION( BlueprintCallable )
-    bool OwnByKingdom() const noexcept;
-
-    UFUNCTION( BlueprintCallable )
-    int GetKingdomId() const noexcept;
-
+    virtual int GetTownId() const noexcept;
+    virtual FString GetTownName() const noexcept;
+    virtual bool OwnByPlayer( const UObject* getter ) const noexcept;
+    virtual bool OwnByKingdom() const noexcept;
+    virtual int GetKingdomId() const noexcept;
     void SetOwnerKingdom( int kingdomId );
-
     void SetMoney( int money );
-    UFUNCTION( BlueprintCallable )
-    int GetMoney() const noexcept;
-
+    virtual int GetMoney() const noexcept;
     void SetFood( int food );
-    UFUNCTION( BlueprintCallable )
-    int GetFood() const noexcept;
-
+    virtual int GetFood() const noexcept;
     void SetSoldierNumber( int num );
-    UFUNCTION( BlueprintCallable )
-    int GetSoldierNumber() const noexcept;
+    virtual int GetSoldierNumber() const noexcept;
 
 protected:
-    static UDataTable* g_lib;
-
     int m_n_town_id;
     FString m_s_town_name;
     int m_n_own_by_kingdom;
     int m_n_money;
     int m_n_food;
     int m_n_soldier_num;
+private:
+    static UDataTable* g_lib;
+};
+
+/**
+ * 
+ */
+UCLASS()
+class FISTWORLD_API UTownIns : public UObject, public UTown
+{
+    GENERATED_BODY()
+
+public:
+    UTownIns() : UObject(), UTown() {}
+
+    UFUNCTION( BlueprintCallable )
+    int GetTownId() const noexcept override;
+
+    UFUNCTION( BlueprintCallable )
+    FString GetTownName() const noexcept override;
+
+    UFUNCTION( BlueprintCallable )
+    bool IsOwnByPlayer() const noexcept;
+
+    UFUNCTION( BlueprintCallable )
+    bool OwnByKingdom() const noexcept override;
+
+    UFUNCTION( BlueprintCallable )
+    int GetKingdomId() const noexcept override;
+
+    UFUNCTION( BlueprintCallable )
+    int GetMoney() const noexcept override;
+
+    UFUNCTION( BlueprintCallable )
+    int GetFood() const noexcept override;
+
+    UFUNCTION( BlueprintCallable )
+    int GetSoldierNumber() const noexcept override;
+
+    UTownIns& operator=( const UTown* town );
 };

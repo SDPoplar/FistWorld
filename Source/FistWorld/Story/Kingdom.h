@@ -25,34 +25,18 @@ public:
     FString name;
 };
 
-/**
- * 
- */
-UCLASS()
-class FISTWORLD_API UKingdom : public UObject
+class UKingdom
 {
-	GENERATED_BODY()
-	
 public:
     UKingdom();
+    virtual ~UKingdom();
 
     bool SetKingdomId( int id, bool loadData = true );
-    UFUNCTION( BlueprintCallable )
-    int GetKingdomId() const;
-
-    UFUNCTION( BlueprintCallable )
-    bool IsPlayerKingdom() const;
-
-    UFUNCTION( BlueprintCallable )
-    void SetPlayerKingdom( const bool isPlayerKingdom = true );
-
-    UFUNCTION( BlueprintCallable )
-    FString GetKingdomName() const;
-
-    int AppendWarrior( class UWarrior* warrior );
-
-    UFUNCTION( BlueprintCallable )
-    UTexture2D* GetLogo();
+    virtual int GetKingdomId() const;
+    virtual bool IsPlayerKingdom() const;
+    virtual void SetPlayerKingdom( const bool isPlayerKingdom = true );
+    virtual FString GetKingdomName() const;
+    virtual UTexture2D* GetLogo() const;
 
 protected:
     int m_n_kingdom_id;
@@ -60,9 +44,36 @@ protected:
     bool m_b_own_by_player;
     UTexture2D* m_texture_logo;
 
-    TArray<class UWarrior*> m_has_warriors;
-
+private:
     static UDataTable* g_lib;
     static std::map<int, UTexture2D*> logolib;
     static UTexture2D* defKingdomLogo;
+};
+/**
+ * 
+ */
+UCLASS()
+class FISTWORLD_API UKingdomIns : public UObject, public UKingdom
+{
+	GENERATED_BODY()
+	
+public:
+    UKingdomIns() : UObject(), UKingdom() {}
+
+    UFUNCTION( BlueprintCallable )
+    int GetKingdomId() const override;
+
+    UFUNCTION( BlueprintCallable )
+    bool IsPlayerKingdom() const override;
+
+    UFUNCTION( BlueprintCallable )
+    void SetPlayerKingdom( const bool isPlayerKingdom = true ) override;
+
+    UFUNCTION( BlueprintCallable )
+    FString GetKingdomName() const override;
+
+    UFUNCTION( BlueprintCallable )
+    UTexture2D* GetLogo() const override;
+
+    UKingdomIns& operator = ( const UKingdom* obj );
 };

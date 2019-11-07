@@ -13,6 +13,10 @@ UKingdomSummaryWidget* UKingdomSummaryWidget::Create( TSubclassOf<UKingdomSummar
 UKingdom* UKingdomSummaryWidget::BindKingdom( UKingdom* kingdom )
 {
     this->m_o_kingdom = kingdom;
+    if( !kingdom )
+    {
+        UE_LOG( LogTemp, Error, TEXT( "Invalid kingdom binded" ) );
+    }
     return this->m_o_kingdom;
 }
 

@@ -10,10 +10,12 @@ UWarrior::UWarrior() : m_n_id( 0 ), m_s_name( "" ), m_n_kingdom( 0 ), m_n_in_tow
 {
     if( !UWarrior::g_lib )
     {
-        static ConstructorHelpers::FObjectFinder<UDataTable> warriorlib( TEXT( "/Game/Datatables/Data_WarriorBase" ) );
-        UWarrior::g_lib = warriorlib.Succeeded() ? warriorlib.Object : nullptr;
+        UWarrior::g_lib = LoadObject<UDataTable>( nullptr, TEXT( "DataTable'/Game/Datatables/Data_WarriorBase.Data_WarriorBase'" ) );
     }
 }
+
+UWarrior::~UWarrior()
+{}
 
 bool UWarrior::operator==( int id )
 {
@@ -120,4 +122,57 @@ void UWarrior::SetSoldierNumber( int num )
 int UWarrior::GetSoldierNumber() const noexcept
 {
     return this->m_n_soldier_num;
+}
+
+int UWarriorIns::GetWarriorId() const noexcept
+{
+    return UWarrior::GetWarriorId();
+}
+
+FString UWarriorIns::GetWarriorName() const noexcept
+{
+    return UWarrior::GetWarriorName();
+}
+
+int UWarriorIns::GetBelongKingdom() const noexcept
+{
+    return UWarrior::GetBelongKingdom();
+}
+
+int UWarriorIns::GetInTown() const noexcept
+{
+    return UWarrior::GetInTown();
+}
+
+EWarriorStatus UWarriorIns::GetStatus() const noexcept
+{
+    return UWarrior::GetStatus();
+}
+
+int UWarriorIns::GetWarriorLevel() const noexcept
+{
+    return UWarrior::GetWarriorLevel();
+}
+
+int UWarriorIns::GetWarriorExp() const noexcept
+{
+    return UWarrior::GetWarriorExp();
+}
+
+int UWarriorIns::GetSoldierNumber() const noexcept
+{
+    return UWarrior::GetSoldierNumber();
+}
+
+UWarriorIns& UWarriorIns::operator=( const UWarrior* obj )
+{
+    this->m_n_id = obj->GetWarriorId();
+    this->m_s_name = obj->GetWarriorName();
+    this->m_n_kingdom = obj->GetBelongKingdom();
+    this->m_n_in_town = obj->GetInTown();
+    this->m_e_status = obj->GetStatus();
+    this->m_n_level = obj->GetWarriorLevel();
+    this->m_n_exp = obj->GetWarriorExp();
+    this->m_n_soldier_num = obj->GetSoldierNumber();
+    return *this;
 }

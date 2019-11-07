@@ -43,7 +43,8 @@ bool UFistWorldInstance::LoadGame()
 
     for( auto item : save->kingdoms )
     {
-        auto ins = NewObject<UKingdom>();
+        //auto ins = NewObject<UKingdom>();
+        auto ins = new UKingdom();
         if( !ins || !ins->SetKingdomId( item.KingdomId, true ) )
         {
             UE_LOG( LogTemp, Error, TEXT( "Failed to load kingdom[ID:%d]" ), item.KingdomId );
@@ -60,7 +61,8 @@ bool UFistWorldInstance::LoadGame()
 
     for( auto item : save->warriors )
     {
-        auto ins = NewObject<UWarrior>();
+        //  auto ins = NewObject<UWarrior>();
+        auto ins = new UWarrior();
         if( !ins || !ins->SetWarriorId( item.WarriorId, true ) )
         {
             UE_LOG( LogTemp, Error, TEXT( "Failed to load warrior[ID:%d]" ), item.WarriorId );
@@ -77,7 +79,8 @@ bool UFistWorldInstance::LoadGame()
 
     for( auto item : save->towns )
     {
-        auto ins = NewObject<UTown>();
+        //auto ins = NewObject<UTown>();
+        auto ins = new UTown();
         if( !ins || !ins->SetTownId( item.TownId, true ) )
         {
             UE_LOG( LogTemp, Error, TEXT( "Failed to load town[ID:%d]" ), item.TownId );
@@ -115,6 +118,18 @@ UKingdom* UFistWorldInstance::FindKingdom( int kingdomId )
     return nullptr;
 }
 
+UKingdomIns* UFistWorldInstance::FindKingdomInstance( int kingdomId )
+{
+    auto kingdom = this->FindKingdom( kingdomId );
+    if( !kingdom )
+    {
+        return nullptr;
+    }
+    UKingdomIns* ins = NewObject<UKingdomIns>();
+    *ins = kingdom;
+    return ins;
+}
+
 UTown* UFistWorldInstance::FindTown( int townId )
 {
     for( auto item : this->m_towns )
@@ -127,6 +142,18 @@ UTown* UFistWorldInstance::FindTown( int townId )
     return nullptr;
 }
 
+UTownIns* UFistWorldInstance::FindTownInstance( int townId )
+{
+    UTown* town = this->FindTown( townId );
+    if( !town )
+    {
+        return nullptr;
+    }
+    UTownIns* ins = NewObject<UTownIns>();
+    *ins = town;
+    return ins;
+}
+
 UWarrior* UFistWorldInstance::FindWarrior( int warriorId )
 {
     for( auto item : this->m_warriors )
@@ -137,4 +164,16 @@ UWarrior* UFistWorldInstance::FindWarrior( int warriorId )
         }
     }
     return nullptr;
+}
+
+UWarriorIns* UFistWorldInstance::FindWarriorInstance( int warriorId )
+{
+    auto warrior = this->FindWarrior( warriorId );
+    if( !warrior )
+    {
+        return nullptr;
+    }
+    UWarriorIns* ins = NewObject<UWarriorIns>();
+    *ins = warrior;
+    return ins;
 }

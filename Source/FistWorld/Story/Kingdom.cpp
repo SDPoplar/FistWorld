@@ -3,7 +3,6 @@
 #include "Kingdom.h"
 #include "Story/Warrior.h"
 #include "Engine/Texture2D.h"
-#include "ConstructorHelpers.h"
 
 UDataTable* UKingdom::g_lib = nullptr;
 UTexture2D* UKingdom::defKingdomLogo = nullptr;
@@ -13,20 +12,18 @@ UKingdom::UKingdom() : m_n_kingdom_id( 0 ), m_s_name( "" ), m_b_own_by_player( f
 {
     if( !g_lib )
     {
-        static ConstructorHelpers::FObjectFinder<UDataTable> kingdomlib( TEXT( "/Game/Datatables/Data_KingdomBase" ) );
-        g_lib = kingdomlib.Succeeded() ? kingdomlib.Object : nullptr;
+        g_lib = LoadObject<UDataTable>( nullptr, TEXT( "DataTable'/Game/Datatables/Data_KingdomBase.Data_KingdomBase'" ) );
     }
     if( !UKingdom::defKingdomLogo )
     {
-        static ConstructorHelpers::FObjectFinder<UTexture2D> defLogo( TEXT( "/Game/Textures/KingdomLogo/Img_KingdomLogo_def" ) );
-        UKingdom::defKingdomLogo = defLogo.Succeeded() ? defLogo.Object : nullptr;
-        static ConstructorHelpers::FObjectFinder<UTexture2D> starlineLogo( TEXT( "/Game/Textures/KingdomLogo/Img_KingdomLogo_starline" ) );
-        if( starlineLogo.Succeeded() )
-        {
-            UKingdom::logolib[ 3 ] = starlineLogo.Object;
-        }
+        UKingdom::defKingdomLogo = LoadObject<UTexture2D>( nullptr,
+            TEXT( "Texture2D'/Game/Textures/KingdomLogo/Img_KingdomLogo_def.Img_KingdomLogo_def'" ) );
     }
+    this->m_texture_logo = UKingdom::defKingdomLogo;
 }
+
+UKingdom::~UKingdom()
+{}
 
 bool UKingdom::SetKingdomId( int id, bool load )
 {
@@ -78,13 +75,42 @@ FString UKingdom::GetKingdomName( void ) const
     return this->m_s_name;
 }
 
-int UKingdom::AppendWarrior( UWarrior* warrior )
-{
-    this->m_has_warriors.Push( warrior );
-    return this->m_has_warriors.Num();
-}
-
-UTexture2D* UKingdom::GetLogo()
+UTexture2D* UKingdom::GetLogo() const
 {
     return this->m_texture_logo;
 }
+
+int UKingdomIns::GetKingdomId() const
+{
+    return UKingdom::GetKingdomId();
+}
+
+bool UKingdomIns::IsPlayerKingdom() const
+{
+    return UKingdom::IsPlayerKingdom();
+}
+
+void UKingdomIns::SetPlayerKingdom( const bool isPlayerKingdom )
+{
+    UKingdom::SetPlayerKingdom( isPlayerKingdom );
+}
+
+FString UKingdomIns::GetKingdomName() const
+{
+    return UKingdom::GetKingdomName();
+}
+
+UTexture2D* UKingdomIns::GetLogo() const
+{
+    return UKingdom::GetLogo();
+}
+
+UKingdomIns& UKingdomIns::operator=( const UKingdom* obj )
+{
+    this->m_b_own_by_player = obj->IsPlayerKingdom();
+    this->m_n_kingdom_id = obj->GetKingdomId();
+    this->m_s_name = obj->GetKingdomName();
+    this->m_texture_logo = obj->GetLogo();
+    return *this;
+}
+

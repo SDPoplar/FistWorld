@@ -10,13 +10,12 @@ UTown::UTown() : m_n_town_id( 0 ), m_s_town_name( "" ), m_n_own_by_kingdom( 0 ),
 {
     if( !UTown::g_lib )
     {
-        static ConstructorHelpers::FObjectFinder<UDataTable> town( TEXT( "/Game/Datatables/Data_TownBase" ) );
-        if( town.Succeeded() )
-        {
-            UTown::g_lib = town.Object;
-        }
+        UTown::g_lib = LoadObject<UDataTable>( nullptr, TEXT( "DataTable'/Game/Datatables/Data_TownBase.Data_TownBase'" ) );
     }
 }
+
+UTown::~UTown()
+{}
 
 int UTown::GetTownId() const noexcept
 {
@@ -50,9 +49,9 @@ FString UTown::GetTownName() const noexcept
     return this->m_s_town_name;
 }
 
-bool UTown::OwnByPlayer() const noexcept
+bool UTown::OwnByPlayer( const UObject* getter ) const noexcept
 {
-    auto gi = UFistWorldInstance::GetInstance( this );
+    auto gi = UFistWorldInstance::GetInstance( getter );
     return ( this->m_n_own_by_kingdom && gi )
         ? gi->IsPlayerKingdom( this->m_n_own_by_kingdom ) : false;
 }
@@ -100,4 +99,55 @@ void UTown::SetSoldierNumber( int num )
 int UTown::GetSoldierNumber( void ) const noexcept
 {
     return this->m_n_soldier_num;
+}
+
+int UTownIns::GetTownId() const noexcept
+{
+    return UTown::GetTownId();
+}
+
+FString UTownIns::GetTownName() const noexcept
+{
+    return UTown::GetTownName();
+}
+
+bool UTownIns::IsOwnByPlayer() const noexcept
+{
+    return UTown::OwnByPlayer( this );
+}
+
+bool UTownIns::OwnByKingdom() const noexcept
+{
+    return UTown::OwnByKingdom();
+}
+
+int UTownIns::GetKingdomId() const noexcept
+{
+    return UTown::GetKingdomId();
+}
+
+int UTownIns::GetMoney() const noexcept
+{
+    return UTown::GetMoney();
+}
+
+int UTownIns::GetFood() const noexcept
+{
+    return UTown::GetFood();
+}
+
+int UTownIns::GetSoldierNumber() const noexcept
+{
+    return UTown::GetSoldierNumber();
+}
+
+UTownIns& UTownIns::operator=( const UTown* town )
+{
+    this->m_n_town_id = town->GetTownId();
+    this->m_s_town_name = town->GetTownName();
+    this->m_n_own_by_kingdom = town->GetKingdomId();
+    this->m_n_money = town->GetMoney();
+    this->m_n_food = town->GetFood();
+    this->m_n_soldier_num = town->GetSoldierNumber();
+    return *this;
 }
