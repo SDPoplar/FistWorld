@@ -3,18 +3,21 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Controllers/CommonMapController.h"
-#include "WorldMapController.generated.h"
+#include "Controllers/ModeOverridableController.h"
+#include "CommonMapController.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class FISTWORLD_API AWorldMapController : public ACommonMapController
+class FISTWORLD_API ACommonMapController : public AModeOverridableController
 {
 	GENERATED_BODY()
 
 public:
+    void CancelOrCallSysMenu();
+
+protected:
     void BeginPlay() override;
     void SetupInputComponent() override;
 };

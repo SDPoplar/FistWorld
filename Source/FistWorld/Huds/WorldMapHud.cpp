@@ -2,11 +2,15 @@
 
 #include "WorldMapHud.h"
 #include "Widget/KingdomSummaryWidget.h"
+#include "Widget/SysMenuWidget.h"
 #include "UObject/ConstructorHelpers.h"
 #include "FistWorldInstance.h"
 
 AWorldMapHud::AWorldMapHud()
 {
+    //  Super();
+    static ConstructorHelpers::FClassFinder<USysMenuWidget> sysmenufinder( TEXT( "/Game/Levels/Res_lv_World/Widget_World_SysMenu" ) );
+    sysmenuClass = sysmenufinder.Succeeded() ? sysmenufinder.Class : nullptr;
     static ConstructorHelpers::FClassFinder<UKingdomSummaryWidget> topsummary( TEXT( "/Game/Levels/Res_lv_World/Widget_World_TopSummary" ) );
     topsummaryClass = topsummary.Succeeded() ? topsummary.Class : nullptr;
 }

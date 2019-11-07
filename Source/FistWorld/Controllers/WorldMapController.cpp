@@ -9,5 +9,10 @@ void AWorldMapController::BeginPlay()
 
     this->bShowMouseCursor = true;
     FInputModeGameAndUI mode;
-    this->SetInputMode( mode );
+    this->PushInputMode( mode );
+}
+
+void AWorldMapController::SetupInputComponent()
+{
+    Super::SetupInputComponent();
 }

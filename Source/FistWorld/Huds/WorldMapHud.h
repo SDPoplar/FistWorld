@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/HUD.h"
+#include "Huds/CommonMapHud.h"
 #include "WorldMapHud.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class FISTWORLD_API AWorldMapHud : public AHUD
+class FISTWORLD_API AWorldMapHud : public ACommonMapHud
 {
 	GENERATED_BODY()
 	

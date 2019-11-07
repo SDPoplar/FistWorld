@@ -2,6 +2,7 @@
 
 #include "PopupWidget.h"
 #include "Kismet/GameplayStatics.h"
+#include "Controllers/ModeOverridableController.h"
 
 /*
 UPopupWidget::UPopupWidget( const FObjectInitializer& ObjectInitializer )
@@ -24,6 +25,14 @@ void UPopupWidget::Quit()
     {
         this->GetPlayerController( pc );
         pc->bShowMouseCursor = this->m_override_mouse.origin;
+    }
+    if( this->m_b_override_input_mode )
+    {
+        AModeOverridableController* oc = Cast<AModeOverridableController>( this->GetPlayerController( pc ) );
+        if( oc )
+        {
+            oc->PopInputMode();
+        }
     }
     this->RemoveFromViewport();
 }
@@ -48,12 +57,14 @@ void UPopupWidget::Popup( int baseZOrder )
         this->m_override_mouse.setted = false;
         this->m_override_mouse.origin = false;
     }
+    AModeOverridableController* oc = Cast<AModeOverridableController>( this->GetPlayerController( pc ) );
+    this->m_b_override_input_mode = oc && this->OverrideInputMode( oc );
 }
 
-/*
-bool UPopupWidget::OverrideInputMode()
-{}
-*/
+bool UPopupWidget::OverrideInputMode( AModeOverridableController* oc )
+{
+    return false;
+}
 
 bool UPopupWidget::OverrideShowMouseCursor( bool& showMouseCursor )
 {

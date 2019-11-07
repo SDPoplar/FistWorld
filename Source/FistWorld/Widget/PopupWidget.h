@@ -30,15 +30,13 @@ protected:
     //virtual TSubclassOf<UPopupWidget> GetInstanceClass() = 0;
     //virtual bool OverrideInputMode( bool &showMouseCursor );
     virtual bool OverrideShowMouseCursor( bool& showMouseCursor );
+    virtual bool OverrideInputMode( class AModeOverridableController* pc );
 
     struct {
         bool setted;
         bool origin;
     } m_override_mouse;
-    struct {
-        bool setted;
-        FInputModeDataBase* origin;
-    } m_override_input_mode;
+    bool m_b_override_input_mode;
 
 private:
     APlayerController* GetPlayerController( APlayerController* &pc );
