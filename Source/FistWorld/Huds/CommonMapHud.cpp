@@ -51,9 +51,6 @@ bool ACommonMapHud::ShowSysMenu()
 
 void ACommonMapHud::PopupWidget( UPopupWidget* widget )
 {
-    if( this->m_widgets.Find( widget ) == INDEX_NONE )
-    {
-        this->m_widgets.Push( widget );
-    }
+    this->m_widgets.AddUnique( widget );
     widget->Popup();
 }

@@ -16,17 +16,21 @@ public:
 	// Sets default values for this actor's properties
 	ATownActor();
 
-    UPROPERTY( EditAnywhere, Category = "Community" )
-    TArray<ATownActor*> m_can_arrive;
+    UFUNCTION( BlueprintCallable )
+    void SelectByPlayer();
 
+    class UTown* GetTown();
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
     virtual UObject* SelfPointer() override;
 
-    UPROPERTY( EditDefaultsOnly, Category = "Data" )
+    UPROPERTY( EditAnywhere, Category = "Data" )
     int m_bind_town;
+
+    UPROPERTY( EditAnywhere, Category = "Community" )
+    TArray<ATownActor*> m_can_arrive;
 
     class UStaticMeshComponent* m_mesh_town;
     class UTown* m_o_town;

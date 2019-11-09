@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.22310.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engine", "Engine", "{4F3FC352-9641-4CF2-B3AE-9580B191DFEF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engine", "Engine", "{D6654808-D4CF-4719-8F8C-D7E7ED2D1F28}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Games", "Games", "{FFBE06ED-25F5-4E9D-9122-17DFC07433B3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Games", "Games", "{B93F4E22-96F5-46BE-B6C3-BCF5637C2628}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UE4", "Intermediate\ProjectFiles\UE4.vcxproj", "{69054BF6-285B-4866-A36F-007DD9778A1F}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FistWorld", "Intermediate\ProjectFiles\FistWorld.vcxproj", "{F74D7F66-2AD7-4134-94A2-7E194B1F1F77}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Visualizers", "Visualizers", "{9C0D85C6-5274-4A09-A7E8-E459FC9477EA}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Visualizers", "Visualizers", "{3B247F53-EA04-400D-9113-F4423E9C7EE3}"
 	ProjectSection(SolutionItems) = preProject
 		C:\Program Files\Epic Games\UE_4.23\Engine\Extras\VisualStudioDebugging\UE4.natvis = C:\Program Files\Epic Games\UE_4.23\Engine\Extras\VisualStudioDebugging\UE4.natvis
 	EndProjectSection
@@ -81,7 +81,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{69054BF6-285B-4866-A36F-007DD9778A1F} = {4F3FC352-9641-4CF2-B3AE-9580B191DFEF}
-		{F74D7F66-2AD7-4134-94A2-7E194B1F1F77} = {FFBE06ED-25F5-4E9D-9122-17DFC07433B3}
+		{69054BF6-285B-4866-A36F-007DD9778A1F} = {D6654808-D4CF-4719-8F8C-D7E7ED2D1F28}
+		{F74D7F66-2AD7-4134-94A2-7E194B1F1F77} = {B93F4E22-96F5-46BE-B6C3-BCF5637C2628}
 	EndGlobalSection
 EndGlobal

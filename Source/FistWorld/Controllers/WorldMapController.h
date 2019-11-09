@@ -17,4 +17,10 @@ class FISTWORLD_API AWorldMapController : public ACommonMapController
 public:
     void BeginPlay() override;
     void SetupInputComponent() override;
+
+    static AWorldMapController* GetInstance( UObject* getter );
+    virtual bool CancelCreatingTask() override;
+    bool HasTaskSelectingTown() const;
+    void SetTaskSelectingTown( class ATownActor* town );
+    class AWorldMapHud* GetWorldMapHud();
 };

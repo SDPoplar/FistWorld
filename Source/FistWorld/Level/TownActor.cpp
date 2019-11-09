@@ -5,6 +5,8 @@
 #include "Components/StaticMeshComponent.h"
 #include "UObject/ConstructorHelpers.h"
 #include "FistWorldInstance.h"
+#include "Controllers/WorldMapController.h"
+#include "Huds/WorldMapHud.h"
 //  #include "Components/WidgetComponent.h"
 
 // Sets default values
@@ -45,3 +47,26 @@ UObject* ATownActor::SelfPointer()
     return this;
 }
 
+void ATownActor::SelectByPlayer()
+{
+    auto pc = AWorldMapController::GetInstance( this );
+    if( !pc )
+    {
+        return;
+    }
+    if( pc->HasTaskSelectingTown() )
+    {
+        pc->SetTaskSelectingTown( this );
+        return;
+    }
+    auto hud = pc->GetWorldMapHud();
+    if( hud )
+    {
+        hud->ShowTownInfo( this->GetTown() );
+    }
+}
+
+UTown* ATownActor::GetTown()
+{
+    return this->m_o_town;
+}
