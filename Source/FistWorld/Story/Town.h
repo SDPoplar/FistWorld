@@ -14,10 +14,34 @@ struct FTownBaseData : public FTableRowBase
 
 public:
     UPROPERTY( BlueprintReadOnly )
-        int id;
+    int id;
 
     UPROPERTY( BlueprintReadOnly )
-        FString name;
+    FString name;
+
+    UPROPERTY( BlueprintReadOnly )
+    int max_business;
+
+    UPROPERTY( BlueprintReadOnly )
+    int max_agriculture;
+};
+
+class DevelopableProperty
+{
+public:
+    DevelopableProperty();
+    DevelopableProperty& operator =( const FIntPoint& obj );
+    void BindSaver( int* saver );
+    FIntPoint GetPoint();
+    void SetMax( int max );
+    void SetCurrent( int current );
+    FString ToString() const;
+
+protected:
+    int m_n_max;
+    int m_n_current;
+
+    int* m_p_saver;
 };
 
 class UTown
@@ -39,6 +63,9 @@ public:
     void SetSoldierNumber( int num );
     virtual int GetSoldierNumber() const noexcept;
 
+    DevelopableProperty& GetBusinessDevelopment();
+    DevelopableProperty& GetArgicultureDevelopment();
+
 protected:
     int m_n_town_id;
     FString m_s_town_name;
@@ -46,6 +73,8 @@ protected:
     int m_n_money;
     int m_n_food;
     int m_n_soldier_num;
+    DevelopableProperty m_o_business, m_o_argiculture;
+
 private:
     static UDataTable* g_lib;
 };

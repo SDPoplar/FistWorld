@@ -30,6 +30,12 @@ public:
 
     UPROPERTY( BlueprintReadOnly )
     int food;
+
+    UPROPERTY( BlueprintReadOnly )
+    int business;
+
+    UPROPERTY( BlueprintReadOnly )
+    int agriculture;
 };
 
 USTRUCT()
@@ -55,6 +61,12 @@ public:
 
     UPROPERTY()
     int Soldiers;
+
+    UPROPERTY()
+    int Business;
+
+    UPROPERTY()
+    int Agriculture;
 
     //FSaveTown& operator = ( const FChapterDefaultTown& def );
 };

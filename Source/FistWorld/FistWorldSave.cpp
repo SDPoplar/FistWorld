@@ -16,6 +16,8 @@ FSaveTown::FSaveTown( const FChapterDefaultTown& def )
     this->Money = def.money;
     this->Food = def.food;
     this->Soldiers = 0;
+    this->Business = def.business;
+    this->Agriculture = def.agriculture;
 }
 
 /*

@@ -6,6 +6,9 @@
 #include "Widget/PopupWidget.h"
 #include "ShowTownWidget.generated.h"
 
+class UTextBlock;
+class UImage;
+
 /**
  * 
  */
@@ -23,6 +26,14 @@ public:
     UFUNCTION( BlueprintCallable )
     class UTexture2D* GetKingdomLogo();
 
+    UFUNCTION( BlueprintCallable )
+    void RegistBaseShowers( UTextBlock* townNameShower, UTextBlock* kingdomNameShower, UImage* kingdomLogoShower );
+
 protected:
+
     class UTown* m_town;
+
+    UTextBlock* m_shower_town_name;
+    UTextBlock* m_shower_kingdom_name;
+    UImage* m_shower_kingdom_logo;
 };

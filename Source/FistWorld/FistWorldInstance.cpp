@@ -90,6 +90,8 @@ bool UFistWorldInstance::LoadGame()
         ins->SetMoney( item.Money );
         ins->SetFood( item.Food );
         ins->SetSoldierNumber( item.Soldiers );
+        ins->GetBusinessDevelopment().SetCurrent( item.Business );
+        ins->GetArgicultureDevelopment().SetCurrent( item.Agriculture );
         this->m_towns.Push( ins );
     }
 

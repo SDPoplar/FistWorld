@@ -41,6 +41,8 @@ bool UTown::SetTownId( int id, bool load )
         return false;
     }
     this->m_s_town_name = data->name;
+    this->m_o_business.SetMax( data->max_business );
+    this->m_o_argiculture.SetMax( data->max_agriculture );
     return true;
 }
 
@@ -150,4 +152,57 @@ UTownIns& UTownIns::operator=( const UTown* town )
     this->m_n_food = town->GetFood();
     this->m_n_soldier_num = town->GetSoldierNumber();
     return *this;
+}
+
+DevelopableProperty& UTown::GetBusinessDevelopment()
+{
+    return this->m_o_business;
+}
+
+DevelopableProperty& UTown::GetArgicultureDevelopment()
+{
+    return this->m_o_argiculture;
+}
+
+//  =====================   DevelopmentProperty =========================================
+DevelopableProperty::DevelopableProperty() : m_n_max( 0 ), m_n_current( 0 ), m_p_saver( nullptr )
+{}
+
+DevelopableProperty& DevelopableProperty::operator =( const FIntPoint& obj )
+{
+    this->m_n_max = obj.X;
+    this->m_n_current = obj.Y;
+    return *this;
+}
+
+void DevelopableProperty::BindSaver( int* saver )
+{
+    this->m_p_saver = saver;
+}
+
+FIntPoint DevelopableProperty::GetPoint()
+{
+    FIntPoint ret( this->m_n_max, this->m_n_current );
+    return ret;
+}
+
+void DevelopableProperty::SetMax( int max )
+{
+    this->m_n_max = max;
+}
+
+void DevelopableProperty::SetCurrent( int current )
+{
+    this->m_n_current = current;
+    if( (m_n_max > 0) && ( this->m_n_max < this->m_n_current ) )
+    {
+        this->m_n_current = this->m_n_max;
+    }
+}
+
+FString DevelopableProperty::ToString() const
+{
+    char buff[ 128 ];
+    sprintf_s( buff, 128, "%d/%d", this->m_n_current, this->m_n_max );
+    return FString( buff );
 }
