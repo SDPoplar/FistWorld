@@ -37,8 +37,11 @@ public:
     virtual void SetPlayerKingdom( const bool isPlayerKingdom = true );
     virtual FString GetKingdomName() const;
     virtual UTexture2D* GetLogo() const;
+    static UTexture2D* GetDefaultLogo();
 
 protected:
+    static void LoadResource();
+
     int m_n_kingdom_id;
     FString m_s_name;
     bool m_b_own_by_player;

@@ -25,6 +25,11 @@ void UShowTownWidget::SetTown( UTown* town )
         this->m_shower_kingdom_name->SetText( FText::FromString( kingdom->GetKingdomName() ) );
         this->m_shower_kingdom_logo->SetBrushFromTexture( kingdom->GetLogo() );
     }
+    else
+    {
+        this->m_shower_kingdom_name->SetText( FText::FromString( "-" ) );
+        this->m_shower_kingdom_logo->SetBrushFromTexture( UKingdom::GetDefaultLogo() );
+    }
 
     if( !this->m_shower_agriculture || !this->m_shower_agriculture->IsValidLowLevelFast() )
     {

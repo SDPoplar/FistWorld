@@ -10,6 +10,15 @@ std::map<int, UTexture2D*> UKingdom::logolib;
 
 UKingdom::UKingdom() : m_n_kingdom_id( 0 ), m_s_name( "" ), m_b_own_by_player( false )
 {
+    UKingdom::LoadResource();
+    this->m_texture_logo = UKingdom::defKingdomLogo;
+}
+
+UKingdom::~UKingdom()
+{}
+
+void UKingdom::LoadResource()
+{
     if( !g_lib )
     {
         g_lib = LoadObject<UDataTable>( nullptr, TEXT( "DataTable'/Game/Datatables/Data_KingdomBase.Data_KingdomBase'" ) );
@@ -19,11 +28,7 @@ UKingdom::UKingdom() : m_n_kingdom_id( 0 ), m_s_name( "" ), m_b_own_by_player( f
         UKingdom::defKingdomLogo = LoadObject<UTexture2D>( nullptr,
             TEXT( "Texture2D'/Game/Textures/KingdomLogo/Img_KingdomLogo_def.Img_KingdomLogo_def'" ) );
     }
-    this->m_texture_logo = UKingdom::defKingdomLogo;
 }
-
-UKingdom::~UKingdom()
-{}
 
 bool UKingdom::SetKingdomId( int id, bool load )
 {
@@ -80,6 +85,12 @@ UTexture2D* UKingdom::GetLogo() const
     return this->m_texture_logo;
 }
 
+UTexture2D* UKingdom::GetDefaultLogo()
+{
+    UKingdom::LoadResource();
+    return UKingdom::defKingdomLogo;
+}
+
 int UKingdomIns::GetKingdomId() const
 {
     return UKingdom::GetKingdomId();
@@ -113,4 +124,3 @@ UKingdomIns& UKingdomIns::operator=( const UKingdom* obj )
     this->m_texture_logo = obj->GetLogo();
     return *this;
 }
-
