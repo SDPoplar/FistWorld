@@ -42,7 +42,7 @@ bool UTown::SetTownId( int id, bool load )
     }
     this->m_s_town_name = data->name;
     this->m_o_business.SetMax( data->max_business );
-    this->m_o_argiculture.SetMax( data->max_agriculture );
+    this->m_o_agriculture.SetMax( data->max_agriculture );
     return true;
 }
 
@@ -159,9 +159,9 @@ DevelopableProperty& UTown::GetBusinessDevelopment()
     return this->m_o_business;
 }
 
-DevelopableProperty& UTown::GetArgicultureDevelopment()
+DevelopableProperty& UTown::GetAgricultureDevelopment()
 {
-    return this->m_o_argiculture;
+    return this->m_o_agriculture;
 }
 
 //  =====================   DevelopmentProperty =========================================

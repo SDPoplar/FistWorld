@@ -29,6 +29,9 @@ public:
     UFUNCTION( BlueprintCallable )
     void RegistBaseShowers( UTextBlock* townNameShower, UTextBlock* kingdomNameShower, UImage* kingdomLogoShower );
 
+    UFUNCTION( BlueprintCallable )
+    void RegistDevelopShower( UTextBlock* agricultureShower, UTextBlock* businessShower, UTextBlock* foodShower, UTextBlock* moneyShower );
+
 protected:
 
     class UTown* m_town;
@@ -36,4 +39,9 @@ protected:
     UTextBlock* m_shower_town_name;
     UTextBlock* m_shower_kingdom_name;
     UImage* m_shower_kingdom_logo;
+
+    UTextBlock* m_shower_agriculture;
+    UTextBlock* m_shower_food;
+    UTextBlock* m_shower_business;
+    UTextBlock* m_shower_money;
 };

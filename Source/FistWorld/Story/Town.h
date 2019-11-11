@@ -64,7 +64,7 @@ public:
     virtual int GetSoldierNumber() const noexcept;
 
     DevelopableProperty& GetBusinessDevelopment();
-    DevelopableProperty& GetArgicultureDevelopment();
+    DevelopableProperty& GetAgricultureDevelopment();
 
 protected:
     int m_n_town_id;
@@ -73,7 +73,7 @@ protected:
     int m_n_money;
     int m_n_food;
     int m_n_soldier_num;
-    DevelopableProperty m_o_business, m_o_argiculture;
+    DevelopableProperty m_o_business, m_o_agriculture;
 
 private:
     static UDataTable* g_lib;

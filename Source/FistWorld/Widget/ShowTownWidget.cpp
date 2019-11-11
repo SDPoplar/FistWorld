@@ -25,6 +25,18 @@ void UShowTownWidget::SetTown( UTown* town )
         this->m_shower_kingdom_name->SetText( FText::FromString( kingdom->GetKingdomName() ) );
         this->m_shower_kingdom_logo->SetBrushFromTexture( kingdom->GetLogo() );
     }
+
+    if( !this->m_shower_agriculture || !this->m_shower_agriculture->IsValidLowLevelFast() )
+    {
+        return;
+    }
+    this->m_shower_agriculture->SetText( FText::FromString( town->GetAgricultureDevelopment().ToString() ) );
+    this->m_shower_business->SetText( FText::FromString( town->GetBusinessDevelopment().ToString() ) );
+    char volume[ 12 ];
+    sprintf_s( volume, 12, "%d", town->GetFood() );
+    this->m_shower_food->SetText( FText::FromString( volume ) );
+    sprintf_s( volume, 12, "%d", town->GetMoney() );
+    this->m_shower_money->SetText( FText::FromString( volume ) );
 }
 
 FString UShowTownWidget::GetTownName()
@@ -44,4 +56,12 @@ void UShowTownWidget::RegistBaseShowers( UTextBlock* townNameShower, UTextBlock*
     this->m_shower_town_name = townNameShower;
     this->m_shower_kingdom_name = kingdomNameShower;
     this->m_shower_kingdom_logo = kingdomLogoShower;
+}
+
+void UShowTownWidget::RegistDevelopShower( UTextBlock* agricultureShower, UTextBlock* businessShower, UTextBlock* foodShower, UTextBlock* moneyShower )
+{
+    this->m_shower_agriculture = agricultureShower;
+    this->m_shower_business = businessShower;
+    this->m_shower_food = foodShower;
+    this->m_shower_money = moneyShower;
 }
