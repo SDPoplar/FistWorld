@@ -3,10 +3,12 @@
 
 #include "CommonMapController.h"
 #include "Huds/CommonMapHud.h"
+#include "Tasks/ExcutableTask.h"
 
 void ACommonMapController::BeginPlay()
 {
     this->bEnableClickEvents = true;
+    this->CancelCreatingTask();
 }
 
 void ACommonMapController::SetupInputComponent()
@@ -28,5 +30,21 @@ void ACommonMapController::CancelOrCallSysMenu()
 
 bool ACommonMapController::CancelCreatingTask()
 {
+    if( !this->HasTask() )
+    {
+        return false;
+    }
     return false;
+}
+
+bool ACommonMapController::HasTask() const noexcept
+{
+    return !!this->m_o_task;
+}
+
+bool ACommonMapController::OverrideTask( UExcutableTask* task )
+{
+    this->CancelCreatingTask();
+    this->m_o_task = task;
+    return true;
 }

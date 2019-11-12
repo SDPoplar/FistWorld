@@ -17,9 +17,12 @@ class FISTWORLD_API ACommonMapController : public AModeOverridableController
 public:
     void CancelOrCallSysMenu();
     virtual bool CancelCreatingTask();
+    bool HasTask() const noexcept;
+    bool OverrideTask( class UExcutableTask* task );
 
 protected:
     void BeginPlay() override;
     void SetupInputComponent() override;
 
+    class UExcutableTask* m_o_task;
 };

@@ -3,6 +3,10 @@
 #include "KingdomSummaryWidget.h"
 #include "Story/Kingdom.h"
 #include "Engine/Texture2D.h"
+#include "TextBlock.h"
+#include "Controllers/CommonMapController.h"
+#include "FistWorldInstance.h"
+#include "Kismet/GameplayStatics.h"
 
 UKingdomSummaryWidget* UKingdomSummaryWidget::Create( TSubclassOf<UKingdomSummaryWidget> clsName, UWorld* world, FName widgetName )
 {
@@ -28,4 +32,23 @@ UTexture2D* UKingdomSummaryWidget::GetKingdomLogo() const noexcept
 FString UKingdomSummaryWidget::GetKingdomName() const noexcept
 {
     return this->m_o_kingdom ? this->m_o_kingdom->GetKingdomName() : FString( "" );
+}
+
+ESlateVisibility UKingdomSummaryWidget::PlayerHasTask() const
+{
+    if( !this->m_o_task_shower || !this->m_o_task_shower->IsValidLowLevelFast() )
+    {
+        return ESlateVisibility::Hidden;
+    }
+    auto pc = Cast<ACommonMapController>( UGameplayStatics::GetPlayerController( this, 0 ) );
+    if( !pc || !pc->HasTask() )
+    {
+        return ESlateVisibility::Hidden;
+    }
+    return ESlateVisibility::Visible;
+}
+
+void UKingdomSummaryWidget::BindTaskShower( UTextBlock* taskShower )
+{
+    this->m_o_task_shower = taskShower;
 }

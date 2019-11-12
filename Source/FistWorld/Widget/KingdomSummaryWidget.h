@@ -26,6 +26,14 @@ public:
     UFUNCTION( BlueprintCallable )
     FString GetKingdomName() const noexcept;
 
+    UFUNCTION( BlueprintCallable )
+    ESlateVisibility PlayerHasTask() const;
+
+    UFUNCTION( BlueprintCallable )
+    void BindTaskShower( class UTextBlock* taskShower );
+
 protected:
     UKingdom* m_o_kingdom;
+
+    class UTextBlock* m_o_task_shower;
 };

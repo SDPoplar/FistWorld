@@ -15,7 +15,7 @@ AWorldMapHud::AWorldMapHud()
     //  Super();
     static ConstructorHelpers::FClassFinder<USysMenuWidget> sysmenufinder( TEXT( "/Game/Levels/Res_lv_World/Widget_World_SysMenu" ) );
     sysmenuClass = sysmenufinder.Succeeded() ? sysmenufinder.Class : nullptr;
-    static ConstructorHelpers::FClassFinder<UKingdomSummaryWidget> topsummary( TEXT( "/Game/Levels/Res_lv_World/Widget_World_TopSummary" ) );
+    static ConstructorHelpers::FClassFinder<UKingdomSummaryWidget> topsummary( TEXT( "/Game/Levels/Res_lv_World/Widget_World_StaticShower" ) );
     topsummaryClass = topsummary.Succeeded() ? topsummary.Class : nullptr;
     static ConstructorHelpers::FClassFinder<UShowTownWidget> playertownwidget( TEXT( "/Game/Levels/Res_lv_World/Widget_World_PlayerTown" ) );
     playertownClass = playertownwidget.Succeeded() ? playertownwidget.Class : nullptr;
