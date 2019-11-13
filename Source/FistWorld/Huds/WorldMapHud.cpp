@@ -4,6 +4,7 @@
 #include "Widget/KingdomSummaryWidget.h"
 #include "Widget/SysMenuWidget.h"
 #include "Widget/ShowTownWidget.h"
+#include "Widget/SingleWarriorSelectWidget.h"
 #include "UObject/ConstructorHelpers.h"
 #include "FistWorldInstance.h"
 #include "FistWorldInstance.h"
@@ -21,6 +22,8 @@ AWorldMapHud::AWorldMapHud()
     playertownClass = playertownwidget.Succeeded() ? playertownwidget.Class : nullptr;
     static ConstructorHelpers::FClassFinder<UShowTownWidget> hostiletownwidget( TEXT( "/Game/Levels/Res_lv_World/Widget_World_HostileTown" ) );
     hostiletownClass = hostiletownwidget.Succeeded() ? hostiletownwidget.Class : nullptr;
+    static ConstructorHelpers::FClassFinder<USingleWarriorSelectWidget> singlewarriorwidget( TEXT( "/Game/Levels/Res_lv_World/Widget_World_SingleWarriorSelector" ) );
+    singlewarriorClass = singlewarriorwidget.Succeeded() ? singlewarriorwidget.Class : nullptr;
 }
 
 void AWorldMapHud::BeginPlay()
@@ -100,4 +103,25 @@ UShowTownWidget* AWorldMapHud::GetHostileTownWidget()
             UUserWidget::CreateWidgetInstance( *world, this->hostiletownClass, "Hostile town shower" ) );
     }
     return this->m_widget_town_hostile;
+}
+
+USingleWarriorSelectWidget* AWorldMapHud::GetSingleWarriorSelectWidget()
+{
+    if( !this->m_widget_single_warrior_select && this->singlewarriorClass )
+    {
+        UWorld* world = this->GetWorld();
+        this->m_widget_single_warrior_select = Cast<USingleWarriorSelectWidget>(
+            UUserWidget::CreateWidgetInstance( *world, this->singlewarriorClass, "Single warrior selector" ) );
+    }
+    return this->m_widget_single_warrior_select;
+}
+
+USingleWarriorSelectWidget* AWorldMapHud::PopupSingleWarriorSelector()
+{
+    auto widget = this->GetSingleWarriorSelectWidget();
+    if( widget )
+    {
+        this->PopupWidget( widget );
+    }
+    return widget;
 }

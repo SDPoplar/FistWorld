@@ -20,6 +20,8 @@ public:
     bool HasTask() const noexcept;
     bool OverrideTask( class UExcutableTask* task );
 
+    FString GetTaskStepDescribe() const;
+
 protected:
     void BeginPlay() override;
     void SetupInputComponent() override;

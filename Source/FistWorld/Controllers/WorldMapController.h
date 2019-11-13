@@ -19,7 +19,7 @@ public:
     void SetupInputComponent() override;
 
     static AWorldMapController* GetInstance( UObject* getter );
-    virtual bool CancelCreatingTask() override;
+    //  virtual bool CancelCreatingTask() override;
     bool HasTaskSelectingTown() const;
     void SetTaskSelectingTown( class ATownActor* town );
     class AWorldMapHud* GetWorldMapHud();

@@ -8,7 +8,8 @@
 void ACommonMapController::BeginPlay()
 {
     this->bEnableClickEvents = true;
-    this->CancelCreatingTask();
+    this->m_o_task = nullptr;
+    //  this->CancelCreatingTask();
 }
 
 void ACommonMapController::SetupInputComponent()
@@ -34,7 +35,9 @@ bool ACommonMapController::CancelCreatingTask()
     {
         return false;
     }
-    return false;
+    delete this->m_o_task;
+    this->m_o_task = nullptr;
+    return true;
 }
 
 bool ACommonMapController::HasTask() const noexcept
@@ -47,4 +50,9 @@ bool ACommonMapController::OverrideTask( UExcutableTask* task )
     this->CancelCreatingTask();
     this->m_o_task = task;
     return true;
+}
+
+FString ACommonMapController::GetTaskStepDescribe() const
+{
+    return this->HasTask() ? this->m_o_task->GetStepDescribe() : FString( "" );
 }

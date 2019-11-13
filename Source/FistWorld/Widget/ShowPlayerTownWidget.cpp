@@ -4,6 +4,9 @@
 #include "Tasks/TownTask.h"
 #include "Kismet/GameplayStatics.h"
 #include "Controllers/CommonMapController.h"
+#include "Huds/WorldMapHud.h"
+#include "Widget/SingleWarriorSelectWidget.h"
+#include "Story/Town.h"
 
 bool UShowPlayerTownWidget::CreateBusinessDevelopTask()
 {
@@ -17,5 +20,20 @@ bool UShowPlayerTownWidget::CreateBusinessDevelopTask()
     {
         return false;
     }
-    return pc->OverrideTask( task );
+    if( !pc->OverrideTask( task ) )
+    {
+        return false;
+    }
+    auto hud = Cast<AWorldMapHud>( pc->GetHUD() );
+    if( !hud )
+    {
+        return false;
+    }
+    auto widget = hud->PopupSingleWarriorSelector();
+    if( !widget )
+    {
+        return false;
+    }
+    widget->LoadListByTown( this->m_town->GetTownId(), false );
+    return true;
 }

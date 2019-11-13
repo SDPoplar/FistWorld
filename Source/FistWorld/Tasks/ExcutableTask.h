@@ -10,8 +10,7 @@ enum class ETaskStep : uint8
 {
     CREATING,
     CHOOSING_TARGET_TOWN,
-    CHOOSING_TARGET_WARRIOR,
-    CAN_EXCUTE
+    CHOOSING_TARGET_WARRIOR
 };
 
 /**
@@ -27,7 +26,9 @@ public:
     //  bool SetTargetWarrior( class UWarrior* warrior );
     virtual bool Excute();
 
+    virtual FString GetStepDescribe() const;
     FString GetLastError() const;
+    ETaskStep GetStep() const noexcept;
 
 protected:
     ETaskStep m_e_step;

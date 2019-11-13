@@ -38,12 +38,17 @@ ESlateVisibility UKingdomSummaryWidget::PlayerHasTask() const
 {
     if( !this->m_o_task_shower || !this->m_o_task_shower->IsValidLowLevelFast() )
     {
-        return ESlateVisibility::Hidden;
+        return ESlateVisibility::Collapsed;
     }
     auto pc = Cast<ACommonMapController>( UGameplayStatics::GetPlayerController( this, 0 ) );
     if( !pc || !pc->HasTask() )
     {
-        return ESlateVisibility::Hidden;
+        return ESlateVisibility::Collapsed;
+    }
+    if( this->m_o_task_shower && this->m_o_task_shower->IsValidLowLevelFast()
+        && (this->m_o_task_shower->GetVisibility() == ESlateVisibility::Visible) )
+    {
+        this->m_o_task_shower->SetText( FText::FromString( pc->GetTaskStepDescribe() ) );
     }
     return ESlateVisibility::Visible;
 }

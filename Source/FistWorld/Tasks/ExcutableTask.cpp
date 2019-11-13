@@ -18,3 +18,25 @@ FString UExcutableTask::GetLastError() const
 {
     return this->m_s_last_error;
 }
+
+FString UExcutableTask::GetStepDescribe() const
+{
+    FString desc = "";
+    switch( this->m_e_step )
+    {
+    case ETaskStep::CREATING:
+        desc = TEXT( "正在创建" );
+        break;
+    case ETaskStep::CHOOSING_TARGET_TOWN:
+        desc = TEXT( "选择目标城镇" );
+        break;
+    case ETaskStep::CHOOSING_TARGET_WARRIOR:
+        desc = TEXT( "选择一名勇士" );
+    }
+    return desc;
+}
+
+ETaskStep UExcutableTask::GetStep() const noexcept
+{
+    return this->m_e_step;
+}
