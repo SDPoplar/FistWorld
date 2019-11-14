@@ -3,20 +3,18 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Widget/PopupWidget.h"
+#include "Widget/SelectWarriorWidget.h"
 #include "SingleWarriorSelectWidget.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class FISTWORLD_API USingleWarriorSelectWidget : public UPopupWidget
+class FISTWORLD_API USingleWarriorSelectWidget : public USelectWarriorWidget
 {
 	GENERATED_BODY()
 	
 public:
-    void LoadListByTown( int townId, bool showBusy = false );
-
     UFUNCTION( BlueprintCallable )
     void QuitAndCancelTask();
 };

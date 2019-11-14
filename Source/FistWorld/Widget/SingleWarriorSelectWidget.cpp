@@ -3,9 +3,6 @@
 #include "SingleWarriorSelectWidget.h"
 #include "Controllers/WorldMapController.h"
 
-void USingleWarriorSelectWidget::LoadListByTown( int townId, bool showBusy )
-{}
-
 void USingleWarriorSelectWidget::QuitAndCancelTask()
 {
     auto pc = AWorldMapController::GetInstance( this );

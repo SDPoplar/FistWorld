@@ -30,18 +30,6 @@ void UShowTownWidget::SetTown( UTown* town )
         this->m_shower_kingdom_name->SetText( FText::FromString( "-" ) );
         this->m_shower_kingdom_logo->SetBrushFromTexture( UKingdom::GetDefaultLogo() );
     }
-
-    if( !this->m_shower_agriculture || !this->m_shower_agriculture->IsValidLowLevelFast() )
-    {
-        return;
-    }
-    this->m_shower_agriculture->SetText( FText::FromString( town->GetAgricultureDevelopment().ToString() ) );
-    this->m_shower_business->SetText( FText::FromString( town->GetBusinessDevelopment().ToString() ) );
-    char volume[ 12 ];
-    sprintf_s( volume, 12, "%d", town->GetFood() );
-    this->m_shower_food->SetText( FText::FromString( volume ) );
-    sprintf_s( volume, 12, "%d", town->GetMoney() );
-    this->m_shower_money->SetText( FText::FromString( volume ) );
 }
 
 FString UShowTownWidget::GetTownName()
@@ -63,10 +51,34 @@ void UShowTownWidget::RegistBaseShowers( UTextBlock* townNameShower, UTextBlock*
     this->m_shower_kingdom_logo = kingdomLogoShower;
 }
 
-void UShowTownWidget::RegistDevelopShower( UTextBlock* agricultureShower, UTextBlock* businessShower, UTextBlock* foodShower, UTextBlock* moneyShower )
+FText UShowTownWidget::GetBusinessDevelopString( void ) const
 {
-    this->m_shower_agriculture = agricultureShower;
-    this->m_shower_business = businessShower;
-    this->m_shower_food = foodShower;
-    this->m_shower_money = moneyShower;
+    return FText::FromString( this->m_town ? this->m_town->GetBusinessDevelopment().ToString() : FString( "-" ) );
+}
+
+FText UShowTownWidget::GetAgricultureDevelopString( void ) const
+{
+    return FText::FromString( this->m_town ? this->m_town->GetAgricultureDevelopment().ToString() : FString( "-" ) );
+}
+
+FText UShowTownWidget::GetFoodString( void ) const
+{
+    if( !this->m_town )
+    {
+        return FText::FromString( "-" );
+    }
+    char str[ 8 ];
+    sprintf_s( str, 8, "%d", this->m_town->GetFood() );
+    return FText::FromString( str );
+}
+
+FText UShowTownWidget::GetMoneyString( void ) const
+{
+    if( !this->m_town )
+    {
+        return FText::FromString( "-" );
+    }
+    char str[ 8 ];
+    sprintf_s( str, 8, "%d", this->m_town->GetMoney() );
+    return FText::FromString( str );
 }

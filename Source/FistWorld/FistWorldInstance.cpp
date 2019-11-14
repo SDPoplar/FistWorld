@@ -179,3 +179,8 @@ UWarriorIns* UFistWorldInstance::FindWarriorInstance( int warriorId )
     *ins = warrior;
     return ins;
 }
+
+TArray<UWarrior*>& UFistWorldInstance::GetWarriorList()
+{
+    return this->m_warriors;
+}

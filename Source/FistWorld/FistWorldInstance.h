@@ -42,6 +42,8 @@ public:
     UFUNCTION( BlueprintCallable )
     class UWarriorIns* FindWarriorInstance( int warriorId );
 
+    TArray<class UWarrior*>& GetWarriorList();
+
 protected:
     TArray<UKingdom*> m_kingdoms;
     UKingdom* m_player_kingdom;

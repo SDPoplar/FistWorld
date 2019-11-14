@@ -30,7 +30,16 @@ public:
     void RegistBaseShowers( UTextBlock* townNameShower, UTextBlock* kingdomNameShower, UImage* kingdomLogoShower );
 
     UFUNCTION( BlueprintCallable )
-    void RegistDevelopShower( UTextBlock* agricultureShower, UTextBlock* businessShower, UTextBlock* foodShower, UTextBlock* moneyShower );
+    FText GetBusinessDevelopString() const;
+
+    UFUNCTION( BlueprintCallable )
+    FText GetAgricultureDevelopString() const;
+
+    UFUNCTION( BlueprintCallable )
+    FText GetFoodString() const;
+
+    UFUNCTION( BlueprintCallable )
+    FText GetMoneyString() const;
 
 protected:
 
@@ -39,9 +48,4 @@ protected:
     UTextBlock* m_shower_town_name;
     UTextBlock* m_shower_kingdom_name;
     UImage* m_shower_kingdom_logo;
-
-    UTextBlock* m_shower_agriculture;
-    UTextBlock* m_shower_food;
-    UTextBlock* m_shower_business;
-    UTextBlock* m_shower_money;
 };
