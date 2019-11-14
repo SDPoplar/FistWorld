@@ -4,28 +4,23 @@
 
 #include "CoreMinimal.h"
 #include "ExcutableTask.h"
+#include "TownTask.generated.h"
 
 /**
  * 
  */
+UCLASS()
 class FISTWORLD_API UTownTask : public UExcutableTask
 {
+    GENERATED_BODY()
 public:
 	UTownTask();
-    UTownTask( class UTown* town );
 	virtual ~UTownTask();
 
-    virtual void SetTargetWarrior( class UWarrior* warrior );
+    void SetBaseTown( class UTown* town );
+    virtual bool SetTargetWarrior( class UWarrior* warrior );
 
 protected:
     class UTown* m_o_town;
     class UWarrior* m_o_warrior;
-};
-
-class FISTWORLD_API UTownBusinessDevelopTask : public UTownTask
-{
-public:
-    UTownBusinessDevelopTask( class UTown* town );
-    void SetTargetWarrior( class UWarrior* warrior );
-    bool Excute() override;
 };

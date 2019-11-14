@@ -5,8 +5,8 @@
 
 UDataTable* UWarrior::g_lib = nullptr;
 
-UWarrior::UWarrior() : m_n_id( 0 ), m_s_name( "" ), m_n_kingdom( 0 ), m_n_in_town( 0 ), m_n_level( 0 ), m_n_exp( 0 ),
-    m_n_soldier_num( 0 ), m_e_status( EWarriorStatus::NORMAL )
+UWarrior::UWarrior() : m_n_id( 0 ), m_s_name( "" ), m_n_kingdom( 0 ), m_n_in_town( 0 ),
+    m_e_status( EWarriorStatus::NORMAL ), m_n_level( 0 ), m_n_exp( 0 ), m_n_soldier_num( 0 )
 {
     if( !UWarrior::g_lib )
     {

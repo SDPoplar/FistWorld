@@ -2,6 +2,8 @@
 
 #include "ShowPlayerTownWidget.h"
 #include "Tasks/TownTask.h"
+#include "Tasks/TownBusinessDevelopTask.h"
+#include "Tasks/TownAgricultureDevelopTask.h"
 #include "Kismet/GameplayStatics.h"
 #include "Controllers/CommonMapController.h"
 #include "Huds/WorldMapHud.h"
@@ -10,16 +12,27 @@
 
 bool UShowPlayerTownWidget::CreateBusinessDevelopTask()
 {
+    return this->CreateTownTask( []( void )-> UTownTask* { return NewObject<UTownBusinessDevelopTask>(); } );
+}
+
+bool UShowPlayerTownWidget::CreateAgricultureDevelopTask()
+{
+    return this->CreateTownTask( []( void )->UTownTask* { return NewObject<UTownAgricultureDevelopTask>(); } );
+}
+
+bool UShowPlayerTownWidget::CreateTownTask( UTownTask*( taskmaker )( void ) )
+{
     if( !this->m_town )
     {
         return false;
     }
     auto pc = Cast<ACommonMapController>( UGameplayStatics::GetPlayerController( this, 0 ) );
-    UTownBusinessDevelopTask* task = pc ? new UTownBusinessDevelopTask( this->m_town ) : nullptr;
+    UTownTask* task = pc ? taskmaker() : nullptr;
     if( !task )
     {
         return false;
     }
+    task->SetBaseTown( this->m_town );
     if( !pc->OverrideTask( task ) )
     {
         return false;

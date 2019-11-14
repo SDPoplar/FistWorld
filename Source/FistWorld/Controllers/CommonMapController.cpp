@@ -35,14 +35,14 @@ bool ACommonMapController::CancelCreatingTask()
     {
         return false;
     }
-    delete this->m_o_task;
+    this->m_o_task->RemoveFromRoot();
     this->m_o_task = nullptr;
     return true;
 }
 
 bool ACommonMapController::HasTask() const noexcept
 {
-    return !!this->m_o_task;
+    return this->m_o_task && this->m_o_task->IsValidLowLevelFast();
 }
 
 bool ACommonMapController::OverrideTask( UExcutableTask* task )

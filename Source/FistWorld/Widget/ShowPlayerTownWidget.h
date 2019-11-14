@@ -17,4 +17,9 @@ class FISTWORLD_API UShowPlayerTownWidget : public UShowTownWidget
 public:
     UFUNCTION( BlueprintCallable )
     bool CreateBusinessDevelopTask();
+
+    UFUNCTION( BlueprintCallable )
+    bool CreateAgricultureDevelopTask();
+
+    bool CreateTownTask( class UTownTask* ( taskMaker )(void) );
 };

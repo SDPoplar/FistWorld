@@ -2,6 +2,7 @@
 
 #include "SingleWarriorSelectWidget.h"
 #include "Controllers/WorldMapController.h"
+#include "Story/Warrior.h"
 
 void USingleWarriorSelectWidget::QuitAndCancelTask()
 {
@@ -13,4 +14,22 @@ void USingleWarriorSelectWidget::QuitAndCancelTask()
     }
     pc->CancelCreatingTask();
     this->Quit();
+}
+
+void USingleWarriorSelectWidget::WarriorSelected( UWarriorIns* warrior )
+{
+    if( !warrior || !warrior->IsValidLowLevelFast() )
+    {
+        return;
+    }
+    auto pc = AWorldMapController::GetInstance( this );
+    if( !pc || !pc->HasTask() )
+    {
+        return;
+    }
+
+    if( pc->SetTaskSelectingWarrior( warrior ) )
+    {
+        this->Quit();
+    }
 }

@@ -73,7 +73,7 @@ private:
 /**
  * 
  */
-UCLASS()
+UCLASS( BlueprintType )
 class FISTWORLD_API UWarriorIns : public UObject, public UWarrior
 {
 	GENERATED_BODY()

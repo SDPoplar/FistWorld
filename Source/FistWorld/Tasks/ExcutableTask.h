@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "UObject/NoExportTypes.h"
 #include "ExcutableTask.generated.h"
 
 UENUM( BlueprintType )
@@ -16,8 +17,11 @@ enum class ETaskStep : uint8
 /**
  * 
  */
-class FISTWORLD_API UExcutableTask
+UCLASS()
+class FISTWORLD_API UExcutableTask : public UObject
 {
+    GENERATED_BODY()
+
 public:
 	UExcutableTask();
 	virtual ~UExcutableTask();

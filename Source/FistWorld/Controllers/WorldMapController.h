@@ -21,6 +21,7 @@ public:
     static AWorldMapController* GetInstance( UObject* getter );
     //  virtual bool CancelCreatingTask() override;
     bool HasTaskSelectingTown() const;
-    void SetTaskSelectingTown( class ATownActor* town );
+    bool SetTaskSelectingTown( class ATownActor* town );
+    bool SetTaskSelectingWarrior( class UWarriorIns* warrior );
     class AWorldMapHud* GetWorldMapHud();
 };

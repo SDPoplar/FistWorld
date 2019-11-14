@@ -35,6 +35,7 @@ public:
     FIntPoint GetPoint();
     void SetMax( int max );
     void SetCurrent( int current );
+    void IncreaseCurrent( int volume );
     FString ToString() const;
 
 protected:

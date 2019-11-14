@@ -200,6 +200,11 @@ void DevelopableProperty::SetCurrent( int current )
     }
 }
 
+void DevelopableProperty::IncreaseCurrent( int volume )
+{
+    this->SetCurrent( this->m_n_current + volume );
+}
+
 FString DevelopableProperty::ToString() const
 {
     char buff[ 128 ];
