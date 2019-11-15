@@ -20,6 +20,12 @@ public:
     void SelectByPlayer();
 
     class UTown* GetTown();
+
+    UFUNCTION( BlueprintCallable )
+    class UParticleSystemComponent* GetHoverCircle() const;
+
+    UFUNCTION( BlueprintCallable )
+    void SetHover( bool hover );
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -33,6 +39,7 @@ protected:
     TArray<ATownActor*> m_can_arrive;
 
     class UStaticMeshComponent* m_mesh_town;
+    class UParticleSystemComponent* m_particle_hover_circle;
     class UTown* m_o_town;
 
 public:

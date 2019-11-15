@@ -39,6 +39,10 @@ void UPopupWidget::Quit()
 
 void UPopupWidget::Popup( int baseZOrder )
 {
+    if( this->IsInViewport() )
+    {
+        return;
+    }
     this->AddToViewport( baseZOrder + 100 );
     this->RefreshData();
 

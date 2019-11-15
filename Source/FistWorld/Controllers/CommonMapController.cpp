@@ -8,6 +8,8 @@
 void ACommonMapController::BeginPlay()
 {
     this->bEnableClickEvents = true;
+    //  this->bEnableTouchOverEvents = true;
+    this->bEnableMouseOverEvents = true;
     this->m_o_task = nullptr;
     //  this->CancelCreatingTask();
 }

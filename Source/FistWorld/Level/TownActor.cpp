@@ -3,6 +3,7 @@
 
 #include "TownActor.h"
 #include "Components/StaticMeshComponent.h"
+#include "Particles/ParticleSystemComponent.h"
 #include "UObject/ConstructorHelpers.h"
 #include "FistWorldInstance.h"
 #include "Controllers/WorldMapController.h"
@@ -14,6 +15,7 @@ ATownActor::ATownActor()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+    this->bCanBeDamaged = false;
 
     this->m_mesh_town = CreateDefaultSubobject<UStaticMeshComponent>( TEXT( "Mesh" ) );
     RootComponent = this->m_mesh_town;
@@ -23,6 +25,15 @@ ATownActor::ATownActor()
     if( mesh.Succeeded() )
     {
         this->m_mesh_town->SetStaticMesh( mesh.Object );
+    }
+    this->m_particle_hover_circle = CreateDefaultSubobject<UParticleSystemComponent>( TEXT( "Hover circle" ) );
+    this->m_particle_hover_circle->SetupAttachment( RootComponent );
+    this->m_particle_hover_circle->SetVisibility( false );
+    this->m_particle_hover_circle->SetRelativeLocation( FVector( 0, 0, 10 ) );
+    static ConstructorHelpers::FObjectFinder<UParticleSystem> hovercircle( TEXT( "/Game/Levels/Res_lv_world/HoverCircle/Particle_HoverCircle" ) );
+    if( hovercircle.Succeeded() )
+    {
+        this->m_particle_hover_circle->SetTemplate( hovercircle.Object );
     }
 
     this->m_o_town = nullptr;
@@ -69,4 +80,17 @@ void ATownActor::SelectByPlayer()
 UTown* ATownActor::GetTown()
 {
     return this->m_o_town;
+}
+
+UParticleSystemComponent* ATownActor::GetHoverCircle() const
+{
+    return this->m_particle_hover_circle;
+}
+
+void ATownActor::SetHover( bool hover )
+{
+    if( this->m_particle_hover_circle && this->m_particle_hover_circle->IsValidLowLevelFast() )
+    {
+        this->m_particle_hover_circle->SetVisibility( hover );
+    }
 }
