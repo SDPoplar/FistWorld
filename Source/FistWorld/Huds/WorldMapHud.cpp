@@ -16,14 +16,19 @@ AWorldMapHud::AWorldMapHud()
     //  Super();
     static ConstructorHelpers::FClassFinder<USysMenuWidget> sysmenufinder( TEXT( "/Game/Levels/Res_lv_World/Widget_World_SysMenu" ) );
     sysmenuClass = sysmenufinder.Succeeded() ? sysmenufinder.Class : nullptr;
+    check( sysmenuClass && "Failed to load sysmenuClass" );
     static ConstructorHelpers::FClassFinder<UKingdomSummaryWidget> topsummary( TEXT( "/Game/Levels/Res_lv_World/Widget_World_StaticShower" ) );
     topsummaryClass = topsummary.Succeeded() ? topsummary.Class : nullptr;
+    check( topsummaryClass && "Failed to load topsummaryClass" );
     static ConstructorHelpers::FClassFinder<UShowTownWidget> playertownwidget( TEXT( "/Game/Levels/Res_lv_World/Widget_World_PlayerTown" ) );
     playertownClass = playertownwidget.Succeeded() ? playertownwidget.Class : nullptr;
+    check( playertownClass && "Failed to load playertownClass" );
     static ConstructorHelpers::FClassFinder<UShowTownWidget> hostiletownwidget( TEXT( "/Game/Levels/Res_lv_World/Widget_World_HostileTown" ) );
     hostiletownClass = hostiletownwidget.Succeeded() ? hostiletownwidget.Class : nullptr;
+    check( hostiletownClass && "Failed to load hostiletownClass" );
     static ConstructorHelpers::FClassFinder<USingleWarriorSelectWidget> singlewarriorwidget( TEXT( "/Game/Levels/Res_lv_World/Widget_World_SingleWarriorSelector" ) );
     singlewarriorClass = singlewarriorwidget.Succeeded() ? singlewarriorwidget.Class : nullptr;
+    check( singlewarriorClass && "Failed to load singlewarriorClass" );
 }
 
 void AWorldMapHud::BeginPlay()

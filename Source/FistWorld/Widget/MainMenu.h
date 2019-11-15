@@ -40,20 +40,8 @@ public:
 
     void StartExistsGame();
 protected:
-
-    UFUNCTION( BlueprintImplementableEvent )
-    UCreateGameWidget* MakeCreateGameWidget( APlayerController* pc );
-
-    UFUNCTION( BlueprintImplementableEvent )
-    UPopupMenuWidget* MakeAboutWidget( APlayerController* pc );
-
-    UFUNCTION( BlueprintImplementableEvent )
-    UPopupMenuWidget* MakeOptionWidget( APlayerController* pc );
-    
-    /*
+        
     UPopupMenuWidget* CreatePopupMenu( TSubclassOf<UPopupMenuWidget> className, FName name );
-    TSubclassOf<UPopupMenuWidget> createGameWidgetClass, aboutWidgetClass;
-    */
     UPopupMenuWidget *aboutWidget, *optionWidget;
     UCreateGameWidget* createGameWidget;
 };

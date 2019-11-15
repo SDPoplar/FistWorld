@@ -29,10 +29,7 @@ UDataTable* UCreateGameWidget::GetChapterTable()
     {
         UCreateGameWidget::chapters = LoadObject<UDataTable>( nullptr,
             TEXT( "DataTable'/Game/Datatables/Data_CreatableChapters.Data_CreatableChapters'" ) );
-        if( !UCreateGameWidget::chapters )
-        {
-            UE_LOG( LogTemp, Error, TEXT( "Failed to load chapter data" ) );
-        }
+        check( UCreateGameWidget::chapters && "Failed to load chapters" );
     }
     return UCreateGameWidget::chapters;
 }

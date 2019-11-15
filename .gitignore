@@ -35,7 +35,9 @@
 .vs/
 
 # UE4 tmp files
+Build/
 Binaries/
 Intermediate/
 Saved/
+FistWorld_Release_x64/
 
