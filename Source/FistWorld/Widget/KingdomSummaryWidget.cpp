@@ -73,3 +73,21 @@ FText UKingdomSummaryWidget::GetPlayerWarriorNum() const noexcept
     sprintf_s( num, 8, "%d", gi ? gi->CountPlayerWarrior() : 0 );
     return FText::FromString( num );
 }
+
+FText UKingdomSummaryWidget::GetPlayerKingdomFood() const noexcept
+{
+    auto gi = UFistWorldInstance::GetInstance( this );
+    auto kingdom = gi ? gi->GetMyKingdom() : nullptr;
+    char num[ 12 ];
+    sprintf_s( num, 12, "%d", kingdom ? kingdom->GetFood() : 0 );
+    return FText::FromString( num );
+}
+
+FText UKingdomSummaryWidget::GetPlayerKingdomMoney() const noexcept
+{
+    auto gi = UFistWorldInstance::GetInstance( this );
+    auto kingdom = gi ? gi->GetMyKingdom() : nullptr;
+    char num[ 12 ];
+    sprintf_s( num, 12, "%d", kingdom ? kingdom->GetFood() : 0 );
+    return FText::FromString( num );
+}

@@ -38,6 +38,12 @@ public:
     UFUNCTION( BlueprintCallable )
     FText GetPlayerWarriorNum() const noexcept;
 
+    UFUNCTION( BlueprintCallable )
+    FText GetPlayerKingdomFood() const noexcept;
+
+    UFUNCTION( BlueprintCallable )
+    FText GetPlayerKingdomMoney() const noexcept;
+
 protected:
     UKingdom* m_o_kingdom;
 
