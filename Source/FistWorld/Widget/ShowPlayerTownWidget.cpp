@@ -16,42 +16,42 @@
 
 bool UShowPlayerTownWidget::CreateBusinessDevelopTask()
 {
-    return this->CreateTownTask( []( void )-> UTownTask* { return NewObject<UTownBusinessDevelopTask>(); } );
+    return this->CreateTownTask( []( UObject* outer )-> UTownTask* { return NewObject<UTownBusinessDevelopTask>( outer ); } );
 }
 
 bool UShowPlayerTownWidget::CreateAgricultureDevelopTask()
 {
-    return this->CreateTownTask( []( void )->UTownTask* { return NewObject<UTownAgricultureDevelopTask>(); } );
+    return this->CreateTownTask( []( UObject* outer )->UTownTask* { return NewObject<UTownAgricultureDevelopTask>( outer ); } );
 }
 
 bool UShowPlayerTownWidget::CreateTownSearchTask()
 {
-    return this->CreateTownTask( []( void )->UTownTask* { return NewObject<UTownSearchTask>(); } );
+    return this->CreateTownTask( []( UObject* outer )->UTownTask* { return NewObject<UTownSearchTask>( outer ); } );
 }
 
 bool UShowPlayerTownWidget::CreateTownLevyTask()
 {
-    return this->CreateTownTask( []( void )->UTownTask* { return NewObject<UTownLevyTask>(); } );
+    return this->CreateTownTask( []( UObject* outer )->UTownTask* { return NewObject<UTownLevyTask>( outer ); } );
 }
 
 bool UShowPlayerTownWidget::CreateTownSubsidyTask()
 {
-    return this->CreateTownTask( []( void )->UTownTask* { return NewObject<UTownSubsidyTask>(); } );
+    return this->CreateTownTask( []( UObject* outer )->UTownTask* { return NewObject<UTownSubsidyTask>( outer ); } );
 }
 
 bool UShowPlayerTownWidget::CreateTownConscriptTask()
 {
-    return this->CreateTownTask( []( void )->UTownTask* { return NewObject<UTownConscriptTask>(); } );
+    return this->CreateTownTask( []( UObject* outer )->UTownTask* { return NewObject<UTownConscriptTask>( outer ); } );
 }
 
-bool UShowPlayerTownWidget::CreateTownTask( UTownTask*( taskmaker )( void ) )
+bool UShowPlayerTownWidget::CreateTownTask( UTownTask*( taskmaker )( UObject* ) )
 {
     if( !this->m_town )
     {
         return false;
     }
     auto pc = Cast<ACommonMapController>( UGameplayStatics::GetPlayerController( this, 0 ) );
-    UTownTask* task = pc ? taskmaker() : nullptr;
+    UTownTask* task = pc ? taskmaker( this ) : nullptr;
     if( !task )
     {
         return false;

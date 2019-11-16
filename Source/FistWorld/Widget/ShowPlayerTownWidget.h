@@ -33,5 +33,5 @@ public:
     UFUNCTION( BlueprintCallable )
     bool CreateTownConscriptTask();
 
-    bool CreateTownTask( class UTownTask* ( taskMaker )(void) );
+    bool CreateTownTask( class UTownTask* ( taskMaker )(UObject*) );
 };
