@@ -5,6 +5,7 @@
 #include "Widget/SysMenuWidget.h"
 #include "Widget/ShowTownWidget.h"
 #include "Widget/SingleWarriorSelectWidget.h"
+#include "Widget/TownTransportVolumeWidget.h"
 #include "UObject/ConstructorHelpers.h"
 #include "FistWorldInstance.h"
 #include "FistWorldInstance.h"
@@ -16,16 +17,14 @@ AWorldMapHud::AWorldMapHud() : ACommonMapHud()
     //  Super();
     static ConstructorHelpers::FClassFinder<UKingdomSummaryWidget> topsummary( TEXT( "/Game/Levels/Res_lv_World/Widget_World_StaticShower" ) );
     topsummaryClass = topsummary.Succeeded() ? topsummary.Class : nullptr;
-    check( topsummaryClass && "Failed to load topsummaryClass" );
     static ConstructorHelpers::FClassFinder<UShowTownWidget> playertownwidget( TEXT( "/Game/Levels/Res_lv_World/Widget_World_PlayerTown" ) );
     playertownClass = playertownwidget.Succeeded() ? playertownwidget.Class : nullptr;
-    check( playertownClass && "Failed to load playertownClass" );
     static ConstructorHelpers::FClassFinder<UShowTownWidget> hostiletownwidget( TEXT( "/Game/Levels/Res_lv_World/Widget_World_HostileTown" ) );
     hostiletownClass = hostiletownwidget.Succeeded() ? hostiletownwidget.Class : nullptr;
-    check( hostiletownClass && "Failed to load hostiletownClass" );
     static ConstructorHelpers::FClassFinder<USingleWarriorSelectWidget> singlewarriorwidget( TEXT( "/Game/Levels/Res_lv_World/Widget_World_SingleWarriorSelector" ) );
     singlewarriorClass = singlewarriorwidget.Succeeded() ? singlewarriorwidget.Class : nullptr;
-    check( singlewarriorClass && "Failed to load singlewarriorClass" );
+    static ConstructorHelpers::FClassFinder<UTownTransportVolumeWidget> transvolumewidget( TEXT( "/Game/Levels/Res_lv_World/Widget_World_TransportVolume" ) );
+    transvolumeClass = transvolumewidget.Succeeded() ? transvolumewidget.Class : nullptr;
 }
 
 void AWorldMapHud::BeginPlay()
@@ -126,4 +125,27 @@ USingleWarriorSelectWidget* AWorldMapHud::PopupSingleWarriorSelector()
         this->PopupWidget( widget );
     }
     return widget;
+}
+
+bool AWorldMapHud::PopupTransportVolumeSetter( int maxFood, int maxMoney )
+{
+    auto widget = this->GetTransportVolumeWidget();
+    if( !widget )
+    {
+        return false;
+    }
+    this->PopupWidget( widget );
+    widget->SetMax( maxFood, maxMoney );
+    return true;
+}
+
+UTownTransportVolumeWidget* AWorldMapHud::GetTransportVolumeWidget()
+{
+    if( !this->m_widget_transport && this->transvolumeClass )
+    {
+        UWorld* world = this->GetWorld();
+        this->m_widget_transport = Cast<UTownTransportVolumeWidget>(
+            UUserWidget::CreateWidgetInstance( *world, this->transvolumeClass, "Transport volume setter" ) );
+    }
+    return this->m_widget_transport;
 }

@@ -9,10 +9,12 @@
 #include "Tasks/TownSubsidyTask.h"
 #include "Tasks/TownConscriptTask.h"
 #include "Kismet/GameplayStatics.h"
-#include "Controllers/CommonMapController.h"
+#include "Controllers/WorldMapController.h"
 #include "Huds/WorldMapHud.h"
 #include "Widget/SingleWarriorSelectWidget.h"
+#include "FistWorldInstance.h"
 #include "Story/Town.h"
+#include "Story/Kingdom.h"
 
 bool UShowPlayerTownWidget::CreateBusinessDevelopTask()
 {
@@ -50,7 +52,7 @@ bool UShowPlayerTownWidget::CreateTownTask( UTownTask*( taskmaker )( UObject* ) 
     {
         return false;
     }
-    auto pc = Cast<ACommonMapController>( UGameplayStatics::GetPlayerController( this, 0 ) );
+    auto pc = AWorldMapController::GetInstance( this );
     UTownTask* task = pc ? taskmaker( this ) : nullptr;
     if( !task )
     {
@@ -62,7 +64,7 @@ bool UShowPlayerTownWidget::CreateTownTask( UTownTask*( taskmaker )( UObject* ) 
     {
         return false;
     }
-    auto hud = Cast<AWorldMapHud>( pc->GetHUD() );
+    auto hud = pc->GetWorldMapHud();
     if( !hud )
     {
         return false;
@@ -74,4 +76,11 @@ bool UShowPlayerTownWidget::CreateTownTask( UTownTask*( taskmaker )( UObject* ) 
     }
     widget->LoadListByTown( this->m_town->GetTownId(), false );
     return true;
+}
+
+bool UShowPlayerTownWidget::CanSubsidy() const noexcept
+{
+    auto gi = UFistWorldInstance::GetInstance( this );
+    UKingdom* kingdom = gi ? gi->GetMyKingdom() : nullptr;
+    return kingdom && ( (kingdom->GetMoney() > 0) || (kingdom->GetFood() > 0) );
 }

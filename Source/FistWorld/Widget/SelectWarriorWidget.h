@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Widget/PopupWidget.h"
+#include "Widget/WorldTaskStepWidget.h"
 #include "SelectWarriorWidget.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class FISTWORLD_API USelectWarriorWidget : public UPopupWidget
+class FISTWORLD_API USelectWarriorWidget : public UWorldTaskStepWidget
 {
 	GENERATED_BODY()
 	

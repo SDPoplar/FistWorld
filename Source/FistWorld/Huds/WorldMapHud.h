@@ -18,11 +18,13 @@ public:
     AWorldMapHud();
     void ShowTownInfo( class UTown* town );
     class USingleWarriorSelectWidget* PopupSingleWarriorSelector();
+    bool PopupTransportVolumeSetter( int maxFood, int maxMoney );
 
 protected:
     void PopupPlayerTownWidget( class UTown* town );
     void PopupHostileTownWidget( class UTown* town );
 
+    class UTownTransportVolumeWidget* GetTransportVolumeWidget();
     class UShowTownWidget* GetPlayerTownWidget();
     class UShowTownWidget* GetHostileTownWidget();
 
@@ -36,6 +38,10 @@ protected:
 
     TSubclassOf<class UShowTownWidget> playertownClass, hostiletownClass;
     class UShowTownWidget* m_widget_town_player, *m_widget_town_hostile;
+
+    TSubclassOf<class UTownTransportVolumeWidget> transvolumeClass;
+    class UTownTransportVolumeWidget* m_widget_transport;
+
     TSubclassOf<class USingleWarriorSelectWidget> singlewarriorClass;
     class USingleWarriorSelectWidget* m_widget_single_warrior_select;
 };

@@ -33,6 +33,10 @@ FString UExcutableTask::GetStepDescribe() const
         break;
     case ETaskStep::CHOOSING_TARGET_WARRIOR:
         desc = TEXT( "选择一名勇士" );
+        break;
+    case ETaskStep::SETTING_TRANSPORT_VOLUME:
+        desc = TCHAR_TO_UTF8( "设置输送的资源" );
+        break;
     }
     return desc;
 }

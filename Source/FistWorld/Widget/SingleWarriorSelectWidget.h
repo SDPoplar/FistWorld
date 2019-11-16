@@ -16,8 +16,5 @@ class FISTWORLD_API USingleWarriorSelectWidget : public USelectWarriorWidget
 	
 public:
     UFUNCTION( BlueprintCallable )
-    void QuitAndCancelTask();
-
-    UFUNCTION( BlueprintCallable )
     void WarriorSelected( class UWarriorIns* warrior );
 };

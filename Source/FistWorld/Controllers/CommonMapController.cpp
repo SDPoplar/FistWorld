@@ -54,6 +54,11 @@ bool ACommonMapController::OverrideTask( UExcutableTask* task )
     return true;
 }
 
+UExcutableTask* ACommonMapController::GetTask() const noexcept
+{
+    return this->m_o_task;
+}
+
 FString ACommonMapController::GetTaskStepDescribe() const
 {
     return this->HasTask() ? this->m_o_task->GetStepDescribe() : FString( "" );

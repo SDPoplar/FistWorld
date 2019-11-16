@@ -20,6 +20,7 @@ public:
     bool HasTask() const noexcept;
     bool OverrideTask( class UExcutableTask* task );
 
+    class UExcutableTask* GetTask() const noexcept;
     FString GetTaskStepDescribe() const;
 
 protected:

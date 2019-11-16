@@ -88,6 +88,6 @@ FText UKingdomSummaryWidget::GetPlayerKingdomMoney() const noexcept
     auto gi = UFistWorldInstance::GetInstance( this );
     auto kingdom = gi ? gi->GetMyKingdom() : nullptr;
     char num[ 12 ];
-    sprintf_s( num, 12, "%d", kingdom ? kingdom->GetFood() : 0 );
+    sprintf_s( num, 12, "%d", kingdom ? kingdom->GetMoney() : 0 );
     return FText::FromString( num );
 }
