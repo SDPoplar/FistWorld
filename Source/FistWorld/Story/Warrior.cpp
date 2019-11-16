@@ -5,7 +5,7 @@
 
 UDataTable* UWarrior::g_lib = nullptr;
 
-UWarrior::UWarrior() : m_n_id( 0 ), m_s_name( "" ), m_n_kingdom( 0 ), m_n_in_town( 0 ),
+UWarrior::UWarrior() : m_n_id( 0 ), m_s_name( "" ), m_n_strong( 0 ), m_n_intel( 0 ), m_n_kingdom( 0 ), m_n_in_town( 0 ),
     m_e_status( EWarriorStatus::NORMAL ), m_n_level( 0 ), m_n_exp( 0 ), m_n_soldier_num( 0 )
 {
     if( !UWarrior::g_lib )
@@ -46,6 +46,9 @@ bool UWarrior::SetWarriorId( int id, bool load )
         return false;
     }
     this->m_s_name = data->name;
+    this->m_n_strong = data->strong;
+    this->m_n_intel = data->intel;
+    UE_LOG( LogTemp, Display, TEXT( "Warrior[ID:%d] loaded Strong: %d, Intel: %d" ), this->m_n_id, this->m_n_strong, this->m_n_intel );
     return true;
 }
 
@@ -62,6 +65,16 @@ void UWarrior::SetWarriorName( FString name )
 FString UWarrior::GetWarriorName() const noexcept
 {
     return this->m_s_name;
+}
+
+int UWarrior::GetStrong( void ) const noexcept
+{
+    return this->m_n_strong;
+}
+
+int UWarrior::GetIntel( void ) const noexcept
+{
+    return this->m_n_intel;
 }
 
 void UWarrior::SetBelongKingdom( int kingdomId )
@@ -132,6 +145,16 @@ int UWarriorIns::GetWarriorId() const noexcept
 FString UWarriorIns::GetWarriorName() const noexcept
 {
     return UWarrior::GetWarriorName();
+}
+
+int UWarriorIns::GetStrong() const noexcept
+{
+    return UWarrior::GetStrong();
+}
+
+int UWarriorIns::GetIntel( void ) const noexcept
+{
+    return UWarrior::GetIntel();
 }
 
 int UWarriorIns::GetBelongKingdom() const noexcept

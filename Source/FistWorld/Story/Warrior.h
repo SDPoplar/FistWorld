@@ -28,6 +28,12 @@ public:
 
     UPROPERTY( BlueprintReadOnly )
     FString name;
+
+    UPROPERTY( BlueprintReadOnly )
+    int strong;
+
+    UPROPERTY( BlueprintReadOnly )
+    int intel;
 };
 
 class UWarrior
@@ -42,6 +48,8 @@ public:
     bool SetWarriorId( int id, bool load = true );
     virtual int GetWarriorId() const noexcept;
     void SetWarriorName( FString name );
+    virtual int GetStrong() const noexcept;
+    virtual int GetIntel() const noexcept;
     virtual FString GetWarriorName() const noexcept;
     void SetBelongKingdom( int kingdomId );
     virtual int GetBelongKingdom() const noexcept;
@@ -59,6 +67,8 @@ public:
 protected:
     int m_n_id;
     FString m_s_name;
+    int m_n_strong;
+    int m_n_intel;
     int m_n_kingdom;
     int m_n_in_town;
     EWarriorStatus m_e_status;
@@ -86,6 +96,12 @@ public:
 
     UFUNCTION( BlueprintCallable )
     FString GetWarriorName() const noexcept override;
+
+    UFUNCTION( BlueprintCallable )
+    int GetStrong() const noexcept override;
+
+    UFUNCTION( BlueprintCallable )
+    int GetIntel() const noexcept override;
 
     UFUNCTION( BlueprintCallable )
     int GetBelongKingdom() const noexcept override;

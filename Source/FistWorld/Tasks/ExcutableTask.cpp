@@ -3,7 +3,8 @@
 
 #include "ExcutableTask.h"
 
-UExcutableTask::UExcutableTask() : UObject(), m_e_step( ETaskStep::CREATING ), m_s_last_error( "" )
+UExcutableTask::UExcutableTask( const FObjectInitializer& ObjectInitializer )
+    : UObject( ObjectInitializer ), m_e_step( ETaskStep::CREATING ), m_s_last_error( "" )
 {}
 
 UExcutableTask::~UExcutableTask()

@@ -21,5 +21,17 @@ public:
     UFUNCTION( BlueprintCallable )
     bool CreateAgricultureDevelopTask();
 
+    UFUNCTION( BlueprintCallable )
+    bool CreateTownSearchTask();
+
+    UFUNCTION( BlueprintCallable )
+    bool CreateTownLevyTask();
+
+    UFUNCTION( BlueprintCallable )
+    bool CreateTownSubsidyTask();
+
+    UFUNCTION( BlueprintCallable )
+    bool CreateTownConscriptTask();
+
     bool CreateTownTask( class UTownTask* ( taskMaker )(void) );
 };

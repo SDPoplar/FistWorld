@@ -78,6 +78,15 @@ void UTown::SetMoney( int money )
     this->m_n_money = money;
 }
 
+void UTown::IncreaseMoney( int money )
+{
+    this->m_n_money += money;
+    if( m_n_money < 0 )
+    {
+        this->m_n_money = 0;
+    }
+}
+
 int UTown::GetMoney( void ) const noexcept
 {
     return this->m_n_money;
@@ -86,6 +95,15 @@ int UTown::GetMoney( void ) const noexcept
 void UTown::SetFood( int food )
 {
     this->m_n_food = food;
+}
+
+void UTown::IncreaseFood( int food )
+{
+    this->m_n_food += food;
+    if( this->m_n_food < 0 )
+    {
+        this->m_n_food = 0;
+    }
 }
 
 int UTown::GetFood( void ) const noexcept
@@ -202,7 +220,11 @@ void DevelopableProperty::SetCurrent( int current )
 
 void DevelopableProperty::IncreaseCurrent( int volume )
 {
-    this->SetCurrent( this->m_n_current + volume );
+    int range = volume / 3;
+    FRandomStream rnd;
+    auto delta = rnd.RandRange( volume - range, volume + range );
+    //  TODO: fix random
+    this->SetCurrent( this->m_n_current + delta );
 }
 
 FString DevelopableProperty::ToString() const

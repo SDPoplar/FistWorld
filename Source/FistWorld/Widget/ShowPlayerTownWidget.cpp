@@ -4,6 +4,10 @@
 #include "Tasks/TownTask.h"
 #include "Tasks/TownBusinessDevelopTask.h"
 #include "Tasks/TownAgricultureDevelopTask.h"
+#include "Tasks/TownSearchTask.h"
+#include "Tasks/TownLevyTask.h"
+#include "Tasks/TownSubsidyTask.h"
+#include "Tasks/TownConscriptTask.h"
 #include "Kismet/GameplayStatics.h"
 #include "Controllers/CommonMapController.h"
 #include "Huds/WorldMapHud.h"
@@ -20,6 +24,26 @@ bool UShowPlayerTownWidget::CreateAgricultureDevelopTask()
     return this->CreateTownTask( []( void )->UTownTask* { return NewObject<UTownAgricultureDevelopTask>(); } );
 }
 
+bool UShowPlayerTownWidget::CreateTownSearchTask()
+{
+    return this->CreateTownTask( []( void )->UTownTask* { return NewObject<UTownSearchTask>(); } );
+}
+
+bool UShowPlayerTownWidget::CreateTownLevyTask()
+{
+    return this->CreateTownTask( []( void )->UTownTask* { return NewObject<UTownLevyTask>(); } );
+}
+
+bool UShowPlayerTownWidget::CreateTownSubsidyTask()
+{
+    return this->CreateTownTask( []( void )->UTownTask* { return NewObject<UTownSubsidyTask>(); } );
+}
+
+bool UShowPlayerTownWidget::CreateTownConscriptTask()
+{
+    return this->CreateTownTask( []( void )->UTownTask* { return NewObject<UTownConscriptTask>(); } );
+}
+
 bool UShowPlayerTownWidget::CreateTownTask( UTownTask*( taskmaker )( void ) )
 {
     if( !this->m_town )
@@ -33,6 +57,7 @@ bool UShowPlayerTownWidget::CreateTownTask( UTownTask*( taskmaker )( void ) )
         return false;
     }
     task->SetBaseTown( this->m_town );
+    //  TODO: check task cost
     if( !pc->OverrideTask( task ) )
     {
         return false;

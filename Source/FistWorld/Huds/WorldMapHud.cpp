@@ -11,12 +11,9 @@
 #include "Level/TownActor.h"
 #include "Story/Town.h"
 
-AWorldMapHud::AWorldMapHud()
+AWorldMapHud::AWorldMapHud() : ACommonMapHud()
 {
     //  Super();
-    static ConstructorHelpers::FClassFinder<USysMenuWidget> sysmenufinder( TEXT( "/Game/Levels/Res_lv_World/Widget_World_SysMenu" ) );
-    sysmenuClass = sysmenufinder.Succeeded() ? sysmenufinder.Class : nullptr;
-    check( sysmenuClass && "Failed to load sysmenuClass" );
     static ConstructorHelpers::FClassFinder<UKingdomSummaryWidget> topsummary( TEXT( "/Game/Levels/Res_lv_World/Widget_World_StaticShower" ) );
     topsummaryClass = topsummary.Succeeded() ? topsummary.Class : nullptr;
     check( topsummaryClass && "Failed to load topsummaryClass" );

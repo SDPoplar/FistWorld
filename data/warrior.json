@@ -1,9 +1,9 @@
 [
-	{"id": 1, "name": "赵一"},
-	{"id": 2, "name": "钱二"},
-	{"id": 3, "name": "孙三"},
-	{"id": 4, "name": "李四"},
-	{"id": 5, "name": "周五"},
-	{"id": 6, "name": "吴六"},
-	{"id": 7, "name": "郑七"}
+	{"id": 1, "name": "赵一", "strong": 80, "intel": 80},
+	{"id": 2, "name": "钱二", "strong": 80, "intel": 80},
+	{"id": 3, "name": "孙三", "strong": 80, "intel": 80},
+	{"id": 4, "name": "李四", "strong": 80, "intel": 80},
+	{"id": 5, "name": "周五", "strong": 80, "intel": 80},
+	{"id": 6, "name": "吴六", "strong": 80, "intel": 80},
+	{"id": 7, "name": "郑七", "strong": 80, "intel": 80}
 ]

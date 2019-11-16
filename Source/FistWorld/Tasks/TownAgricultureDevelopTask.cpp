@@ -14,7 +14,11 @@ bool UTownAgricultureDevelopTask::SetTargetWarrior( UWarrior* warrior )
 
 bool UTownAgricultureDevelopTask::Excute()
 {
-    this->m_o_town->GetAgricultureDevelopment().IncreaseCurrent( 50 );
+    if( !this->m_o_town || !this->m_o_warrior )
+    {
+        return false;
+    }
+    this->m_o_town->GetAgricultureDevelopment().IncreaseCurrent( this->m_o_warrior->GetStrong() );
     this->m_o_warrior->SetStatus( EWarriorStatus::WORKING );
     this->RemoveFromRoot();
     return true;

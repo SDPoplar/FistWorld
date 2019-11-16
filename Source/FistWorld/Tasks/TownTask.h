@@ -14,7 +14,7 @@ class FISTWORLD_API UTownTask : public UExcutableTask
 {
     GENERATED_BODY()
 public:
-	UTownTask();
+	UTownTask( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get() );
 	virtual ~UTownTask();
 
     void SetBaseTown( class UTown* town );

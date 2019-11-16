@@ -5,7 +5,7 @@
 #include "Story/Town.h"
 #include "Story/Warrior.h"
 
-UTownTask::UTownTask() : UExcutableTask(), m_o_town( nullptr )
+UTownTask::UTownTask( const FObjectInitializer& ObjectInitializer ) : UExcutableTask( ObjectInitializer ), m_o_town( nullptr )
 {}
 
 void UTownTask::SetBaseTown( UTown* town )

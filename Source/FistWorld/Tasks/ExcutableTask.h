@@ -23,7 +23,7 @@ class FISTWORLD_API UExcutableTask : public UObject
     GENERATED_BODY()
 
 public:
-	UExcutableTask();
+	UExcutableTask( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get() );
 	virtual ~UExcutableTask();
 
     //  bool SetTargetTown( class UTown* town );

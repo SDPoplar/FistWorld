@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/HUD.h"
+#include "Widget/MessageBoxWidget.h"
 #include "CommonMapHud.generated.h"
 
 /**
@@ -15,16 +16,24 @@ class FISTWORLD_API ACommonMapHud : public AHUD
 	GENERATED_BODY()
 	
 public:
-    //  ACommonMapHud();
+    ACommonMapHud( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get() );
 
     bool CloseAllPopup();
     bool ShowSysMenu();
-    void PopupWidget( class UPopupWidget* widget );
+    bool PopupAlert( FString content );
+    //  bool PopupDanger();
+
+    bool PopupMessage( EMessageUseIcon type, FString content );
+    void PopupWidget( class UPopupWidget* widget, int zOrder = 0 );
     class USysMenuWidget* GetSysMenu();
+
 protected:
-    TSubclassOf<class USysMenuWidget> sysmenuClass;
+    class UMessageBoxWidget* GetMessageBox();
 
 private:
+    TSubclassOf<class USysMenuWidget> sysmenuClass;
+    TSubclassOf<UMessageBoxWidget> msgboxClass;
     class USysMenuWidget* m_widget_sysmenu;
+    UMessageBoxWidget* m_widget_message;
     TArray<class UPopupWidget*> m_widgets;
 };

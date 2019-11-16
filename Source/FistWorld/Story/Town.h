@@ -58,8 +58,10 @@ public:
     virtual int GetKingdomId() const noexcept;
     void SetOwnerKingdom( int kingdomId );
     void SetMoney( int money );
+    virtual void IncreaseMoney( int money );
     virtual int GetMoney() const noexcept;
     void SetFood( int food );
+    virtual void IncreaseFood( int food );
     virtual int GetFood() const noexcept;
     void SetSoldierNumber( int num );
     virtual int GetSoldierNumber() const noexcept;
