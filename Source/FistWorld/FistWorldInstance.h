@@ -42,6 +42,9 @@ public:
     UFUNCTION( BlueprintCallable )
     class UWarriorIns* FindWarriorInstance( int warriorId );
 
+    int CountPlayerTown() const noexcept;
+    int CountPlayerWarrior() const noexcept;
+
     TArray<class UWarrior*>& GetWarriorList();
 
 protected:

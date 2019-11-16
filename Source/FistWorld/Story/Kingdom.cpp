@@ -8,7 +8,7 @@ UDataTable* UKingdom::g_lib = nullptr;
 UTexture2D* UKingdom::defKingdomLogo = nullptr;
 std::map<int, UTexture2D*> UKingdom::logolib;
 
-UKingdom::UKingdom() : m_n_kingdom_id( 0 ), m_s_name( "" ), m_b_own_by_player( false )
+UKingdom::UKingdom() : HasMoneyAndFood(), m_n_kingdom_id( 0 ), m_s_name( "" ), m_b_own_by_player( false )
 {
     UKingdom::LoadResource();
     this->m_texture_logo = UKingdom::defKingdomLogo;

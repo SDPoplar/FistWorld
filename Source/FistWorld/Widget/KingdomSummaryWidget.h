@@ -32,6 +32,12 @@ public:
     UFUNCTION( BlueprintCallable )
     void BindTaskShower( class UTextBlock* taskShower );
 
+    UFUNCTION( BlueprintCallable )
+    FText GetPlayerTownNum() const noexcept;
+
+    UFUNCTION( BlueprintCallable )
+    FText GetPlayerWarriorNum() const noexcept;
+
 protected:
     UKingdom* m_o_kingdom;
 

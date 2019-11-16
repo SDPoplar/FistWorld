@@ -57,3 +57,19 @@ void UKingdomSummaryWidget::BindTaskShower( UTextBlock* taskShower )
 {
     this->m_o_task_shower = taskShower;
 }
+
+FText UKingdomSummaryWidget::GetPlayerTownNum() const noexcept
+{
+    auto gi = UFistWorldInstance::GetInstance( this );
+    char num[ 8 ];
+    sprintf_s( num, 8, "%d", gi ? gi->CountPlayerTown() : 0 );
+    return FText::FromString( num );
+}
+
+FText UKingdomSummaryWidget::GetPlayerWarriorNum() const noexcept
+{
+    auto gi = UFistWorldInstance::GetInstance( this );
+    char num[ 8 ];
+    sprintf_s( num, 8, "%d", gi ? gi->CountPlayerWarrior() : 0 );
+    return FText::FromString( num );
+}

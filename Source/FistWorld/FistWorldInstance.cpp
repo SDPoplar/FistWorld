@@ -184,3 +184,37 @@ TArray<UWarrior*>& UFistWorldInstance::GetWarriorList()
 {
     return this->m_warriors;
 }
+
+int UFistWorldInstance::CountPlayerTown() const noexcept
+{
+    if( !this->m_player_kingdom )
+    {
+        return 0;
+    }
+    int count = 0;
+    for( auto item : this->m_towns )
+    {
+        if( item->GetKingdomId() == this->m_player_kingdom->GetKingdomId() )
+        {
+            count++;
+        }
+    }
+    return count;
+}
+
+int UFistWorldInstance::CountPlayerWarrior() const noexcept
+{
+    if( !this->m_player_kingdom )
+    {
+        return 0;
+    }
+    int count = 0;
+    for( auto item : this->m_warriors )
+    {
+        if( item->GetBelongKingdom() == this->m_player_kingdom->GetKingdomId() )
+        {
+            count++;
+        }
+    }
+    return count;
+}

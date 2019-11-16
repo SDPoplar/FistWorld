@@ -6,7 +6,7 @@
 
 UDataTable* UTown::g_lib = nullptr;
 
-UTown::UTown() : m_n_town_id( 0 ), m_s_town_name( "" ), m_n_own_by_kingdom( 0 ), m_n_money( 0 ), m_n_food( 0 ), m_n_soldier_num( 0 )
+UTown::UTown() : HasMoneyAndFood(), m_n_town_id( 0 ), m_s_town_name( "" ), m_n_own_by_kingdom( 0 ), m_n_soldier_num( 0 )
 {
     if( !UTown::g_lib )
     {
@@ -71,44 +71,6 @@ bool UTown::OwnByKingdom() const noexcept
 int UTown::GetKingdomId() const noexcept
 {
     return this->m_n_own_by_kingdom;
-}
-
-void UTown::SetMoney( int money )
-{
-    this->m_n_money = money;
-}
-
-void UTown::IncreaseMoney( int money )
-{
-    this->m_n_money += money;
-    if( m_n_money < 0 )
-    {
-        this->m_n_money = 0;
-    }
-}
-
-int UTown::GetMoney( void ) const noexcept
-{
-    return this->m_n_money;
-}
-
-void UTown::SetFood( int food )
-{
-    this->m_n_food = food;
-}
-
-void UTown::IncreaseFood( int food )
-{
-    this->m_n_food += food;
-    if( this->m_n_food < 0 )
-    {
-        this->m_n_food = 0;
-    }
-}
-
-int UTown::GetFood( void ) const noexcept
-{
-    return this->m_n_food;
 }
 
 void UTown::SetSoldierNumber( int num )

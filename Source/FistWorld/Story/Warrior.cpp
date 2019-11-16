@@ -48,7 +48,6 @@ bool UWarrior::SetWarriorId( int id, bool load )
     this->m_s_name = data->name;
     this->m_n_strong = data->strong;
     this->m_n_intel = data->intel;
-    UE_LOG( LogTemp, Display, TEXT( "Warrior[ID:%d] loaded Strong: %d, Intel: %d" ), this->m_n_id, this->m_n_strong, this->m_n_intel );
     return true;
 }
 

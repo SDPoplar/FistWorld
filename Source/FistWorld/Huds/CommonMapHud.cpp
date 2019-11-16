@@ -37,12 +37,8 @@ UMessageBoxWidget* ACommonMapHud::GetMessageBox()
     {
         return nullptr;
     }
-    if( !this->m_widget_message /*|| !this->m_widget_message->IsValidLowLevelFast()*/ )
+    if( !this->m_widget_message )
     {
-        /*
-        TSubclassOf<UMessageBoxWidget> widgetClass = LoadClass<UMessageBoxWidget>( nullptr,
-            TEXT( "/Game/Levels/Res_lv_Common/Widget_Common_MessageBox.Widget_Common_MessageBox_C" ) );
-            */
         UWorld* world = this->GetWorld();
         if( !world )
         {

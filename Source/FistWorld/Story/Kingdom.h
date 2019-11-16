@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 #include "Engine/DataTable.h"
+#include "HasMoneyAndFood.h"
 #include "FistWorldSave.h"
 #include <map>
 #include "Kingdom.generated.h"
@@ -25,7 +26,7 @@ public:
     FString name;
 };
 
-class UKingdom
+class UKingdom : public HasMoneyAndFood
 {
 public:
     UKingdom();
