@@ -14,4 +14,10 @@ class FISTWORLD_API USysMenuWidget : public UPopupMenuWidget
 {
 	GENERATED_BODY()
 	
+public:
+    UFUNCTION( BlueprintCallable )
+    bool SaveCurrentGame();
+
+    UFUNCTION( BlueprintCallable )
+    bool NextRound();
 };

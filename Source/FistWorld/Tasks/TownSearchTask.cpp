@@ -4,6 +4,7 @@
 #include "Huds/CommonMapHud.h"
 #include "Controllers/WorldMapController.h"
 #include "Story/Town.h"
+#include "Story/Warrior.h"
 #include "Kismet/GameplayStatics.h"
 
 UTownSearchTask::UTownSearchTask( const FObjectInitializer& ObjectInitializer ) : UTownTask( ObjectInitializer )
@@ -34,6 +35,7 @@ bool UTownSearchTask::Excute()
     }
     hud->PopupAlert( "100 money found" );
     this->m_o_town->IncreaseMoney( 100 );
+    this->m_o_warrior->SetStatus( EWarriorStatus::WORKING );
     this->MarkAsFinished();
     return true;
 }
