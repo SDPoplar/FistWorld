@@ -20,7 +20,7 @@ bool UTownAgricultureDevelopTask::Excute()
     }
     this->m_o_town->GetAgricultureDevelopment().IncreaseCurrent( this->m_o_warrior->GetStrong() );
     this->m_o_warrior->SetStatus( EWarriorStatus::WORKING );
-    this->RemoveFromRoot();
+    this->MarkAsFinished();
     return true;
 }
 

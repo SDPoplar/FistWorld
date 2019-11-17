@@ -16,6 +16,6 @@ bool UTownBusinessDevelopTask::Excute()
 {
     this->m_o_town->GetBusinessDevelopment().IncreaseCurrent( this->m_o_warrior->GetIntel() );
     this->m_o_warrior->SetStatus( EWarriorStatus::WORKING );
-    this->RemoveFromRoot();
+    this->MarkAsFinished();
     return true;
 }

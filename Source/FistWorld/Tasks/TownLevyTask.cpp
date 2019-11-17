@@ -32,6 +32,6 @@ bool UTownLevyTask::Excute()
     kingdom->IncreaseFood( this->GetFood() );
     kingdom->IncreaseMoney( this->GetMoney() );
     this->m_o_warrior->SetStatus( EWarriorStatus::WORKING );
-    this->RemoveFromRoot();
+    this->MarkAsFinished();
     return true;
 }

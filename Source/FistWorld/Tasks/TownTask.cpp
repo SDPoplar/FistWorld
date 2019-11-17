@@ -20,5 +20,5 @@ UTownTask::~UTownTask()
 bool UTownTask::SetTargetWarrior( UWarrior* warrior )
 {
     this->m_o_warrior = warrior;
-    return true;
+    return !!warrior;
 }

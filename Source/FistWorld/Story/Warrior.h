@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 #include "Engine/DataTable.h"
+#include "HasSoldier.h"
 #include "Warrior.generated.h"
 
 UENUM( BlueprintType )
@@ -36,7 +37,7 @@ public:
     int intel;
 };
 
-class UWarrior
+class UWarrior : public HasSoldier
 {
 public:
     UWarrior();
@@ -61,8 +62,6 @@ public:
     virtual int GetWarriorLevel() const noexcept;
     void SetWarriorExp( int exp );
     virtual int GetWarriorExp() const noexcept;
-    void SetSoldierNumber( int num );
-    virtual int GetSoldierNumber() const noexcept;
 
 protected:
     int m_n_id;
@@ -74,7 +73,6 @@ protected:
     EWarriorStatus m_e_status;
     int m_n_level;
     int m_n_exp;
-    int m_n_soldier_num;
 
 private:
     static UDataTable* g_lib;

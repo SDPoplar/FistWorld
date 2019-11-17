@@ -67,8 +67,8 @@ FText UShowTownWidget::GetFoodString( void ) const
     {
         return FText::FromString( "-" );
     }
-    char str[ 8 ];
-    sprintf_s( str, 8, "%d", this->m_town->GetFood() );
+    char str[ 12 ];
+    sprintf_s( str, 12, "%d", this->m_town->GetFood() );
     return FText::FromString( str );
 }
 
@@ -78,7 +78,18 @@ FText UShowTownWidget::GetMoneyString( void ) const
     {
         return FText::FromString( "-" );
     }
-    char str[ 8 ];
-    sprintf_s( str, 8, "%d", this->m_town->GetMoney() );
+    char str[ 12 ];
+    sprintf_s( str, 12, "%d", this->m_town->GetMoney() );
+    return FText::FromString( str );
+}
+
+FText UShowTownWidget::GetSoldierNumString( void ) const
+{
+    if( !this->m_town )
+    {
+        return FText::FromString( "-" );
+    }
+    char str[ 12 ];
+    sprintf_s( str, 12, "%d", this->m_town->GetSoldierNumber() );
     return FText::FromString( str );
 }

@@ -6,6 +6,7 @@
 #include "UObject/NoExportTypes.h"
 #include "Engine/DataTable.h"
 #include "HasMoneyAndFood.h"
+#include "HasSoldier.h"
 #include "Town.generated.h"
 
 USTRUCT( BlueprintType )
@@ -46,7 +47,7 @@ protected:
     int* m_p_saver;
 };
 
-class UTown : public HasMoneyAndFood
+class UTown : public HasMoneyAndFood, public HasSoldier
 {
 public:
     UTown();
@@ -58,8 +59,6 @@ public:
     virtual bool OwnByKingdom() const noexcept;
     virtual int GetKingdomId() const noexcept;
     void SetOwnerKingdom( int kingdomId );
-    void SetSoldierNumber( int num );
-    virtual int GetSoldierNumber() const noexcept;
 
     DevelopableProperty& GetBusinessDevelopment();
     DevelopableProperty& GetAgricultureDevelopment();
@@ -68,7 +67,6 @@ protected:
     int m_n_town_id;
     FString m_s_town_name;
     int m_n_own_by_kingdom;
-    int m_n_soldier_num;
     DevelopableProperty m_o_business, m_o_agriculture;
 
 private:

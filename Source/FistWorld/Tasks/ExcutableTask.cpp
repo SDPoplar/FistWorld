@@ -26,19 +26,29 @@ FString UExcutableTask::GetStepDescribe() const
     switch( this->m_e_step )
     {
     case ETaskStep::CREATING:
-        desc = TEXT( "正在创建" );
+        desc = TCHAR_TO_UTF8( TEXT( "正在创建" ) );
         break;
     case ETaskStep::CHOOSING_TARGET_TOWN:
-        desc = TEXT( "选择目标城镇" );
+        desc = TCHAR_TO_UTF8( TEXT( "选择目标城镇" ) );
         break;
     case ETaskStep::CHOOSING_TARGET_WARRIOR:
-        desc = TEXT( "选择一名勇士" );
+        desc = TCHAR_TO_UTF8( TEXT( "选择一名勇士" ) );
         break;
     case ETaskStep::SETTING_TRANSPORT_VOLUME:
-        desc = TCHAR_TO_UTF8( "设置输送的资源" );
+        desc = TCHAR_TO_UTF8( TEXT( "设置输送的资源" ) );
         break;
+    case ETaskStep::SETTING_SOLDIER_NUMBER:
+        desc = TCHAR_TO_UTF8( TEXT( "设置士兵数量" ) );
+        break;
+    case ETaskStep::FINISHED:
+        desc = "Finished";
     }
     return desc;
+}
+
+void UExcutableTask::MarkAsFinished() noexcept
+{
+    this->m_e_step = ETaskStep::FINISHED;
 }
 
 ETaskStep UExcutableTask::GetStep() const noexcept

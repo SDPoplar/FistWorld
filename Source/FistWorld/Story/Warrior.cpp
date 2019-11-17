@@ -5,8 +5,8 @@
 
 UDataTable* UWarrior::g_lib = nullptr;
 
-UWarrior::UWarrior() : m_n_id( 0 ), m_s_name( "" ), m_n_strong( 0 ), m_n_intel( 0 ), m_n_kingdom( 0 ), m_n_in_town( 0 ),
-    m_e_status( EWarriorStatus::NORMAL ), m_n_level( 0 ), m_n_exp( 0 ), m_n_soldier_num( 0 )
+UWarrior::UWarrior() : HasSoldier(), m_n_id( 0 ), m_s_name( "" ), m_n_strong( 0 ), m_n_intel( 0 ), m_n_kingdom( 0 ), m_n_in_town( 0 ),
+    m_e_status( EWarriorStatus::NORMAL ), m_n_level( 0 ), m_n_exp( 0 )
 {
     if( !UWarrior::g_lib )
     {
@@ -126,16 +126,6 @@ int UWarrior::GetWarriorExp() const noexcept
     return this->m_n_exp;
 }
 
-void UWarrior::SetSoldierNumber( int num )
-{
-    this->m_n_soldier_num = num;
-}
-
-int UWarrior::GetSoldierNumber() const noexcept
-{
-    return this->m_n_soldier_num;
-}
-
 int UWarriorIns::GetWarriorId() const noexcept
 {
     return UWarrior::GetWarriorId();
@@ -195,6 +185,8 @@ UWarriorIns& UWarriorIns::operator=( const UWarrior* obj )
     this->m_e_status = obj->GetStatus();
     this->m_n_level = obj->GetWarriorLevel();
     this->m_n_exp = obj->GetWarriorExp();
+    this->m_n_strong = obj->GetStrong();
+    this->m_n_intel = obj->GetIntel();
     this->m_n_soldier_num = obj->GetSoldierNumber();
     return *this;
 }

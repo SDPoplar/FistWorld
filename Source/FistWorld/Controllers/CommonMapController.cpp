@@ -44,14 +44,25 @@ bool ACommonMapController::CancelCreatingTask()
 
 bool ACommonMapController::HasTask() const noexcept
 {
-    return this->m_o_task && this->m_o_task->IsValidLowLevelFast();
+    return this->m_o_task && this->m_o_task->IsValidLowLevelFast() && ( this->m_o_task->GetStep() != ETaskStep::FINISHED );
 }
 
 bool ACommonMapController::OverrideTask( UExcutableTask* task )
 {
     this->CancelCreatingTask();
+    this->ReleaseFinishedTask();
     this->m_o_task = task;
     return true;
+}
+
+void ACommonMapController::ReleaseFinishedTask()
+{
+    if( !this->m_o_task || !this->m_o_task->IsValidLowLevelFast() || (this->m_o_task->GetStep() != ETaskStep::FINISHED) )
+    {
+        return;
+    }
+    this->m_o_task->RemoveFromRoot();
+    this->m_o_task = nullptr;
 }
 
 UExcutableTask* ACommonMapController::GetTask() const noexcept

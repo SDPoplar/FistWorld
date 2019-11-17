@@ -36,5 +36,8 @@ public:
     UFUNCTION( BlueprintCallable )
     bool CanSubsidy() const noexcept;
 
+    UFUNCTION( BlueprintCallable )
+    bool CreateAssignSoldierTask();
+
     bool CreateTownTask( class UTownTask* ( taskMaker )(UObject*) );
 };

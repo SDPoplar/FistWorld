@@ -8,6 +8,7 @@
 #include "Tasks/TownLevyTask.h"
 #include "Tasks/TownSubsidyTask.h"
 #include "Tasks/TownConscriptTask.h"
+#include "Tasks/TownAssignSoldierTask.h"
 #include "Kismet/GameplayStatics.h"
 #include "Controllers/WorldMapController.h"
 #include "Huds/WorldMapHud.h"
@@ -44,6 +45,11 @@ bool UShowPlayerTownWidget::CreateTownSubsidyTask()
 bool UShowPlayerTownWidget::CreateTownConscriptTask()
 {
     return this->CreateTownTask( []( UObject* outer )->UTownTask* { return NewObject<UTownConscriptTask>( outer ); } );
+}
+
+bool UShowPlayerTownWidget::CreateAssignSoldierTask()
+{
+    return this->CreateTownTask( []( UObject* outer )->UTownTask* { return NewObject<UTownAssignSoldierTask>( outer ); } );
 }
 
 bool UShowPlayerTownWidget::CreateTownTask( UTownTask*( taskmaker )( UObject* ) )

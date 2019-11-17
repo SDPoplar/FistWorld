@@ -6,6 +6,7 @@ void UMessageBoxWidget::SetDisplayContent( EMessageUseIcon type, FString content
 {
     this->m_e_type = type;
     this->m_s_content = content;
+    this->m_display_time = time( nullptr );
 }
 
 FString UMessageBoxWidget::GetContent() const noexcept
@@ -20,6 +21,8 @@ EMessageUseIcon UMessageBoxWidget::GetType() const noexcept
 
 void UMessageBoxWidget::CheckLifetime()
 {
-    //  TODO: quit when lifetime finish
-    //  this->Quit();
+    if( time( nullptr ) - this->m_display_time > this->lifeTime )
+    {
+        this->Quit();
+    }
 }

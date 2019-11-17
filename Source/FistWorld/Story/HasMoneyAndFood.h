@@ -21,6 +21,6 @@ public:
     virtual int GetFood() const noexcept;
 
 protected:
-    int m_n_money;
     int m_n_food;
+    int m_n_money;
 };

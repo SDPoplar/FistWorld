@@ -19,6 +19,7 @@ public:
     void ShowTownInfo( class UTown* town );
     class USingleWarriorSelectWidget* PopupSingleWarriorSelector();
     bool PopupTransportVolumeSetter( int maxFood, int maxMoney );
+    bool PopupSoldierNumSetter( int max );
 
 protected:
     void PopupPlayerTownWidget( class UTown* town );
@@ -29,6 +30,7 @@ protected:
     class UShowTownWidget* GetHostileTownWidget();
 
     class USingleWarriorSelectWidget* GetSingleWarriorSelectWidget();
+    class USoldierNumWidget* GetSoldierNumWidget();
 
     virtual void BeginPlay() override;
     void LoadTopSummaryWidget();
@@ -44,4 +46,7 @@ protected:
 
     TSubclassOf<class USingleWarriorSelectWidget> singlewarriorClass;
     class USingleWarriorSelectWidget* m_widget_single_warrior_select;
+
+    TSubclassOf<class USoldierNumWidget> soldiernumClass;
+    class USoldierNumWidget* m_widget_soldier_num;
 };

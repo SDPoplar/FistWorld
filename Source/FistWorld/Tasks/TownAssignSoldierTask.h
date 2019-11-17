@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "Tasks/TownSoldierNumTask.h"
-#include "TownConscriptTask.generated.h"
+#include "TownAssignSoldierTask.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class FISTWORLD_API UTownConscriptTask : public UTownSoldierNumTask
+class FISTWORLD_API UTownAssignSoldierTask : public UTownSoldierNumTask
 {
 	GENERATED_BODY()
 public:

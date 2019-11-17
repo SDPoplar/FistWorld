@@ -6,6 +6,7 @@
 #include "Widget/ShowTownWidget.h"
 #include "Widget/SingleWarriorSelectWidget.h"
 #include "Widget/TownTransportVolumeWidget.h"
+#include "Widget/SoldierNumWidget.h"
 #include "UObject/ConstructorHelpers.h"
 #include "FistWorldInstance.h"
 #include "FistWorldInstance.h"
@@ -14,7 +15,8 @@
 
 AWorldMapHud::AWorldMapHud() : ACommonMapHud()
 {
-    //  Super();
+    static ConstructorHelpers::FClassFinder<USysMenuWidget> sysmenufinder( TEXT( "/Game/Levels/Res_lv_World/Widget_World_SysMenu" ) );
+    sysmenuClass = sysmenufinder.Succeeded() ? sysmenufinder.Class : nullptr;
     static ConstructorHelpers::FClassFinder<UKingdomSummaryWidget> topsummary( TEXT( "/Game/Levels/Res_lv_World/Widget_World_StaticShower" ) );
     topsummaryClass = topsummary.Succeeded() ? topsummary.Class : nullptr;
     static ConstructorHelpers::FClassFinder<UShowTownWidget> playertownwidget( TEXT( "/Game/Levels/Res_lv_World/Widget_World_PlayerTown" ) );
@@ -25,6 +27,8 @@ AWorldMapHud::AWorldMapHud() : ACommonMapHud()
     singlewarriorClass = singlewarriorwidget.Succeeded() ? singlewarriorwidget.Class : nullptr;
     static ConstructorHelpers::FClassFinder<UTownTransportVolumeWidget> transvolumewidget( TEXT( "/Game/Levels/Res_lv_World/Widget_World_TransportVolume" ) );
     transvolumeClass = transvolumewidget.Succeeded() ? transvolumewidget.Class : nullptr;
+    static ConstructorHelpers::FClassFinder<USoldierNumWidget> soldiernumwidget( TEXT( "/Game/Levels/Res_lv_World/Widget_World_SoldierNumber" ) );
+    soldiernumClass = soldiernumwidget.Succeeded() ? soldiernumwidget.Class : nullptr;
 }
 
 void AWorldMapHud::BeginPlay()
@@ -117,6 +121,17 @@ USingleWarriorSelectWidget* AWorldMapHud::GetSingleWarriorSelectWidget()
     return this->m_widget_single_warrior_select;
 }
 
+USoldierNumWidget* AWorldMapHud::GetSoldierNumWidget()
+{
+    if( !this->m_widget_soldier_num && this->soldiernumClass )
+    {
+        UWorld* world = this->GetWorld();
+        this->m_widget_soldier_num = Cast<USoldierNumWidget>(
+            UUserWidget::CreateWidgetInstance( *world, this->soldiernumClass, "Soldier num setter" ) );
+    }
+    return this->m_widget_soldier_num;
+}
+
 USingleWarriorSelectWidget* AWorldMapHud::PopupSingleWarriorSelector()
 {
     auto widget = this->GetSingleWarriorSelectWidget();
@@ -136,6 +151,18 @@ bool AWorldMapHud::PopupTransportVolumeSetter( int maxFood, int maxMoney )
     }
     this->PopupWidget( widget );
     widget->SetMax( maxFood, maxMoney );
+    return true;
+}
+
+bool AWorldMapHud::PopupSoldierNumSetter( int max )
+{
+    auto widget = this->GetSoldierNumWidget();
+    if( !widget )
+    {
+        return false;
+    }
+    this->PopupWidget( widget );
+    widget->SetMax( max );
     return true;
 }
 

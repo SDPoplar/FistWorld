@@ -34,6 +34,6 @@ bool UTownSubsidyTask::Excute()
     this->m_o_town->IncreaseFood( this->GetFood() );
     this->m_o_town->IncreaseMoney( this->GetMoney() );
     this->m_o_warrior->SetStatus( EWarriorStatus::WORKING );
-    this->RemoveFromRoot();
+    this->MarkAsFinished();
     return true;
 }

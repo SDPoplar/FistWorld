@@ -41,6 +41,9 @@ public:
     UFUNCTION( BlueprintCallable )
     FText GetMoneyString() const;
 
+    UFUNCTION( BlueprintCallable )
+    FText GetSoldierNumString() const;
+
 protected:
 
     class UTown* m_town;

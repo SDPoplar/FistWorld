@@ -34,5 +34,6 @@ bool UTownSearchTask::Excute()
     }
     hud->PopupAlert( "100 money found" );
     this->m_o_town->IncreaseMoney( 100 );
+    this->MarkAsFinished();
     return true;
 }

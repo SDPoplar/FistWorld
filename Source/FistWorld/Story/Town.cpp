@@ -3,10 +3,11 @@
 #include "Town.h"
 #include "UObject/ConstructorHelpers.h"
 #include "FistWorldInstance.h"
+#include "RandomMaker.h"
 
 UDataTable* UTown::g_lib = nullptr;
 
-UTown::UTown() : HasMoneyAndFood(), m_n_town_id( 0 ), m_s_town_name( "" ), m_n_own_by_kingdom( 0 ), m_n_soldier_num( 0 )
+UTown::UTown() : HasMoneyAndFood(), HasSoldier(), m_n_town_id( 0 ), m_s_town_name( "" ), m_n_own_by_kingdom( 0 )
 {
     if( !UTown::g_lib )
     {
@@ -71,16 +72,6 @@ bool UTown::OwnByKingdom() const noexcept
 int UTown::GetKingdomId() const noexcept
 {
     return this->m_n_own_by_kingdom;
-}
-
-void UTown::SetSoldierNumber( int num )
-{
-    this->m_n_soldier_num = num;
-}
-
-int UTown::GetSoldierNumber( void ) const noexcept
-{
-    return this->m_n_soldier_num;
 }
 
 int UTownIns::GetTownId() const noexcept
@@ -183,10 +174,7 @@ void DevelopableProperty::SetCurrent( int current )
 void DevelopableProperty::IncreaseCurrent( int volume )
 {
     int range = volume / 3;
-    FRandomStream rnd;
-    auto delta = rnd.RandRange( volume - range, volume + range );
-    //  TODO: fix random
-    this->SetCurrent( this->m_n_current + delta );
+    this->SetCurrent( this->m_n_current + RandomMaker::IntRange( volume - range, volume + range ) );
 }
 
 FString DevelopableProperty::ToString() const

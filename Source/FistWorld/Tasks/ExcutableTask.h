@@ -12,7 +12,9 @@ enum class ETaskStep : uint8
     CREATING,
     CHOOSING_TARGET_TOWN,
     CHOOSING_TARGET_WARRIOR,
-    SETTING_TRANSPORT_VOLUME
+    SETTING_TRANSPORT_VOLUME,
+    SETTING_SOLDIER_NUMBER,
+    FINISHED
 };
 
 /**
@@ -34,6 +36,7 @@ public:
     virtual FString GetStepDescribe() const;
     FString GetLastError() const;
     ETaskStep GetStep() const noexcept;
+    void MarkAsFinished() noexcept;
 
 protected:
     ETaskStep m_e_step;

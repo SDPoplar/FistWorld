@@ -9,12 +9,8 @@
 ACommonMapHud::ACommonMapHud( const FObjectInitializer& ObjectInitializer ) : AHUD( ObjectInitializer ),
     m_widget_sysmenu( nullptr ), m_widget_message( nullptr )
 {
-    static ConstructorHelpers::FClassFinder<USysMenuWidget> sysmenufinder( TEXT( "/Game/Levels/Res_lv_World/Widget_World_SysMenu" ) );
-    sysmenuClass = sysmenufinder.Succeeded() ? sysmenufinder.Class : nullptr;
-    check( sysmenuClass && "Failed to load sysmenuClass" );
     static ConstructorHelpers::FClassFinder<UMessageBoxWidget> msgboxwidget( TEXT( "/Game/Levels/Res_lv_Common/Widget_Common_MessageBox" ) );
     msgboxClass = msgboxwidget.Succeeded() ? msgboxwidget.Class : nullptr;
-    check( msgboxClass && "Messagebox class not found" );
 }
 
 USysMenuWidget* ACommonMapHud::GetSysMenu()

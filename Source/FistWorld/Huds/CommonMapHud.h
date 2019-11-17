@@ -30,8 +30,8 @@ public:
 protected:
     class UMessageBoxWidget* GetMessageBox();
 
-private:
     TSubclassOf<class USysMenuWidget> sysmenuClass;
+private:
     TSubclassOf<UMessageBoxWidget> msgboxClass;
     class USysMenuWidget* m_widget_sysmenu;
     UMessageBoxWidget* m_widget_message;

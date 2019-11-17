@@ -26,6 +26,7 @@ public:
 protected:
     void BeginPlay() override;
     void SetupInputComponent() override;
+    void ReleaseFinishedTask();
 
     class UExcutableTask* m_o_task;
 };
