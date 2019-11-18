@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Tasks/TownTask.h"
+#include "Tasks/SingleWarriorTownTask.h"
 #include "TownSearchTask.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class FISTWORLD_API UTownSearchTask : public UTownTask
+class FISTWORLD_API UTownSearchTask : public USingleWarriorTownTask
 {
 	GENERATED_BODY()
 

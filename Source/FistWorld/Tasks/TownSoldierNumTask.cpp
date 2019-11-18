@@ -5,7 +5,7 @@
 
 bool UTownSoldierNumTask::SetTargetWarrior( UWarrior* warrior )
 {
-    if( !UTownTask::SetTargetWarrior( warrior ) )
+    if( !USingleWarriorTownTask::SetTargetWarrior( warrior ) )
     {
         return false;
     }

@@ -4,12 +4,12 @@
 #include "Story/Town.h"
 #include "Story/Warrior.h"
 
-UTownAgricultureDevelopTask::UTownAgricultureDevelopTask() : UTownTask()
+UTownAgricultureDevelopTask::UTownAgricultureDevelopTask() : USingleWarriorTownTask()
 {}
 
 bool UTownAgricultureDevelopTask::SetTargetWarrior( UWarrior* warrior )
 {
-    return UTownTask::SetTargetWarrior( warrior ) && this->Excute();
+    return USingleWarriorTownTask::SetTargetWarrior( warrior ) && this->Excute();
 }
 
 bool UTownAgricultureDevelopTask::Excute()

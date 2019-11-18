@@ -9,13 +9,13 @@
 #include "Tasks/TownSubsidyTask.h"
 #include "Tasks/TownConscriptTask.h"
 #include "Tasks/TownAssignSoldierTask.h"
-#include "Kismet/GameplayStatics.h"
 #include "Controllers/WorldMapController.h"
 #include "Huds/WorldMapHud.h"
 #include "Widget/SingleWarriorSelectWidget.h"
 #include "FistWorldInstance.h"
-#include "Story/Town.h"
+#include "Level/TownActor.h"
 #include "Story/Kingdom.h"
+#include "Story/Town.h"
 
 bool UShowPlayerTownWidget::CreateBusinessDevelopTask()
 {
@@ -80,7 +80,7 @@ bool UShowPlayerTownWidget::CreateTownTask( UTownTask*( taskmaker )( UObject* ) 
     {
         return false;
     }
-    widget->LoadListByTown( this->m_town->GetTownId(), false );
+    widget->LoadListByTown( this->m_town->GetTown()->GetTownId(), false );
     return true;
 }
 

@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Tasks/TownTask.h"
+#include "Tasks/SingleWarriorTownTask.h"
 #include "Story/HasSoldier.h"
 #include "TownSoldierNumTask.generated.h"
 
@@ -11,7 +11,7 @@
  * 
  */
 UCLASS()
-class FISTWORLD_API UTownSoldierNumTask : public UTownTask, public HasSoldier
+class FISTWORLD_API UTownSoldierNumTask : public USingleWarriorTownTask, public HasSoldier
 {
 	GENERATED_BODY()
 

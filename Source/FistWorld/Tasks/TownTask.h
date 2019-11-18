@@ -17,10 +17,9 @@ public:
 	UTownTask( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get() );
 	virtual ~UTownTask();
 
-    void SetBaseTown( class UTown* town );
-    virtual bool SetTargetWarrior( class UWarrior* warrior );
+    void SetBaseTown( class ATownActor* town );
 
 protected:
+    class ATownActor* m_o_actor;
     class UTown* m_o_town;
-    class UWarrior* m_o_warrior;
 };

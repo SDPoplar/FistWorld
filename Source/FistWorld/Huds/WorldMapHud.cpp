@@ -54,13 +54,13 @@ void AWorldMapHud::LoadTopSummaryWidget()
     this->m_kingdom_summary_widget->AddToViewport();
 }
 
-void AWorldMapHud::ShowTownInfo( UTown* town )
+void AWorldMapHud::ShowTownInfo( ATownActor* town )
 {
     if( !town )
     {
         return;
     }
-    if( town->OwnByPlayer( this ) )
+    if( town->GetTown()->OwnByPlayer( this ) )
     {
         this->PopupPlayerTownWidget( town );
     }
@@ -70,7 +70,7 @@ void AWorldMapHud::ShowTownInfo( UTown* town )
     }
 }
 
-void AWorldMapHud::PopupPlayerTownWidget( UTown* town )
+void AWorldMapHud::PopupPlayerTownWidget( ATownActor* town )
 {
     auto widget = this->GetPlayerTownWidget();
     if( !widget )
@@ -81,7 +81,7 @@ void AWorldMapHud::PopupPlayerTownWidget( UTown* town )
     widget->SetTown( town );
 }
 
-void AWorldMapHud::PopupHostileTownWidget( UTown* town )
+void AWorldMapHud::PopupHostileTownWidget( ATownActor* town )
 {
     auto widget = this->GetHostileTownWidget();
     if( !widget )

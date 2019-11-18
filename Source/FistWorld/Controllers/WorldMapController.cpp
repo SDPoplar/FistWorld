@@ -6,7 +6,7 @@
 #include "Level/TownActor.h"
 #include "Huds/WorldMapHud.h"
 #include "Tasks/ExcutableTask.h"
-#include "Tasks/TownTask.h"
+#include "Tasks/SingleWarriorTownTask.h"
 #include "Story/Warrior.h"
 
 void AWorldMapController::BeginPlay()
@@ -49,7 +49,7 @@ bool AWorldMapController::SetTaskSelectingWarrior( UWarriorIns* warriorIns )
 {
     auto gi = UFistWorldInstance::GetInstance( this );
     auto warrior = gi ? gi->FindWarrior( warriorIns->GetWarriorId() ) : nullptr;
-    auto task = warrior ? Cast<UTownTask>( this->m_o_task ) : nullptr;
+    auto task = warrior ? Cast<USingleWarriorTownTask>( this->m_o_task ) : nullptr;
     return task && task->SetTargetWarrior( warrior );
 }
 

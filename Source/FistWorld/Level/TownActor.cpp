@@ -73,7 +73,7 @@ void ATownActor::SelectByPlayer()
     auto hud = pc->GetWorldMapHud();
     if( hud )
     {
-        hud->ShowTownInfo( this->GetTown() );
+        hud->ShowTownInfo( this );
     }
 }
 

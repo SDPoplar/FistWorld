@@ -7,12 +7,12 @@
 #include "Story/Warrior.h"
 #include "Kismet/GameplayStatics.h"
 
-UTownSearchTask::UTownSearchTask( const FObjectInitializer& ObjectInitializer ) : UTownTask( ObjectInitializer )
+UTownSearchTask::UTownSearchTask( const FObjectInitializer& ObjectInitializer ) : USingleWarriorTownTask( ObjectInitializer )
 {}
 
 bool UTownSearchTask::SetTargetWarrior( UWarrior* warrior )
 {
-    return UTownTask::SetTargetWarrior( warrior ) && this->Excute();
+    return USingleWarriorTownTask::SetTargetWarrior( warrior ) && this->Excute();
 }
 
 bool UTownSearchTask::Excute()
