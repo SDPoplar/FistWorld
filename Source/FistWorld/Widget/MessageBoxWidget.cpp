@@ -2,6 +2,9 @@
 
 #include "MessageBoxWidget.h"
 
+UMessageBoxWidget::UMessageBoxWidget( const FObjectInitializer& ObjectInitializer ) : UPopupWidget( ObjectInitializer )
+{}
+
 void UMessageBoxWidget::SetDisplayContent( EMessageUseIcon type, FString content )
 {
     this->m_e_type = type;

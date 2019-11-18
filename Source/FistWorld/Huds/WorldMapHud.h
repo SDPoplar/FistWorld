@@ -20,6 +20,7 @@ public:
     class USingleWarriorSelectWidget* PopupSingleWarriorSelector();
     bool PopupTransportVolumeSetter( int maxFood, int maxMoney );
     bool PopupSoldierNumSetter( int max );
+    bool PopupConfirmBackWidget();
 
 protected:
     void PopupPlayerTownWidget( class UTown* town );
@@ -31,6 +32,7 @@ protected:
 
     class USingleWarriorSelectWidget* GetSingleWarriorSelectWidget();
     class USoldierNumWidget* GetSoldierNumWidget();
+    class UConfirmBackWidget* GetConfirmBackWidget();
 
     virtual void BeginPlay() override;
     void LoadTopSummaryWidget();
@@ -49,4 +51,7 @@ protected:
 
     TSubclassOf<class USoldierNumWidget> soldiernumClass;
     class USoldierNumWidget* m_widget_soldier_num;
+
+    TSubclassOf<class UConfirmBackWidget> confirmbackClass;
+    class UConfirmBackWidget* m_widget_confirm_back;
 };

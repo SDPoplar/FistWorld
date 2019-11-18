@@ -20,4 +20,7 @@ public:
 
     UFUNCTION( BlueprintCallable )
     bool NextRound();
+
+    UFUNCTION( BlueprintCallable )
+    void ConfirmBack();
 };

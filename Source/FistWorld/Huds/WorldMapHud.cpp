@@ -7,6 +7,7 @@
 #include "Widget/SingleWarriorSelectWidget.h"
 #include "Widget/TownTransportVolumeWidget.h"
 #include "Widget/SoldierNumWidget.h"
+#include "Widget/ConfirmBackWidget.h"
 #include "UObject/ConstructorHelpers.h"
 #include "FistWorldInstance.h"
 #include "FistWorldInstance.h"
@@ -14,7 +15,7 @@
 #include "Story/Town.h"
 
 AWorldMapHud::AWorldMapHud() : ACommonMapHud(), m_widget_town_player( nullptr ), m_widget_town_hostile( nullptr ),
-    m_widget_transport( nullptr ), m_widget_single_warrior_select( nullptr ), m_widget_soldier_num( nullptr )
+    m_widget_transport( nullptr ), m_widget_single_warrior_select( nullptr ), m_widget_soldier_num( nullptr ), m_widget_confirm_back( nullptr )
 {
     static ConstructorHelpers::FClassFinder<USysMenuWidget> sysmenufinder( TEXT( "/Game/Levels/Res_lv_World/Widget_World_SysMenu" ) );
     sysmenuClass = sysmenufinder.Succeeded() ? sysmenufinder.Class : nullptr;
@@ -30,6 +31,8 @@ AWorldMapHud::AWorldMapHud() : ACommonMapHud(), m_widget_town_player( nullptr ),
     transvolumeClass = transvolumewidget.Succeeded() ? transvolumewidget.Class : nullptr;
     static ConstructorHelpers::FClassFinder<USoldierNumWidget> soldiernumwidget( TEXT( "/Game/Levels/Res_lv_World/Widget_World_SoldierNumber" ) );
     soldiernumClass = soldiernumwidget.Succeeded() ? soldiernumwidget.Class : nullptr;
+    static ConstructorHelpers::FClassFinder<UConfirmBackWidget> confirmback( TEXT( "/Game/Levels/Res_lv_World/Widget_World_ConfirmBack" ) );
+    confirmbackClass = confirmback.Succeeded() ? confirmback.Class : nullptr;
 }
 
 void AWorldMapHud::BeginPlay()
@@ -149,6 +152,18 @@ UTownTransportVolumeWidget* AWorldMapHud::GetTransportVolumeWidget()
     return this->m_widget_transport;
 }
 
+UConfirmBackWidget* AWorldMapHud::GetConfirmBackWidget()
+{
+    if( !this->m_widget_confirm_back && this->confirmbackClass )
+    {
+        UWorld* world = this->GetWorld();
+        this->m_widget_confirm_back = Cast<UConfirmBackWidget>(
+            UUserWidget::CreateWidgetInstance( *world, this->confirmbackClass, "Confirm back" ) );
+        this->m_widget_confirm_back->AddToViewport( 101 );
+    }
+    return this->m_widget_confirm_back;
+}
+
 USingleWarriorSelectWidget* AWorldMapHud::PopupSingleWarriorSelector()
 {
     auto widget = this->GetSingleWarriorSelectWidget();
@@ -180,5 +195,16 @@ bool AWorldMapHud::PopupSoldierNumSetter( int max )
     }
     this->PopupWidget( widget );
     widget->SetMax( max );
+    return true;
+}
+
+bool AWorldMapHud::PopupConfirmBackWidget()
+{
+    auto widget = this->GetConfirmBackWidget();
+    if( !widget )
+    {
+        return false;
+    }
+    this->PopupWidget( widget );
     return true;
 }

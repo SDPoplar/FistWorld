@@ -18,7 +18,7 @@ class FISTWORLD_API UMainMenu : public UUserWidget
 	GENERATED_BODY()
 	
 public:
-    //UMainMenu( const FObjectInitializer& ObjectInitializer );
+    UMainMenu( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get() );
 
     UFUNCTION( BlueprintCallable )
     bool HasGame() const;
@@ -40,8 +40,9 @@ public:
 
     void StartExistsGame();
 protected:
+    TSubclassOf<UCreateGameWidget> creategameClass;
+    TSubclassOf<UPopupMenuWidget> aboutwidgetClass, optionwidgetClass;
         
-    UPopupMenuWidget* CreatePopupMenu( TSubclassOf<UPopupMenuWidget> className, FName name );
     UPopupMenuWidget *aboutWidget, *optionWidget;
     UCreateGameWidget* createGameWidget;
 };

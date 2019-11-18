@@ -36,3 +36,10 @@ bool USysMenuWidget::NextRound()
     this->Quit();
     return true;
 }
+
+void USysMenuWidget::ConfirmBack()
+{
+    auto pc = AWorldMapController::GetInstance( this );
+    auto hud = pc ? pc->GetWorldMapHud() : nullptr;
+    hud&& hud->PopupConfirmBackWidget();
+}

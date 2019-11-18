@@ -29,6 +29,9 @@ public:
     bool IsInShow() const noexcept;
 
 protected:
+    UPROPERTY( EditAnywhere )
+    ESlateVisibility popupVisibilily;
+
     //virtual TSubclassOf<UPopupWidget> GetInstanceClass() = 0;
     //virtual bool OverrideInputMode( bool &showMouseCursor );
     virtual bool OverrideShowMouseCursor( bool& showMouseCursor );

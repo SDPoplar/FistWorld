@@ -4,7 +4,8 @@
 #include "Kismet/GameplayStatics.h"
 #include "Controllers/ModeOverridableController.h"
 
-UPopupWidget::UPopupWidget( const FObjectInitializer& ObjectInitializer ) : UUserWidget( ObjectInitializer )
+UPopupWidget::UPopupWidget( const FObjectInitializer& ObjectInitializer ) : UUserWidget( ObjectInitializer ),
+    popupVisibilily( ESlateVisibility::Visible )
 {
     Visibility = ESlateVisibility::Collapsed;
 }
@@ -35,7 +36,7 @@ void UPopupWidget::Popup()
         UE_LOG( LogTemp, Display, TEXT( "Cancel display widget: %s" ), *( this->GetName() ) );
         return;
     }
-    this->SetVisibility( ESlateVisibility::Visible );
+    this->SetVisibility( this->popupVisibilily );
     UE_LOG( LogTemp, Display, TEXT( "Widget [%s] visibility setted" ), *( this->GetName() ) );
     this->RefreshData();
 

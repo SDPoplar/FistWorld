@@ -23,6 +23,8 @@ class FISTWORLD_API UMessageBoxWidget : public UPopupWidget
 	GENERATED_BODY()
 	
 public:
+    UMessageBoxWidget( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get() );
+
     void SetDisplayContent( EMessageUseIcon type, FString content );
 
     UFUNCTION( BlueprintCallable )

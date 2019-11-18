@@ -7,7 +7,18 @@
 #include "FistWorldInstance.h"
 #include "Widget/CreateGameWidget.h"
 //  #include "Widget/PopupMenuWidget.h"
-//  #include "UObject/ConstructorHelpers.h"
+#include "UObject/ConstructorHelpers.h"
+
+UMainMenu::UMainMenu( const FObjectInitializer& ObjectInitializer ) : UUserWidget( ObjectInitializer ),
+    aboutWidget( nullptr ), optionWidget( nullptr ), createGameWidget( nullptr )
+{
+    static ConstructorHelpers::FClassFinder<UCreateGameWidget> create( TEXT( "/Game/Levels/Res_lv_MainMenu/Widget_CreateGame" ) );
+    creategameClass = create.Succeeded() ? create.Class : nullptr;
+    static ConstructorHelpers::FClassFinder<UPopupMenuWidget> about( TEXT( "/Game/Levels/Res_lv_MainMenu/Widget_About" ) );
+    aboutwidgetClass = about.Succeeded() ? about.Class : nullptr;
+    static ConstructorHelpers::FClassFinder<UPopupMenuWidget> setting( TEXT( "/Game/Levels/Res_lv_MainMenu/Widget_Options" ) );
+    optionwidgetClass = setting.Succeeded() ? setting.Class : nullptr;
+}
 
 bool UMainMenu::HasGame( void ) const
 {
@@ -21,24 +32,16 @@ void UMainMenu::ExitGame()
 
 void UMainMenu::StartExistsGame()
 {
-    FString err;
-    auto gi = UFistWorldInstance::GetInstance( this );
-    auto browseResult = gi->GetEngine()->Browse( *( gi->GetWorldContext() ), TEXT( "LV_World" ), err );
-    if( browseResult != EBrowseReturnVal::Success )
-    {
-        UE_LOG( LogTemp, Error, TEXT( "Browse LV_World failed: %s" ), *err );
-    }
+    UGameplayStatics::OpenLevel( this, "LV_World" );
 }
 
 void UMainMenu::ShowAboutWidget()
 {
-    if( !this->aboutWidget )
+    if( !this->aboutWidget && this->aboutwidgetClass )
     {
-        TSubclassOf<UPopupMenuWidget> widgetClass = LoadClass<UPopupMenuWidget>( nullptr,
-            TEXT( "PopupMenuWidget'/Game/Levels/Res_lv_MainMenu/Widget_About.Widget_About_C'" ) );
-        check( widgetClass && "Cannot find Widget_About" );
-        this->aboutWidget = this->CreatePopupMenu( widgetClass, FName( "Copyright Widget" ) );
-        check( this->aboutWidget && "Failed to create widget_about" );
+        UWorld* world = this->GetWorld();
+        this->aboutWidget = Cast<UPopupMenuWidget>( UUserWidget::CreateWidgetInstance( *world, this->aboutwidgetClass, "About widget" ) );
+        this->aboutWidget->AddToViewport( 10 );
     }
     if( this->aboutWidget )
     {
@@ -50,11 +53,11 @@ void UMainMenu::ShowCreateGameWidget()
 {
     if( !this->createGameWidget )
     {
-        TSubclassOf<UCreateGameWidget> widgetClass = LoadClass<UCreateGameWidget>( nullptr,
-            TEXT( "CreateGameWidget'/Game/Levels/Res_lv_MainMenu/Widget_CreateGame.Widget_CreateGame_C'" ) );
-        this->createGameWidget = Cast<UCreateGameWidget>( this->CreatePopupMenu( widgetClass, FName( "Create game widget" ) ) );
+        UWorld* world = this->GetWorld();
+        this->createGameWidget = Cast<UCreateGameWidget>( UUserWidget::CreateWidgetInstance( *world, this->creategameClass, "Create game" ) );
         if( this->createGameWidget )
         {
+            this->createGameWidget->AddToViewport( 10 );
             this->createGameWidget->BindParent( this );
         }
     }
@@ -68,26 +71,14 @@ void UMainMenu::ShowOptionWidget()
 {
     if( !this->optionWidget )
     {
-        TSubclassOf<UPopupMenuWidget> widgetClass = LoadClass<UPopupMenuWidget>( nullptr,
-            TEXT( "PopupMenuWidget'/Game/Levels/Res_lv_MainMenu/Widget_Options.Widget_Options_C'" ) );
-        this->optionWidget = this->CreatePopupMenu( widgetClass, FName( "Options widget" ) );
+        UWorld* world = this->GetWorld();
+        this->optionWidget = Cast<UPopupMenuWidget>( UUserWidget::CreateWidgetInstance( *world, this->optionwidgetClass, "Options widget" ) );
+        this->optionWidget->AddToViewport( 10 );
     }
     if( this->optionWidget )
     {
         this->optionWidget->Popup();
     }
-}
-
-UPopupMenuWidget* UMainMenu::CreatePopupMenu( TSubclassOf<UPopupMenuWidget> cls, FName name )
-{
-    if( !cls )
-    {
-        return nullptr;
-    }
-    auto ps = UGameplayStatics::GetPlayerController( this, 0 );
-    auto widget = UMainMenu::CreateWidgetInstance( *ps, cls, name );
-    widget->AddToViewport( 10 );
-    return Cast<UPopupMenuWidget>( widget );
 }
 
 void UMainMenu::BtnContinueClicked( void )
