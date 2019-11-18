@@ -24,7 +24,7 @@ public:
     //  bool PopupDanger();
 
     bool PopupMessage( EMessageUseIcon type, FString content );
-    void PopupWidget( class UPopupWidget* widget, int zOrder = 0 );
+    void PopupWidget( class UPopupWidget* widget );
     class USysMenuWidget* GetSysMenu();
 
 protected:

@@ -15,16 +15,18 @@ class FISTWORLD_API UPopupWidget : public UUserWidget
 	GENERATED_BODY()
 	
 public:
+    UPopupWidget( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get() );
+
     UFUNCTION( BlueprintCallable )
-    void Popup( int baseZOrder = 0 );
-    //UPopupWidget( const FObjectInitializer& ObjectInitializer );
-    //static UPopupWidget* Popup( UWorld* world );
+    void Popup();
 
     UFUNCTION( BlueprintCallable )
     void Quit();
 
     UFUNCTION( BlueprintImplementableEvent )
     void RefreshData();
+
+    bool IsInShow() const noexcept;
 
 protected:
     //virtual TSubclassOf<UPopupWidget> GetInstanceClass() = 0;

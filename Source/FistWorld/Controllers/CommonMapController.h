@@ -21,7 +21,7 @@ public:
     bool OverrideTask( class UExcutableTask* task );
 
     class UExcutableTask* GetTask() const noexcept;
-    FString GetTaskStepDescribe() const;
+    //  FString GetTaskStepDescribe() const;
 
 protected:
     void BeginPlay() override;

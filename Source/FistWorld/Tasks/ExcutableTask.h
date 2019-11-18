@@ -14,7 +14,8 @@ enum class ETaskStep : uint8
     CHOOSING_TARGET_WARRIOR,
     SETTING_TRANSPORT_VOLUME,
     SETTING_SOLDIER_NUMBER,
-    FINISHED
+    FINISHED,
+    CANCELED
 };
 
 /**
@@ -37,6 +38,9 @@ public:
     FString GetLastError() const;
     ETaskStep GetStep() const noexcept;
     void MarkAsFinished() noexcept;
+    void MarkAsCanceled() noexcept;
+    bool NeedDisplayStep() const noexcept;
+    bool CanCancel() const noexcept;
 
 protected:
     ETaskStep m_e_step;

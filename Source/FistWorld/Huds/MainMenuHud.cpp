@@ -6,7 +6,7 @@
 #include "FistWorldInstance.h"
 #include "UserWidget.h"
 
-AMainMenuHud::AMainMenuHud()
+AMainMenuHud::AMainMenuHud() : AHUD()
 {
     static ConstructorHelpers::FClassFinder<UUserWidget> mainmenu( TEXT( "/Game/Levels/Res_lv_MainMenu/Widget_MainMenu" ) );
     this->mainMenuClass = mainmenu.Succeeded() ? mainmenu.Class : nullptr;

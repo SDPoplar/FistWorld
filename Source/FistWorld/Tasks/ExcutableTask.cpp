@@ -5,7 +5,9 @@
 
 UExcutableTask::UExcutableTask( const FObjectInitializer& ObjectInitializer )
     : UObject( ObjectInitializer ), m_e_step( ETaskStep::CREATING ), m_s_last_error( "" )
-{}
+{
+    this->AddToRoot();
+}
 
 UExcutableTask::~UExcutableTask()
 {}
@@ -42,6 +44,9 @@ FString UExcutableTask::GetStepDescribe() const
         break;
     case ETaskStep::FINISHED:
         desc = "Finished";
+        break;
+    case ETaskStep::CANCELED:
+        desc = "Canceld";
     }
     return desc;
 }
@@ -49,9 +54,31 @@ FString UExcutableTask::GetStepDescribe() const
 void UExcutableTask::MarkAsFinished() noexcept
 {
     this->m_e_step = ETaskStep::FINISHED;
+    this->RemoveFromRoot();
+}
+
+void UExcutableTask::MarkAsCanceled() noexcept
+{
+    this->m_e_step = ETaskStep::CANCELED;
+    this->RemoveFromRoot();
 }
 
 ETaskStep UExcutableTask::GetStep() const noexcept
 {
     return this->m_e_step;
+}
+
+bool UExcutableTask::NeedDisplayStep() const noexcept
+{
+    return false
+        || (this->m_e_step == ETaskStep::CHOOSING_TARGET_TOWN)
+        || false;
+}
+
+bool UExcutableTask::CanCancel( void ) const noexcept
+{
+    return true
+        && (this->m_e_step != ETaskStep::FINISHED)
+        && (this->m_e_step != ETaskStep::CANCELED)
+        && true;
 }

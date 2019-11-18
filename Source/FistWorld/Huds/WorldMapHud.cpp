@@ -13,7 +13,8 @@
 #include "Level/TownActor.h"
 #include "Story/Town.h"
 
-AWorldMapHud::AWorldMapHud() : ACommonMapHud()
+AWorldMapHud::AWorldMapHud() : ACommonMapHud(), m_widget_town_player( nullptr ), m_widget_town_hostile( nullptr ),
+    m_widget_transport( nullptr ), m_widget_single_warrior_select( nullptr ), m_widget_soldier_num( nullptr )
 {
     static ConstructorHelpers::FClassFinder<USysMenuWidget> sysmenufinder( TEXT( "/Game/Levels/Res_lv_World/Widget_World_SysMenu" ) );
     sysmenuClass = sysmenufinder.Succeeded() ? sysmenufinder.Class : nullptr;
@@ -95,6 +96,7 @@ UShowTownWidget* AWorldMapHud::GetPlayerTownWidget()
         UWorld* world = this->GetWorld();
         this->m_widget_town_player = Cast<UShowTownWidget>(
             UUserWidget::CreateWidgetInstance( *world, this->playertownClass, "Player town shower" ) );
+        this->m_widget_town_player->AddToViewport( 10 );
     }
     return this->m_widget_town_player;
 }
@@ -106,6 +108,7 @@ UShowTownWidget* AWorldMapHud::GetHostileTownWidget()
         UWorld* world = this->GetWorld();
         this->m_widget_town_hostile = Cast<UShowTownWidget>(
             UUserWidget::CreateWidgetInstance( *world, this->hostiletownClass, "Hostile town shower" ) );
+        this->m_widget_town_hostile->AddToViewport( 10 );
     }
     return this->m_widget_town_hostile;
 }
@@ -117,6 +120,7 @@ USingleWarriorSelectWidget* AWorldMapHud::GetSingleWarriorSelectWidget()
         UWorld* world = this->GetWorld();
         this->m_widget_single_warrior_select = Cast<USingleWarriorSelectWidget>(
             UUserWidget::CreateWidgetInstance( *world, this->singlewarriorClass, "Single warrior selector" ) );
+        this->m_widget_single_warrior_select->AddToViewport( 20 );
     }
     return this->m_widget_single_warrior_select;
 }
@@ -128,8 +132,21 @@ USoldierNumWidget* AWorldMapHud::GetSoldierNumWidget()
         UWorld* world = this->GetWorld();
         this->m_widget_soldier_num = Cast<USoldierNumWidget>(
             UUserWidget::CreateWidgetInstance( *world, this->soldiernumClass, "Soldier num setter" ) );
+        this->m_widget_soldier_num->AddToViewport( 20 );
     }
     return this->m_widget_soldier_num;
+}
+
+UTownTransportVolumeWidget* AWorldMapHud::GetTransportVolumeWidget()
+{
+    if( !this->m_widget_transport && this->transvolumeClass )
+    {
+        UWorld* world = this->GetWorld();
+        this->m_widget_transport = Cast<UTownTransportVolumeWidget>(
+            UUserWidget::CreateWidgetInstance( *world, this->transvolumeClass, "Transport volume setter" ) );
+        this->m_widget_transport->AddToViewport( 20 );
+    }
+    return this->m_widget_transport;
 }
 
 USingleWarriorSelectWidget* AWorldMapHud::PopupSingleWarriorSelector()
@@ -164,15 +181,4 @@ bool AWorldMapHud::PopupSoldierNumSetter( int max )
     this->PopupWidget( widget );
     widget->SetMax( max );
     return true;
-}
-
-UTownTransportVolumeWidget* AWorldMapHud::GetTransportVolumeWidget()
-{
-    if( !this->m_widget_transport && this->transvolumeClass )
-    {
-        UWorld* world = this->GetWorld();
-        this->m_widget_transport = Cast<UTownTransportVolumeWidget>(
-            UUserWidget::CreateWidgetInstance( *world, this->transvolumeClass, "Transport volume setter" ) );
-    }
-    return this->m_widget_transport;
 }

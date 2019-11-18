@@ -23,6 +23,7 @@ USysMenuWidget* ACommonMapHud::GetSysMenu()
     {
         UWorld* world = this->GetWorld();
         this->m_widget_sysmenu = Cast<USysMenuWidget>( UUserWidget::CreateWidgetInstance( *world, this->sysmenuClass, "SysMenu" ) );
+        this->m_widget_sysmenu->AddToViewport( 100 );
     }
     return this->m_widget_sysmenu;
 }
@@ -41,6 +42,7 @@ UMessageBoxWidget* ACommonMapHud::GetMessageBox()
             UE_LOG( LogTemp, Error, TEXT( "Cannot get world in hud::getMessageBox" ) );
         }
         this->m_widget_message = Cast<UMessageBoxWidget>( UUserWidget::CreateWidgetInstance( *world, this->msgboxClass, "MessageBox" ) );
+        this->m_widget_message->AddToViewport( 101 );
     }
     return this->m_widget_message;
 }
@@ -50,7 +52,7 @@ bool ACommonMapHud::CloseAllPopup()
     int closed = 0;
     while( this->m_widgets.Num() )
     {
-        if( this->m_widgets[ 0 ]->IsValidLowLevelFast() && this->m_widgets[ 0 ]->IsInViewport() )
+        if( this->m_widgets[ 0 ]->IsInShow() )
         {
             this->m_widgets[ 0 ]->Quit();
             closed++;
@@ -80,7 +82,7 @@ bool ACommonMapHud::PopupMessage( EMessageUseIcon type, FString content )
         return false;
     }
     msgbox->SetDisplayContent( type, content );
-    this->PopupWidget( msgbox, 100 );
+    this->PopupWidget( msgbox );
     return true;
 }
 
@@ -89,8 +91,8 @@ bool ACommonMapHud::PopupAlert( FString content )
     return this->PopupMessage( EMessageUseIcon::ALERT, content );
 }
 
-void ACommonMapHud::PopupWidget( UPopupWidget* widget, int zOrder )
+void ACommonMapHud::PopupWidget( UPopupWidget* widget )
 {
     this->m_widgets.AddUnique( widget );
-    widget->Popup( zOrder );
+    widget->Popup();
 }

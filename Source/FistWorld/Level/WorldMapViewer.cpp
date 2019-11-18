@@ -45,13 +45,10 @@ void AWorldMapViewer::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-    UE_LOG( LogTemp, Display, TEXT( "Binding key map" ) );
-
     InputComponent->BindAxis( "MoveForward", this, &AWorldMapViewer::MoveForward );
     InputComponent->BindAxis( "MoveRight", this, &AWorldMapViewer::MoveRight );
-    InputComponent->BindAxis( "ZoomCamera", this, &AWorldMapViewer::ZoomCamera );
-
-    InputComponent->BindAction( "ResetCamera", IE_Released, this, &AWorldMapViewer::ResetCamera );
+    //  InputComponent->BindAxis( "ZoomCamera", this, &AWorldMapViewer::ZoomCamera );
+    //  InputComponent->BindAction( "ResetCamera", IE_Released, this, &AWorldMapViewer::ResetCamera );
 }
 
 void AWorldMapViewer::PointTo( AActor* target )

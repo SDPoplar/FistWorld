@@ -7,6 +7,7 @@
 #include "Controllers/CommonMapController.h"
 #include "FistWorldInstance.h"
 #include "Kismet/GameplayStatics.h"
+#include "Tasks/ExcutableTask.h"
 
 UKingdomSummaryWidget* UKingdomSummaryWidget::Create( TSubclassOf<UKingdomSummaryWidget> clsName, UWorld* world, FName widgetName )
 {
@@ -41,14 +42,15 @@ ESlateVisibility UKingdomSummaryWidget::PlayerHasTask() const
         return ESlateVisibility::Collapsed;
     }
     auto pc = Cast<ACommonMapController>( UGameplayStatics::GetPlayerController( this, 0 ) );
-    if( !pc || !pc->HasTask() )
+    auto task = ( pc && pc->HasTask() ) ? pc->GetTask() : nullptr;
+    if( !task || !task->NeedDisplayStep() )
     {
         return ESlateVisibility::Collapsed;
     }
     if( this->m_o_task_shower && this->m_o_task_shower->IsValidLowLevelFast()
         && (this->m_o_task_shower->GetVisibility() == ESlateVisibility::Visible) )
     {
-        this->m_o_task_shower->SetText( FText::FromString( pc->GetTaskStepDescribe() ) );
+        this->m_o_task_shower->SetText( FText::FromString( task->GetStepDescribe() ) );
     }
     return ESlateVisibility::Visible;
 }

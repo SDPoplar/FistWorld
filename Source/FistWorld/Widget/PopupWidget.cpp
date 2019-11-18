@@ -4,20 +4,11 @@
 #include "Kismet/GameplayStatics.h"
 #include "Controllers/ModeOverridableController.h"
 
-/*
-UPopupWidget::UPopupWidget( const FObjectInitializer& ObjectInitializer )
+UPopupWidget::UPopupWidget( const FObjectInitializer& ObjectInitializer ) : UUserWidget( ObjectInitializer )
 {
-    UUserWidget( ObjectInitializer );
-}
-*/
-
-/*
-UPopupWidget* UPopupWidget::Popup( UWorld* world )
-{
-    UPopupWidget *widget = CreateWidgetInstance( world, )
+    Visibility = ESlateVisibility::Collapsed;
 }
 
-*/
 void UPopupWidget::Quit()
 {
     APlayerController* pc = nullptr;
@@ -34,16 +25,18 @@ void UPopupWidget::Quit()
             oc->PopInputMode();
         }
     }
-    this->RemoveFromViewport();
+    this->SetVisibility( ESlateVisibility::Collapsed );
 }
 
-void UPopupWidget::Popup( int baseZOrder )
+void UPopupWidget::Popup()
 {
-    if( this->IsInViewport() )
+    if( this->IsInShow() )
     {
+        UE_LOG( LogTemp, Display, TEXT( "Cancel display widget: %s" ), *( this->GetName() ) );
         return;
     }
-    this->AddToViewport( baseZOrder + 100 );
+    this->SetVisibility( ESlateVisibility::Visible );
+    UE_LOG( LogTemp, Display, TEXT( "Widget [%s] visibility setted" ), *( this->GetName() ) );
     this->RefreshData();
 
     APlayerController* pc = nullptr;
@@ -82,4 +75,9 @@ APlayerController* UPopupWidget::GetPlayerController( APlayerController* &pc )
         pc = UGameplayStatics::GetPlayerController( this, 0 );
     }
     return pc;
+}
+
+bool UPopupWidget::IsInShow( void ) const noexcept
+{
+    return this->IsInViewport() && (this->Visibility != ESlateVisibility::Collapsed);
 }

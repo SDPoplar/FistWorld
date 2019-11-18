@@ -86,6 +86,7 @@ UPopupMenuWidget* UMainMenu::CreatePopupMenu( TSubclassOf<UPopupMenuWidget> cls,
     }
     auto ps = UGameplayStatics::GetPlayerController( this, 0 );
     auto widget = UMainMenu::CreateWidgetInstance( *ps, cls, name );
+    widget->AddToViewport( 10 );
     return Cast<UPopupMenuWidget>( widget );
 }
 

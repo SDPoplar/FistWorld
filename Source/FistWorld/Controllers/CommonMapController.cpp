@@ -33,24 +33,23 @@ void ACommonMapController::CancelOrCallSysMenu()
 
 bool ACommonMapController::CancelCreatingTask()
 {
-    if( !this->HasTask() )
+    if( !this->HasTask() || !this->m_o_task->CanCancel() )
     {
         return false;
     }
-    this->m_o_task->RemoveFromRoot();
+    this->m_o_task->MarkAsCanceled();
     this->m_o_task = nullptr;
     return true;
 }
 
 bool ACommonMapController::HasTask() const noexcept
 {
-    return this->m_o_task && this->m_o_task->IsValidLowLevelFast() && ( this->m_o_task->GetStep() != ETaskStep::FINISHED );
+    return this->m_o_task && this->m_o_task->IsValidLowLevelFast();
 }
 
 bool ACommonMapController::OverrideTask( UExcutableTask* task )
 {
     this->CancelCreatingTask();
-    this->ReleaseFinishedTask();
     this->m_o_task = task;
     return true;
 }
@@ -68,9 +67,4 @@ void ACommonMapController::ReleaseFinishedTask()
 UExcutableTask* ACommonMapController::GetTask() const noexcept
 {
     return this->m_o_task;
-}
-
-FString ACommonMapController::GetTaskStepDescribe() const
-{
-    return this->HasTask() ? this->m_o_task->GetStepDescribe() : FString( "" );
 }
