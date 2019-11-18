@@ -28,13 +28,6 @@ AWorldMapController* AWorldMapController::GetInstance( UObject* getter )
     return Cast<AWorldMapController>( UGameplayStatics::GetPlayerController( getter, 0 ) );
 }
 
-/*
-bool AWorldMapController::CancelCreatingTask()
-{
-    return false;
-}
-*/
-
 bool AWorldMapController::HasTaskSelectingTown() const
 {
     return this->HasTask() && ( this->m_o_task->GetStep() == ETaskStep::CHOOSING_TARGET_TOWN );
