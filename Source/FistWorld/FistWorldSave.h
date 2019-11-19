@@ -46,6 +46,7 @@ struct FSaveTown
 public:
     FSaveTown();
     FSaveTown( const FChapterDefaultTown& def );
+    FSaveTown( const class UTown& ins );
 
     UPROPERTY()
     int TownId;
@@ -107,6 +108,7 @@ struct FSaveWarrior
 public:
     FSaveWarrior();
     FSaveWarrior( const FChapterDefaultWarrior& def );
+    FSaveWarrior( const UWarrior& ins );
 
     UPROPERTY()
     int WarriorId;
@@ -145,10 +147,11 @@ public:
     UPROPERTY( BlueprintReadOnly )
     int id;
 
-    /*
     UPROPERTY( BlueprintReadOnly )
-    int player;
-    */
+    int food;
+
+    UPROPERTY( BlueprintReadOnly )
+    int money;
 };
 
 USTRUCT()
@@ -160,12 +163,19 @@ public:
     FSaveKingdom();
     //FSaveKingdom( const FSaveKingdom& obj );
     FSaveKingdom( const FChapterDefaultKingdom& def );
+    FSaveKingdom( const class UKingdom& ins );
 
     UPROPERTY()
     int KingdomId;
 
     UPROPERTY()
     bool IsPlayerKingdom;
+
+    UPROPERTY()
+    int Food;
+
+    UPROPERTY()
+    int Money;
 };
 
 /**
@@ -180,9 +190,18 @@ public:
     static bool FileExists();
     static UFistWorldSave* LoadSave();
     static bool CreateNewSave( int chapter, int kingdom );
+    static UFistWorldSave* CreateEmptySaveInstance();
+
+    bool SaveToSlot( int playerIndex = 0 );
 
     const static FString SaveSlotName;
 	
+    UPROPERTY( SaveGame )
+    int chapter;
+
+    UPROPERTY( SaveGame )
+    int round;
+
     UPROPERTY( SaveGame )
     TArray<FSaveKingdom> kingdoms;
     UPROPERTY( SaveGame )

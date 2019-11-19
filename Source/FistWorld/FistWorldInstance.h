@@ -42,10 +42,18 @@ public:
     UFUNCTION( BlueprintCallable )
     class UWarriorIns* FindWarriorInstance( int warriorId );
 
+    UFUNCTION( BlueprintCallable )
+    int GetCurrentChapter() const noexcept;
+
+    UFUNCTION( BlueprintCallable )
+    int GetCurrentRound() const noexcept;
+
     int CountPlayerTown() const noexcept;
     int CountPlayerWarrior() const noexcept;
 
     TArray<class UWarrior*>& GetWarriorList();
+    TArray<class UTown*>& GetTownList();
+    TArray<class UKingdom*>& GetKingdomList();
 
 protected:
     TArray<UKingdom*> m_kingdoms;
@@ -55,6 +63,9 @@ protected:
     TArray<class UWarrior*> m_warriors;
 
     bool m_b_game_exists;
+
+    int m_n_chapter;
+    int m_n_round;
 
     //  static UDataTable* g_chapters;
 };

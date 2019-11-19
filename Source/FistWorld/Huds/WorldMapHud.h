@@ -16,15 +16,15 @@ class FISTWORLD_API AWorldMapHud : public ACommonMapHud
 	
 public:
     AWorldMapHud();
-    void ShowTownInfo( class ATownActor* town );
+    void ShowTownInfo( class UTown* town );
     class USingleWarriorSelectWidget* PopupSingleWarriorSelector();
     bool PopupTransportVolumeSetter( int maxFood, int maxMoney );
     bool PopupSoldierNumSetter( int max );
     bool PopupConfirmBackWidget();
 
 protected:
-    void PopupPlayerTownWidget( class ATownActor* town );
-    void PopupHostileTownWidget( class ATownActor* town );
+    void PopupPlayerTownWidget( class UTown* town );
+    void PopupHostileTownWidget( class UTown* town );
 
     class UTownTransportVolumeWidget* GetTransportVolumeWidget();
     class UShowTownWidget* GetPlayerTownWidget();

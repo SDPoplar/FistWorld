@@ -73,7 +73,7 @@ bool ACommonMapHud::ShowSysMenu()
     return true;
 }
 
-bool ACommonMapHud::PopupMessage( EMessageUseIcon type, FString content )
+bool ACommonMapHud::PopupMessage( EMessageUseIcon type, FText content )
 {
     auto msgbox = this->GetMessageBox();
     if( !msgbox )
@@ -86,9 +86,19 @@ bool ACommonMapHud::PopupMessage( EMessageUseIcon type, FString content )
     return true;
 }
 
-bool ACommonMapHud::PopupAlert( FString content )
+bool ACommonMapHud::PopupAlert( FText content )
 {
     return this->PopupMessage( EMessageUseIcon::ALERT, content );
+}
+
+bool ACommonMapHud::PopupSuccess( FText content )
+{
+    return this->PopupMessage( EMessageUseIcon::SUCCESS, content );
+}
+
+bool ACommonMapHud::PopupFailed( FText content )
+{
+    return this->PopupMessage( EMessageUseIcon::FAILED, content );
 }
 
 void ACommonMapHud::PopupWidget( UPopupWidget* widget )

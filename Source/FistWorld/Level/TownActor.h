@@ -4,11 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "WorldMapElement.h"
+//  #include "WorldMapElement.h"
 #include "TownActor.generated.h"
 
 UCLASS()
-class FISTWORLD_API ATownActor : public AActor, public WorldMapElement
+class FISTWORLD_API ATownActor : public AActor//, public WorldMapElement
 {
 	GENERATED_BODY()
 	
@@ -26,19 +26,26 @@ public:
 
     UFUNCTION( BlueprintCallable )
     void SetHover( bool hover );
+
+    UFUNCTION( BlueprintCallable )
+    class UStaticMeshComponent* GetFlagMesh() const noexcept;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-    virtual UObject* SelfPointer() override;
+    //  virtual UObject* SelfPointer() override;
+
+    UFUNCTION( BlueprintImplementableEvent )
+    class UMaterialInterface* GetFlagMaterial( bool ownByPlayer );
 
     UPROPERTY( EditAnywhere, Category = "Data" )
     int m_bind_town;
 
-    UPROPERTY( EditAnywhere, Category = "Community" )
+    UPROPERTY( EditAnywhere, Category = "Data" )
     TArray<ATownActor*> m_can_arrive;
 
     class UStaticMeshComponent* m_mesh_town;
+    class UStaticMeshComponent* m_mesh_flag;
     class UParticleSystemComponent* m_particle_hover_circle;
     class UTown* m_o_town;
 

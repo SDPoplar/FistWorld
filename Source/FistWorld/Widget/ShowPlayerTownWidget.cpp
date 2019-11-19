@@ -13,7 +13,6 @@
 #include "Huds/WorldMapHud.h"
 #include "Widget/SingleWarriorSelectWidget.h"
 #include "FistWorldInstance.h"
-#include "Level/TownActor.h"
 #include "Story/Kingdom.h"
 #include "Story/Town.h"
 
@@ -80,7 +79,7 @@ bool UShowPlayerTownWidget::CreateTownTask( UTownTask*( taskmaker )( UObject* ) 
     {
         return false;
     }
-    widget->LoadListByTown( this->m_town->GetTown()->GetTownId(), false );
+    widget->LoadListByTown( this->m_town->GetTownId(), false );
     return true;
 }
 

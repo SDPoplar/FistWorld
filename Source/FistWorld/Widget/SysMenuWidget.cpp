@@ -7,10 +7,45 @@
 #include "Controllers/WorldMapController.h"
 #include "Huds/WorldMapHud.h"
 #include "Story/Warrior.h"
+#include "FistWorldSave.h"
 
 bool USysMenuWidget::SaveCurrentGame()
 {
-    return false;
+    auto gi = UFistWorldInstance::GetInstance( this );
+    auto save = gi ? UFistWorldSave::CreateEmptySaveInstance() : nullptr;
+    if( !save )
+    {
+        return false;
+    }
+    save->chapter = gi->GetCurrentChapter();
+    save->round = gi->GetCurrentRound();
+    for( auto item : gi->GetKingdomList() )
+    {
+        save->kingdoms.Push( FSaveKingdom( *item ) );
+    }
+    for( auto item : gi->GetTownList() )
+    {
+        save->towns.Push( FSaveTown( *item ) );
+    }
+    for( auto item : gi->GetWarriorList() )
+    {
+        save->warriors.Push( FSaveWarrior( *item ) );
+    }
+    bool saveResult = save->SaveToSlot( 0 );
+    auto pc = AWorldMapController::GetInstance( this );
+    auto hud = pc ? pc->GetWorldMapHud() : nullptr;
+    if( hud )
+    {
+        if( saveResult )
+        {
+            hud->PopupSuccess( FText::FromString( "Game saved successfully" ) );
+        }
+        else
+        {
+            hud->PopupFailed( FText::FromString( "Failed to save game" ) );
+        }
+    }
+    return saveResult;
 }
 
 bool USysMenuWidget::NextRound()
@@ -31,7 +66,7 @@ bool USysMenuWidget::NextRound()
     auto hud = pc ? pc->GetWorldMapHud() : nullptr;
     if( hud )
     {
-        hud->PopupAlert( "New Round!" );
+        hud->PopupAlert( FText::FromString( "New Round!" ) );
     }
     this->Quit();
     return true;

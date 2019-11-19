@@ -18,7 +18,7 @@ class FISTWORLD_API UShowTownWidget : public UPopupWidget
 	GENERATED_BODY()
 	
 public:
-    void SetTown( class ATownActor* town );
+    void SetTown( class UTown* town );
 
     UFUNCTION( BlueprintCallable )
     FString GetTownName();
@@ -46,7 +46,7 @@ public:
 
 protected:
 
-    class ATownActor* m_town;
+    class UTown* m_town;
 
     UTextBlock* m_shower_town_name;
     UTextBlock* m_shower_kingdom_name;

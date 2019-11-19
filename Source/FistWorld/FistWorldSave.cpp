@@ -3,6 +3,7 @@
 #include "FistWorldSave.h"
 #include "Kismet/GameplayStatics.h"
 #include "FistWorldInstance.h"
+#include "Story/Town.h"
 
 //  ===================== save struct constructs ============================================
 
@@ -18,6 +19,17 @@ FSaveTown::FSaveTown( const FChapterDefaultTown& def )
     this->Soldiers = 0;
     this->Business = def.business;
     this->Agriculture = def.agriculture;
+}
+
+FSaveTown::FSaveTown( const UTown& ins )
+{
+    this->TownId = ins.GetTownId();
+    this->KingdomId = ins.GetKingdomId();
+    this->Money = ins.GetMoney();
+    this->Food = ins.GetFood();
+    this->Soldiers = ins.GetSoldierNumber();
+    this->Business = ins.GetCurrentBusinessDevelopment();
+    this->Agriculture = ins.GetCurrentAgricultureDevelopment();
 }
 
 /*
@@ -47,6 +59,16 @@ FSaveKingdom::FSaveKingdom( const FChapterDefaultKingdom& def )
 {
     this->KingdomId = def.id;
     this->IsPlayerKingdom = false;
+    this->Food = def.food;
+    this->Money = def.money;
+}
+
+FSaveKingdom::FSaveKingdom( const UKingdom& ins )
+{
+    this->KingdomId = ins.GetKingdomId();
+    this->IsPlayerKingdom = ins.IsPlayerKingdom();
+    this->Food = ins.GetFood();
+    this->Money = ins.GetMoney();
 }
 
 FSaveWarrior::FSaveWarrior() : WarriorId( 0 ), KingdomId( 0 ), InTown( 0 ), Status( EWarriorStatus::NORMAL ),
@@ -62,6 +84,17 @@ FSaveWarrior::FSaveWarrior( const FChapterDefaultWarrior& def )
     this->Level = def.level;
     this->Exp = 0;
     this->Soldiers = 0;
+}
+
+FSaveWarrior::FSaveWarrior( const UWarrior& ins )
+{
+    this->WarriorId = ins.GetWarriorId();
+    this->KingdomId = ins.GetBelongKingdom();
+    this->InTown = ins.GetInTown();
+    this->Status = ins.GetStatus();
+    this->Level = ins.GetWarriorLevel();
+    this->Exp = ins.GetWarriorExp();
+    this->Soldiers = ins.GetSoldierNumber();
 }
 
 //  ===================== UFistWorldSave ====================================================
@@ -80,6 +113,11 @@ UFistWorldSave* UFistWorldSave::LoadSave()
         : nullptr;
 }
 
+UFistWorldSave* UFistWorldSave::CreateEmptySaveInstance()
+{
+    return Cast<UFistWorldSave>( UGameplayStatics::CreateSaveGameObject( UFistWorldSave::StaticClass() ) );
+}
+
 bool UFistWorldSave::CreateNewSave( int chapter, int kingdomId )
 {
     UDataTable* town = LoadObject<UDataTable>( nullptr,
@@ -94,24 +132,36 @@ bool UFistWorldSave::CreateNewSave( int chapter, int kingdomId )
     }
     char chapterIndex[ 16 ];
     sprintf_s( chapterIndex, 16, "chapter=%d", chapter );
-    auto save = Cast<UFistWorldSave>( UGameplayStatics::CreateSaveGameObject( UFistWorldSave::StaticClass() ) );
-    //  todo: write default data
+    auto save = UFistWorldSave::CreateEmptySaveInstance();
+    //  todo: select with method GetAllRows()
     TArray<FChapterDefaultTown*> deftown;
     town->GetAllRows( chapterIndex, deftown );
     for( auto item : deftown )
     {
+        if( item->chapter != chapter )
+        {
+            continue;
+        }
         save->towns.Push( FSaveTown( *item ) );
     }
     TArray<FChapterDefaultWarrior*> defwarrior;
     warrior->GetAllRows( chapterIndex, defwarrior );
     for( auto item : defwarrior )
     {
+        if( item->chapter != chapter )
+        {
+            continue;
+        }
         save->warriors.Push( FSaveWarrior( *item ) );
     }
     TArray<FChapterDefaultKingdom*> defkingdom;
     kingdom->GetAllRows( chapterIndex, defkingdom );
     for( auto item : defkingdom )
     {
+        if( item->chapter != chapter )
+        {
+            continue;
+        }
         FSaveKingdom ins( *item );
         ins.IsPlayerKingdom = (ins.KingdomId == kingdomId);
         if( ins.IsPlayerKingdom )
@@ -120,5 +170,12 @@ bool UFistWorldSave::CreateNewSave( int chapter, int kingdomId )
         }
         save->kingdoms.Push( ins );
     }
-    return UGameplayStatics::SaveGameToSlot( save, UFistWorldSave::SaveSlotName, 0 );
+    save->chapter = chapter;
+    save->round = 0;
+    return save->SaveToSlot( 0 );
+}
+
+bool UFistWorldSave::SaveToSlot( int playerIndex )
+{
+    return UGameplayStatics::SaveGameToSlot( this, UFistWorldSave::SaveSlotName, playerIndex );
 }

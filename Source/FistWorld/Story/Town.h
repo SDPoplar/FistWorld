@@ -39,6 +39,8 @@ public:
     void SetCurrent( int current );
     void IncreaseCurrent( int volume );
     FString ToString() const;
+    int GetMax() const noexcept;
+    int GetCurrent() const noexcept;
 
 protected:
     int m_n_max;
@@ -55,13 +57,15 @@ public:
     bool SetTownId( int id, bool load = true );
     virtual int GetTownId() const noexcept;
     virtual FString GetTownName() const noexcept;
-    virtual bool OwnByPlayer( const UObject* getter ) const noexcept;
+    virtual bool OwnByPlayer( void ) const noexcept;
     virtual bool OwnByKingdom() const noexcept;
     virtual int GetKingdomId() const noexcept;
     void SetOwnerKingdom( int kingdomId );
 
     DevelopableProperty& GetBusinessDevelopment();
     DevelopableProperty& GetAgricultureDevelopment();
+    int GetCurrentBusinessDevelopment() const noexcept;
+    int GetCurrentAgricultureDevelopment() const noexcept;
 
 protected:
     int m_n_town_id;
@@ -91,7 +95,7 @@ public:
     FString GetTownName() const noexcept override;
 
     UFUNCTION( BlueprintCallable )
-    bool IsOwnByPlayer() const noexcept;
+    bool OwnByPlayer() const noexcept;
 
     UFUNCTION( BlueprintCallable )
     bool OwnByKingdom() const noexcept override;

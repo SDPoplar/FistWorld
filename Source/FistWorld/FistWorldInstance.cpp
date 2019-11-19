@@ -41,6 +41,7 @@ bool UFistWorldInstance::LoadGame()
 
     this->m_b_game_exists = true;
 
+    this->m_kingdoms.Empty();
     for( auto item : save->kingdoms )
     {
         //auto ins = NewObject<UKingdom>();
@@ -51,6 +52,8 @@ bool UFistWorldInstance::LoadGame()
             continue;
         }
         ins->SetPlayerKingdom( item.IsPlayerKingdom );
+        ins->SetFood( item.Food );
+        ins->SetMoney( item.Money );
         this->m_kingdoms.Push( ins );
         if( item.IsPlayerKingdom )
         {
@@ -59,6 +62,7 @@ bool UFistWorldInstance::LoadGame()
         }
     }
 
+    this->m_warriors.Empty();
     for( auto item : save->warriors )
     {
         //  auto ins = NewObject<UWarrior>();
@@ -77,6 +81,7 @@ bool UFistWorldInstance::LoadGame()
         this->m_warriors.Push( ins );
     }
 
+    this->m_towns.Empty();
     for( auto item : save->towns )
     {
         //auto ins = NewObject<UTown>();
@@ -94,6 +99,9 @@ bool UFistWorldInstance::LoadGame()
         ins->GetAgricultureDevelopment().SetCurrent( item.Agriculture );
         this->m_towns.Push( ins );
     }
+
+    this->m_n_chapter = save->chapter;
+    this->m_n_round = save->round;
 
     return true;
 }
@@ -185,6 +193,17 @@ TArray<UWarrior*>& UFistWorldInstance::GetWarriorList()
     return this->m_warriors;
 }
 
+TArray<UTown*>& UFistWorldInstance::GetTownList()
+{
+    return this->m_towns;
+}
+
+TArray<UKingdom*>& UFistWorldInstance::GetKingdomList()
+{
+    return this->m_kingdoms;
+}
+
+
 int UFistWorldInstance::CountPlayerTown() const noexcept
 {
     if( !this->m_player_kingdom )
@@ -217,4 +236,14 @@ int UFistWorldInstance::CountPlayerWarrior() const noexcept
         }
     }
     return count;
+}
+
+int UFistWorldInstance::GetCurrentChapter() const noexcept
+{
+    return this->m_n_chapter;
+}
+
+int UFistWorldInstance::GetCurrentRound() const noexcept
+{
+    return this->m_n_round;
 }

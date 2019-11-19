@@ -33,7 +33,7 @@ bool UTownSearchTask::Excute()
         UE_LOG( LogTemp, Error, TEXT( "Cannot get hud" ) );
         return false;
     }
-    hud->PopupAlert( "100 money found" );
+    hud->PopupAlert( FText::FromString( "100 money found" ) );
     this->m_o_town->IncreaseMoney( 100 );
     this->m_o_warrior->SetStatus( EWarriorStatus::WORKING );
     this->MarkAsFinished();

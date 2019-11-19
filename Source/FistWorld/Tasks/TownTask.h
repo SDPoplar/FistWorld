@@ -17,9 +17,8 @@ public:
 	UTownTask( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get() );
 	virtual ~UTownTask();
 
-    void SetBaseTown( class ATownActor* town );
+    void SetBaseTown( class UTown* town );
 
 protected:
-    class ATownActor* m_o_actor;
     class UTown* m_o_town;
 };

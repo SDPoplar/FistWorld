@@ -52,11 +52,9 @@ FString UTown::GetTownName() const noexcept
     return this->m_s_town_name;
 }
 
-bool UTown::OwnByPlayer( const UObject* getter ) const noexcept
+bool UTown::OwnByPlayer( void ) const noexcept
 {
-    auto gi = UFistWorldInstance::GetInstance( getter );
-    return ( this->m_n_own_by_kingdom && gi )
-        ? gi->IsPlayerKingdom( this->m_n_own_by_kingdom ) : false;
+    return UKingdom::OwnByPlayer( this->m_n_own_by_kingdom );
 }
 
 void UTown::SetOwnerKingdom( int kingdomId )
@@ -74,6 +72,16 @@ int UTown::GetKingdomId() const noexcept
     return this->m_n_own_by_kingdom;
 }
 
+int UTown::GetCurrentAgricultureDevelopment( void ) const noexcept
+{
+    return this->m_o_agriculture.GetCurrent();
+}
+
+int UTown::GetCurrentBusinessDevelopment( void ) const noexcept
+{
+    return this->m_o_business.GetCurrent();
+}
+
 int UTownIns::GetTownId() const noexcept
 {
     return UTown::GetTownId();
@@ -84,9 +92,9 @@ FString UTownIns::GetTownName() const noexcept
     return UTown::GetTownName();
 }
 
-bool UTownIns::IsOwnByPlayer() const noexcept
+bool UTownIns::OwnByPlayer() const noexcept
 {
-    return UTown::OwnByPlayer( this );
+    return UTown::OwnByPlayer();
 }
 
 bool UTownIns::OwnByKingdom() const noexcept
@@ -182,4 +190,14 @@ FString DevelopableProperty::ToString() const
     char buff[ 128 ];
     sprintf_s( buff, 128, "%d/%d", this->m_n_current, this->m_n_max );
     return FString( buff );
+}
+
+int DevelopableProperty::GetMax( void ) const noexcept
+{
+    return this->m_n_max;
+}
+
+int DevelopableProperty::GetCurrent( void ) const noexcept
+{
+    return this->m_n_current;
 }

@@ -20,10 +20,12 @@ public:
 
     bool CloseAllPopup();
     bool ShowSysMenu();
-    bool PopupAlert( FString content );
+    bool PopupAlert( FText content );
+    bool PopupSuccess( FText content );
+    bool PopupFailed( FText content );
     //  bool PopupDanger();
 
-    bool PopupMessage( EMessageUseIcon type, FString content );
+    bool PopupMessage( EMessageUseIcon type, FText content );
     void PopupWidget( class UPopupWidget* widget );
     class USysMenuWidget* GetSysMenu();
 

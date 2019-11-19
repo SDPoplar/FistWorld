@@ -7,6 +7,7 @@
 UDataTable* UKingdom::g_lib = nullptr;
 UTexture2D* UKingdom::defKingdomLogo = nullptr;
 std::map<int, UTexture2D*> UKingdom::logolib;
+int UKingdom::g_player_kingdom_id = 0;
 
 UKingdom::UKingdom() : HasMoneyAndFood(), m_n_kingdom_id( 0 ), m_s_name( "" ), m_b_own_by_player( false )
 {
@@ -16,6 +17,11 @@ UKingdom::UKingdom() : HasMoneyAndFood(), m_n_kingdom_id( 0 ), m_s_name( "" ), m
 
 UKingdom::~UKingdom()
 {}
+
+bool UKingdom::OwnByPlayer( int kingdomId ) noexcept
+{
+    return (UKingdom::g_player_kingdom_id > 0) && (UKingdom::g_player_kingdom_id == kingdomId);
+}
 
 void UKingdom::LoadResource()
 {
@@ -73,6 +79,10 @@ bool UKingdom::IsPlayerKingdom() const
 void UKingdom::SetPlayerKingdom( const bool isPlayerKingdom )
 {
     this->m_b_own_by_player = isPlayerKingdom;
+    if( isPlayerKingdom )
+    {
+        UKingdom::g_player_kingdom_id = this->m_n_kingdom_id;
+    }
 }
 
 FString UKingdom::GetKingdomName( void ) const

@@ -8,6 +8,7 @@
 #include "FistWorldInstance.h"
 #include "Controllers/WorldMapController.h"
 #include "Huds/WorldMapHud.h"
+#include "Story/Town.h"
 //  #include "Components/WidgetComponent.h"
 
 // Sets default values
@@ -21,16 +22,25 @@ ATownActor::ATownActor()
     RootComponent = this->m_mesh_town;
     //  this->m_mesh_town->SetupAttachment( RootComponent );
 
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> mesh( TEXT( "/Game/Levels/Res_lv_world/town_01" ) );
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> mesh( TEXT( "/Game/Levels/Res_lv_World/town_01" ) );
     if( mesh.Succeeded() )
     {
         this->m_mesh_town->SetStaticMesh( mesh.Object );
     }
+    this->m_mesh_flag = CreateDefaultSubobject<UStaticMeshComponent>( TEXT( "FlagMesh" ) );
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> flagmesh( TEXT( "/Game/Levels/Res_lv_World/static_mesh_flag" ) );
+    if( flagmesh.Succeeded() )
+    {
+        this->m_mesh_flag->SetStaticMesh( flagmesh.Object );
+    }
+    this->m_mesh_flag->SetupAttachment( RootComponent );
+    this->m_mesh_flag->SetRelativeLocation( FVector( 0, 0, 80 ) );
+    this->m_mesh_flag->SetRelativeRotation( FQuat( 0, 0, 0, 0 ) );
     this->m_particle_hover_circle = CreateDefaultSubobject<UParticleSystemComponent>( TEXT( "Hover circle" ) );
     this->m_particle_hover_circle->SetupAttachment( RootComponent );
     this->m_particle_hover_circle->SetVisibility( false );
     this->m_particle_hover_circle->SetRelativeLocation( FVector( 0, 0, 10 ) );
-    static ConstructorHelpers::FObjectFinder<UParticleSystem> hovercircle( TEXT( "/Game/Levels/Res_lv_world/HoverCircle/Particle_HoverCircle" ) );
+    static ConstructorHelpers::FObjectFinder<UParticleSystem> hovercircle( TEXT( "/Game/Levels/Res_lv_World/HoverCircle/Particle_HoverCircle" ) );
     if( hovercircle.Succeeded() )
     {
         this->m_particle_hover_circle->SetTemplate( hovercircle.Object );
@@ -51,12 +61,24 @@ void ATownActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+    if( this->GetTown()->OwnByKingdom() )
+    {
+        this->m_mesh_flag->SetVisibility( true );
+        auto m = this->GetFlagMaterial( UKingdom::OwnByPlayer( this->GetTown()->GetKingdomId() ) );
+        this->m_mesh_flag->SetMaterial( 1, m );
+    }
+    else
+    {
+        this->m_mesh_flag->SetVisibility( false );
+    }
 }
 
+/*
 UObject* ATownActor::SelfPointer()
 {
     return this;
 }
+*/
 
 void ATownActor::SelectByPlayer()
 {
@@ -73,13 +95,18 @@ void ATownActor::SelectByPlayer()
     auto hud = pc->GetWorldMapHud();
     if( hud )
     {
-        hud->ShowTownInfo( this );
+        hud->ShowTownInfo( this->GetTown() );
     }
 }
 
 UTown* ATownActor::GetTown()
 {
     return this->m_o_town;
+}
+
+UStaticMeshComponent* ATownActor::GetFlagMesh() const noexcept
+{
+    return this->m_mesh_flag;
 }
 
 UParticleSystemComponent* ATownActor::GetHoverCircle() const

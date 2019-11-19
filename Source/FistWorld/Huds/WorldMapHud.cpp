@@ -11,7 +11,7 @@
 #include "UObject/ConstructorHelpers.h"
 #include "FistWorldInstance.h"
 #include "FistWorldInstance.h"
-#include "Level/TownActor.h"
+//  #include "Level/TownActor.h"
 #include "Story/Town.h"
 
 AWorldMapHud::AWorldMapHud() : ACommonMapHud(), m_widget_town_player( nullptr ), m_widget_town_hostile( nullptr ),
@@ -54,13 +54,13 @@ void AWorldMapHud::LoadTopSummaryWidget()
     this->m_kingdom_summary_widget->AddToViewport();
 }
 
-void AWorldMapHud::ShowTownInfo( ATownActor* town )
+void AWorldMapHud::ShowTownInfo( UTown* town )
 {
     if( !town )
     {
         return;
     }
-    if( town->GetTown()->OwnByPlayer( this ) )
+    if( town->OwnByPlayer() )
     {
         this->PopupPlayerTownWidget( town );
     }
@@ -70,7 +70,7 @@ void AWorldMapHud::ShowTownInfo( ATownActor* town )
     }
 }
 
-void AWorldMapHud::PopupPlayerTownWidget( ATownActor* town )
+void AWorldMapHud::PopupPlayerTownWidget( UTown* town )
 {
     auto widget = this->GetPlayerTownWidget();
     if( !widget )
@@ -81,7 +81,7 @@ void AWorldMapHud::PopupPlayerTownWidget( ATownActor* town )
     widget->SetTown( town );
 }
 
-void AWorldMapHud::PopupHostileTownWidget( ATownActor* town )
+void AWorldMapHud::PopupHostileTownWidget( UTown* town )
 {
     auto widget = this->GetHostileTownWidget();
     if( !widget )

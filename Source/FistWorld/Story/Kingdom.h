@@ -39,6 +39,7 @@ public:
     virtual FString GetKingdomName() const;
     virtual UTexture2D* GetLogo() const;
     static UTexture2D* GetDefaultLogo();
+    static bool OwnByPlayer( int kingdomId ) noexcept;
 
 protected:
     static void LoadResource();
@@ -52,6 +53,7 @@ private:
     static UDataTable* g_lib;
     static std::map<int, UTexture2D*> logolib;
     static UTexture2D* defKingdomLogo;
+    static int g_player_kingdom_id;
 };
 /**
  * 
