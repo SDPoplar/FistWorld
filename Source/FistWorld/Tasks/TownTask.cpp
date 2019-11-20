@@ -4,15 +4,43 @@
 #include "Level/TownActor.h"
 #include "Story/Town.h"
 #include "Story/Warrior.h"
+#include "Controllers/WorldMapController.h"
+#include "Huds/WorldMapHud.h"
 
-UTownTask::UTownTask( const FObjectInitializer& ObjectInitializer ) : UExcutableTask( ObjectInitializer ), m_o_town( nullptr )
-{}
-
-void UTownTask::SetBaseTown( UTown* town )
+UTownTask::UTownTask( const FObjectInitializer& ObjectInitializer ) : UExcutableTask( ObjectInitializer ),
+    m_o_town( nullptr ), m_o_target_town( nullptr ), m_o_pc( nullptr ), m_o_hud( nullptr ),
+    m_b_hide_townwidget_after_create( false )
 {
-    this->m_o_town = town;
-    this->m_e_step = ETaskStep::CHOOSING_TARGET_WARRIOR;
 }
 
 UTownTask::~UTownTask()
 {}
+
+void UTownTask::SetBaseTown( UTown* town )
+{
+    this->m_o_pc = AWorldMapController::GetInstance( this );
+    this->m_o_hud = this->m_o_pc->GetWorldMapHud();
+    this->m_o_town = town;
+    this->m_e_step = ETaskStep::CHOOSING_TARGET_WARRIOR;
+}
+
+bool UTownTask::SetTargetTown( UTown* town )
+{
+    if( !this->m_o_town->CanArrive( town ) )
+    {
+        this->m_o_hud->PopupAlert( FText::FromString( "Cannot arrive" ) );
+        return false;
+    }
+    this->m_o_target_town = town;
+    return true;
+}
+
+bool UTownTask::CloseTownWidgetAfterCreate( void ) const noexcept
+{
+    return this->m_b_hide_townwidget_after_create;
+}
+
+bool UTownTask::Inited() const noexcept
+{
+    return this->m_o_town && this->m_o_pc && this->m_o_hud;
+}

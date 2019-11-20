@@ -9,55 +9,62 @@
 #include "Tasks/TownSubsidyTask.h"
 #include "Tasks/TownConscriptTask.h"
 #include "Tasks/TownAssignSoldierTask.h"
+#include "Tasks/TownExpenditionTask.h"
 #include "Controllers/WorldMapController.h"
 #include "Huds/WorldMapHud.h"
 #include "Widget/SingleWarriorSelectWidget.h"
+#include "Widget/MultiWarriorSelectWidget.h"
 #include "FistWorldInstance.h"
 #include "Story/Kingdom.h"
 #include "Story/Town.h"
 
 bool UShowPlayerTownWidget::CreateBusinessDevelopTask()
 {
-    return this->CreateTownTask( []( UObject* outer )-> UTownTask* { return NewObject<UTownBusinessDevelopTask>( outer ); } );
+    return this->CreateSingleWarriorTask( []( UObject* outer )-> UTownTask* { return NewObject<UTownBusinessDevelopTask>( outer ); } );
 }
 
 bool UShowPlayerTownWidget::CreateAgricultureDevelopTask()
 {
-    return this->CreateTownTask( []( UObject* outer )->UTownTask* { return NewObject<UTownAgricultureDevelopTask>( outer ); } );
+    return this->CreateSingleWarriorTask( []( UObject* outer )->UTownTask* { return NewObject<UTownAgricultureDevelopTask>( outer ); } );
 }
 
 bool UShowPlayerTownWidget::CreateTownSearchTask()
 {
-    return this->CreateTownTask( []( UObject* outer )->UTownTask* { return NewObject<UTownSearchTask>( outer ); } );
+    return this->CreateSingleWarriorTask( []( UObject* outer )->UTownTask* { return NewObject<UTownSearchTask>( outer ); } );
 }
 
 bool UShowPlayerTownWidget::CreateTownLevyTask()
 {
-    return this->CreateTownTask( []( UObject* outer )->UTownTask* { return NewObject<UTownLevyTask>( outer ); } );
+    return this->CreateSingleWarriorTask( []( UObject* outer )->UTownTask* { return NewObject<UTownLevyTask>( outer ); } );
 }
 
 bool UShowPlayerTownWidget::CreateTownSubsidyTask()
 {
-    return this->CreateTownTask( []( UObject* outer )->UTownTask* { return NewObject<UTownSubsidyTask>( outer ); } );
+    return this->CreateSingleWarriorTask( []( UObject* outer )->UTownTask* { return NewObject<UTownSubsidyTask>( outer ); } );
 }
 
 bool UShowPlayerTownWidget::CreateTownConscriptTask()
 {
-    return this->CreateTownTask( []( UObject* outer )->UTownTask* { return NewObject<UTownConscriptTask>( outer ); } );
+    return this->CreateSingleWarriorTask( []( UObject* outer )->UTownTask* { return NewObject<UTownConscriptTask>( outer ); } );
 }
 
 bool UShowPlayerTownWidget::CreateAssignSoldierTask()
 {
-    return this->CreateTownTask( []( UObject* outer )->UTownTask* { return NewObject<UTownAssignSoldierTask>( outer ); } );
+    return this->CreateSingleWarriorTask( []( UObject* outer )->UTownTask* { return NewObject<UTownAssignSoldierTask>( outer ); } );
 }
 
-bool UShowPlayerTownWidget::CreateTownTask( UTownTask*( taskmaker )( UObject* ) )
+bool UShowPlayerTownWidget::CreateExpenditionTask()
+{
+    return this->CreateMultiWarriorTask( []( UObject* outer )->UTownTask* { return NewObject<UTownExpenditionTask>( outer ); } );
+}
+
+bool UShowPlayerTownWidget::CreateTownTask( UTownTask*( taskmaker )( UObject* ), AWorldMapController*& pc )
 {
     if( !this->m_town )
     {
         return false;
     }
-    auto pc = AWorldMapController::GetInstance( this );
+    pc = pc ? pc : AWorldMapController::GetInstance( this );
     UTownTask* task = pc ? taskmaker( this ) : nullptr;
     if( !task )
     {
@@ -65,10 +72,17 @@ bool UShowPlayerTownWidget::CreateTownTask( UTownTask*( taskmaker )( UObject* ) 
     }
     task->SetBaseTown( this->m_town );
     //  TODO: check task cost
-    if( !pc->OverrideTask( task ) )
+    return task->Inited() && pc->OverrideTask( task );
+}
+
+bool UShowPlayerTownWidget::CreateSingleWarriorTask( UTownTask*( taskMaker )( UObject* ) )
+{
+    AWorldMapController* pc = nullptr;
+    if( !this->CreateTownTask( taskMaker, pc ) )
     {
         return false;
     }
+
     auto hud = pc->GetWorldMapHud();
     if( !hud )
     {
@@ -79,7 +93,12 @@ bool UShowPlayerTownWidget::CreateTownTask( UTownTask*( taskmaker )( UObject* ) 
     {
         return false;
     }
-    widget->LoadListByTown( this->m_town->GetTownId(), false );
+    widget->LoadListByTown( this->m_town->GetTownId(), true, false );
+    auto task = Cast<UTownTask>( pc->GetTask() );
+    if( task && task->CloseTownWidgetAfterCreate() )
+    {
+        this->Quit();
+    }
     return true;
 }
 
@@ -88,4 +107,30 @@ bool UShowPlayerTownWidget::CanSubsidy() const noexcept
     auto gi = UFistWorldInstance::GetInstance( this );
     UKingdom* kingdom = gi ? gi->GetMyKingdom() : nullptr;
     return kingdom && ( (kingdom->GetMoney() > 0) || (kingdom->GetFood() > 0) );
+}
+
+bool UShowPlayerTownWidget::CreateMultiWarriorTask( UTownTask* (taskMaker)(UObject*) )
+{
+    AWorldMapController* pc = nullptr;
+    if( !this->CreateTownTask( taskMaker, pc ) )
+    {
+        return false;
+    }
+    auto hud = pc->GetWorldMapHud();
+    if( !hud )
+    {
+        return false;
+    }
+    auto widget = hud->PopupMultiWarriorSelector();
+    if( !widget )
+    {
+        return false;
+    }
+    widget->LoadListByTown( this->m_town->GetTownId(), true, false );
+    auto task = Cast<UTownTask>( pc->GetTask() );
+    if( task && task->CloseTownWidgetAfterCreate() )
+    {
+        this->Quit();
+    }
+    return true;
 }

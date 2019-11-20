@@ -82,6 +82,17 @@ int UTown::GetCurrentBusinessDevelopment( void ) const noexcept
     return this->m_o_business.GetCurrent();
 }
 
+int UTown::AppendArrive( UTown* town )
+{
+    this->m_arr_can_arrive.AddUnique( town );
+    return this->m_arr_can_arrive.Num();
+}
+
+bool UTown::CanArrive( UTown* town ) const noexcept
+{
+    return ~this->m_arr_can_arrive.Find( town );
+}
+
 int UTownIns::GetTownId() const noexcept
 {
     return UTown::GetTownId();

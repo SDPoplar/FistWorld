@@ -4,10 +4,11 @@
 //  #include "Widget/PopupWidget.h"
 #include "Widget/SysMenuWidget.h"
 //  #include "Widget/MessageBoxWidget.h"
+#include "Widget/ConfirmBackWidget.h"
 #include "UObject/ConstructorHelpers.h"
 
 ACommonMapHud::ACommonMapHud( const FObjectInitializer& ObjectInitializer ) : AHUD( ObjectInitializer ),
-    m_widget_sysmenu( nullptr ), m_widget_message( nullptr )
+    m_widget_sysmenu( nullptr ), m_widget_message( nullptr ), m_widget_confirm_back( nullptr )
 {
     static ConstructorHelpers::FClassFinder<UMessageBoxWidget> msgboxwidget( TEXT( "/Game/Levels/Res_lv_Common/Widget_Common_MessageBox" ) );
     msgboxClass = msgboxwidget.Succeeded() ? msgboxwidget.Class : nullptr;
@@ -47,6 +48,19 @@ UMessageBoxWidget* ACommonMapHud::GetMessageBox()
     return this->m_widget_message;
 }
 
+UConfirmBackWidget* ACommonMapHud::GetConfirmBackWidget()
+{
+    if( !this->m_widget_confirm_back && this->confirmbackClass )
+    {
+        UWorld* world = this->GetWorld();
+        this->m_widget_confirm_back = Cast<UConfirmBackWidget>(
+            UUserWidget::CreateWidgetInstance( *world, this->confirmbackClass, "Confirm back" ) );
+        this->m_widget_confirm_back->AddToViewport( 101 );
+    }
+    return this->m_widget_confirm_back;
+}
+
+
 bool ACommonMapHud::CloseAllPopup()
 {
     int closed = 0;
@@ -70,6 +84,17 @@ bool ACommonMapHud::ShowSysMenu()
         return false;
     }
     this->PopupWidget( sysmenu );
+    return true;
+}
+
+bool ACommonMapHud::PopupConfirmBackWidget()
+{
+    auto widget = this->GetConfirmBackWidget();
+    if( !widget )
+    {
+        return false;
+    }
+    this->PopupWidget( widget );
     return true;
 }
 

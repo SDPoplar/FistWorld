@@ -4,11 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-//  #include "WorldMapElement.h"
 #include "TownActor.generated.h"
 
 UCLASS()
-class FISTWORLD_API ATownActor : public AActor//, public WorldMapElement
+class FISTWORLD_API ATownActor : public AActor
 {
 	GENERATED_BODY()
 	
@@ -32,8 +31,6 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
-    //  virtual UObject* SelfPointer() override;
 
     UFUNCTION( BlueprintImplementableEvent )
     class UMaterialInterface* GetFlagMaterial( bool ownByPlayer );

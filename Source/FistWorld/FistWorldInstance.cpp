@@ -7,6 +7,7 @@
 #include "Story/Warrior.h"
 #include "Story/Kingdom.h"
 #include "Story/Town.h"
+#include "Level/Fight.h"
 
 UFistWorldInstance::UFistWorldInstance() : m_player_kingdom( nullptr )
 {
@@ -203,7 +204,6 @@ TArray<UKingdom*>& UFistWorldInstance::GetKingdomList()
     return this->m_kingdoms;
 }
 
-
 int UFistWorldInstance::CountPlayerTown() const noexcept
 {
     if( !this->m_player_kingdom )
@@ -246,4 +246,20 @@ int UFistWorldInstance::GetCurrentChapter() const noexcept
 int UFistWorldInstance::GetCurrentRound() const noexcept
 {
     return this->m_n_round;
+}
+
+UKingdom* UFistWorldInstance::GetPlayerKingdom() const noexcept
+{
+    return this->m_player_kingdom;
+}
+
+int UFistWorldInstance::AppendFight( UFight* fight )
+{
+    this->m_fights.Push( fight );
+    return this->m_fights.Num();
+}
+
+bool UFistWorldInstance::HasFight() const noexcept
+{
+    return !!this->m_fights.Num();
 }

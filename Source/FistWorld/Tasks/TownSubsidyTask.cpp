@@ -14,11 +14,9 @@ bool UTownSubsidyTask::SetTargetWarrior( UWarrior* warrior )
     {
         return false;
     }
-    auto pc = AWorldMapController::GetInstance( this );
-    auto hud = pc ? pc->GetWorldMapHud() : nullptr;
-    auto gi = hud ? UFistWorldInstance::GetInstance( this ) : nullptr;
+    auto gi = UFistWorldInstance::GetInstance( this );
     auto kingdom = gi ? gi->GetMyKingdom() : nullptr;
-    return kingdom && hud->PopupTransportVolumeSetter( kingdom->GetFood(), kingdom->GetMoney() );
+    return kingdom && this->m_o_hud->PopupTransportVolumeSetter( kingdom->GetFood(), kingdom->GetMoney() );
 }
 
 bool UTownSubsidyTask::Excute()

@@ -3,24 +3,18 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Widget/PopupMenuWidget.h"
+#include "Widget/PopupWidget.h"
 #include "SysMenuWidget.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class FISTWORLD_API USysMenuWidget : public UPopupMenuWidget
+class FISTWORLD_API USysMenuWidget : public UPopupWidget
 {
 	GENERATED_BODY()
 	
 public:
-    UFUNCTION( BlueprintCallable )
-    bool SaveCurrentGame();
-
-    UFUNCTION( BlueprintCallable )
-    bool NextRound();
-
     UFUNCTION( BlueprintCallable )
     void ConfirmBack();
 };

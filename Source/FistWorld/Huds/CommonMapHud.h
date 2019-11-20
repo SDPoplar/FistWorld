@@ -24,6 +24,7 @@ public:
     bool PopupSuccess( FText content );
     bool PopupFailed( FText content );
     //  bool PopupDanger();
+    bool PopupConfirmBackWidget();
 
     bool PopupMessage( EMessageUseIcon type, FText content );
     void PopupWidget( class UPopupWidget* widget );
@@ -31,11 +32,14 @@ public:
 
 protected:
     class UMessageBoxWidget* GetMessageBox();
+    class UConfirmBackWidget* GetConfirmBackWidget();
 
     TSubclassOf<class USysMenuWidget> sysmenuClass;
+    TSubclassOf<class UConfirmBackWidget> confirmbackClass;
 private:
     TSubclassOf<UMessageBoxWidget> msgboxClass;
     class USysMenuWidget* m_widget_sysmenu;
     UMessageBoxWidget* m_widget_message;
+    class UConfirmBackWidget* m_widget_confirm_back;
     TArray<class UPopupWidget*> m_widgets;
 };

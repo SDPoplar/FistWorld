@@ -5,6 +5,7 @@
 #include "Widget/SysMenuWidget.h"
 #include "Widget/ShowTownWidget.h"
 #include "Widget/SingleWarriorSelectWidget.h"
+#include "Widget/MultiWarriorSelectWidget.h"
 #include "Widget/TownTransportVolumeWidget.h"
 #include "Widget/SoldierNumWidget.h"
 #include "Widget/ConfirmBackWidget.h"
@@ -15,7 +16,8 @@
 #include "Story/Town.h"
 
 AWorldMapHud::AWorldMapHud() : ACommonMapHud(), m_widget_town_player( nullptr ), m_widget_town_hostile( nullptr ),
-    m_widget_transport( nullptr ), m_widget_single_warrior_select( nullptr ), m_widget_soldier_num( nullptr ), m_widget_confirm_back( nullptr )
+    m_widget_transport( nullptr ), m_widget_single_warrior_select( nullptr ), m_widget_multi_warrior_select( nullptr ),
+    m_widget_soldier_num( nullptr )
 {
     static ConstructorHelpers::FClassFinder<USysMenuWidget> sysmenufinder( TEXT( "/Game/Levels/Res_lv_World/Widget_World_SysMenu" ) );
     sysmenuClass = sysmenufinder.Succeeded() ? sysmenufinder.Class : nullptr;
@@ -27,6 +29,8 @@ AWorldMapHud::AWorldMapHud() : ACommonMapHud(), m_widget_town_player( nullptr ),
     hostiletownClass = hostiletownwidget.Succeeded() ? hostiletownwidget.Class : nullptr;
     static ConstructorHelpers::FClassFinder<USingleWarriorSelectWidget> singlewarriorwidget( TEXT( "/Game/Levels/Res_lv_World/Widget_World_SingleWarriorSelector" ) );
     singlewarriorClass = singlewarriorwidget.Succeeded() ? singlewarriorwidget.Class : nullptr;
+    static ConstructorHelpers::FClassFinder<UMultiWarriorSelectWidget> multiwarriorwidget( TEXT( "/Game/Levels/Res_lv_World/Widget_World_MultiWarriorSelector" ) );
+    multiwarriorClass = multiwarriorwidget.Succeeded() ? multiwarriorwidget.Class : nullptr;
     static ConstructorHelpers::FClassFinder<UTownTransportVolumeWidget> transvolumewidget( TEXT( "/Game/Levels/Res_lv_World/Widget_World_TransportVolume" ) );
     transvolumeClass = transvolumewidget.Succeeded() ? transvolumewidget.Class : nullptr;
     static ConstructorHelpers::FClassFinder<USoldierNumWidget> soldiernumwidget( TEXT( "/Game/Levels/Res_lv_World/Widget_World_SoldierNumber" ) );
@@ -128,6 +132,18 @@ USingleWarriorSelectWidget* AWorldMapHud::GetSingleWarriorSelectWidget()
     return this->m_widget_single_warrior_select;
 }
 
+UMultiWarriorSelectWidget* AWorldMapHud::GetMultiWarriorSelectWidget()
+{
+    if( !this->m_widget_multi_warrior_select && this->multiwarriorClass )
+    {
+        UWorld* world = this->GetWorld();
+        this->m_widget_multi_warrior_select = Cast<UMultiWarriorSelectWidget>(
+            UUserWidget::CreateWidgetInstance( *world, this->multiwarriorClass, "Multi warrior selector" ) );
+        this->m_widget_multi_warrior_select->AddToViewport( 20 );
+    }
+    return this->m_widget_multi_warrior_select;
+}
+
 USoldierNumWidget* AWorldMapHud::GetSoldierNumWidget()
 {
     if( !this->m_widget_soldier_num && this->soldiernumClass )
@@ -152,21 +168,19 @@ UTownTransportVolumeWidget* AWorldMapHud::GetTransportVolumeWidget()
     return this->m_widget_transport;
 }
 
-UConfirmBackWidget* AWorldMapHud::GetConfirmBackWidget()
-{
-    if( !this->m_widget_confirm_back && this->confirmbackClass )
-    {
-        UWorld* world = this->GetWorld();
-        this->m_widget_confirm_back = Cast<UConfirmBackWidget>(
-            UUserWidget::CreateWidgetInstance( *world, this->confirmbackClass, "Confirm back" ) );
-        this->m_widget_confirm_back->AddToViewport( 101 );
-    }
-    return this->m_widget_confirm_back;
-}
-
 USingleWarriorSelectWidget* AWorldMapHud::PopupSingleWarriorSelector()
 {
     auto widget = this->GetSingleWarriorSelectWidget();
+    if( widget )
+    {
+        this->PopupWidget( widget );
+    }
+    return widget;
+}
+
+UMultiWarriorSelectWidget* AWorldMapHud::PopupMultiWarriorSelector()
+{
+    auto widget = this->GetMultiWarriorSelectWidget();
     if( widget )
     {
         this->PopupWidget( widget );
@@ -195,16 +209,5 @@ bool AWorldMapHud::PopupSoldierNumSetter( int max )
     }
     this->PopupWidget( widget );
     widget->SetMax( max );
-    return true;
-}
-
-bool AWorldMapHud::PopupConfirmBackWidget()
-{
-    auto widget = this->GetConfirmBackWidget();
-    if( !widget )
-    {
-        return false;
-    }
-    this->PopupWidget( widget );
     return true;
 }

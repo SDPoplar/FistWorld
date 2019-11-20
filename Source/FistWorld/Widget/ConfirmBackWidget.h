@@ -15,6 +15,5 @@ class FISTWORLD_API UConfirmBackWidget : public UPopupWidget
 	GENERATED_BODY()
 	
 public:
-    UFUNCTION( BlueprintCallable )
-    void ConfirmBack();
+    virtual void ConfirmBack();
 };

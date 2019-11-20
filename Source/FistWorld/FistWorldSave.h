@@ -178,6 +178,25 @@ public:
     int Money;
 };
 
+USTRUCT()
+struct FSaveFight
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+    UPROPERTY()
+        int FromTownId;
+
+    UPROPERTY()
+        int TargetTownId;
+
+    UPROPERTY()
+        int AttackerKingdomId;
+
+    UPROPERTY()
+        TArray<int> AttackerWarriors;
+};
+
 /**
  * 
  */
@@ -208,4 +227,6 @@ public:
     TArray<FSaveTown> towns;
     UPROPERTY( SaveGame )
     TArray<FSaveWarrior> warriors;
+    UPROPERTY( SaveGame )
+    TArray<FSaveFight> fights;
 };

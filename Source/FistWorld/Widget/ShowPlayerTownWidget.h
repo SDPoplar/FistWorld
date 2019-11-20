@@ -39,5 +39,10 @@ public:
     UFUNCTION( BlueprintCallable )
     bool CreateAssignSoldierTask();
 
-    bool CreateTownTask( class UTownTask* ( taskMaker )(UObject*) );
+    UFUNCTION( BlueprintCallable )
+    bool CreateExpenditionTask();
+
+    bool CreateTownTask( class UTownTask* ( taskMaker )(UObject*), class AWorldMapController*& );
+    bool CreateSingleWarriorTask( class UTownTask* (taskMaker)(UObject*) );
+    bool CreateMultiWarriorTask( class UTownTask* (taskMaker)(UObject*) );
 };

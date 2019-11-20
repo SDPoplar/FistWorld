@@ -35,7 +35,7 @@ ATownActor::ATownActor()
     }
     this->m_mesh_flag->SetupAttachment( RootComponent );
     this->m_mesh_flag->SetRelativeLocation( FVector( 0, 0, 80 ) );
-    this->m_mesh_flag->SetRelativeRotation( FQuat( 0, 0, 0, 0 ) );
+    this->m_mesh_flag->SetRelativeRotation( FQuat( 0, 0, 45, 0 ) );
     this->m_particle_hover_circle = CreateDefaultSubobject<UParticleSystemComponent>( TEXT( "Hover circle" ) );
     this->m_particle_hover_circle->SetupAttachment( RootComponent );
     this->m_particle_hover_circle->SetVisibility( false );
@@ -53,7 +53,15 @@ ATownActor::ATownActor()
 void ATownActor::BeginPlay()
 {
 	Super::BeginPlay();
-    this->m_o_town = UFistWorldInstance::GetInstance( this )->FindTown( this->m_bind_town );
+    
+    if( !this->GetTown() )
+    {
+        return;
+    }
+    for( auto item : this->m_can_arrive )
+    {
+        this->GetTown()->AppendArrive( item->GetTown() );
+    }
 }
 
 // Called every frame
@@ -61,7 +69,7 @@ void ATownActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-    if( this->GetTown()->OwnByKingdom() )
+    if( this->GetTown() && this->GetTown()->OwnByKingdom() )
     {
         this->m_mesh_flag->SetVisibility( true );
         auto m = this->GetFlagMaterial( UKingdom::OwnByPlayer( this->GetTown()->GetKingdomId() ) );
@@ -72,13 +80,6 @@ void ATownActor::Tick(float DeltaTime)
         this->m_mesh_flag->SetVisibility( false );
     }
 }
-
-/*
-UObject* ATownActor::SelfPointer()
-{
-    return this;
-}
-*/
 
 void ATownActor::SelectByPlayer()
 {
@@ -101,6 +102,14 @@ void ATownActor::SelectByPlayer()
 
 UTown* ATownActor::GetTown()
 {
+    if( !this->m_o_town )
+    {
+        auto gi = UFistWorldInstance::GetInstance( this );
+        if( gi )
+        {
+            this->m_o_town = gi->FindTown( this->m_bind_town );
+        }
+    }
     return this->m_o_town;
 }
 

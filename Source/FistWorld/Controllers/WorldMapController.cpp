@@ -35,7 +35,8 @@ bool AWorldMapController::HasTaskSelectingTown() const
 
 bool AWorldMapController::SetTaskSelectingTown( ATownActor* town )
 {
-    return false;
+    auto task = Cast<UTownTask>( this->GetTask() );
+    return task && ( task->GetStep() == ETaskStep::CHOOSING_TARGET_TOWN ) && task->SetTargetTown( town->GetTown() );
 }
 
 bool AWorldMapController::SetTaskSelectingWarrior( UWarriorIns* warriorIns )

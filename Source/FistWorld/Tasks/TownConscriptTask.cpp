@@ -13,15 +13,9 @@ bool UTownConscriptTask::SetTargetWarrior( UWarrior* warrior )
         return false;
     }
 
-    auto pc = AWorldMapController::GetInstance( this );
-    auto hud = pc ? pc->GetWorldMapHud() : nullptr;
-    if( !hud )
-    {
-        return false;
-    }
     int max = ( warrior->GetStrong() + warrior->GetIntel() ) / 20 * 50;
     max = max ? max : 100;
-    return hud->PopupSoldierNumSetter( max );
+    return this->m_o_hud->PopupSoldierNumSetter( max );
 }
 
 bool UTownConscriptTask::Excute()

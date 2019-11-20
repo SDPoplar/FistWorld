@@ -14,16 +14,10 @@ bool UTownAssignSoldierTask::SetTargetWarrior( UWarrior* warrior )
         return false;
     }
 
-    auto pc = AWorldMapController::GetInstance( this );
-    auto hud = pc ? pc->GetWorldMapHud() : nullptr;
-    if( !hud )
-    {
-        return false;
-    }
     int canhave = (warrior->GetStrong() + warrior->GetIntel())*( warrior->GetWarriorLevel() + 5 );
     int townhave = this->m_o_town->GetSoldierNumber();
     int max = ( canhave < townhave ) ? canhave : townhave;
-    return hud->PopupSoldierNumSetter( max );
+    return this->m_o_hud->PopupSoldierNumSetter( max );
 }
 
 bool UTownAssignSoldierTask::Excute()

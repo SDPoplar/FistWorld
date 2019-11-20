@@ -10,13 +10,8 @@
 
 bool UTownLevyTask::SetTargetWarrior( UWarrior* warrior )
 {
-    if( !UTownTransportTask::SetTargetWarrior( warrior ) )
-    {
-        return false;
-    }
-    auto pc = AWorldMapController::GetInstance( this );
-    auto hud = pc ? pc->GetWorldMapHud() : nullptr;
-    return hud && hud->PopupTransportVolumeSetter( this->m_o_town->GetFood(), this->m_o_town->GetMoney() );
+    return UTownTransportTask::SetTargetWarrior( warrior )
+        && m_o_hud->PopupTransportVolumeSetter( this->m_o_town->GetFood(), this->m_o_town->GetMoney() );
 }
 
 bool UTownLevyTask::Excute()

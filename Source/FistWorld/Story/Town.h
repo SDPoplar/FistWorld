@@ -61,6 +61,9 @@ public:
     virtual bool OwnByKingdom() const noexcept;
     virtual int GetKingdomId() const noexcept;
     void SetOwnerKingdom( int kingdomId );
+    int AppendArrive( UTown* town );
+    //  virtual bool CanArrive( int townId );
+    virtual bool CanArrive( UTown* town ) const noexcept;
 
     DevelopableProperty& GetBusinessDevelopment();
     DevelopableProperty& GetAgricultureDevelopment();
@@ -72,6 +75,8 @@ protected:
     FString m_s_town_name;
     int m_n_own_by_kingdom;
     DevelopableProperty m_o_business, m_o_agriculture;
+
+    TArray<UTown*> m_arr_can_arrive;
 
 private:
     static UDataTable* g_lib;
@@ -87,6 +92,7 @@ class FISTWORLD_API UTownIns : public UObject, public UTown
 
 public:
     UTownIns() : UObject(), UTown() {}
+    virtual ~UTownIns() {}
 
     UFUNCTION( BlueprintCallable )
     int GetTownId() const noexcept override;

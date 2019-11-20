@@ -30,6 +30,7 @@ public:
     UFUNCTION( BlueprintCallable )
     bool IsPlayerKingdom( int kingdomId ) const noexcept;
 
+    UKingdom* GetPlayerKingdom() const noexcept;
     UKingdom* FindKingdom( int kingdomId );
     UFUNCTION( BlueprintCallable )
     UKingdomIns* FindKingdomInstance( int kingdomId );
@@ -51,6 +52,9 @@ public:
     int CountPlayerTown() const noexcept;
     int CountPlayerWarrior() const noexcept;
 
+    int AppendFight( class UFight* fight );
+    bool HasFight() const noexcept;
+
     TArray<class UWarrior*>& GetWarriorList();
     TArray<class UTown*>& GetTownList();
     TArray<class UKingdom*>& GetKingdomList();
@@ -61,6 +65,8 @@ protected:
 
     TArray<class UTown*> m_towns;
     TArray<class UWarrior*> m_warriors;
+
+    TArray<class UFight*> m_fights;
 
     bool m_b_game_exists;
 
