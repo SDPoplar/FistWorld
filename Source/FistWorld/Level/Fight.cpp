@@ -24,3 +24,8 @@ int UFight::AppendAttackerWarrior( UWarrior* warrior )
     this->m_attacker_warriors.AddUnique( warrior );
     return this->m_attacker_warriors.Num();
 }
+
+TArray<UWarrior*>& UFight::GetAttackerWarriors()
+{
+    return this->m_attacker_warriors;
+}

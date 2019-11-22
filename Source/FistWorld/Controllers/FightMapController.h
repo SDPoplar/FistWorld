@@ -14,4 +14,6 @@ class FISTWORLD_API AFightMapController : public ACommonMapController
 {
 	GENERATED_BODY()
 	
+public:
+    void BeginPlay() override;
 };

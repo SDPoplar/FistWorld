@@ -41,6 +41,7 @@ public:
     UPROPERTY( EditDefaultsOnly )
     int lifeTime;
 protected:
+
     EMessageUseIcon m_e_type;
     FText m_s_content;
     time_t m_display_time;

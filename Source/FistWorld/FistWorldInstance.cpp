@@ -45,7 +45,6 @@ bool UFistWorldInstance::LoadGame()
     this->m_kingdoms.Empty();
     for( auto item : save->kingdoms )
     {
-        //auto ins = NewObject<UKingdom>();
         auto ins = new UKingdom();
         if( !ins || !ins->SetKingdomId( item.KingdomId, true ) )
         {
@@ -66,7 +65,6 @@ bool UFistWorldInstance::LoadGame()
     this->m_warriors.Empty();
     for( auto item : save->warriors )
     {
-        //  auto ins = NewObject<UWarrior>();
         auto ins = new UWarrior();
         if( !ins || !ins->SetWarriorId( item.WarriorId, true ) )
         {
@@ -85,7 +83,6 @@ bool UFistWorldInstance::LoadGame()
     this->m_towns.Empty();
     for( auto item : save->towns )
     {
-        //auto ins = NewObject<UTown>();
         auto ins = new UTown();
         if( !ins || !ins->SetTownId( item.TownId, true ) )
         {
@@ -129,14 +126,14 @@ UKingdom* UFistWorldInstance::FindKingdom( int kingdomId )
     return nullptr;
 }
 
-UKingdomIns* UFistWorldInstance::FindKingdomInstance( int kingdomId )
+UKingdomIns* UFistWorldInstance::FindKingdomInstance( int kingdomId, UObject* getter )
 {
     auto kingdom = this->FindKingdom( kingdomId );
     if( !kingdom )
     {
         return nullptr;
     }
-    UKingdomIns* ins = NewObject<UKingdomIns>();
+    UKingdomIns* ins = NewObject<UKingdomIns>( getter );
     *ins = kingdom;
     return ins;
 }
@@ -153,14 +150,14 @@ UTown* UFistWorldInstance::FindTown( int townId )
     return nullptr;
 }
 
-UTownIns* UFistWorldInstance::FindTownInstance( int townId )
+UTownIns* UFistWorldInstance::FindTownInstance( int townId, UObject* getter )
 {
     UTown* town = this->FindTown( townId );
     if( !town )
     {
         return nullptr;
     }
-    UTownIns* ins = NewObject<UTownIns>();
+    UTownIns* ins = NewObject<UTownIns>( getter );
     *ins = town;
     return ins;
 }
@@ -177,14 +174,14 @@ UWarrior* UFistWorldInstance::FindWarrior( int warriorId )
     return nullptr;
 }
 
-UWarriorIns* UFistWorldInstance::FindWarriorInstance( int warriorId )
+UWarriorIns* UFistWorldInstance::FindWarriorInstance( int warriorId, UObject* getter )
 {
     auto warrior = this->FindWarrior( warriorId );
     if( !warrior )
     {
         return nullptr;
     }
-    UWarriorIns* ins = NewObject<UWarriorIns>();
+    UWarriorIns* ins = NewObject<UWarriorIns>( getter );
     *ins = warrior;
     return ins;
 }
@@ -262,4 +259,9 @@ int UFistWorldInstance::AppendFight( UFight* fight )
 bool UFistWorldInstance::HasFight() const noexcept
 {
     return !!this->m_fights.Num();
+}
+
+TArray<UFight*>& UFistWorldInstance::GetFightList()
+{
+    return this->m_fights;
 }

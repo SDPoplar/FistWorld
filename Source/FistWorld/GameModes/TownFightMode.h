@@ -16,4 +16,14 @@ class FISTWORLD_API ATownFightMode : public AGameModeBase
 	
 public:
     ATownFightMode();
+
+    static ATownFightMode* Get( UObject* getter );
+
+    //  void NextRound();
+    void LoadFirstFight();
+
+protected:
+    bool LoadFight( class UFight* fight );
+
+    class UFight* m_o_current_fight;
 };

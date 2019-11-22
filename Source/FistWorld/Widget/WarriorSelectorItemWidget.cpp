@@ -23,8 +23,10 @@ FText UWarriorSelectorItemWidget::GetWarriorName() const
     return FText::FromString( (this->m_warrior && this->m_warrior->IsValidLowLevelFast())
         ? []( UWarriorIns* warrior )->FString {
             FString ret = warrior->GetWarriorName();
+            ret += "[";
+            ret += warrior->GetWarriorTypeString();
             char buff[ 256 ];
-            sprintf_s( buff, 256, "[LV:%d] Strong: %d, Intel: %d, Soldier: %d", warrior->GetWarriorLevel(),
+            sprintf_s( buff, 256, "] - [LV:%d] Strong: %d, Intel: %d, Soldier: %d", warrior->GetWarriorLevel(),
                 warrior->GetStrong(), warrior->GetIntel(), warrior->GetSoldierNumber() );
             ret += buff;
             return ret;

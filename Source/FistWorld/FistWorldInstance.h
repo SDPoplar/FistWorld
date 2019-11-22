@@ -33,15 +33,15 @@ public:
     UKingdom* GetPlayerKingdom() const noexcept;
     UKingdom* FindKingdom( int kingdomId );
     UFUNCTION( BlueprintCallable )
-    UKingdomIns* FindKingdomInstance( int kingdomId );
+    UKingdomIns* FindKingdomInstance( int kingdomId, UObject* getter );
 
     class UTown* FindTown( int townId );
     UFUNCTION( BlueprintCallable )
-    class UTownIns* FindTownInstance( int townId );
+    class UTownIns* FindTownInstance( int townId, UObject* getter );
 
     class UWarrior* FindWarrior( int warriorId );
     UFUNCTION( BlueprintCallable )
-    class UWarriorIns* FindWarriorInstance( int warriorId );
+    class UWarriorIns* FindWarriorInstance( int warriorId, UObject* getter );
 
     UFUNCTION( BlueprintCallable )
     int GetCurrentChapter() const noexcept;
@@ -58,6 +58,7 @@ public:
     TArray<class UWarrior*>& GetWarriorList();
     TArray<class UTown*>& GetTownList();
     TArray<class UKingdom*>& GetKingdomList();
+    TArray<class UFight*>& GetFightList();
 
 protected:
     TArray<UKingdom*> m_kingdoms;

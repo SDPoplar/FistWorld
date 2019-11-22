@@ -50,7 +50,7 @@ ESlateVisibility UKingdomSummaryWidget::PlayerHasTask() const
     if( this->m_o_task_shower && this->m_o_task_shower->IsValidLowLevelFast()
         && (this->m_o_task_shower->GetVisibility() != ESlateVisibility::Collapsed ) )
     {
-        this->m_o_task_shower->SetText( FText::FromString( task->GetStepDescribe() ) );
+        this->m_o_task_shower->SetText( task->GetStepDescribe() );
     }
     return ESlateVisibility::HitTestInvisible;
 }

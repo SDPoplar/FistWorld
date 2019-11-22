@@ -12,6 +12,7 @@ public:
     UFight( class UKingdom* attackerKingdom, class UTown* fromTown, class UTown* toTown );
     bool IsValid() const noexcept;
     int AppendAttackerWarrior( class UWarrior* warrior );
+    TArray<class UWarrior*>& GetAttackerWarriors();
 
 protected:
     class UKingdom* m_o_attacker_kingdom;

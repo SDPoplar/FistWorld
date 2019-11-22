@@ -5,8 +5,8 @@
 
 UDataTable* UWarrior::g_lib = nullptr;
 
-UWarrior::UWarrior() : HasSoldier(), m_n_id( 0 ), m_s_name( "" ), m_n_strong( 0 ), m_n_intel( 0 ), m_n_kingdom( 0 ), m_n_in_town( 0 ),
-    m_e_status( EWarriorStatus::NORMAL ), m_n_level( 0 ), m_n_exp( 0 )
+UWarrior::UWarrior() : HasSoldier(), m_n_id( 0 ), m_s_name( "" ), m_e_type( EWarriorType::NOTSET ), m_n_strong( 0 ), m_n_intel( 0 ),
+    m_n_kingdom( 0 ), m_n_in_town( 0 ), m_e_status( EWarriorStatus::NORMAL ), m_n_level( 0 ), m_n_exp( 0 )
 {
     if( !UWarrior::g_lib )
     {
@@ -46,6 +46,7 @@ bool UWarrior::SetWarriorId( int id, bool load )
         return false;
     }
     this->m_s_name = data->name;
+    this->SetWarriorType( data->type );
     this->m_n_strong = data->strong;
     this->m_n_intel = data->intel;
     return true;
@@ -64,6 +65,48 @@ void UWarrior::SetWarriorName( FString name )
 FString UWarrior::GetWarriorName() const noexcept
 {
     return this->m_s_name;
+}
+
+void UWarrior::SetWarriorType( int type )
+{
+    switch( type )
+    {
+    case 1:
+        this->SetWarriorType( EWarriorType::ARCHER );
+        break;
+    case 2:
+        this->SetWarriorType( EWarriorType::RIDER );
+        break;
+    case 3:
+        this->SetWarriorType( EWarriorType::SHIELD );
+        break;
+    default:
+        this->SetWarriorType( EWarriorType::NOTSET );
+    }
+}
+
+void UWarrior::SetWarriorType( EWarriorType type )
+{
+    this->m_e_type = type;
+}
+
+EWarriorType UWarrior::GetWarriorType() const noexcept
+{
+    return this->m_e_type;
+}
+
+FString UWarrior::GetWarriorTypeString() const noexcept
+{
+    switch( this->GetWarriorType() )
+    {
+    case EWarriorType::ARCHER:
+        return "Archer";
+    case EWarriorType::RIDER:
+        return "Rider";
+    case EWarriorType::SHIELD:
+        return "Shield";
+    }
+    return "";
 }
 
 int UWarrior::GetStrong( void ) const noexcept
@@ -180,6 +223,7 @@ UWarriorIns& UWarriorIns::operator=( const UWarrior* obj )
 {
     this->m_n_id = obj->GetWarriorId();
     this->m_s_name = obj->GetWarriorName();
+    this->m_e_type = obj->GetWarriorType();
     this->m_n_kingdom = obj->GetBelongKingdom();
     this->m_n_in_town = obj->GetInTown();
     this->m_e_status = obj->GetStatus();

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
+#include <map>
 #include "ExcutableTask.generated.h"
 
 UENUM( BlueprintType )
@@ -30,11 +31,13 @@ public:
 	UExcutableTask( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get() );
 	virtual ~UExcutableTask();
 
+    static void LoadDescribes();
+
     //  bool SetTargetTown( class UTown* town );
     //  bool SetTargetWarrior( class UWarrior* warrior );
     virtual bool Excute();
 
-    virtual FString GetStepDescribe() const;
+    virtual FText GetStepDescribe() const;
     FString GetLastError() const;
     ETaskStep GetStep() const noexcept;
     void MarkAsFinished() noexcept;
@@ -46,4 +49,6 @@ protected:
     ETaskStep m_e_step;
 
     FString m_s_last_error;
+
+    static std::map<ETaskStep, FText> g_map_step_describe;
 };

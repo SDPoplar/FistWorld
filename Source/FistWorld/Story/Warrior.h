@@ -18,6 +18,15 @@ enum class EWarriorStatus : uint8
     DEAD,
 };
 
+UENUM( BlueprintType )
+enum class EWarriorType : uint8
+{
+    NOTSET = 0,
+    ARCHER = 1,
+    RIDER = 2,
+    SHIELD = 3,
+};
+
 USTRUCT( BlueprintType )
 struct FWarriorBaseData : public FTableRowBase
 {
@@ -29,6 +38,9 @@ public:
 
     UPROPERTY( BlueprintReadOnly )
     FString name;
+
+    UPROPERTY( BlueprintReadOnly )
+    int type;
 
     UPROPERTY( BlueprintReadOnly )
     int strong;
@@ -49,9 +61,13 @@ public:
     bool SetWarriorId( int id, bool load = true );
     virtual int GetWarriorId() const noexcept;
     void SetWarriorName( FString name );
+    virtual FString GetWarriorName() const noexcept;
+    void SetWarriorType( int type );
+    void SetWarriorType( EWarriorType type );
+    virtual EWarriorType GetWarriorType() const noexcept;
+    virtual FString GetWarriorTypeString() const noexcept;
     virtual int GetStrong() const noexcept;
     virtual int GetIntel() const noexcept;
-    virtual FString GetWarriorName() const noexcept;
     void SetBelongKingdom( int kingdomId );
     virtual int GetBelongKingdom() const noexcept;
     void SetInTown( int townId );
@@ -66,6 +82,7 @@ public:
 protected:
     int m_n_id;
     FString m_s_name;
+    EWarriorType m_e_type;
     int m_n_strong;
     int m_n_intel;
     int m_n_kingdom;

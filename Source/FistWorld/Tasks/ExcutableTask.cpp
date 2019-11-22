@@ -2,10 +2,18 @@
 
 
 #include "ExcutableTask.h"
+//#include "Internationalization/PolyglotTextData.h"
+//#include "Internationalization/ILocalizedTextSource.h"
+//#include "Internationalization/TextLocalizationManager.h"
+//#include "Internationalization/PolyglotTextSource.h"
+//#include "Internationalization/TextLocalizationManager.h"
+
+std::map<ETaskStep, FText> UExcutableTask::g_map_step_describe;
 
 UExcutableTask::UExcutableTask( const FObjectInitializer& ObjectInitializer )
     : UObject( ObjectInitializer ), m_e_step( ETaskStep::CREATING ), m_s_last_error( "" )
 {
+    UExcutableTask::LoadDescribes();
     this->AddToRoot();
 }
 
@@ -22,25 +30,30 @@ FString UExcutableTask::GetLastError() const
     return this->m_s_last_error;
 }
 
-FString UExcutableTask::GetStepDescribe() const
+FText UExcutableTask::GetStepDescribe() const
 {
+    std::map<ETaskStep, FText>::iterator inlib = UExcutableTask::g_map_step_describe.find( this->m_e_step );
+    if( inlib != UExcutableTask::g_map_step_describe.end() )
+    {
+        return inlib->second;
+    }
     FString desc = "";
     switch( this->m_e_step )
     {
     case ETaskStep::CREATING:
-        desc = TCHAR_TO_UTF8( TEXT( "正在创建" ) );
+        desc = "Creating";
         break;
     case ETaskStep::CHOOSING_TARGET_TOWN:
-        desc = TCHAR_TO_UTF8( TEXT( "选择目标城镇" ) );
+        desc = "Select target town";
         break;
     case ETaskStep::CHOOSING_TARGET_WARRIOR:
-        desc = TCHAR_TO_UTF8( TEXT( "选择一名勇士" ) );
+        desc = "Select warrior";
         break;
     case ETaskStep::SETTING_TRANSPORT_VOLUME:
-        desc = TCHAR_TO_UTF8( TEXT( "设置输送的资源" ) );
+        desc = "Set transport volume";
         break;
     case ETaskStep::SETTING_SOLDIER_NUMBER:
-        desc = TCHAR_TO_UTF8( TEXT( "设置士兵数量" ) );
+        desc = "Set soldier number";
         break;
     case ETaskStep::FINISHED:
         desc = "Finished";
@@ -48,7 +61,7 @@ FString UExcutableTask::GetStepDescribe() const
     case ETaskStep::CANCELED:
         desc = "Canceld";
     }
-    return desc;
+    return FText::FromString( desc );
 }
 
 void UExcutableTask::MarkAsFinished() noexcept
@@ -81,4 +94,16 @@ bool UExcutableTask::CanCancel( void ) const noexcept
         && (this->m_e_step != ETaskStep::FINISHED)
         && (this->m_e_step != ETaskStep::CANCELED)
         && true;
+}
+
+void UExcutableTask::LoadDescribes( void )
+{
+    /*
+    auto& all = FTextLocalizationManager::Get();
+    FTextKey ns( "TaskStep" );
+    FTextKey keyChoosingTargetTown( "CHOOSING_TARGET_TOWN" );
+    auto st = all.FindDisplayString( ns, keyChoosingTargetTown );
+    UExcutableTask::g_map_step_describe[ ETaskStep::CHOOSING_TARGET_TOWN ] = FText::FromString( *st );
+    //UE_LOG( LogTemp, Display, TEXT( "ST find FText - TaskStep::CHOOSING_TARGET_TOWN = %s" ), *( *st ) );
+    */
 }
