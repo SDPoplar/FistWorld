@@ -2,6 +2,7 @@
 
 #include "Warrior.h"
 #include "UObject/ConstructorHelpers.h"
+#include "Static/Lang/WarriorType.h"
 
 UDataTable* UWarrior::g_lib = nullptr;
 
@@ -95,20 +96,6 @@ EWarriorType UWarrior::GetWarriorType() const noexcept
     return this->m_e_type;
 }
 
-FString UWarrior::GetWarriorTypeString() const noexcept
-{
-    switch( this->GetWarriorType() )
-    {
-    case EWarriorType::ARCHER:
-        return "Archer";
-    case EWarriorType::RIDER:
-        return "Rider";
-    case EWarriorType::SHIELD:
-        return "Shield";
-    }
-    return "";
-}
-
 int UWarrior::GetStrong( void ) const noexcept
 {
     return this->m_n_strong;
@@ -197,6 +184,20 @@ int UWarriorIns::GetBelongKingdom() const noexcept
 int UWarriorIns::GetInTown() const noexcept
 {
     return UWarrior::GetInTown();
+}
+
+FString UWarriorIns::GetWarriorTypeString() const noexcept
+{
+    switch( this->GetWarriorType() )
+    {
+    case EWarriorType::ARCHER:
+        return txtArcherType.ToString();
+    case EWarriorType::RIDER:
+        return txtRiderType.ToString();
+    case EWarriorType::SHIELD:
+        return txtShieldType.ToString();
+    }
+    return "";
 }
 
 EWarriorStatus UWarriorIns::GetStatus() const noexcept

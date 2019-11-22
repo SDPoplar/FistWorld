@@ -65,7 +65,6 @@ public:
     void SetWarriorType( int type );
     void SetWarriorType( EWarriorType type );
     virtual EWarriorType GetWarriorType() const noexcept;
-    virtual FString GetWarriorTypeString() const noexcept;
     virtual int GetStrong() const noexcept;
     virtual int GetIntel() const noexcept;
     void SetBelongKingdom( int kingdomId );
@@ -113,6 +112,9 @@ public:
     FString GetWarriorName() const noexcept override;
 
     UFUNCTION( BlueprintCallable )
+    FString GetWarriorTypeString() const noexcept;
+
+    UFUNCTION( BlueprintCallable )
     int GetStrong() const noexcept override;
 
     UFUNCTION( BlueprintCallable )
@@ -135,6 +137,7 @@ public:
 
     UFUNCTION( BlueprintCallable )
     int GetSoldierNumber() const noexcept override;
+
 
     UWarriorIns& operator=( const UWarrior* obj );
 };

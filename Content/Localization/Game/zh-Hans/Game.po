@@ -1,0 +1,428 @@
+﻿# Game Chinese (Simplified) translation.
+# Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Game\n"
+"POT-Creation-Date: 2019-11-22 11:32\n"
+"PO-Revision-Date: 2019-11-22 11:32\n"
+"Language-Team: \n"
+"Language: zh-Hans\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. Key:	0407448E42D37D89E44B61BCA05C2083
+#. SourceLocation:	/Game/Levels/Res_lv_MainMenu/Widget_MainMenu.Widget_MainMenu_C:WidgetTree.labelOptions.Text
+#: /Game/Levels/Res_lv_MainMenu/Widget_MainMenu.Widget_MainMenu_C:WidgetTree.labelOptions.Text
+msgctxt ",0407448E42D37D89E44B61BCA05C2083"
+msgid "选项"
+msgstr "选项"
+
+#. Key:	05549D554B58631A97AEA38A8A8C1686
+#. SourceLocation:	/Game/Levels/Res_lv_Fight/Widget_Fight_ConfirmBack.Widget_Fight_ConfirmBack_C:WidgetTree.labelBtnOK.Text
+#: /Game/Levels/Res_lv_Fight/Widget_Fight_ConfirmBack.Widget_Fight_ConfirmBack_C:WidgetTree.labelBtnOK.Text
+msgctxt ",05549D554B58631A97AEA38A8A8C1686"
+msgid "确认"
+msgstr "确认"
+
+#. Key:	09E51A5A45FEC684EB5B7E8C1FC2074E
+#. SourceLocation:	/Game/Levels/Res_lv_World/Widget_World_PlayerTown.Widget_World_PlayerTown_C:WidgetTree.labelSearch.Text
+#: /Game/Levels/Res_lv_World/Widget_World_PlayerTown.Widget_World_PlayerTown_C:WidgetTree.labelSearch.Text
+msgctxt ",09E51A5A45FEC684EB5B7E8C1FC2074E"
+msgid "搜寻"
+msgstr "搜寻"
+
+#. Key:	0F60D5C24450CFB8896CECB1F4DA150F
+#. SourceLocation:	/Game/Levels/Res_lv_World/Widget_World_SysMenu.Widget_World_SysMenu_C:WidgetTree.TextBlock_146.Text
+#: /Game/Levels/Res_lv_World/Widget_World_SysMenu.Widget_World_SysMenu_C:WidgetTree.TextBlock_146.Text
+msgctxt ",0F60D5C24450CFB8896CECB1F4DA150F"
+msgid "回到游戏"
+msgstr "回到游戏"
+
+#. Key:	135B8AA74A47A6478F705C93F143EC5D
+#. SourceLocation:	/Game/Levels/Res_lv_World/Widget_World_SoldierNumber.Widget_World_SoldierNumber_C:WidgetTree.sliderSoldierNum.sliderTitle
+#: /Game/Levels/Res_lv_World/Widget_World_SoldierNumber.Widget_World_SoldierNumber_C:WidgetTree.sliderSoldierNum.sliderTitle
+msgctxt ",135B8AA74A47A6478F705C93F143EC5D"
+msgid "数量"
+msgstr "数量"
+
+#. Key:	1983CCB14FEC60CDCF1C9A9E8E9D7EC4
+#. SourceLocation:	/Game/Levels/Res_lv_World/Widget_World_SoldierNumber.Widget_World_SoldierNumber_C:WidgetTree.labelOK.Text
+#: /Game/Levels/Res_lv_World/Widget_World_SoldierNumber.Widget_World_SoldierNumber_C:WidgetTree.labelOK.Text
+msgctxt ",1983CCB14FEC60CDCF1C9A9E8E9D7EC4"
+msgid "确认"
+msgstr "确认"
+
+#. Key:	2FB4C3794C83CF5296B8F59C0A2CD417
+#. SourceLocation:	/Game/Levels/Res_lv_World/Widget_World_PlayerTown.Widget_World_PlayerTown_C:WidgetTree.labelAssignSoldier.Text
+#: /Game/Levels/Res_lv_World/Widget_World_PlayerTown.Widget_World_PlayerTown_C:WidgetTree.labelAssignSoldier.Text
+msgctxt ",2FB4C3794C83CF5296B8F59C0A2CD417"
+msgid "分配"
+msgstr "分配"
+
+#. Key:	3429BD0A4B7096E1C39326A2EEBA91B3
+#. SourceLocation:	/Game/Levels/Res_lv_World/Widget_World_ConfirmBack.Widget_World_ConfirmBack_C:WidgetTree.TextBlock_400.Text
+#: /Game/Levels/Res_lv_World/Widget_World_ConfirmBack.Widget_World_ConfirmBack_C:WidgetTree.TextBlock_400.Text
+msgctxt ",3429BD0A4B7096E1C39326A2EEBA91B3"
+msgid "未保存的进度将会丢失\r\n确认返回吗？"
+msgstr "未保存的进度将会丢失\r\n确认返回吗？"
+
+#. Key:	37F274D4488E362C6E318A814928AA99
+#. SourceLocation:	/Game/Levels/Res_lv_World/Widget_World_SingleWarriorSelector.Widget_World_SingleWarriorSelector_C:WidgetTree.labelTitle.Text
+#: /Game/Levels/Res_lv_World/Widget_World_SingleWarriorSelector.Widget_World_SingleWarriorSelector_C:WidgetTree.labelTitle.Text
+msgctxt ",37F274D4488E362C6E318A814928AA99"
+msgid "选择一位勇士"
+msgstr "选择一位勇士"
+
+#. Key:	475D538F4625546E3C11DB85355E2473
+#. SourceLocation:	/Game/Levels/Res_lv_MainMenu/Widget_MainMenu.Widget_MainMenu_C:WidgetTree.labelAbout.Text
+#: /Game/Levels/Res_lv_MainMenu/Widget_MainMenu.Widget_MainMenu_C:WidgetTree.labelAbout.Text
+msgctxt ",475D538F4625546E3C11DB85355E2473"
+msgid "制作组"
+msgstr "制作组"
+
+#. Key:	4D53050A47B7B4460E2BE387809B6C77
+#. SourceLocation:	/Game/Levels/Res_lv_MainMenu/Widget_CreateGame.Widget_CreateGame_C:WidgetTree.labelCancel.Text
+#: /Game/Levels/Res_lv_MainMenu/Widget_CreateGame.Widget_CreateGame_C:WidgetTree.labelCancel.Text
+msgctxt ",4D53050A47B7B4460E2BE387809B6C77"
+msgid "返回"
+msgstr "返回"
+
+#. Key:	559B0F37458999E16B30F1A9E611AA89
+#. SourceLocation:	/Game/Levels/Res_lv_World/Widget_World_PlayerTown.Widget_World_PlayerTown_C:WidgetTree.labelSoldierTitle.Text
+#: /Game/Levels/Res_lv_World/Widget_World_PlayerTown.Widget_World_PlayerTown_C:WidgetTree.labelSoldierTitle.Text
+msgctxt ",559B0F37458999E16B30F1A9E611AA89"
+msgid "士兵"
+msgstr "士兵"
+
+#. Key:	637ADEBB41D36AF096E207A637783CAA
+#. SourceLocation:	/Game/Levels/Res_lv_World/Widget_World_TransportVolume.Widget_World_TransportVolume_C:WidgetTree.sliderFood.sliderTitle
+#: /Game/Levels/Res_lv_World/Widget_World_TransportVolume.Widget_World_TransportVolume_C:WidgetTree.sliderFood.sliderTitle
+msgctxt ",637ADEBB41D36AF096E207A637783CAA"
+msgid "粮食"
+msgstr "粮食"
+
+#. Key:	63E58F594C1874758F1DD586B1860102
+#. SourceLocation:	/Game/Levels/Res_lv_World/Widget_World_ConfirmBack.Widget_World_ConfirmBack_C:WidgetTree.labelConfirm.Text
+#: /Game/Levels/Res_lv_World/Widget_World_ConfirmBack.Widget_World_ConfirmBack_C:WidgetTree.labelConfirm.Text
+msgctxt ",63E58F594C1874758F1DD586B1860102"
+msgid "确认"
+msgstr "确认"
+
+#. Key:	6E96DCAF48ECFEDA0B157C94640E386A
+#. SourceLocation:	/Game/Levels/Res_lv_MainMenu/Widget_CreateGame.Widget_CreateGame_C:WidgetTree.labelCreate.Text
+#: /Game/Levels/Res_lv_MainMenu/Widget_CreateGame.Widget_CreateGame_C:WidgetTree.labelCreate.Text
+msgctxt ",6E96DCAF48ECFEDA0B157C94640E386A"
+msgid "开始"
+msgstr "开始"
+
+#. Key:	767651A142150035185E479E9677A282
+#. SourceLocation:	/Game/Levels/Res_lv_World/Widget_World_PlayerTown.Widget_World_PlayerTown_C:WidgetTree.labelDevAgriculture.Text
+#: /Game/Levels/Res_lv_World/Widget_World_PlayerTown.Widget_World_PlayerTown_C:WidgetTree.labelDevAgriculture.Text
+msgctxt ",767651A142150035185E479E9677A282"
+msgid "发展农业"
+msgstr "发展农业"
+
+#. Key:	76A798DE446C23FA8F2DD08ACBEA3309
+#. SourceLocation:	/Game/Levels/Res_lv_World/Widget_World_SysMenu.Widget_World_SysMenu_C:WidgetTree.labelSave.Text
+#: /Game/Levels/Res_lv_World/Widget_World_SysMenu.Widget_World_SysMenu_C:WidgetTree.labelSave.Text
+msgctxt ",76A798DE446C23FA8F2DD08ACBEA3309"
+msgid "保存游戏"
+msgstr "保存游戏"
+
+#. Key:	78CC995A451B5818233EB2A88F25CAAE
+#. SourceLocation:	/Game/Levels/Res_lv_World/Widget_World_HostileTown.Widget_World_HostileTown_C:WidgetTree.labelMoneyTitle.Text
+#: /Game/Levels/Res_lv_World/Widget_World_HostileTown.Widget_World_HostileTown_C:WidgetTree.labelMoneyTitle.Text
+msgctxt ",78CC995A451B5818233EB2A88F25CAAE"
+msgid "金钱"
+msgstr "金钱"
+
+#. Key:	7B5094D14CBE6232F25227AC14ABB98C
+#. SourceLocation:	/Game/Levels/Res_lv_World/Widget_World_HostileTown.Widget_World_HostileTown_C:WidgetTree.labelBusinessTitle.Text
+#: /Game/Levels/Res_lv_World/Widget_World_HostileTown.Widget_World_HostileTown_C:WidgetTree.labelBusinessTitle.Text
+msgctxt ",7B5094D14CBE6232F25227AC14ABB98C"
+msgid "商业"
+msgstr "商业"
+
+#. Key:	7C9FB4114EE5D45755856E884F2FAEB9
+#. SourceLocation:	/Game/Levels/Res_lv_World/Widget_World_PlayerTown.Widget_World_PlayerTown_C:WidgetTree.labelBusinessTitle.Text
+#: /Game/Levels/Res_lv_World/Widget_World_PlayerTown.Widget_World_PlayerTown_C:WidgetTree.labelBusinessTitle.Text
+msgctxt ",7C9FB4114EE5D45755856E884F2FAEB9"
+msgid "商业"
+msgstr "商业"
+
+#. Key:	7CE03EBB40FB0E20116C5A96AEBE71C9
+#. SourceLocation:	/Game/Levels/Res_lv_World/Widget_World_PlayerTown.Widget_World_PlayerTown_C:WidgetTree.labelFoodTitle.Text
+#: /Game/Levels/Res_lv_World/Widget_World_PlayerTown.Widget_World_PlayerTown_C:WidgetTree.labelFoodTitle.Text
+msgctxt ",7CE03EBB40FB0E20116C5A96AEBE71C9"
+msgid "粮食"
+msgstr "粮食"
+
+#. Key:	82530E4142B5E5210219C288BE1EE8FD
+#. SourceLocation:	/Game/Levels/Res_lv_World/Widget_World_PlayerTown.Widget_World_PlayerTown_C:WidgetTree.labelStatus.Text
+#: /Game/Levels/Res_lv_World/Widget_World_PlayerTown.Widget_World_PlayerTown_C:WidgetTree.labelStatus.Text
+msgctxt ",82530E4142B5E5210219C288BE1EE8FD"
+msgid "已占领"
+msgstr "已占领"
+
+#. Key:	85E59C96418F5A2499D250AF87D7B745
+#. SourceLocation:	/Game/Levels/Res_lv_World/Widget_World_PlayerTown.Widget_World_PlayerTown_C:WidgetTree.labelExpendition.Text
+#: /Game/Levels/Res_lv_World/Widget_World_PlayerTown.Widget_World_PlayerTown_C:WidgetTree.labelExpendition.Text
+msgctxt ",85E59C96418F5A2499D250AF87D7B745"
+msgid "出征"
+msgstr "出征"
+
+#. Key:	8A8E070F4FA2604103BB0E9432D07822
+#. SourceLocation:	/Game/Levels/Res_lv_World/Widget_World_PlayerTown.Widget_World_PlayerTown_C:WidgetTree.labelDevBusiness.Text
+#: /Game/Levels/Res_lv_World/Widget_World_PlayerTown.Widget_World_PlayerTown_C:WidgetTree.labelDevBusiness.Text
+msgctxt ",8A8E070F4FA2604103BB0E9432D07822"
+msgid "发展商业"
+msgstr "发展商业"
+
+#. Key:	8F8412044AD5BECF99734BA761498BA9
+#. SourceLocation:	/Game/Levels/Res_lv_World/Widget_World_PlayerTown.Widget_World_PlayerTown_C:WidgetTree.labelSubsidy.Text
+#: /Game/Levels/Res_lv_World/Widget_World_PlayerTown.Widget_World_PlayerTown_C:WidgetTree.labelSubsidy.Text
+msgctxt ",8F8412044AD5BECF99734BA761498BA9"
+msgid "补助"
+msgstr "补助"
+
+#. Key:	A369D99D4A58587AF22CA7BFFEC68D56
+#. SourceLocation:	/Game/Levels/Res_lv_World/Widget_World_ConfirmBack.Widget_World_ConfirmBack_C:WidgetTree.labelCancel.Text
+#: /Game/Levels/Res_lv_World/Widget_World_ConfirmBack.Widget_World_ConfirmBack_C:WidgetTree.labelCancel.Text
+msgctxt ",A369D99D4A58587AF22CA7BFFEC68D56"
+msgid "取消"
+msgstr "取消"
+
+#. Key:	A43E781F49CC147B2EBAAE8D3BAA94A7
+#. SourceLocation:	/Game/Levels/Res_lv_MainMenu/Widget_MainMenu.Widget_MainMenu_C:WidgetTree.labelNewGame.Text
+#: /Game/Levels/Res_lv_MainMenu/Widget_MainMenu.Widget_MainMenu_C:WidgetTree.labelNewGame.Text
+msgctxt ",A43E781F49CC147B2EBAAE8D3BAA94A7"
+msgid "新游戏"
+msgstr "新游戏"
+
+#. Key:	A6E3EBD9403D591D4102C0A0322E77DC
+#. SourceLocation:	/Game/Levels/Res_lv_World/Widget_World_PlayerTown.Widget_World_PlayerTown_C:WidgetTree.labelMoneyTitle.Text
+#: /Game/Levels/Res_lv_World/Widget_World_PlayerTown.Widget_World_PlayerTown_C:WidgetTree.labelMoneyTitle.Text
+msgctxt ",A6E3EBD9403D591D4102C0A0322E77DC"
+msgid "金钱"
+msgstr "金钱"
+
+#. Key:	AF11C6D8409EE6D12F24E59E09BA8722
+#. SourceLocation:	/Game/Levels/Res_lv_MainMenu/Widget_MainMenu.Widget_MainMenu_C:WidgetTree.labelContinue.Text
+#: /Game/Levels/Res_lv_MainMenu/Widget_MainMenu.Widget_MainMenu_C:WidgetTree.labelContinue.Text
+msgctxt ",AF11C6D8409EE6D12F24E59E09BA8722"
+msgid "继续游戏"
+msgstr "继续游戏"
+
+#. Key:	AF6BEE7E44250E94C6AB70A32A43DD49
+#. SourceLocation:	/Game/Levels/Res_lv_MainMenu/Widget_Options.Widget_Options_C:WidgetTree.TextBlock_164.Text
+#: /Game/Levels/Res_lv_MainMenu/Widget_Options.Widget_Options_C:WidgetTree.TextBlock_164.Text
+msgctxt ",AF6BEE7E44250E94C6AB70A32A43DD49"
+msgid "返回"
+msgstr "返回"
+
+#. Key:	B0982BD641EFC851AEF98EA927BC7D26
+#. SourceLocation:	/Game/Levels/Res_lv_World/Widget_World_SysMenu.Widget_World_SysMenu_C:WidgetTree.labelNextRound.Text
+#: /Game/Levels/Res_lv_World/Widget_World_SysMenu.Widget_World_SysMenu_C:WidgetTree.labelNextRound.Text
+msgctxt ",B0982BD641EFC851AEF98EA927BC7D26"
+msgid "结束当前回合"
+msgstr "结束当前回合"
+
+#. Key:	B10F3EBE4FFC693480BBAC99310246BC
+#. SourceLocation:	/Game/Levels/Res_lv_World/Widget_World_TransportVolume.Widget_World_TransportVolume_C:WidgetTree.sliderMoney.sliderTitle
+#: /Game/Levels/Res_lv_World/Widget_World_TransportVolume.Widget_World_TransportVolume_C:WidgetTree.sliderMoney.sliderTitle
+msgctxt ",B10F3EBE4FFC693480BBAC99310246BC"
+msgid "金钱"
+msgstr "金钱"
+
+#. Key:	B1FDF4E2430EFAE4BBA6658FF4EAA0AA
+#. SourceLocation:	/Game/Levels/Res_lv_World/Widget_World_HostileTown.Widget_World_HostileTown_C:WidgetTree.labelStatus.Text
+#: /Game/Levels/Res_lv_World/Widget_World_HostileTown.Widget_World_HostileTown_C:WidgetTree.labelStatus.Text
+msgctxt ",B1FDF4E2430EFAE4BBA6658FF4EAA0AA"
+msgid "可攻占"
+msgstr "可攻占"
+
+#. Key:	B223941542726177560FF49BA762F392
+#. SourceLocation:	/Game/Levels/Res_lv_Fight/Widget_Fight_ConfirmBack.Widget_Fight_ConfirmBack_C:WidgetTree.TextBlock_100.Text
+#: /Game/Levels/Res_lv_Fight/Widget_Fight_ConfirmBack.Widget_Fight_ConfirmBack_C:WidgetTree.TextBlock_100.Text
+msgctxt ",B223941542726177560FF49BA762F392"
+msgid "确认要放弃战斗\r\n并逃跑吗？"
+msgstr "确认要放弃战斗\r\n并逃跑吗？"
+
+#. Key:	BAFF0CEF43AFC0F39D1616A50AD02CEF
+#. SourceLocation:	/Game/Levels/Res_lv_World/Widget_World_MultiWarriorSelector.Widget_World_MultiWarriorSelector_C:WidgetTree.labelTitle.Text
+#: /Game/Levels/Res_lv_World/Widget_World_MultiWarriorSelector.Widget_World_MultiWarriorSelector_C:WidgetTree.labelTitle.Text
+msgctxt ",BAFF0CEF43AFC0F39D1616A50AD02CEF"
+msgid "选择勇士"
+msgstr "选择勇士"
+
+#. Key:	BEFDE95D4DDD846DA5C83D8B4FB20509
+#. SourceLocation:	/Game/Levels/Res_lv_World/Widget_World_TransportVolume.Widget_World_TransportVolume_C:WidgetTree.labelOK.Text
+#: /Game/Levels/Res_lv_World/Widget_World_TransportVolume.Widget_World_TransportVolume_C:WidgetTree.labelOK.Text
+msgctxt ",BEFDE95D4DDD846DA5C83D8B4FB20509"
+msgid "确认"
+msgstr "确认"
+
+#. Key:	CFF8EEE540538899851226993C3D76C1
+#. SourceLocation:	/Game/Levels/Res_lv_World/Widget_World_PlayerTown.Widget_World_PlayerTown_C:WidgetTree.labelConscript.Text
+#: /Game/Levels/Res_lv_World/Widget_World_PlayerTown.Widget_World_PlayerTown_C:WidgetTree.labelConscript.Text
+msgctxt ",CFF8EEE540538899851226993C3D76C1"
+msgid "征兵"
+msgstr "征兵"
+
+#. Key:	D2E8060146CD8F963D126C978EFE3873
+#. SourceLocation:	/Game/Levels/Res_lv_World/Widget_World_PlayerTown.Widget_World_PlayerTown_C:WidgetTree.labelAgricultureTitle.Text
+#: /Game/Levels/Res_lv_World/Widget_World_PlayerTown.Widget_World_PlayerTown_C:WidgetTree.labelAgricultureTitle.Text
+msgctxt ",D2E8060146CD8F963D126C978EFE3873"
+msgid "农业"
+msgstr "农业"
+
+#. Key:	DB5E54E541D724CD75EC2FBAA3DC3075
+#. SourceLocation:	/Game/Levels/Res_lv_World/Widget_World_PlayerTown.Widget_World_PlayerTown_C:WidgetTree.labelLevy.Text
+#: /Game/Levels/Res_lv_World/Widget_World_PlayerTown.Widget_World_PlayerTown_C:WidgetTree.labelLevy.Text
+msgctxt ",DB5E54E541D724CD75EC2FBAA3DC3075"
+msgid "征收"
+msgstr "征收"
+
+#. Key:	DD9D6F16444CFEACC42264A9A7FA8657
+#. SourceLocation:	/Game/Levels/Res_lv_World/Widget_World_HostileTown.Widget_World_HostileTown_C:WidgetTree.labelFoodTitle.Text
+#: /Game/Levels/Res_lv_World/Widget_World_HostileTown.Widget_World_HostileTown_C:WidgetTree.labelFoodTitle.Text
+msgctxt ",DD9D6F16444CFEACC42264A9A7FA8657"
+msgid "粮食"
+msgstr "粮食"
+
+#. Key:	DEC3FC73475F2E3279F9CB89632D9073
+#. SourceLocation:	/Game/Levels/Res_lv_World/Widget_World_SysMenu.Widget_World_SysMenu_C:WidgetTree.TextBlock.Text
+#: /Game/Levels/Res_lv_World/Widget_World_SysMenu.Widget_World_SysMenu_C:WidgetTree.TextBlock.Text
+msgctxt ",DEC3FC73475F2E3279F9CB89632D9073"
+msgid "返回主菜单"
+msgstr "返回主菜单"
+
+#. Key:	DF0C85DF41D6C6346564B699C2B7DAF6
+#. SourceLocation:	/Game/Levels/Res_lv_MainMenu/Widget_MainMenu.Widget_MainMenu_C:WidgetTree.labelQuit.Text
+#: /Game/Levels/Res_lv_MainMenu/Widget_MainMenu.Widget_MainMenu_C:WidgetTree.labelQuit.Text
+msgctxt ",DF0C85DF41D6C6346564B699C2B7DAF6"
+msgid "退出"
+msgstr "退出"
+
+#. Key:	E01451124637FE4116E6729B1FB33D16
+#. SourceLocation:	/Game/Levels/Res_lv_World/Widget_World_HostileTown.Widget_World_HostileTown_C:WidgetTree.labelAgricultureTitle.Text
+#: /Game/Levels/Res_lv_World/Widget_World_HostileTown.Widget_World_HostileTown_C:WidgetTree.labelAgricultureTitle.Text
+msgctxt ",E01451124637FE4116E6729B1FB33D16"
+msgid "农业"
+msgstr "农业"
+
+#. Key:	E050E86648B78ACF82D2D08940443D5D
+#. SourceLocation:	/Game/Levels/Res_lv_Fight/Widget_Fight_ConfirmBack.Widget_Fight_ConfirmBack_C:WidgetTree.labelBtnCancel.Text
+#: /Game/Levels/Res_lv_Fight/Widget_Fight_ConfirmBack.Widget_Fight_ConfirmBack_C:WidgetTree.labelBtnCancel.Text
+msgctxt ",E050E86648B78ACF82D2D08940443D5D"
+msgid "取消"
+msgstr "取消"
+
+#. Key:	E06FF87445ACED66FE0EE886B9018CCA
+#. SourceLocation:	/Game/Levels/Res_lv_World/Widget_World_MultiWarriorSelector.Widget_World_MultiWarriorSelector_C:WidgetTree.TextBlock_142.Text
+#: /Game/Levels/Res_lv_World/Widget_World_MultiWarriorSelector.Widget_World_MultiWarriorSelector_C:WidgetTree.TextBlock_142.Text
+msgctxt ",E06FF87445ACED66FE0EE886B9018CCA"
+msgid "确认"
+msgstr "确认"
+
+#. Key:	F0A6B13541ACFD4071B49BB6D9B55077
+#. SourceLocation:	/Game/Levels/Res_lv_Fight/Widget_Fight_SysMenu.Widget_Fight_SysMenu_C:WidgetTree.TextBlock_100.Text
+#: /Game/Levels/Res_lv_Fight/Widget_Fight_SysMenu.Widget_Fight_SysMenu_C:WidgetTree.TextBlock_100.Text
+msgctxt ",F0A6B13541ACFD4071B49BB6D9B55077"
+msgid "逃跑"
+msgstr "逃跑"
+
+#. Key:	FB876743425C00906F1D60B1BE564966
+#. SourceLocation:	/Game/Levels/Res_lv_World/Widget_World_HostileTown.Widget_World_HostileTown_C:WidgetTree.labelClose.Text
+#: /Game/Levels/Res_lv_World/Widget_World_HostileTown.Widget_World_HostileTown_C:WidgetTree.labelClose.Text
+msgctxt ",FB876743425C00906F1D60B1BE564966"
+msgid "取消"
+msgstr "取消"
+
+#. Key:	CANCELED
+#. SourceLocation:	Source/FistWorld/Static/Lang/TaskStep.h:7
+#: Source/FistWorld/Static/Lang/TaskStep.h:7
+msgctxt "TaskStep,CANCELED"
+msgid "已取消"
+msgstr "已取消"
+
+#. Key:	CHOOSING_TARGET_TOWN
+#. SourceLocation:	Source/FistWorld/Static/Lang/TaskStep.h:2
+#: Source/FistWorld/Static/Lang/TaskStep.h:2
+msgctxt "TaskStep,CHOOSING_TARGET_TOWN"
+msgid "选择目标城镇"
+msgstr "选择目标城镇"
+
+#. Key:	CHOOSING_TARGET_WARRIOR
+#. SourceLocation:	Source/FistWorld/Static/Lang/TaskStep.h:3
+#: Source/FistWorld/Static/Lang/TaskStep.h:3
+msgctxt "TaskStep,CHOOSING_TARGET_WARRIOR"
+msgid "选择勇士"
+msgstr "选择勇士"
+
+#. Key:	CREATING
+#. SourceLocation:	Source/FistWorld/Static/Lang/TaskStep.h:1
+#: Source/FistWorld/Static/Lang/TaskStep.h:1
+msgctxt "TaskStep,CREATING"
+msgid "创建中"
+msgstr "创建中"
+
+#. Key:	FINISHED
+#. SourceLocation:	Source/FistWorld/Static/Lang/TaskStep.h:6
+#: Source/FistWorld/Static/Lang/TaskStep.h:6
+msgctxt "TaskStep,FINISHED"
+msgid "已完成"
+msgstr "已完成"
+
+#. Key:	INVALID
+#. SourceLocation:	Source/FistWorld/Static/Lang/TaskStep.h:8
+#: Source/FistWorld/Static/Lang/TaskStep.h:8
+msgctxt "TaskStep,INVALID"
+msgid "未知步骤"
+msgstr "未知步骤"
+
+#. Key:	SETTING_SOLDIER_NUMBER
+#. SourceLocation:	Source/FistWorld/Static/Lang/TaskStep.h:5
+#: Source/FistWorld/Static/Lang/TaskStep.h:5
+msgctxt "TaskStep,SETTING_SOLDIER_NUMBER"
+msgid "设置士兵数量"
+msgstr "设置士兵数量"
+
+#. Key:	SETTING_TRANSPORT_VOLUME
+#. SourceLocation:	Source/FistWorld/Static/Lang/TaskStep.h:4
+#: Source/FistWorld/Static/Lang/TaskStep.h:4
+msgctxt "TaskStep,SETTING_TRANSPORT_VOLUME"
+msgid "设置输送量"
+msgstr "设置输送量"
+
+#. Key:	ARCHER
+#. SourceLocation:	Source/FistWorld/Static/Lang/WarriorType.h:4
+#: Source/FistWorld/Static/Lang/WarriorType.h:4
+msgctxt "WarriorType,ARCHER"
+msgid "弓兵"
+msgstr "弓兵"
+
+#. Key:	RIDER
+#. SourceLocation:	Source/FistWorld/Static/Lang/WarriorType.h:5
+#: Source/FistWorld/Static/Lang/WarriorType.h:5
+msgctxt "WarriorType,RIDER"
+msgid "骑兵"
+msgstr "骑兵"
+
+#. Key:	SHIELD
+#. SourceLocation:	Source/FistWorld/Static/Lang/WarriorType.h:6
+#: Source/FistWorld/Static/Lang/WarriorType.h:6
+msgctxt "WarriorType,SHIELD"
+msgid "盾兵"
+msgstr "盾兵"
+
+#. Key:	UNSET
+#. SourceLocation:	Source/FistWorld/Static/Lang/WarriorType.h:3
+#: Source/FistWorld/Static/Lang/WarriorType.h:3
+msgctxt "WarriorType,UNSET"
+msgid "未知"
+msgstr "未知"
+

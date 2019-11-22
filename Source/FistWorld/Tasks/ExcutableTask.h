@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
-#include <map>
 #include "ExcutableTask.generated.h"
 
 UENUM( BlueprintType )
@@ -38,7 +37,6 @@ public:
     virtual bool Excute();
 
     virtual FText GetStepDescribe() const;
-    FString GetLastError() const;
     ETaskStep GetStep() const noexcept;
     void MarkAsFinished() noexcept;
     void MarkAsCanceled() noexcept;
@@ -47,8 +45,4 @@ public:
 
 protected:
     ETaskStep m_e_step;
-
-    FString m_s_last_error;
-
-    static std::map<ETaskStep, FText> g_map_step_describe;
 };
