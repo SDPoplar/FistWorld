@@ -1,7 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "WarriorSelectorItemWidget.h"
-#include "Story/Warrior.h"
 #include "Static/Lang/CommonTemplate.h"
 
 #define CHECKWARRIOR( val, def ) this->IsWarriorBinded() ? val : def
@@ -23,6 +22,11 @@ bool UWarriorSelectorItemWidget::BindWarriorIns( UObject* ins )
 bool UWarriorSelectorItemWidget::IsWarriorBinded( void ) const noexcept
 {
     return this->m_warrior && this->m_warrior->IsValidLowLevelFast();
+}
+
+EWarriorType UWarriorSelectorItemWidget::GetWarriorType() const noexcept
+{
+    return CHECKWARRIOR( this->m_warrior->GetWarriorType(), EWarriorType::NOTSET );
 }
 
 FText UWarriorSelectorItemWidget::GetWarriorName() const noexcept

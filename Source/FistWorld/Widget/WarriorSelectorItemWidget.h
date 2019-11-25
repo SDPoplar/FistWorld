@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "IUserObjectListEntry.h"
+#include "Story/Warrior.h"
 #include "WarriorSelectorItemWidget.generated.h"
 
 /**
@@ -23,6 +24,9 @@ protected:
 
     UFUNCTION( BlueprintCallable )
     bool BindWarriorIns( UObject* warrior );
+
+    UFUNCTION( BlueprintCallable )
+    EWarriorType GetWarriorType() const noexcept;
 
     UFUNCTION( BlueprintCallable )
     FText GetWarriorName() const noexcept;
@@ -54,5 +58,5 @@ protected:
     UFUNCTION( BlueprintCallable )
     bool IsWarriorBinded() const noexcept;
 
-    class UWarriorIns* m_warrior;
+    UWarriorIns* m_warrior;
 };
