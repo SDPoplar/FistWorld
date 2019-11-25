@@ -1,4 +1,4 @@
-﻿//  #define LOCTEXT_NAMESPACE "WarriorType"
+﻿#pragma once
 
 const FText txtUnkownType = NSLOCTEXT( "WarriorType", "UNSET", "未知" );
 const FText txtArcherType = NSLOCTEXT( "WarriorType", "ARCHER", "弓兵" );

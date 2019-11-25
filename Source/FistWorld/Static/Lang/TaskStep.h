@@ -1,4 +1,5 @@
-﻿const FText txtCreating = NSLOCTEXT( "TaskStep", "CREATING", "创建中" );
+﻿#pragma once
+const FText txtCreating = NSLOCTEXT( "TaskStep", "CREATING", "创建中" );
 const FText txtChooseTargetTown = NSLOCTEXT( "TaskStep", "CHOOSING_TARGET_TOWN", "选择目标城镇" );
 const FText txtChooseWarrior = NSLOCTEXT( "TaskStep", "CHOOSING_TARGET_WARRIOR", "选择勇士" );
 const FText txtSetTransform = NSLOCTEXT( "TaskStep", "SETTING_TRANSPORT_VOLUME", "设置输送量" );

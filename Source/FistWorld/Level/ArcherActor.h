@@ -14,4 +14,6 @@ class FISTWORLD_API AArcherActor : public AFightActor
 {
 	GENERATED_BODY()
 	
+public:
+    AArcherActor();
 };
