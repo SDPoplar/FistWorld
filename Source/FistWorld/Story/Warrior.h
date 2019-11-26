@@ -112,7 +112,7 @@ public:
     FString GetWarriorName() const noexcept override;
 
     UFUNCTION( BlueprintCallable )
-    FString GetWarriorTypeString() const noexcept;
+    FText GetWarriorTypeString() const noexcept;
 
     UFUNCTION( BlueprintCallable )
     int GetStrong() const noexcept override;

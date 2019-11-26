@@ -3,10 +3,8 @@
 #include "WarriorSelectorItemWidget.h"
 #include "Static/Lang/CommonTemplate.h"
 
-#define CHECKWARRIOR( val, def ) this->IsWarriorBinded() ? val : def
-#define CHECKWARRIOR_TEXT( val ) CHECKWARRIOR( this->m_warrior->val, FText::GetEmpty() )
-#define CHECKWARRIOR_INT( val ) CHECKWARRIOR( this->m_warrior->val, 0 )
-#define CHECKWARRIOR_INT2TEXT( val ) CHECKWARRIOR( FText::AsNumber( this->m_warrior->val ), FText::GetEmpty() )
+#define CHECKWARRIOR( def ) do { if( !this->IsWarriorBinded() ) { return def; } } while( false )
+#define CHECKWARRIOR_TEXT CHECKWARRIOR( FText::GetEmpty() )
 
 bool UWarriorSelectorItemWidget::BindWarriorIns( UObject* ins )
 {
@@ -26,52 +24,61 @@ bool UWarriorSelectorItemWidget::IsWarriorBinded( void ) const noexcept
 
 EWarriorType UWarriorSelectorItemWidget::GetWarriorType() const noexcept
 {
-    return CHECKWARRIOR( this->m_warrior->GetWarriorType(), EWarriorType::NOTSET );
+    CHECKWARRIOR( EWarriorType::NOTSET );
+    return this->m_warrior->GetWarriorType();
 }
 
 FText UWarriorSelectorItemWidget::GetWarriorName() const noexcept
 {
-    return this->IsWarriorBinded() ? FText::FromString( this->m_warrior->GetWarriorName() ) : FText::GetEmpty();
+    CHECKWARRIOR_TEXT;
+    return FText::FromString( this->m_warrior->GetWarriorName() );
 }
 
 FText UWarriorSelectorItemWidget::GetWarriorStrong() const noexcept
 {
-    return CHECKWARRIOR_INT2TEXT( GetStrong() );
+    CHECKWARRIOR_TEXT;
+    return FText::AsNumber( this->m_warrior->GetStrong() );
 }
 
 FText UWarriorSelectorItemWidget::GetWarriorStrongTooltip() const noexcept
 {
-    return FText::FormatOrdered( txtStrongTooltipTemplate, CHECKWARRIOR_INT( GetStrong() ) );
+    CHECKWARRIOR_TEXT;
+    return FText::FormatOrdered<int>( txtStrongTooltipTemplate, this->m_warrior->GetStrong() );
 }
 
 FText UWarriorSelectorItemWidget::GetWarriorIntel() const noexcept
 {
-    return CHECKWARRIOR_INT2TEXT( GetIntel() );
+    CHECKWARRIOR_TEXT;
+    return FText::AsNumber( this->m_warrior->GetIntel() );
 }
 
 FText UWarriorSelectorItemWidget::GetWarriorIntelTooltip() const noexcept
 {
-    int val = CHECKWARRIOR_INT( GetIntel() );
-    UE_LOG( LogTemp, Display, TEXT( "Get Intel: %d" ), val );
-    return FText::FormatOrdered( txtIntelTooltipTemplate, CHECKWARRIOR_INT( GetIntel() ) );
+    CHECKWARRIOR_TEXT;
+    return FText::FormatOrdered<int>( txtIntelTooltipTemplate, this->m_warrior->GetIntel() );
 }
 
 FText UWarriorSelectorItemWidget::GetSoldierNum() const noexcept
 {
-    return CHECKWARRIOR_INT2TEXT( GetSoldierNumber() );
+    CHECKWARRIOR_TEXT;
+    return FText::AsNumber( this->m_warrior->GetSoldierNumber() );
 }
 
 FText UWarriorSelectorItemWidget::GetSoldierNumTooltip() const noexcept
 {
-    return this->GetSoldierNum();
+    CHECKWARRIOR_TEXT;
+    return FText::FormatOrdered<int>( txtSoldierTooltipTemplate, this->m_warrior->GetSoldierNumber() );
 }
 
 FText UWarriorSelectorItemWidget::GetWarriorLevel() const noexcept
 {
-    return CHECKWARRIOR_INT2TEXT( GetWarriorLevel() );
+    CHECKWARRIOR_TEXT;
+    return FText::AsNumber( this->m_warrior->GetWarriorLevel() );
 }
 
 FText UWarriorSelectorItemWidget::GetWarriorLevelTooltip() const noexcept
 {
-    return this->GetWarriorLevel();
+    CHECKWARRIOR_TEXT;
+    return FText::FormatOrdered<FText, int>( txtLevelTooltipTemplate,
+        this->m_warrior->GetWarriorTypeString(), this->m_warrior->GetWarriorLevel() );
 }

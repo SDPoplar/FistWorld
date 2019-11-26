@@ -186,18 +186,18 @@ int UWarriorIns::GetInTown() const noexcept
     return UWarrior::GetInTown();
 }
 
-FString UWarriorIns::GetWarriorTypeString() const noexcept
+FText UWarriorIns::GetWarriorTypeString() const noexcept
 {
     switch( this->GetWarriorType() )
     {
     case EWarriorType::ARCHER:
-        return txtArcherType.ToString();
+        return txtArcherType;
     case EWarriorType::RIDER:
-        return txtRiderType.ToString();
+        return txtRiderType;
     case EWarriorType::SHIELD:
-        return txtShieldType.ToString();
+        return txtShieldType;
     }
-    return "";
+    return txtUnkownType;
 }
 
 EWarriorStatus UWarriorIns::GetStatus() const noexcept
