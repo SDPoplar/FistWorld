@@ -14,7 +14,7 @@ bool UTownAssignSoldierTask::SetTargetWarrior( UWarrior* warrior )
         return false;
     }
 
-    int canhave = (warrior->GetStrong() + warrior->GetIntel())*( warrior->GetWarriorLevel() + 5 );
+    int canhave = warrior->GetMaxSoldierNumber();
     int townhave = this->m_o_town->GetSoldierNumber();
     int max = ( canhave < townhave ) ? canhave : townhave;
     return this->m_o_hud->PopupSoldierNumSetter( max );

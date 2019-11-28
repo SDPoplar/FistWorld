@@ -22,8 +22,12 @@ public:
     //  void NextRound();
     void LoadFirstFight();
 
+    void AttackerWin();
+    void DefencerWin();
+
 protected:
     bool LoadFight( class UFight* fight );
+    TArray<class UWarrior*> AiChooseDefencer( class UTown* town, int max );
 
-    class UFight* m_o_current_fight;
+    class UFightIns* m_o_current_fight;
 };

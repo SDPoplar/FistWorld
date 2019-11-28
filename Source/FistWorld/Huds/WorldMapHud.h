@@ -24,11 +24,9 @@ public:
 
 protected:
     void PopupPlayerTownWidget( class UTown* town );
-    void PopupHostileTownWidget( class UTown* town );
 
     class UTownTransportVolumeWidget* GetTransportVolumeWidget();
     class UShowTownWidget* GetPlayerTownWidget();
-    class UShowTownWidget* GetHostileTownWidget();
 
     class USingleWarriorSelectWidget* GetSingleWarriorSelectWidget();
     class UMultiWarriorSelectWidget* GetMultiWarriorSelectWidget();
@@ -40,8 +38,8 @@ protected:
     TSubclassOf<class UKingdomSummaryWidget> topsummaryClass;
     UKingdomSummaryWidget *m_kingdom_summary_widget;
 
-    TSubclassOf<class UShowTownWidget> playertownClass, hostiletownClass;
-    class UShowTownWidget* m_widget_town_player, *m_widget_town_hostile;
+    TSubclassOf<class UShowTownWidget> playertownClass;
+    class UShowTownWidget* m_widget_town_player;
 
     TSubclassOf<class UTownTransportVolumeWidget> transvolumeClass;
     class UTownTransportVolumeWidget* m_widget_transport;

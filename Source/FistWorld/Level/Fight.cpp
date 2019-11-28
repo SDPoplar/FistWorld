@@ -29,3 +29,53 @@ TArray<UWarrior*>& UFight::GetAttackerWarriors()
 {
     return this->m_attacker_warriors;
 }
+
+bool UFight::IsPlayerAttack() const noexcept
+{
+    return this->m_o_attacker_kingdom->IsPlayerKingdom();
+}
+
+UTown* UFight::GetTargetTown() const noexcept
+{
+    return this->m_o_to_town;
+}
+
+UTown* UFight::GetFromTown() const noexcept
+{
+    return this->m_o_from_town;
+}
+
+UKingdom* UFight::GetAttackerKingdom() const noexcept
+{
+    return this->m_o_attacker_kingdom;
+}
+
+//  =====================   Ins methods  =================================
+
+UFightIns& UFightIns::operator=( UFight* fight )
+{
+    this->m_o_attacker_kingdom = fight->GetAttackerKingdom();
+    this->m_o_from_town = fight->GetFromTown();
+    this->m_o_to_town = fight->GetTargetTown();
+    for( auto item : fight->GetAttackerWarriors() )
+    {
+        this->m_attacker_warriors.Add( item );
+    }
+    
+    return *this;
+}
+
+TArray<UWarrior*>& UFightIns::GetDefencerWarriors()
+{
+    return this->m_defencer_warriors;
+}
+
+void UFightIns::SetDefencer( TArray<UWarrior*> defencers )
+{
+    this->m_defencer_warriors = defencers;
+}
+
+void UFightIns::BindReporter( AFightReporter* reporter )
+{
+    this->m_o_reporter = reporter;
+}

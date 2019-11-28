@@ -7,9 +7,10 @@
 #include "Level/ArcherActor.h"
 #include "Level/ShieldActor.h"
 #include "Level/RiderActor.h"
+#include "FightReporter.h"
 
 // Sets default values
-AFightActor::AFightActor()
+AFightActor::AFightActor() : TickAfterTurnOn()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -21,15 +22,16 @@ AFightActor::AFightActor()
 // Called when the game starts or when spawned
 void AFightActor::BeginPlay()
 {
-	Super::BeginPlay();
+	AActor::BeginPlay();
 	
 }
 
 // Called every frame
 void AFightActor::Tick(float DeltaTime)
 {
-	Super::Tick(DeltaTime);
-
+	AActor::Tick(DeltaTime);
+    CHECK_TICK_TURNON_NORET;
+    this->FighterTick( DeltaTime );
 }
 
 void AFightActor::LoadWarrior( UWarrior* warrior )
@@ -55,4 +57,14 @@ AFightActor* AFightActor::SpawnWarrior( UWarrior* warrior, UWorld* inWorld )
     }
     actor->LoadWarrior( warrior );
     return actor;
+}
+
+void AFightActor::BindReporter( AFightReporter* reporter )
+{
+    this->m_o_reporter = reporter;
+}
+
+void AFightActor::ReportDeath()
+{
+    //  this->m_o_reporter
 }

@@ -15,9 +15,8 @@
 //  #include "Level/TownActor.h"
 #include "Story/Town.h"
 
-AWorldMapHud::AWorldMapHud() : ACommonMapHud(), m_widget_town_player( nullptr ), m_widget_town_hostile( nullptr ),
-    m_widget_transport( nullptr ), m_widget_single_warrior_select( nullptr ), m_widget_multi_warrior_select( nullptr ),
-    m_widget_soldier_num( nullptr )
+AWorldMapHud::AWorldMapHud() : ACommonMapHud(), m_widget_town_player( nullptr ), m_widget_transport( nullptr ),
+    m_widget_single_warrior_select( nullptr ), m_widget_multi_warrior_select( nullptr ), m_widget_soldier_num( nullptr )
 {
     static ConstructorHelpers::FClassFinder<USysMenuWidget> sysmenufinder( TEXT( "/Game/Levels/Res_lv_World/Widget_World_SysMenu" ) );
     sysmenuClass = sysmenufinder.Succeeded() ? sysmenufinder.Class : nullptr;
@@ -25,8 +24,6 @@ AWorldMapHud::AWorldMapHud() : ACommonMapHud(), m_widget_town_player( nullptr ),
     topsummaryClass = topsummary.Succeeded() ? topsummary.Class : nullptr;
     static ConstructorHelpers::FClassFinder<UShowTownWidget> playertownwidget( TEXT( "/Game/Levels/Res_lv_World/Widget_World_PlayerTown" ) );
     playertownClass = playertownwidget.Succeeded() ? playertownwidget.Class : nullptr;
-    static ConstructorHelpers::FClassFinder<UShowTownWidget> hostiletownwidget( TEXT( "/Game/Levels/Res_lv_World/Widget_World_HostileTown" ) );
-    hostiletownClass = hostiletownwidget.Succeeded() ? hostiletownwidget.Class : nullptr;
     static ConstructorHelpers::FClassFinder<USingleWarriorSelectWidget> singlewarriorwidget( TEXT( "/Game/Levels/Res_lv_World/Widget_World_SingleWarriorSelector" ) );
     singlewarriorClass = singlewarriorwidget.Succeeded() ? singlewarriorwidget.Class : nullptr;
     static ConstructorHelpers::FClassFinder<UMultiWarriorSelectWidget> multiwarriorwidget( TEXT( "/Game/Levels/Res_lv_World/Widget_World_MultiWarriorSelector" ) );
@@ -60,34 +57,15 @@ void AWorldMapHud::LoadTopSummaryWidget()
 
 void AWorldMapHud::ShowTownInfo( UTown* town )
 {
-    if( !town )
-    {
-        return;
-    }
-    if( town->OwnByPlayer() )
+    if( town )
     {
         this->PopupPlayerTownWidget( town );
-    }
-    else
-    {
-        this->PopupHostileTownWidget( town );
     }
 }
 
 void AWorldMapHud::PopupPlayerTownWidget( UTown* town )
 {
     auto widget = this->GetPlayerTownWidget();
-    if( !widget )
-    {
-        return;
-    }
-    this->PopupWidget( widget );
-    widget->SetTown( town );
-}
-
-void AWorldMapHud::PopupHostileTownWidget( UTown* town )
-{
-    auto widget = this->GetHostileTownWidget();
     if( !widget )
     {
         return;
@@ -106,18 +84,6 @@ UShowTownWidget* AWorldMapHud::GetPlayerTownWidget()
         this->m_widget_town_player->AddToViewport( 10 );
     }
     return this->m_widget_town_player;
-}
-
-UShowTownWidget* AWorldMapHud::GetHostileTownWidget()
-{
-    if( !this->m_widget_town_hostile && this->hostiletownClass )
-    {
-        UWorld* world = this->GetWorld();
-        this->m_widget_town_hostile = Cast<UShowTownWidget>(
-            UUserWidget::CreateWidgetInstance( *world, this->hostiletownClass, "Hostile town shower" ) );
-        this->m_widget_town_hostile->AddToViewport( 10 );
-    }
-    return this->m_widget_town_hostile;
 }
 
 USingleWarriorSelectWidget* AWorldMapHud::GetSingleWarriorSelectWidget()

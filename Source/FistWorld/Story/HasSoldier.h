@@ -17,6 +17,8 @@ public:
     virtual int GetSoldierNumber() const noexcept;
     void IncreaseSoldierNumber( int volume );
 
+    virtual int GetMaxSoldierNumber() const noexcept;
+
 protected:
     int m_n_soldier_num;
 };

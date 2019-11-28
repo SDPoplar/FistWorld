@@ -156,6 +156,26 @@ int UWarrior::GetWarriorExp() const noexcept
     return this->m_n_exp;
 }
 
+int UWarrior::GetMaxSoldierNumber() const noexcept
+{
+    return ( this->GetStrong() + this->GetIntel() ) * (this->GetWarriorLevel() + 5);
+}
+
+/*
+int UWarrior::GetGrade() const noexcept
+{
+    return this->GetIntel() + this->GetStrong();
+}
+*/
+
+int UWarrior::GetFightMark() const noexcept
+{
+    return ( this->GetIntel() + this->GetStrong() ) * this->GetWarriorLevel()
+        * ( this->GetSoldierNumber() / this->GetMaxSoldierNumber() );
+}
+
+//  ====================    Ins methods  ==========================================
+
 int UWarriorIns::GetWarriorId() const noexcept
 {
     return UWarrior::GetWarriorId();

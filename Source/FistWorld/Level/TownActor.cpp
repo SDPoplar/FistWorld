@@ -9,7 +9,8 @@
 #include "Controllers/WorldMapController.h"
 #include "Huds/WorldMapHud.h"
 #include "Story/Town.h"
-//  #include "Components/WidgetComponent.h"
+#include "Components/WidgetComponent.h"
+#include "Widget/ShowTownWidget.h"
 
 // Sets default values
 ATownActor::ATownActor()
@@ -46,6 +47,13 @@ ATownActor::ATownActor()
         this->m_particle_hover_circle->SetTemplate( hovercircle.Object );
     }
 
+    this->m_widget_summary = CreateDefaultSubobject<UWidgetComponent>( TEXT( "Town summary" ) );
+    this->m_widget_summary->SetupAttachment( RootComponent );
+    static ConstructorHelpers::FClassFinder<UShowTownWidget> townsummary( TEXT( "/Game/Levels/Res_lv_World/Widget_World_TownHoverSummary" ) );
+    if( townsummary.Succeeded() )
+    {
+        this->m_widget_summary->SetWidgetClass( townsummary.Class );
+    }
     this->m_o_town = nullptr;
 }
 
@@ -58,6 +66,7 @@ void ATownActor::BeginPlay()
     {
         return;
     }
+    //  this->m_widget_summary->bindtown
     for( auto item : this->m_can_arrive )
     {
         this->GetTown()->AppendArrive( item->GetTown() );
@@ -93,7 +102,7 @@ void ATownActor::SelectByPlayer()
         pc->SetTaskSelectingTown( this );
         return;
     }
-    auto hud = pc->GetWorldMapHud();
+    auto hud = this->GetTown()->OwnByPlayer() ? pc->GetWorldMapHud() : nullptr;
     if( hud )
     {
         hud->ShowTownInfo( this->GetTown() );
@@ -128,5 +137,10 @@ void ATownActor::SetHover( bool hover )
     if( this->m_particle_hover_circle && this->m_particle_hover_circle->IsValidLowLevelFast() )
     {
         this->m_particle_hover_circle->SetVisibility( hover );
+    }
+
+    if( this->m_widget_summary && this->m_widget_summary->IsValidLowLevelFast() )
+    {
+        this->m_widget_summary->SetVisibility( hover );
     }
 }

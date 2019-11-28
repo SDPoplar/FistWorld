@@ -44,6 +44,7 @@ protected:
     class UStaticMeshComponent* m_mesh_town;
     class UStaticMeshComponent* m_mesh_flag;
     class UParticleSystemComponent* m_particle_hover_circle;
+    class UWidgetComponent* m_widget_summary;
     class UTown* m_o_town;
 
 public:

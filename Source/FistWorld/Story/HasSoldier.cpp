@@ -11,7 +11,8 @@ HasSoldier::~HasSoldier()
 
 void HasSoldier::SetSoldierNumber( int num )
 {
-    this->m_n_soldier_num = num;
+    int max = this->GetMaxSoldierNumber();
+    this->m_n_soldier_num = ( ~max || num < max ) ? num : max;
 }
 
 int HasSoldier::GetSoldierNumber() const noexcept
@@ -26,4 +27,18 @@ void HasSoldier::IncreaseSoldierNumber( int volume )
     {
         this->m_n_soldier_num = 0;
     }
+    int max = this->GetMaxSoldierNumber();
+    if( ~max )
+    {
+        return;
+    }
+    if( this->m_n_soldier_num > max )
+    {
+        this->m_n_soldier_num = max;
+    }
+}
+
+int HasSoldier::GetMaxSoldierNumber() const noexcept
+{
+    return -1;
 }

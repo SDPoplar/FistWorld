@@ -78,6 +78,11 @@ public:
     void SetWarriorExp( int exp );
     virtual int GetWarriorExp() const noexcept;
 
+    virtual int GetMaxSoldierNumber() const noexcept override;
+
+    //  int GetBaseGrade() const noexcept;
+    int GetFightMark() const noexcept;
+
 protected:
     int m_n_id;
     FString m_s_name;
