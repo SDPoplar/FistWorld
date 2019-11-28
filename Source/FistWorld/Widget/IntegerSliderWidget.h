@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Slider.h"
 #include "IntegerSliderWidget.generated.h"
 
 /**
@@ -40,6 +41,9 @@ protected:
 
     UFUNCTION( BlueprintCallable )
     void SetPercent( float percent );
+
+    UFUNCTION( BlueprintImplementableEvent )
+    USlider* GetSlider();
 
     int m_n_max;
     int m_n_current;

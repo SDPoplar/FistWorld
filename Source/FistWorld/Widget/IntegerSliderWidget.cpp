@@ -5,6 +5,11 @@
 void UIntegerSliderWidget::SetMax( int max )
 {
     this->m_n_max = max;
+    USlider* slider = this->GetSlider();
+    if( slider )
+    {
+        slider->SetValue( 0 );
+    }
     this->m_n_current = 0;
 }
 
@@ -15,16 +20,12 @@ int UIntegerSliderWidget::GetValue() const noexcept
 
 FText UIntegerSliderWidget::CurrentValueText() const noexcept
 {
-    char s[ 12 ];
-    sprintf_s( s, 12, "%d", this->m_n_current );
-    return FText::FromString( s );
+    return FText::AsNumber( this->m_n_current );
 }
 
 FText UIntegerSliderWidget::MaxValueText() const noexcept
 {
-    char s[ 12 ];
-    sprintf_s( s, 12, "%d", this->m_n_max );
-    return FText::FromString( s );
+    return FText::AsNumber( this->m_n_max );
 }
 
 FText UIntegerSliderWidget::GetTitle() const noexcept
