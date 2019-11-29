@@ -5,6 +5,17 @@
 #include "Huds/CommonMapHud.h"
 #include "Tasks/ExcutableTask.h"
 
+/*
+ACommonMapController::~ACommonMapController()
+{
+    if( this->m_o_task && this->m_o_task->IsValidLowLevelFast() )
+    {
+        this->m_o_task->RemoveFromRoot();
+        this->m_o_task = nullptr;
+    }
+}
+*/
+
 void ACommonMapController::BeginPlay()
 {
     this->bEnableClickEvents = true;

@@ -16,6 +16,7 @@ class FISTWORLD_API ATownFightMode : public AGameModeBase
 	
 public:
     ATownFightMode();
+    //  virtual ~ATownFightMode();
 
     static ATownFightMode* Get( UObject* getter );
 

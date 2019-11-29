@@ -15,6 +15,7 @@ class FISTWORLD_API ACommonMapController : public AModeOverridableController
 	GENERATED_BODY()
 
 public:
+    //  virtual ~ACommonMapController();
     void CancelOrCallSysMenu();
     virtual bool CancelCreatingTask();
     bool HasTask() const noexcept;

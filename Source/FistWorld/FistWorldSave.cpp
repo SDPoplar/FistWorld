@@ -83,7 +83,7 @@ FSaveWarrior::FSaveWarrior( const FChapterDefaultWarrior& def )
     this->Status = EWarriorStatus::NORMAL;
     this->Level = def.level;
     this->Exp = 0;
-    this->Soldiers = 0;
+    this->Soldiers = 100;
 }
 
 FSaveWarrior::FSaveWarrior( const UWarrior& ins )

@@ -8,6 +8,8 @@
 #include "Level/ShieldActor.h"
 #include "Level/RiderActor.h"
 #include "FightReporter.h"
+#include "GameFramework/NavMovementComponent.h"
+//  #include "GameFramework/MovementComponent.h"
 
 // Sets default values
 AFightActor::AFightActor() : TickAfterTurnOn()
@@ -17,6 +19,12 @@ AFightActor::AFightActor() : TickAfterTurnOn()
 
     this->m_mesh_warrior = CreateDefaultSubobject<USkeletalMeshComponent>( "Warrior body" );
     RootComponent = this->m_mesh_warrior;
+    this->m_comp_nav_move = CreateDefaultSubobject<UNavMovementComponent>( "Ai move" );
+    //  this->m_comp_nav_move->SetUpdatedComponent( RootComponent );
+    /*
+        this->m_comp_actor_move = CreateDefaultSubobject<UMovementComponent>( "Base move" );
+    //  this->m_comp_actor_move->SetUpdatedComponent( RootComponent );
+    */
 }
 
 // Called when the game starts or when spawned
@@ -68,3 +76,22 @@ void AFightActor::ReportDeath()
 {
     //  this->m_o_reporter
 }
+
+void AFightActor::SetNearest( AFightActor* nearest )
+{
+    if( this->GetDistanceTo( nearest ) < this->m_f_attack_range )
+    {
+        this->WantAttack( nearest );
+    }
+    else
+    {
+        this->WantMoveTo( nearest );
+    }
+}
+
+void AFightActor::WantAttack( AFightActor* targetActor )
+{
+}
+
+void AFightActor::WantMoveTo( AFightActor* targetActor )
+{}

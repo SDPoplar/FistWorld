@@ -20,6 +20,17 @@ ATownFightMode::ATownFightMode() : m_o_current_fight( nullptr )
     DefaultPawnClass = AFightMapViewer::StaticClass();
 }
 
+/*
+ATownFightMode::~ATownFightMode()
+{
+    if( this->m_o_current_fight && this->m_o_current_fight->IsValidLowLevelFast() )
+    {
+        this->m_o_current_fight->RemoveFromRoot();
+        this->m_o_current_fight = nullptr;
+    }
+}
+*/
+
 ATownFightMode* ATownFightMode::Get( UObject* getter )
 {
     return Cast<ATownFightMode>( UGameplayStatics::GetGameMode( getter ) );
@@ -53,11 +64,13 @@ bool ATownFightMode::LoadFight( UFight* fight )
     delete fight;
     if( this->m_o_current_fight->GetDefencerWarriors().Num() == 0 )
     {
+        UE_LOG( LogTemp, Display, TEXT( "No defencer, so attacker win" ) );
         this->AttackerWin();
         return true;
     }
     UWorld* world = this->GetWorld();
-    world->SpawnActor<AFightReporter>();
+    auto reporter = world->SpawnActor<AFightReporter>();
+    this->m_o_current_fight->BindReporter( reporter );
     auto level = world ? Cast<AFightLevelScript>( world->GetLevelScriptActor() ) : nullptr;
     if( !level )
     {
@@ -70,18 +83,21 @@ bool ATownFightMode::LoadFight( UFight* fight )
         auto fighter = AFightActor::SpawnWarrior( item, world );
         // set actor location
         fighter->SetActorLocation( attackSP->GetTargetLocation() );
+        reporter->AppendAttacker( fighter );
     }
     for( auto item : this->AiChooseDefencer( this->m_o_current_fight->GetTargetTown(), 9 ) )
     {
         auto fighter = AFightActor::SpawnWarrior( item, world );
         fighter->SetActorLocation( defenceSP->GetTargetLocation() );
+        reporter->AppendDefencer( fighter );
     }
     auto player = AFightMapViewer::Get<AFightMapViewer>( this );
     if( player )
     {
         player->PointTo( this->m_o_current_fight->IsPlayerAttack() ? attackSP : defenceSP );
     }
-    return false;
+    reporter->TurnOn();
+    return true;
 }
 
 TArray<UWarrior*> ATownFightMode::AiChooseDefencer( UTown* town, int max )
