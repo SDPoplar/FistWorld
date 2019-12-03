@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
+#include "GameFramework/Pawn.h"
 #include "TickAfterTurnOn.h"
 #include "Story/Warrior.h"
 #include <map>
 #include "FightActor.generated.h"
 
 UCLASS()
-class FISTWORLD_API AFightActor : public AActor, public TickAfterTurnOn
+class FISTWORLD_API AFightActor : public APawn, public TickAfterTurnOn
 {
 	GENERATED_BODY()
 	
@@ -23,27 +23,40 @@ public:
     void BindReporter( class AFightReporter* reporter );
     void SetNearest( AFightActor* nearset );
 
+    class UPawnMovementComponent* GetMovementComponent() const override;
+
+    float TakeDamage( float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser ) override;
+    UWarrior* GetBindedWarrior() const noexcept;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
     virtual void WantMoveTo( AFightActor* targetActor );
     virtual void WantAttack( AFightActor* targetActor );
+    virtual float GetAttackMagnification( EWarriorType targetType, float targetDistance ) const noexcept;
 
-    void ReportDeath();
+    //  void ReportDeath();
 
     virtual void FighterTick( float DeltaTime ) {};
 
     class USkeletalMeshComponent* m_mesh_warrior;
-    //  class UMovementComponent* m_comp_actor_move;
+    class UFloatingPawnMovement* m_comp_pawn_move;
+    class USphereComponent* m_comp_capsule;
+    
     class AFightReporter* m_o_reporter;
 
-    //  UPROPERTY( EditDefaultsOnly )
-    class UNavMovementComponent* m_comp_nav_move;
-
     TSubclassOf<AFightActor> archarClass, riderClass, shieldClass;
+
+    UWarrior* m_o_warrior_binded;
+
     float m_f_attack_range;
-public:	
+
+    float m_f_last_attack;
+    float m_f_attack_cd;
+    float m_f_max_health, m_f_current_health;
+    float m_f_attack_base;
+public:
 	// Called every frame
 	void Tick(float DeltaTime) override final;
 

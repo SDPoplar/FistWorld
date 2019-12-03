@@ -43,6 +43,8 @@ protected:
     class UCameraComponent* m_comp_camera;
     UPROPERTY( EditDefaultsOnly, Category = Movement )
     class UMoveWorldViewerComponent* m_comp_move;
+
+    float m_f_def_arm_len;
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

@@ -4,7 +4,9 @@
 #include "Components/InputComponent.h"
 
 AFightMapViewer::AFightMapViewer() : ACommonMapViewer()
-{}
+{
+    this->m_f_def_arm_len = 500;
+}
 
 void AFightMapViewer::SetupPlayerInputComponent( UInputComponent* PlayerInputComponent )
 {

@@ -41,6 +41,7 @@ protected:
     UPROPERTY( EditAnywhere, Category = "Data" )
     TArray<ATownActor*> m_can_arrive;
 
+    UPROPERTY( EditDefaultsOnly )
     class UStaticMeshComponent* m_mesh_town;
     class UStaticMeshComponent* m_mesh_flag;
     class UParticleSystemComponent* m_particle_hover_circle;

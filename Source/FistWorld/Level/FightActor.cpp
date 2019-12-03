@@ -8,30 +8,42 @@
 #include "Level/ShieldActor.h"
 #include "Level/RiderActor.h"
 #include "FightReporter.h"
-#include "GameFramework/NavMovementComponent.h"
-//  #include "GameFramework/MovementComponent.h"
+#include "Kismet/GameplayStatics.h"
+#include "AIController.h"
+#include "GameFramework/FloatingPawnMovement.h"
+#include "Components/SphereComponent.h"
+#include <math.h>
 
 // Sets default values
-AFightActor::AFightActor() : TickAfterTurnOn()
+AFightActor::AFightActor() : TickAfterTurnOn(), m_o_warrior_binded( nullptr ), m_f_attack_cd( 1.0f ), m_f_last_attack( 0 )
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+    bCanBeDamaged = true;
 
+    //  RootComponent = CreateDefaultSubobject<USceneComponent>( "root comp" );
+    this->m_comp_capsule = CreateDefaultSubobject<USphereComponent>( "Collection" );
+    RootComponent = this->m_comp_capsule;
+    this->m_comp_capsule->InitSphereRadius( 100.0f );
+    this->m_comp_capsule->SetupAttachment( RootComponent );
     this->m_mesh_warrior = CreateDefaultSubobject<USkeletalMeshComponent>( "Warrior body" );
-    RootComponent = this->m_mesh_warrior;
-    this->m_comp_nav_move = CreateDefaultSubobject<UNavMovementComponent>( "Ai move" );
-    //  this->m_comp_nav_move->SetUpdatedComponent( RootComponent );
-    /*
-        this->m_comp_actor_move = CreateDefaultSubobject<UMovementComponent>( "Base move" );
-    //  this->m_comp_actor_move->SetUpdatedComponent( RootComponent );
-    */
+    this->m_mesh_warrior->SetupAttachment( RootComponent );
+    this->m_mesh_warrior->SetRelativeLocation( FVector( 0, 0, -100.0f ) );
+    
+    this->m_comp_pawn_move = CreateDefaultSubobject<UFloatingPawnMovement>( "Movement" );
+    this->m_comp_pawn_move->SetUpdatedComponent( RootComponent );
+    this->AutoPossessAI = EAutoPossessAI::Spawned;
+}
+
+UPawnMovementComponent* AFightActor::GetMovementComponent() const
+{
+    return this->m_comp_pawn_move;
 }
 
 // Called when the game starts or when spawned
 void AFightActor::BeginPlay()
 {
 	AActor::BeginPlay();
-	
 }
 
 // Called every frame
@@ -44,6 +56,10 @@ void AFightActor::Tick(float DeltaTime)
 
 void AFightActor::LoadWarrior( UWarrior* warrior )
 {
+    this->m_o_warrior_binded = warrior;
+    this->m_f_max_health = warrior->GetMaxSoldierNumber() * 1.0f;
+    this->m_f_current_health = warrior->GetSoldierNumber() * 1.0f;
+    this->m_f_attack_base = warrior->GetStrong() * 1.0;
 }
 
 AFightActor* AFightActor::SpawnWarrior( UWarrior* warrior, UWorld* inWorld )
@@ -72,10 +88,12 @@ void AFightActor::BindReporter( AFightReporter* reporter )
     this->m_o_reporter = reporter;
 }
 
+/*
 void AFightActor::ReportDeath()
 {
     //  this->m_o_reporter
 }
+*/
 
 void AFightActor::SetNearest( AFightActor* nearest )
 {
@@ -91,7 +109,66 @@ void AFightActor::SetNearest( AFightActor* nearest )
 
 void AFightActor::WantAttack( AFightActor* targetActor )
 {
+    float now = this->GetWorld()->TimeSeconds;
+    if( ( this->m_f_last_attack > 0 ) && ( now - this->m_f_last_attack < this->m_f_attack_cd ) )
+    {
+        return;
+    }
+
+    float damage = this->m_f_attack_base * this->GetAttackMagnification( targetActor->GetBindedWarrior()->GetWarriorType(),
+        this->GetDistanceTo( targetActor ) );   //  add random ?
+    FDamageEvent de;
+    if( targetActor->TakeDamage( damage, de, this->GetController(), this ) > 0 )
+    {
+        this->m_f_last_attack = now;
+        UE_LOG( LogTemp, Display, TEXT( "%s attacked target for %f" ), *( this->m_o_warrior_binded->GetWarriorName() ), damage );
+    }
 }
 
 void AFightActor::WantMoveTo( AFightActor* targetActor )
-{}
+{
+    auto ai = Cast<AAIController>( this->GetController() );
+    if( ai )
+    {
+        ai->MoveToActor( targetActor );
+    }
+}
+
+float AFightActor::TakeDamage( float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser )
+{
+    if( !this->m_o_reporter || !this->m_o_reporter->IsValidLowLevelFast() )
+    {
+        UE_LOG( LogTemp, Error, TEXT( "No fight reporter valid" ) );
+        return 0;
+    }
+    UE_LOG( LogTemp, Display, TEXT( "%s been attacked, damage=%f, health=%f/%f" ),
+        *(this->m_o_warrior_binded->GetWarriorName()), DamageAmount, this->m_f_current_health, this->m_f_max_health );
+    bool willBeKill = DamageAmount > this->m_f_current_health;
+    float realDamage = willBeKill ? this->m_f_current_health : DamageAmount;
+    if( !this->m_o_reporter->ReportDamage( this, Cast<AFightActor>( DamageCauser ), DamageAmount, willBeKill ) )
+    {
+        return 0;
+    }
+    if( willBeKill )
+    {
+        this->m_f_current_health = 0;
+        this->m_o_warrior_binded->SetSoldierNumber( 0 );
+        this->Destroy();
+    }
+    else
+    {
+        this->m_f_current_health -= DamageAmount;
+        this->m_o_warrior_binded->SetSoldierNumber( ceil( this->m_f_current_health ) );
+    }
+    return realDamage;
+}
+
+float AFightActor::GetAttackMagnification( EWarriorType targetType, float targetDistance ) const noexcept
+{
+    return 1.0f;
+}
+
+UWarrior* AFightActor::GetBindedWarrior() const noexcept
+{
+    return this->m_o_warrior_binded;
+}

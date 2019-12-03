@@ -16,4 +16,7 @@ class FISTWORLD_API ARiderActor : public AFightActor
 
 public:
     ARiderActor();
+
+protected:
+    float GetAttackMagnification( EWarriorType targetType, float targetDistance ) const noexcept override;
 };

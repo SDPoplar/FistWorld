@@ -11,4 +11,10 @@ AShieldActor::AShieldActor() : AFightActor()
     {
         this->m_mesh_warrior->SetSkeletalMesh( bodymesh.Object );
     }
+    this->m_f_attack_range = 220;
+}
+
+float AShieldActor::GetAttackMagnification( EWarriorType targetType, float targetDistance ) const noexcept
+{
+    return 0.8;
 }

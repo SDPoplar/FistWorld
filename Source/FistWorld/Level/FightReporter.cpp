@@ -28,6 +28,10 @@ void AFightReporter::Tick(float DeltaTime)
 
     for( auto item : this->m_map_attacker )
     {
+        if( !item.second.alive )
+        {
+            continue;
+        }
         AFightActor* t = nullptr;
         float dis = -1;
         for( auto target : this->m_map_defencer )
@@ -51,6 +55,14 @@ void AFightReporter::Tick(float DeltaTime)
 
     for( auto item : this->m_map_defencer )
     {
+        if( !item.second.alive )
+        {
+            continue;
+        }
+        if( !item.first->IsValidLowLevelFast() )
+        {
+            UE_LOG( LogTemp, Error, TEXT( "Alive flag still true after dead" ) );
+        }
         AFightActor* t = nullptr;
         float dis = -1;
         for( auto target : this->m_map_attacker )
@@ -78,13 +90,17 @@ void AFightReporter::Tick(float DeltaTime)
 void AFightReporter::AppendAttacker( AFightActor* attacker )
 {
     ActorIns empty;
+    empty.warrior = attacker->GetBindedWarrior();
     this->m_map_attacker[ attacker ] = empty;
+    attacker->BindReporter( this );
 }
 
 void AFightReporter::AppendDefencer( AFightActor* defencer )
 {
     ActorIns empty;
+    empty.warrior = defencer->GetBindedWarrior();
     this->m_map_defencer[ defencer ] = empty;
+    defencer->BindReporter( this );
 }
 
 void AFightReporter::CheckResult()
@@ -97,6 +113,7 @@ void AFightReporter::CheckResult()
         return;
     }
 
+    this->TurnOff();
     if( attackerAlive )
     {
         gm->AttackerWin();
@@ -109,17 +126,18 @@ void AFightReporter::CheckResult()
 
 bool AFightReporter::hasActorAlive( const amap& holder ) const noexcept
 {
-    for( auto item : this->m_map_attacker )
+    for( auto item : holder )
     {
         if( item.second.alive )
         {
             return true;
         }
     }
+    UE_LOG( LogTemp, Display, TEXT( "Some part is all dead" ) );
     return false;
 }
 
-bool AFightReporter::ReportDamage( AFightActor* reporter, AFightActor* damageMaker, int damage, bool killed )
+bool AFightReporter::ReportDamage( AFightActor* reporter, AFightActor* damageMaker, float damage, bool killed )
 {
     auto from = this->m_map_attacker.find( damageMaker );
     if( from == this->m_map_attacker.end() )
@@ -137,7 +155,36 @@ bool AFightReporter::ReportDamage( AFightActor* reporter, AFightActor* damageMak
     from->second.totalDamage += damage;
     if( killed )
     {
+        auto to = this->m_map_attacker.find( reporter );
+        if( to == this->m_map_attacker.end() )
+        {
+            to = this->m_map_defencer.find( reporter );
+            if( to == this->m_map_defencer.end() )
+            {
+                return false;
+            }
+        }
+        to->second.alive = false;
         from->second.totalKill++;
     }
     return true;
+}
+
+void AFightReporter::ReleaseAlive()
+{
+    for( auto item : this->m_map_attacker )
+    {
+        if( item.second.alive && item.first && item.first->IsValidLowLevelFast() )
+        {
+            item.first->Destroy();
+        }
+    }
+    for( auto item : this->m_map_defencer )
+    {
+        if( item.second.alive && item.first && item.first->IsValidLowLevelFast() )
+        {
+            item.first->Destroy();
+        }
+    }
+    this->Destroy();
 }

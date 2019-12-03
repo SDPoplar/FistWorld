@@ -8,7 +8,7 @@
 #include "MoveWorldViewerComponent.h"
 
 // Sets default values
-ACommonMapViewer::ACommonMapViewer()
+ACommonMapViewer::ACommonMapViewer() : m_f_def_arm_len( 200.0f )
 {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
     PrimaryActorTick.bCanEverTick = true;
@@ -19,7 +19,6 @@ ACommonMapViewer::ACommonMapViewer()
     this->m_comp_camera = CreateDefaultSubobject<UCameraComponent>( TEXT( "Camera" ) );
     this->m_comp_camera->SetupAttachment( this->m_comp_camera_arm );
     this->m_comp_camera->SetRelativeRotation( FRotator( 0 ) );
-    this->ResetCamera();
 
     this->m_comp_move = CreateDefaultSubobject<UMoveWorldViewerComponent>( TEXT( "Movement" ) );
     this->m_comp_move->SetUpdatedComponent( RootComponent );
@@ -30,6 +29,7 @@ void ACommonMapViewer::BeginPlay()
 {
 	Super::BeginPlay();
 	
+    this->ResetCamera();
 }
 
 // Called every frame
@@ -90,5 +90,5 @@ void ACommonMapViewer::ZoomCamera( float volume )
 
 void ACommonMapViewer::ResetCamera( void )
 {
-    this->m_comp_camera_arm->TargetArmLength = 200;
+    this->m_comp_camera_arm->TargetArmLength = this->m_f_def_arm_len;
 }
