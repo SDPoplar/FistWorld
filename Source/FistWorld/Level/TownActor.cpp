@@ -11,9 +11,10 @@
 #include "Story/Town.h"
 #include "Components/WidgetComponent.h"
 #include "Widget/ShowTownWidget.h"
+#include "Components/TownNamePanelComponent.h"
 
 // Sets default values
-ATownActor::ATownActor()
+ATownActor::ATownActor( const FObjectInitializer& ObjectInitializer ) : AActor( ObjectInitializer ), m_o_town( nullptr )
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -28,15 +29,6 @@ ATownActor::ATownActor()
     {
         this->m_mesh_town->SetStaticMesh( mesh.Object );
     }
-    this->m_mesh_flag = CreateDefaultSubobject<UStaticMeshComponent>( TEXT( "FlagMesh" ) );
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> flagmesh( TEXT( "/Game/Levels/Res_lv_World/static_mesh_flag" ) );
-    if( flagmesh.Succeeded() )
-    {
-        this->m_mesh_flag->SetStaticMesh( flagmesh.Object );
-    }
-    this->m_mesh_flag->SetupAttachment( RootComponent );
-    this->m_mesh_flag->SetRelativeLocation( FVector( 0, 0, 80 ) );
-    this->m_mesh_flag->SetRelativeRotation( FQuat( 0, 0, 0, 0 ) );
     this->m_particle_hover_circle = CreateDefaultSubobject<UParticleSystemComponent>( TEXT( "Hover circle" ) );
     this->m_particle_hover_circle->SetupAttachment( RootComponent );
     this->m_particle_hover_circle->SetVisibility( false );
@@ -54,22 +46,37 @@ ATownActor::ATownActor()
     {
         this->m_widget_summary->SetWidgetClass( townsummary.Class );
     }
-    this->m_o_town = nullptr;
+
+    this->m_comp_namepanel = CreateDefaultSubobject<UTownNamePanelComponent>( TEXT( "Town namepanel" ) );
+    this->m_comp_namepanel->SetupAttachment( RootComponent );
+    this->m_comp_namepanel->SetRelativeLocation( FVector( 0, 0, 100 ) );
+
+
+    //  Bind events
+
+    FScriptDelegate cursor_hover, cursor_unhover, cursor_click;
+    cursor_hover.BindUFunction( this, FName( "BeginMouseOver" ) );
+    this->OnBeginCursorOver.Add( cursor_hover );
+    cursor_unhover.BindUFunction( this, FName( "EndMouseOver" ) );
+    this->OnEndCursorOver.Add( cursor_unhover );
+    cursor_click.BindUFunction( this, FName( "SelectByPlayer" ) );
+    this->OnClicked.Add( cursor_click );
 }
 
 // Called when the game starts or when spawned
 void ATownActor::BeginPlay()
 {
 	Super::BeginPlay();
-    
-    if( !this->GetTown() )
+    UTown* town = this->GetTown();
+    if( !town )
     {
         return;
     }
+    this->m_comp_namepanel->BindTown( town );
     //  this->m_widget_summary->bindtown
     for( auto item : this->m_can_arrive )
     {
-        this->GetTown()->AppendArrive( item->GetTown() );
+        town->AppendArrive( item->GetTown() );
     }
 }
 
@@ -78,16 +85,6 @@ void ATownActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-    if( this->GetTown() && this->GetTown()->OwnByKingdom() )
-    {
-        this->m_mesh_flag->SetVisibility( true );
-        auto m = this->GetFlagMaterial( UKingdom::OwnByPlayer( this->GetTown()->GetKingdomId() ) );
-        this->m_mesh_flag->SetMaterial( 1, m );
-    }
-    else
-    {
-        this->m_mesh_flag->SetVisibility( false );
-    }
 }
 
 void ATownActor::SelectByPlayer()
@@ -122,11 +119,6 @@ UTown* ATownActor::GetTown()
     return this->m_o_town;
 }
 
-UStaticMeshComponent* ATownActor::GetFlagMesh() const noexcept
-{
-    return this->m_mesh_flag;
-}
-
 UParticleSystemComponent* ATownActor::GetHoverCircle() const
 {
     return this->m_particle_hover_circle;
@@ -143,4 +135,14 @@ void ATownActor::SetHover( bool hover )
     {
         this->m_widget_summary->SetVisibility( hover );
     }
+}
+
+void ATownActor::BeginMouseOver()
+{
+    this->SetHover( true );
+}
+
+void ATownActor::EndMouseOver()
+{
+    this->SetHover( false );
 }

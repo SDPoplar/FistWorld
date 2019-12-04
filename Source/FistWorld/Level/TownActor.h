@@ -13,7 +13,7 @@ class FISTWORLD_API ATownActor : public AActor
 	
 public:	
 	// Sets default values for this actor's properties
-	ATownActor();
+	ATownActor( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get() );
 
     UFUNCTION( BlueprintCallable )
     void SelectByPlayer();
@@ -26,14 +26,9 @@ public:
     UFUNCTION( BlueprintCallable )
     void SetHover( bool hover );
 
-    UFUNCTION( BlueprintCallable )
-    class UStaticMeshComponent* GetFlagMesh() const noexcept;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
-    UFUNCTION( BlueprintImplementableEvent )
-    class UMaterialInterface* GetFlagMaterial( bool ownByPlayer );
 
     UPROPERTY( EditAnywhere, Category = "Data" )
     int m_bind_town;
@@ -43,13 +38,18 @@ protected:
 
     UPROPERTY( EditDefaultsOnly )
     class UStaticMeshComponent* m_mesh_town;
-    class UStaticMeshComponent* m_mesh_flag;
     class UParticleSystemComponent* m_particle_hover_circle;
     class UWidgetComponent* m_widget_summary;
+    class UTownNamePanelComponent* m_comp_namepanel;
     class UTown* m_o_town;
 
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+    UFUNCTION()
+    void BeginMouseOver();
+
+    UFUNCTION()
+    void EndMouseOver();
 };
