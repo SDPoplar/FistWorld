@@ -34,6 +34,12 @@ FText UWarriorSelectorItemWidget::GetWarriorName() const noexcept
     return FText::FromString( this->m_warrior->GetWarriorName() );
 }
 
+FLinearColor UWarriorSelectorItemWidget::GetWarriorGradeColor() const noexcept
+{
+    CHECKWARRIOR( GradableElement::GetDefaultColor() );
+    return this->m_warrior->GetGradeColor();
+}
+
 FText UWarriorSelectorItemWidget::GetWarriorStrong() const noexcept
 {
     CHECKWARRIOR_TEXT;

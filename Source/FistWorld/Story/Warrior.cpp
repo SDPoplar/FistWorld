@@ -161,12 +161,24 @@ int UWarrior::GetMaxSoldierNumber() const noexcept
     return ( this->GetStrong() + this->GetIntel() ) * (this->GetWarriorLevel() + 5);
 }
 
-/*
-int UWarrior::GetGrade() const noexcept
+EElemGrade UWarrior::GetGrade() const noexcept
 {
-    return this->GetIntel() + this->GetStrong();
+    int totalprop = this->GetIntel() + this->GetStrong();
+    int maxprop = ( this->GetIntel() > this->GetStrong() ) ? this->GetIntel() : this->GetStrong();
+    if( ( totalprop > 200 ) || ( maxprop > 120 ) )
+    {
+        return EElemGrade::LEGEND;
+    }
+    if( ( totalprop > 180 ) || ( maxprop > 100 ) )
+    {
+        return EElemGrade::RARE;
+    }
+    if( ( totalprop > 150 ) || ( maxprop > 80 ) )
+    {
+        return EElemGrade::GOOD;
+    }
+    return EElemGrade::NORMAL;
 }
-*/
 
 int UWarrior::GetFightMark() const noexcept
 {

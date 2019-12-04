@@ -6,6 +6,7 @@
 #include "UObject/NoExportTypes.h"
 #include "Engine/DataTable.h"
 #include "HasSoldier.h"
+#include "GradableElement.h"
 #include "Warrior.generated.h"
 
 UENUM( BlueprintType )
@@ -49,7 +50,7 @@ public:
     int intel;
 };
 
-class UWarrior : public HasSoldier
+class UWarrior : public HasSoldier, public GradableElement
 {
 public:
     UWarrior();
@@ -80,7 +81,7 @@ public:
 
     virtual int GetMaxSoldierNumber() const noexcept override;
 
-    //  int GetBaseGrade() const noexcept;
+    EElemGrade GetGrade() const noexcept override;
     int GetFightMark() const noexcept;
 
 protected:

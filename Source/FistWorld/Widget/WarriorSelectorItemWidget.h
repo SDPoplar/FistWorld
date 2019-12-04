@@ -23,6 +23,9 @@ protected:
     void OnListItemObjectSet( UObject* ListItemObject );
 
     UFUNCTION( BlueprintCallable )
+    FLinearColor GetWarriorGradeColor() const noexcept;
+
+    UFUNCTION( BlueprintCallable )
     bool BindWarriorIns( UObject* warrior );
 
     UFUNCTION( BlueprintCallable )
