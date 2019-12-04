@@ -4,6 +4,7 @@
 #include "UObject/ConstructorHelpers.h"
 #include "Story/Town.h"
 #include "Widget/TownNamePanelWidget.h"
+#include "Level/TownActor.h"
 
 UTownNamePanelComponent::UTownNamePanelComponent( const FObjectInitializer& ObjectInitializer )
     : UNamePanelComponent( ObjectInitializer )
@@ -17,17 +18,17 @@ UTownNamePanelComponent::UTownNamePanelComponent( const FObjectInitializer& Obje
     this->bVisibleInRayTracing = false;
 }
 
-void UTownNamePanelComponent::BindTown( UTown* town )
+void UTownNamePanelComponent::InitWidget()
 {
-    this->SetVisibility( !!town );
-    UTownNamePanelWidget* widget;
-    if( town && ( ( widget = this->GetWidget() ) != nullptr ) )
+    UNamePanelComponent::InitWidget();
+    ATownActor* ta = Cast<ATownActor>( this->GetOwner() );
+    UTown* town = ta ? ta->GetTown() : nullptr;
+    UTownNamePanelWidget* widget = town ? Cast<UTownNamePanelWidget>( this->Widget ) : nullptr;
+    this->SetVisibility( !!widget );
+    if( !widget )
     {
-        widget->BindTown( town );
+        UE_LOG( LogTemp, Error, TEXT( "%s - Failed to load widget when init" ), *( this->GetClass()->GetName() ) );
+        return;
     }
-}
-
-UTownNamePanelWidget* UTownNamePanelComponent::GetWidget() const noexcept
-{
-    return Cast<UTownNamePanelWidget>( this->Widget );
+    widget->BindTown( town );
 }

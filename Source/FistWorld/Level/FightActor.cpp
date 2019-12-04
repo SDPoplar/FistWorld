@@ -3,6 +3,7 @@
 #include "FightActor.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "Components/FighterNamePanelComponent.h"
 #include "Story/Kingdom.h"
 #include "Level/ArcherActor.h"
 #include "Level/ShieldActor.h"
@@ -33,6 +34,10 @@ AFightActor::AFightActor() : TickAfterTurnOn(), m_o_warrior_binded( nullptr ), m
     this->m_comp_pawn_move = CreateDefaultSubobject<UFloatingPawnMovement>( "Movement" );
     this->m_comp_pawn_move->SetUpdatedComponent( RootComponent );
     this->AutoPossessAI = EAutoPossessAI::Spawned;
+
+    this->m_comp_namepanel = CreateDefaultSubobject<UFighterNamePanelComponent>( TEXT( "Name panel" ) );
+    this->m_comp_namepanel->SetupAttachment( RootComponent );
+    this->m_comp_namepanel->SetRelativeLocation( FVector( 0, 0, 100 ) );
 }
 
 UPawnMovementComponent* AFightActor::GetMovementComponent() const
@@ -88,12 +93,10 @@ void AFightActor::BindReporter( AFightReporter* reporter )
     this->m_o_reporter = reporter;
 }
 
-/*
-void AFightActor::ReportDeath()
+float AFightActor::GetHealthPercent() const noexcept
 {
-    //  this->m_o_reporter
+    return this->m_f_current_health / this->m_f_max_health;
 }
-*/
 
 void AFightActor::SetNearest( AFightActor* nearest )
 {

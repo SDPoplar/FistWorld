@@ -26,8 +26,3 @@ bool UTownNamePanelWidget::TownOwnByPlayer() const noexcept
 {
     return this->m_o_town && this->m_o_town->OwnByPlayer();
 }
-
-UTown* UTownNamePanelWidget::GetParentTown() const noexcept
-{
-    return this->m_o_town;
-}

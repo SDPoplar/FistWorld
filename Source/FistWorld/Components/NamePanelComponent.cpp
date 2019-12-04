@@ -5,5 +5,5 @@
 UNamePanelComponent::UNamePanelComponent( const FObjectInitializer& ObjectInitializer )
     : UWidgetComponent( ObjectInitializer )
 {
-    this->Space = EWidgetSpace::World;
+    this->Space = EWidgetSpace::Screen;
 }

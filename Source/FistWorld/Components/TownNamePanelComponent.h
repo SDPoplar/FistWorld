@@ -16,8 +16,8 @@ class FISTWORLD_API UTownNamePanelComponent : public UNamePanelComponent
 	
 public:
     UTownNamePanelComponent( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get() );
-    void BindTown( class UTown* town );
 
 protected:
     class UTownNamePanelWidget* GetWidget() const noexcept;
+    void InitWidget() override;
 };

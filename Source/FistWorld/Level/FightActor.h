@@ -24,6 +24,7 @@ public:
     void SetNearest( AFightActor* nearset );
 
     class UPawnMovementComponent* GetMovementComponent() const override;
+    float GetHealthPercent() const noexcept;
 
     float TakeDamage( float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser ) override;
     UWarrior* GetBindedWarrior() const noexcept;
@@ -43,6 +44,7 @@ protected:
     class USkeletalMeshComponent* m_mesh_warrior;
     class UFloatingPawnMovement* m_comp_pawn_move;
     class USphereComponent* m_comp_capsule;
+    class UFighterNamePanelComponent* m_comp_namepanel;
     
     class AFightReporter* m_o_reporter;
 

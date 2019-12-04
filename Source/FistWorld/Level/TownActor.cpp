@@ -72,7 +72,6 @@ void ATownActor::BeginPlay()
     {
         return;
     }
-    this->m_comp_namepanel->BindTown( town );
     //  this->m_widget_summary->bindtown
     for( auto item : this->m_can_arrive )
     {

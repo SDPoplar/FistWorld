@@ -28,7 +28,5 @@ protected:
     UFUNCTION( BlueprintCallable )
     bool TownOwnByKingdom() const noexcept;
 
-    class UTown* GetParentTown() const noexcept;
-
     class UTown* m_o_town;
 };
