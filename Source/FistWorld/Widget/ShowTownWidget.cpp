@@ -18,6 +18,7 @@ void UShowTownWidget::SetTown( UTown* town )
         return;
     }
     this->m_shower_town_name->SetText( FText::FromString( town->GetTownName() ) );
+    this->m_shower_town_name->SetColorAndOpacity( FSlateColor( town->GetGradeColor() ) );
     auto gi = UFistWorldInstance::GetInstance( this );
     auto kingdom = gi ? gi->FindKingdom( town->GetKingdomId() ) : nullptr;
     if( kingdom )

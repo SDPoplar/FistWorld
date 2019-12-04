@@ -7,6 +7,7 @@
 #include "Engine/DataTable.h"
 #include "HasMoneyAndFood.h"
 #include "HasSoldier.h"
+#include "GradableElement.h"
 #include "Town.generated.h"
 
 USTRUCT( BlueprintType )
@@ -49,7 +50,7 @@ protected:
     int* m_p_saver;
 };
 
-class UTown : public HasMoneyAndFood, public HasSoldier
+class UTown : public HasMoneyAndFood, public HasSoldier, public GradableElement
 {
 public:
     UTown();
@@ -64,6 +65,7 @@ public:
     int AppendArrive( UTown* town );
     //  virtual bool CanArrive( int townId );
     virtual bool CanArrive( UTown* town ) const noexcept;
+    virtual EElemGrade GetGrade() const noexcept override;
 
     DevelopableProperty& GetBusinessDevelopment();
     DevelopableProperty& GetAgricultureDevelopment();

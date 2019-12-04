@@ -93,6 +93,24 @@ bool UTown::CanArrive( UTown* town ) const noexcept
     return ~this->m_arr_can_arrive.Find( town );
 }
 
+EElemGrade UTown::GetGrade() const noexcept
+{
+    int totaldev = this->m_o_agriculture.GetMax() + this->m_o_business.GetMax();
+    if( totaldev > 15000 )
+    {
+        return EElemGrade::LEGEND;
+    }
+    if( totaldev > 12000 )
+    {
+        return EElemGrade::RARE;
+    }
+    if( totaldev > 9000 )
+    {
+        return EElemGrade::GOOD;
+    }
+    return EElemGrade::NORMAL;
+}
+
 int UTownIns::GetTownId() const noexcept
 {
     return UTown::GetTownId();
