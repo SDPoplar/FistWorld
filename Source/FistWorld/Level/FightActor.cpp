@@ -16,19 +16,18 @@
 #include <math.h>
 
 // Sets default values
-AFightActor::AFightActor() : TickAfterTurnOn(), m_o_warrior_binded( nullptr ), m_f_attack_cd( 1.0f ), m_f_last_attack( 0 )
+AFightActor::AFightActor() : TickAfterTurnOn(), m_o_warrior_binded( nullptr ), m_f_last_attack( 0 ), m_f_attack_cd( 1.0f )
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
     bCanBeDamaged = true;
 
-    //  RootComponent = CreateDefaultSubobject<USceneComponent>( "root comp" );
+    RootComponent = CreateDefaultSubobject<USceneComponent>( "root comp" );
     this->m_comp_capsule = CreateDefaultSubobject<USphereComponent>( "Collection" );
-    RootComponent = this->m_comp_capsule;
     this->m_comp_capsule->InitSphereRadius( 100.0f );
     this->m_comp_capsule->SetupAttachment( RootComponent );
     this->m_mesh_warrior = CreateDefaultSubobject<USkeletalMeshComponent>( "Warrior body" );
-    this->m_mesh_warrior->SetupAttachment( RootComponent );
+    this->m_mesh_warrior->SetupAttachment( this->m_comp_capsule );
     this->m_mesh_warrior->SetRelativeLocation( FVector( 0, 0, -100.0f ) );
     
     this->m_comp_pawn_move = CreateDefaultSubobject<UFloatingPawnMovement>( "Movement" );

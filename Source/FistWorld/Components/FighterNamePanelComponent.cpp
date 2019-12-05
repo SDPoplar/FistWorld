@@ -23,13 +23,13 @@ void UFighterNamePanelComponent::InitWidget()
     UFighterNamePanelWidget* widget;
     if( ( widget = Cast<UFighterNamePanelWidget>( this->Widget ) ) == nullptr )
     {
-        UE_LOG( LogTemp, Error, TEXT( "%s - Failed to load widget" ), *( this->GetClass()->GetName() ) );
+        //  UE_LOG( LogTemp, Error, TEXT( "%s - Failed to load widget" ), *( this->GetClass()->GetName() ) );
         return;
     }
     auto fighter = Cast<AFightActor>( this->GetOwner() );
     if( !fighter )
     {
-        UE_LOG( LogTemp, Error, TEXT( "%s - Failed to get owner when init widget" ), *( this->GetClass()->GetName() ) );
+        //  UE_LOG( LogTemp, Error, TEXT( "%s - Failed to get owner when init widget" ), *( this->GetClass()->GetName() ) );
         return;
     }
     widget->BindFighter( fighter );

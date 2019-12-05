@@ -27,7 +27,7 @@ void UTownNamePanelComponent::InitWidget()
     this->SetVisibility( !!widget );
     if( !widget )
     {
-        UE_LOG( LogTemp, Error, TEXT( "%s - Failed to load widget when init" ), *( this->GetClass()->GetName() ) );
+        //  UE_LOG( LogTemp, Error, TEXT( "%s - Failed to load widget when init" ), *( this->GetClass()->GetName() ) );
         return;
     }
     widget->BindTown( town );
