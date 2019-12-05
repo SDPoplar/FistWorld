@@ -6,6 +6,13 @@
 #include "UObject/NoExportTypes.h"
 #include "Fight.generated.h"
 
+UENUM( BlueprintType )
+enum class EFightSide : uint8
+{
+    ATTACKER,
+    DEFENCER,
+};
+
 class UFight
 {
 public:

@@ -18,6 +18,10 @@ public:
     float totalDamage;
     int totalKill;
     class UWarrior* warrior;
+
+    FText ToText() const noexcept;
+    int GetKillNum() const noexcept;
+    int GetDamageIntval() const noexcept;
 };
 
 typedef std::map<class AFightActor*, ActorIns> amap;

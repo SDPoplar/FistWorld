@@ -16,4 +16,7 @@ class FISTWORLD_API AFightMapController : public ACommonMapController
 	
 public:
     void BeginPlay() override;
+
+    static AFightMapController* Get( UObject* getter );
+    class AFightMapHud* GetFightHud();
 };

@@ -22,6 +22,7 @@ public:
 
     //  void NextRound();
     void LoadFirstFight();
+    void FightFinish( bool attackerWin, TArray<FText> attackerResult, TArray<FText> defencerResult );
 
     void AttackerWin();
     void DefencerWin();

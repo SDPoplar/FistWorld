@@ -16,4 +16,10 @@ class FISTWORLD_API AFightMapHud : public ACommonMapHud
 	
 public:
     AFightMapHud( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get() );
+    class UFightResultWidget* GetFightResultWidget();
+
+protected:
+    TSubclassOf<class UFightResultWidget> fightresultClass;
+
+    class UFightResultWidget* m_widget_result;
 };

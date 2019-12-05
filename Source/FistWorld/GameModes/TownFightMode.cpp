@@ -12,6 +12,7 @@
 #include "Story/Warrior.h"
 #include "Kismet/GameplayStatics.h"
 #include "FistWorldInstance.h"
+#include "Widget/FightResultWidget.h"
 
 ATownFightMode::ATownFightMode() : m_o_current_fight( nullptr )
 {
@@ -145,4 +146,22 @@ void ATownFightMode::AttackerWin()
 void ATownFightMode::DefencerWin()
 {
     this->LoadFirstFight();
+}
+
+void ATownFightMode::FightFinish( bool attackerWin, TArray<FText> attackerResult, TArray<FText> defencerResult )
+{
+    if( !this->m_o_current_fight || !this->m_o_current_fight->IsValidLowLevelFast() )
+    {
+        return;
+    }
+    auto pc = AFightMapController::Get( this );
+    auto hud = pc ? pc->GetFightHud() : nullptr;
+    auto widget = hud ? hud->GetFightResultWidget() : nullptr;
+    if( !widget )
+    {
+        UE_LOG( LogTemp, Error, TEXT( "Failed to get fight result widget in gamemode" ) );
+        return;
+    }
+    widget->Popup();
+    widget->SetFightResult( this->m_o_current_fight->IsPlayerAttack(), attackerWin, attackerResult, defencerResult );
 }

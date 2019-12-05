@@ -4,6 +4,7 @@
 #include "Level/FightActor.h"
 #include "GameModes/TownFightMode.h"
 #include "Kismet/GameplayStatics.h"
+#include "Static/Lang/FightInfo.h"
 
 // Sets default values
 AFightReporter::AFightReporter() : TickAfterTurnOn()
@@ -114,14 +115,16 @@ void AFightReporter::CheckResult()
     }
 
     this->TurnOff();
-    if( attackerAlive )
+    TArray<FText> attack, defence;
+    for( auto item : this->m_map_attacker )
     {
-        gm->AttackerWin();
+        attack.Add( item.second.ToText() );
     }
-    else
+    for( auto item : this->m_map_defencer )
     {
-        gm->DefencerWin();
+        defence.Add( item.second.ToText() );
     }
+    gm->FightFinish( attackerAlive, attack, defence );
 }
 
 bool AFightReporter::hasActorAlive( const amap& holder ) const noexcept
@@ -187,4 +190,20 @@ void AFightReporter::ReleaseAlive()
         }
     }
     this->Destroy();
+}
+
+FText ActorIns::ToText() const noexcept
+{
+    return FText::FormatOrdered<FText, int, int>( txtFightResultTemplate,
+        FText::FromString( this->warrior->GetWarriorName() ), this->GetDamageIntval(), this->GetKillNum() );
+}
+
+int ActorIns::GetKillNum() const noexcept
+{
+    return this->totalKill;
+}
+
+int ActorIns::GetDamageIntval() const noexcept
+{
+    return (int)this->totalDamage;
 }
