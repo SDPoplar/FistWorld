@@ -19,6 +19,24 @@ public:
 };
 
 UCLASS()
+class FISTWORLD_API UPopBgTitle : public UPopBgBase
+{
+    GENERATED_BODY()
+
+public:
+    UPopBgTitle( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get() );
+};
+
+UCLASS()
+class FISTWORLD_API UPopBgCenterTitle : public UPopBgBase
+{
+    GENERATED_BODY()
+
+public:
+    UPopBgCenterTitle( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get() );
+};
+
+UCLASS()
 class FISTWORLD_API UPopBgTitleWithExit : public UPopBgBase
 {
 	GENERATED_BODY()
@@ -70,4 +88,13 @@ class FISTWORLD_API UPopBgBottomDoubleButton : public UPopBgBase
 
 public:
     UPopBgBottomDoubleButton( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get() );
+};
+
+UCLASS()
+class FISTWORLD_API UPopBgBottomCenterSingleButton : public UPopBgBase
+{
+    GENERATED_BODY()
+
+public:
+    UPopBgBottomCenterSingleButton( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get() );
 };

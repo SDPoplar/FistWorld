@@ -21,6 +21,16 @@ UPopBgBase::UPopBgBase( const FObjectInitializer& ObjectInitializer )
     slot->ZOrder = -1;
 }
 
+UPopBgTitle::UPopBgTitle( const FObjectInitializer& ObjectInitializer )
+    : UPopBgBase( ObjectInitializer )
+{
+    static ConstructorHelpers::FObjectFinder<UTexture2D> popbgtitle( TEXT( "/Game/Levels/Res_lv_Common/PopupWidget/texture_bg_widget_title" ) );
+    if( popbgtitle.Succeeded() )
+    {
+        this->SetBrushFromTexture( popbgtitle.Object );
+    }
+}
+
 UPopBgTitleWithExit::UPopBgTitleWithExit( const FObjectInitializer& ObjectInitializer )
     : UPopBgBase( ObjectInitializer )
 {
@@ -28,6 +38,16 @@ UPopBgTitleWithExit::UPopBgTitleWithExit( const FObjectInitializer& ObjectInitia
     if( popbgtitlewe.Succeeded() )
     {
         this->SetBrushFromTexture( popbgtitlewe.Object );
+    }
+}
+
+UPopBgCenterTitle::UPopBgCenterTitle( const FObjectInitializer& ObjectInitializer )
+    : UPopBgBase( ObjectInitializer )
+{
+    static ConstructorHelpers::FObjectFinder<UTexture2D> popbgctitle( TEXT( "/Game/Levels/Res_lv_Common/PopupWidget/texture_bg_widget_center_title" ) );
+    if( popbgctitle.Succeeded() )
+    {
+        this->SetBrushFromTexture( popbgctitle.Object );
     }
 }
 
@@ -78,5 +98,15 @@ UPopBgBottomDoubleButton::UPopBgBottomDoubleButton( const FObjectInitializer& Ob
     if( popbgbottomdb.Succeeded() )
     {
         this->SetBrushFromTexture( popbgbottomdb.Object );
+    }
+}
+
+UPopBgBottomCenterSingleButton::UPopBgBottomCenterSingleButton( const FObjectInitializer& ObjectInitializer )
+    : UPopBgBase( ObjectInitializer )
+{
+    static ConstructorHelpers::FObjectFinder<UTexture2D> popbgbottomcsb( TEXT( "/Game/Levels/Res_lv_Common/PopupWidget/texture_bg_widget_bottom_center_single_button" ) );
+    if( popbgbottomcsb.Succeeded() )
+    {
+        this->SetBrushFromTexture( popbgbottomcsb.Object );
     }
 }

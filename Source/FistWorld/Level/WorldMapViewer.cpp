@@ -25,7 +25,6 @@ void AWorldMapViewer::BeginPlay()
 void AWorldMapViewer::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-    this->m_comp_move->MoveTick();
 }
 
 // Called to bind functionality to input

@@ -26,6 +26,7 @@ AFightActor::AFightActor() : TickAfterTurnOn(), m_o_warrior_binded( nullptr ), m
     this->m_comp_capsule = CreateDefaultSubobject<USphereComponent>( "Collection" );
     this->m_comp_capsule->InitSphereRadius( 100.0f );
     this->m_comp_capsule->SetupAttachment( RootComponent );
+    this->m_comp_capsule->SetRelativeLocation( FVector( 0, 0, 100.0f ) );
     this->m_mesh_warrior = CreateDefaultSubobject<USkeletalMeshComponent>( "Warrior body" );
     this->m_mesh_warrior->SetupAttachment( this->m_comp_capsule );
     this->m_mesh_warrior->SetRelativeLocation( FVector( 0, 0, -100.0f ) );
@@ -36,7 +37,7 @@ AFightActor::AFightActor() : TickAfterTurnOn(), m_o_warrior_binded( nullptr ), m
 
     this->m_comp_namepanel = CreateDefaultSubobject<UFighterNamePanelComponent>( TEXT( "Name panel" ) );
     this->m_comp_namepanel->SetupAttachment( RootComponent );
-    this->m_comp_namepanel->SetRelativeLocation( FVector( 0, 0, 100 ) );
+    this->m_comp_namepanel->SetRelativeLocation( FVector( 0, 0, 120.0f ) );
 }
 
 UPawnMovementComponent* AFightActor::GetMovementComponent() const

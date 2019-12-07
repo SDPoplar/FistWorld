@@ -5,7 +5,7 @@
 #include "Gameframework/SpringArmComponent.h"
 #include "Components/InputComponent.h"
 #include "Components/SphereComponent.h"
-#include "MoveWorldViewerComponent.h"
+#include "GameFramework/FloatingPawnMovement.h"
 
 // Sets default values
 ACommonMapViewer::ACommonMapViewer() : m_f_def_arm_len( 200.0f )
@@ -13,14 +13,18 @@ ACommonMapViewer::ACommonMapViewer() : m_f_def_arm_len( 200.0f )
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
     PrimaryActorTick.bCanEverTick = true;
     this->bCanBeDamaged = false;
+    RootComponent = CreateDefaultSubobject<USceneComponent>( "Root comp" );
+    this->m_comp_sphere = CreateDefaultSubobject<USphereComponent>( "Sphere comp" );
+    this->m_comp_sphere->SetSphereRadius( 50.0f );
+    this->m_comp_sphere->SetupAttachment( RootComponent );
     this->m_comp_camera_arm = CreateDefaultSubobject<USpringArmComponent>( TEXT( "Camera Arm" ) );
-    RootComponent = this->m_comp_camera_arm;
+    this->m_comp_camera_arm->SetupAttachment( RootComponent );
     this->m_comp_camera_arm->SetRelativeRotation( FRotator( -45.0f, 0, 0 ) );
     this->m_comp_camera = CreateDefaultSubobject<UCameraComponent>( TEXT( "Camera" ) );
     this->m_comp_camera->SetupAttachment( this->m_comp_camera_arm );
     this->m_comp_camera->SetRelativeRotation( FRotator( 0 ) );
 
-    this->m_comp_move = CreateDefaultSubobject<UMoveWorldViewerComponent>( TEXT( "Movement" ) );
+    this->m_comp_move = CreateDefaultSubobject<UFloatingPawnMovement>( TEXT( "Movement" ) );
     this->m_comp_move->SetUpdatedComponent( RootComponent );
 }
 
@@ -43,9 +47,6 @@ void ACommonMapViewer::Tick(float DeltaTime)
 void ACommonMapViewer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
-    InputComponent->BindAxis( "MoveForward", this, &ACommonMapViewer::MoveForward );
-    InputComponent->BindAxis( "MoveRight", this, &ACommonMapViewer::MoveRight );
 }
 
 
@@ -55,11 +56,6 @@ void ACommonMapViewer::PointTo( AActor* target )
     auto targetLocation = target->GetActorLocation();
     targetLocation.Z += 200;
     this->SetActorLocation( targetLocation );
-}
-
-void ACommonMapViewer::MoveTo( FVector target )
-{
-    this->m_comp_move->StartMove( target, 30 );
 }
 
 void ACommonMapViewer::MoveForward( float volume )

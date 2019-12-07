@@ -31,12 +31,14 @@ public:
     class USysMenuWidget* GetSysMenu();
 
 protected:
+    void BeginPlay() override;
     class UMessageBoxWidget* GetMessageBox();
     class UConfirmBackWidget* GetConfirmBackWidget();
 
     TSubclassOf<class USysMenuWidget> sysmenuClass;
     TSubclassOf<class UConfirmBackWidget> confirmbackClass;
 private:
+    TSubclassOf<UUserWidget> edgeClass;
     TSubclassOf<UMessageBoxWidget> msgboxClass;
     class USysMenuWidget* m_widget_sysmenu;
     UMessageBoxWidget* m_widget_message;

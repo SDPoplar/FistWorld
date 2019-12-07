@@ -4,6 +4,14 @@
 #include "CommonMapController.h"
 #include "Huds/CommonMapHud.h"
 #include "Tasks/ExcutableTask.h"
+#include "Level/CommonMapViewer.h"
+
+ACommonMapController::ACommonMapController( const FObjectInitializer& ObjectInitializer )
+    : AModeOverridableController( ObjectInitializer ), m_map_viewport_edge_lock( {
+        std::make_pair( EViewportEdge::TOP, false ), std::make_pair( EViewportEdge::LEFT, false ),
+        std::make_pair( EViewportEdge::RIGHT, false ), std::make_pair( EViewportEdge::BOTTOM, false )
+    } )
+{}
 
 /*
 ACommonMapController::~ACommonMapController()
@@ -78,4 +86,46 @@ void ACommonMapController::ReleaseFinishedTask()
 UExcutableTask* ACommonMapController::GetTask() const noexcept
 {
     return this->m_o_task;
+}
+
+bool ACommonMapController::IsViewportEdgeLocked( const EViewportEdge side ) const noexcept
+{
+    auto lock = this->m_map_viewport_edge_lock.find( side );
+    return (lock == this->m_map_viewport_edge_lock.end()) || lock->second;
+}
+
+void ACommonMapController::MoveTowardsViewportEdge( const EViewportEdge side )
+{
+    auto pawn = this->IsViewportEdgeLocked( side ) ? nullptr : Cast<ACommonMapViewer>( this->GetPawn() );
+    if( !pawn )
+    {
+        return;
+    }
+    float stepVolume = 1.0f;
+    switch( side )
+    {
+    case EViewportEdge::TOP:
+        pawn->MoveForward( stepVolume );
+        break;
+    case EViewportEdge::BOTTOM:
+        pawn->MoveForward( -1 * stepVolume );
+        break;
+    case EViewportEdge::LEFT:
+        pawn->MoveRight( -1 * stepVolume );
+        break;
+    case EViewportEdge::RIGHT:
+        pawn->MoveRight( stepVolume );
+        break;
+    default:
+        return;
+    }
+}
+
+void ACommonMapController::SetEdgeLock( EViewportEdge side, bool lock )
+{
+    auto elem = this->m_map_viewport_edge_lock.find( side );
+    if( elem != this->m_map_viewport_edge_lock.end() )
+    {
+        elem->second = lock;
+    }
 }

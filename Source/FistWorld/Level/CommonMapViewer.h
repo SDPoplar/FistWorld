@@ -24,9 +24,6 @@ public:
     UFUNCTION( BlueprintCallable )
     void PointTo( AActor* target );
 
-    UFUNCTION( BlueprintCallable )
-    void MoveTo( FVector target );
-
     template<class T>
     static T* Get( UObject* getter )
     {
@@ -37,12 +34,10 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-    UPROPERTY( EditDefaultsOnly, Category = Camera )
+    class USphereComponent* m_comp_sphere;
     class USpringArmComponent* m_comp_camera_arm;
-    UPROPERTY( EditDefaultsOnly, Category = Camera )
     class UCameraComponent* m_comp_camera;
-    UPROPERTY( EditDefaultsOnly, Category = Movement )
-    class UMoveWorldViewerComponent* m_comp_move;
+    class UFloatingPawnMovement* m_comp_move;
 
     float m_f_def_arm_len;
 public:	

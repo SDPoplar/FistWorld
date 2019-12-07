@@ -38,6 +38,8 @@ AWorldMapHud::AWorldMapHud() : ACommonMapHud(), m_widget_town_player( nullptr ),
 
 void AWorldMapHud::BeginPlay()
 {
+    ACommonMapHud::BeginPlay();
+
     this->LoadTopSummaryWidget();
 }
 

@@ -12,6 +12,26 @@ ACommonMapHud::ACommonMapHud( const FObjectInitializer& ObjectInitializer ) : AH
 {
     static ConstructorHelpers::FClassFinder<UMessageBoxWidget> msgboxwidget( TEXT( "/Game/Levels/Res_lv_Common/Widget_Common_MessageBox" ) );
     msgboxClass = msgboxwidget.Succeeded() ? msgboxwidget.Class : nullptr;
+
+    static ConstructorHelpers::FClassFinder<UUserWidget> edge( TEXT( "/Game/Levels/Res_lv_Common/Widget_Common_ViewportEdge" ) );
+    edgeClass = edge.Succeeded() ? edge.Class : nullptr;
+}
+
+void ACommonMapHud::BeginPlay()
+{
+    Super::BeginPlay();
+
+    UWorld* world = this->GetWorld();
+    auto edge = UUserWidget::CreateWidgetInstance( *world, edgeClass, "viewport edge" );
+    if( edge )
+    {
+        UE_LOG( LogTemp, Display, TEXT( "Viewport Edge loaded" ) );
+        edge->AddToViewport();
+    }
+    else
+    {
+        UE_LOG( LogTemp, Error, TEXT( "Failed to load viewport edge" ) );
+    }
 }
 
 USysMenuWidget* ACommonMapHud::GetSysMenu()
