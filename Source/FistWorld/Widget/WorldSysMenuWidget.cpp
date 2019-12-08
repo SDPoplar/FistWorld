@@ -1,13 +1,14 @@
 // Copyright 2019
 
 #include "WorldSysMenuWidget.h"
+#include "GameModes/WorldMapMode.h"
+#include "Kismet/GameplayStatics.h"
 
 //  TODO: move the follow 5 lines into other file
 #include "FistWorldInstance.h"
 #include "Controllers/WorldMapController.h"
 #include "Huds/WorldMapHud.h"
 #include "Story/Warrior.h"
-#include "Kismet/GameplayStatics.h"
 
 bool UWorldSysMenuWidget::SaveCurrentGame()
 {
@@ -50,28 +51,7 @@ bool UWorldSysMenuWidget::SaveCurrentGame()
 
 bool UWorldSysMenuWidget::NextRound()
 {
-    auto gi = UFistWorldInstance::GetInstance( this );
-    if( !gi )
-    {
-        return false;
-    }
-    for( auto warrior : gi->GetWarriorList() )
-    {
-        if( warrior->GetStatus() == EWarriorStatus::WORKING )
-        {
-            warrior->SetStatus( EWarriorStatus::NORMAL );
-        }
-    }
-    if( gi->HasFight() )
-    {
-        UGameplayStatics::OpenLevel( this, "LV_Fight" );
-    }
-    auto pc = AWorldMapController::GetInstance( this );
-    auto hud = pc ? pc->GetWorldMapHud() : nullptr;
-    if( hud )
-    {
-        hud->PopupAlert( FText::FromString( "New Round!" ) );
-    }
+    auto gm = Cast<AWorldMapMode>( UGameplayStatics::GetGameMode( this ) );
     this->Quit();
-    return true;
+    return gm && gm->FinishRound();
 }

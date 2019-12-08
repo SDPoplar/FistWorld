@@ -230,3 +230,13 @@ int DevelopableProperty::GetCurrent( void ) const noexcept
 {
     return this->m_n_current;
 }
+
+float DevelopableProperty::GetPercent( void ) const noexcept
+{
+    return 1.0f * this->GetCurrent() / this->GetMax();
+}
+
+bool DevelopableProperty::IsFull() const noexcept
+{
+    return this->GetCurrent() >= this->GetMax();
+}

@@ -6,7 +6,6 @@
 #include "Gameframework/SpringArmComponent.h"
 #include "Components/InputComponent.h"
 #include "Components/SphereComponent.h"
-#include "MoveWorldViewerComponent.h"
 
 // Sets default values
 AWorldMapViewer::AWorldMapViewer() : ACommonMapViewer()

@@ -42,6 +42,8 @@ public:
     FString ToString() const;
     int GetMax() const noexcept;
     int GetCurrent() const noexcept;
+    float GetPercent() const noexcept;
+    bool IsFull() const noexcept;
 
 protected:
     int m_n_max;

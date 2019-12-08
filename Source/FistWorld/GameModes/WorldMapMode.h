@@ -16,4 +16,8 @@ class FISTWORLD_API AWorldMapMode : public AGameModeBase
 
 public:
     AWorldMapMode();
+
+    bool FinishRound();
+
+protected:
 };
