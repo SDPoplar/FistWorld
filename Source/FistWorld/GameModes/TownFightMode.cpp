@@ -13,6 +13,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "FistWorldInstance.h"
 #include "Widget/FightResultWidget.h"
+#include "RandomMaker.h"
 
 ATownFightMode::ATownFightMode() : m_o_current_fight( nullptr )
 {
@@ -41,6 +42,7 @@ void ATownFightMode::LoadFirstFight( void )
 {
     if( this->m_o_current_fight && this->m_o_current_fight->IsValidLowLevelFast() )
     {
+        //  this->m_o_current_fight->ReleaseActors();
         this->m_o_current_fight->RemoveFromRoot();
     }
     auto gi = UFistWorldInstance::GetInstance( this );
@@ -50,6 +52,7 @@ void ATownFightMode::LoadFirstFight( void )
     }
     if( !gi->HasFight() )
     {
+        //  TODO: Clear dead kingdom
         UGameplayStatics::OpenLevel( this, "LV_World" );
         return;
     }
@@ -138,8 +141,38 @@ TArray<UWarrior*> ATownFightMode::AiChooseDefencer( UTown* town, int max )
 
 void ATownFightMode::AttackerWin()
 {
+    int originKingdomId = this->m_o_current_fight->GetTargetTown()->GetKingdomId();
+    UTown* runawayTarget = this->m_o_current_fight->GetTargetTown()->GetFirstRunAwayTarget();
     int attackerKingdomId = this->m_o_current_fight->GetAttackerKingdom()->GetKingdomId();
     this->m_o_current_fight->GetTargetTown()->SetOwnerKingdom( attackerKingdomId );
+    int thisTownId = this->m_o_current_fight->GetTargetTown()->GetTownId();
+    auto gi = UFistWorldInstance::GetInstance( this );
+    for( auto warrior : gi->GetWarriorList() )
+    {
+        if( (warrior->GetInTown() != thisTownId) || (warrior->GetBelongKingdom() != originKingdomId) )
+        {
+            continue;
+        }
+        warrior->SetStatus( EWarriorStatus::MISSING );
+    }
+    for( auto warrior : this->m_o_current_fight->GetDefencerWarriors() )
+    {
+        if( runawayTarget && RandomMaker::IntRange( 0, warrior->GetSoldierNumber() ? 4 : 2 ) )
+        {
+            UE_LOG( LogTemp, Display, TEXT( "%s has run away to %s" ), *( warrior->GetWarriorName() ), *( runawayTarget->GetTownName() ) );
+            warrior->SetInTown( runawayTarget->GetTownId() );
+            warrior->SetStatus( EWarriorStatus::NORMAL );
+        }
+        else
+        {
+            UE_LOG( LogTemp, Display, TEXT( "%s has been in prison" ), *( warrior->GetWarriorName() ) );
+            warrior->SetStatus( EWarriorStatus::PRISON );
+        }
+    }
+    for( auto warrior : this->m_o_current_fight->GetAttackerWarriors() )
+    {
+        warrior->SetInTown( thisTownId );
+    }
     this->LoadFirstFight();
 }
 

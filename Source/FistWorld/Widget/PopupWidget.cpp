@@ -26,6 +26,10 @@ void UPopupWidget::Quit()
             oc->PopInputMode();
         }
     }
+    if( this->m_override_pause.setted )
+    {
+        UGameplayStatics::SetGamePaused( this, this->m_override_pause.origin );
+    }
     this->SetVisibility( ESlateVisibility::Collapsed );
 }
 
@@ -57,6 +61,20 @@ void UPopupWidget::Popup()
     }
     AModeOverridableController* oc = Cast<AModeOverridableController>( this->GetPlayerController( pc ) );
     this->m_b_override_input_mode = oc && this->OverrideInputMode( oc );
+
+    bool pause;
+    if( this->OverridePauseGame( pause ) && (UGameplayStatics::IsGamePaused( this ) != pause) )
+    {
+        UE_LOG( LogTemp, Display, TEXT( "Pause game" ) );
+        this->m_override_pause.setted = true;
+        this->m_override_pause.origin = UGameplayStatics::IsGamePaused( this );
+        UGameplayStatics::SetGamePaused( this, pause );
+    }
+    else
+    {
+        this->m_override_pause.setted = false;
+        this->m_override_pause.origin = false;
+    }
 }
 
 bool UPopupWidget::OverrideInputMode( AModeOverridableController* oc )
@@ -65,6 +83,11 @@ bool UPopupWidget::OverrideInputMode( AModeOverridableController* oc )
 }
 
 bool UPopupWidget::OverrideShowMouseCursor( bool& showMouseCursor )
+{
+    return false;
+}
+
+bool UPopupWidget::OverridePauseGame( bool& pauseGame )
 {
     return false;
 }
@@ -80,5 +103,8 @@ APlayerController* UPopupWidget::GetPlayerController( APlayerController* &pc )
 
 bool UPopupWidget::IsInShow( void ) const noexcept
 {
-    return this->IsInViewport() && (this->Visibility != ESlateVisibility::Collapsed);
+    return this->IsInViewport()
+        //  && (this->Visibility != ESlateVisibility::Collapsed)
+        && ( this->Visibility == this->popupVisibilily )
+        && true;
 }

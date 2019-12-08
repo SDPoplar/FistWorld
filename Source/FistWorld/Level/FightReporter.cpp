@@ -27,61 +27,33 @@ void AFightReporter::Tick(float DeltaTime)
 	AActor::Tick(DeltaTime);
     CHECK_TICK_TURNON_NORET;
 
+    TArray<AFightActor*> alive_attacker, alive_defencer;
     for( auto item : this->m_map_attacker )
     {
-        if( !item.second.alive )
+        if( item.second.alive && item.first->IsValidLowLevelFast() )
         {
-            continue;
-        }
-        AFightActor* t = nullptr;
-        float dis = -1;
-        for( auto target : this->m_map_defencer )
-        {
-            if( !target.second.alive )
-            {
-                continue;
-            }
-            float cdis = target.first->GetDistanceTo( item.first );
-            if( (dis < 0) || dis > cdis )
-            {
-                t = target.first;
-                dis = cdis;
-            }
-        }
-        if( t )
-        {
-            item.first->SetNearest( t );
+            alive_attacker.Push( item.first );
         }
     }
-
     for( auto item : this->m_map_defencer )
     {
-        if( !item.second.alive )
+        if( item.second.alive && item.first->IsValidLowLevelFast() )
         {
-            continue;
+            alive_defencer.Push( item.first );
         }
-        if( !item.first->IsValidLowLevelFast() )
+    }
+    for( auto item : this->m_map_attacker )
+    {
+        if( item.first->IsValidLowLevel() )
         {
-            UE_LOG( LogTemp, Error, TEXT( "Alive flag still true after dead" ) );
+            item.first->SetAliveTarget( alive_defencer );
         }
-        AFightActor* t = nullptr;
-        float dis = -1;
-        for( auto target : this->m_map_attacker )
+    }
+    for( auto item : this->m_map_defencer )
+    {
+        if( item.first->IsValidLowLevelFast() )
         {
-            if( !target.second.alive )
-            {
-                continue;
-            }
-            float cdis = target.first->GetDistanceTo( item.first );
-            if( (dis < 0) || dis > cdis )
-            {
-                t = target.first;
-                dis = cdis;
-            }
-        }
-        if( t )
-        {
-            item.first->SetNearest( t );
+            item.first->SetAliveTarget( alive_attacker );
         }
     }
 

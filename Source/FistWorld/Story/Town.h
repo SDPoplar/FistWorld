@@ -74,6 +74,8 @@ public:
     int GetCurrentBusinessDevelopment() const noexcept;
     int GetCurrentAgricultureDevelopment() const noexcept;
 
+    UTown* GetFirstRunAwayTarget() const noexcept;
+
 protected:
     int m_n_town_id;
     FString m_s_town_name;

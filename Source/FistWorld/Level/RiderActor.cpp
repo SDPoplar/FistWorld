@@ -1,6 +1,7 @@
 // Copyright 2019
 
 #include "RiderActor.h"
+#include "ArcherActor.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Components/SkeletalMeshComponent.h"
 
@@ -26,4 +27,17 @@ float ARiderActor::GetAttackMagnification( EWarriorType targetType, float target
     default:
         return 1.0f;
     }
+}
+
+AFightActor* ARiderActor::SelectTarget( TArray<AFightActor*> all )
+{
+    TArray<AFightActor*> archers;
+    for( auto item : all )
+    {
+        if( Cast<AArcherActor>( item ) )
+        {
+            archers.Push( item );
+        }
+    }
+    return AFightActor::SelectTarget( archers.Num() ? archers : all );
 }

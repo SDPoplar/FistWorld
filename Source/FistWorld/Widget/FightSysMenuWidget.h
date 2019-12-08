@@ -14,4 +14,6 @@ class FISTWORLD_API UFightSysMenuWidget : public USysMenuWidget
 {
 	GENERATED_BODY()
 	
+protected:
+    bool OverridePauseGame( bool& pauseGame ) override;
 };

@@ -19,4 +19,5 @@ public:
 
 protected:
     float GetAttackMagnification( EWarriorType targetType, float targetDistance ) const noexcept override;
+    AFightActor* SelectTarget( TArray<AFightActor*> all ) override;
 };

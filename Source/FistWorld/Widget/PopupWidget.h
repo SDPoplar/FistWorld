@@ -36,11 +36,14 @@ protected:
     //virtual bool OverrideInputMode( bool &showMouseCursor );
     virtual bool OverrideShowMouseCursor( bool& showMouseCursor );
     virtual bool OverrideInputMode( class AModeOverridableController* pc );
-
-    struct {
+    virtual bool OverridePauseGame( bool& pauseGame );
+    
+    struct PROP_ORIGIN {
         bool setted;
         bool origin;
-    } m_override_mouse;
+    };
+    
+    PROP_ORIGIN m_override_mouse, m_override_pause;
     bool m_b_override_input_mode;
 
 private:

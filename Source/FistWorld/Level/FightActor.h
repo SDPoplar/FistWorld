@@ -21,7 +21,7 @@ public:
     virtual void LoadWarrior( UWarrior* warrior );
     static AFightActor* SpawnWarrior( UWarrior* warrior, UWorld* inWorld );
     void BindReporter( class AFightReporter* reporter );
-    void SetNearest( AFightActor* nearset );
+    void SetAliveTarget( TArray<AFightActor*> alives );
 
     class UPawnMovementComponent* GetMovementComponent() const override;
     float GetHealthPercent() const noexcept;
@@ -33,8 +33,9 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-    virtual void WantMoveTo( AFightActor* targetActor );
-    virtual void WantAttack( AFightActor* targetActor );
+    virtual AFightActor* SelectTarget( TArray<AFightActor*> all );
+    void WantMoveTo( AFightActor* targetActor );
+    void WantAttack( AFightActor* targetActor );
     virtual float GetAttackMagnification( EWarriorType targetType, float targetDistance ) const noexcept;
 
     //  void ReportDeath();
@@ -42,8 +43,8 @@ protected:
     virtual void FighterTick( float DeltaTime ) {};
 
     class USkeletalMeshComponent* m_mesh_warrior;
-    class UFloatingPawnMovement* m_comp_pawn_move;
-    class USphereComponent* m_comp_capsule;
+    class UFighterMovementComponent* m_comp_pawn_move;
+    class UCapsuleComponent* m_comp_capsule;
     class UFighterNamePanelComponent* m_comp_namepanel;
     
     class AFightReporter* m_o_reporter;

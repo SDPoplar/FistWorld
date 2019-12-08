@@ -127,6 +127,7 @@ bool AWorldMapMode::FinishRound()
                 towns.Push( rec );
             }
         }
+        UE_LOG( LogTemp, Display, TEXT( "%d towns found" ), towns.Num() );
         for( auto tr : towns )
         {
             if( !RoundAi( tr ) )

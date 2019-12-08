@@ -111,6 +111,18 @@ EElemGrade UTown::GetGrade() const noexcept
     return EElemGrade::NORMAL;
 }
 
+UTown* UTown::GetFirstRunAwayTarget( void ) const noexcept
+{
+    for( auto town : this->m_arr_can_arrive )
+    {
+        if( town->GetKingdomId() == this->GetKingdomId() )
+        {
+            return town;
+        }
+    }
+    return nullptr;
+}
+
 int UTownIns::GetTownId() const noexcept
 {
     return UTown::GetTownId();
