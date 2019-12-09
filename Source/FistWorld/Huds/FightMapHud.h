@@ -18,8 +18,14 @@ public:
     AFightMapHud( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get() );
     class UFightResultWidget* GetFightResultWidget();
 
-protected:
-    TSubclassOf<class UFightResultWidget> fightresultClass;
+    bool PopPlayerDefencerChooser( int townId );
 
+protected:
+    class UPlayerChooseDefenceWarriorWidget* GetPlayerDefencerChooser();
+
+    TSubclassOf<class UFightResultWidget> fightresultClass;
     class UFightResultWidget* m_widget_result;
+
+    TSubclassOf<class UPlayerChooseDefenceWarriorWidget> defencerClass;
+    class UPlayerChooseDefenceWarriorWidget* m_widget_player_defencer_chooser;
 };
