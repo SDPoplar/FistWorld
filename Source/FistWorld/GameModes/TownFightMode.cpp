@@ -42,7 +42,7 @@ void ATownFightMode::LoadFirstFight( void )
 {
     if( this->m_o_current_fight && this->m_o_current_fight->IsValidLowLevelFast() )
     {
-        //  this->m_o_current_fight->ReleaseActors();
+        this->m_o_current_fight->ReleaseReporter();
         this->m_o_current_fight->RemoveFromRoot();
     }
     auto gi = UFistWorldInstance::GetInstance( this );
@@ -81,24 +81,27 @@ bool ATownFightMode::LoadFight( UFight* fight )
         return false;
     }
     //  spawn fight reporter
-    AActor* attackSP = level->GetAttackStartPoint(), *defenceSP = level->GetDefenceStartPoint();
+    level->ResetBothBirthPoint();
     for( auto item : this->m_o_current_fight->GetAttackerWarriors() )
     {
         auto fighter = AFightActor::SpawnWarrior( item, world );
         // set actor location
-        fighter->SetActorLocation( attackSP->GetTargetLocation() );
+        fighter->SetActorLocation( level->GetAttackerNextBirthPoint() );
         reporter->AppendAttacker( fighter );
     }
     for( auto item : this->AiChooseDefencer( this->m_o_current_fight->GetTargetTown(), 9 ) )
     {
         auto fighter = AFightActor::SpawnWarrior( item, world );
-        fighter->SetActorLocation( defenceSP->GetTargetLocation() );
+        fighter->SetActorLocation( level->GetDefencerNextBirthPoint() );
         reporter->AppendDefencer( fighter );
     }
     auto player = AFightMapViewer::Get<AFightMapViewer>( this );
     if( player )
     {
-        player->PointTo( this->m_o_current_fight->IsPlayerAttack() ? attackSP : defenceSP );
+        player->PointTo( this->m_o_current_fight->IsPlayerAttack()
+            ? level->GetAttackStartPoint()
+            : level->GetDefenceStartPoint() );
+        player->SaveCameraOrigin();
     }
     reporter->TurnOn();
     return true;
@@ -165,7 +168,6 @@ void ATownFightMode::AttackerWin()
         }
         else
         {
-            UE_LOG( LogTemp, Display, TEXT( "%s has been in prison" ), *( warrior->GetWarriorName() ) );
             warrior->SetStatus( EWarriorStatus::PRISON );
         }
     }
@@ -178,6 +180,15 @@ void ATownFightMode::AttackerWin()
 
 void ATownFightMode::DefencerWin()
 {
+    for( auto warrior : this->m_o_current_fight->GetAttackerWarriors() )
+    {
+        if( RandomMaker::WillHappen( 60 ) )
+        {
+            continue;
+        }
+        warrior->SetInTown( this->m_o_current_fight->GetTargetTown()->GetTownId() );
+        warrior->SetStatus( EWarriorStatus::PRISON );
+    }
     this->LoadFirstFight();
 }
 

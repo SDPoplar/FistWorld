@@ -38,6 +38,7 @@ public:
     void AppendDefencer( class AFightActor* defencer );
 
     bool ReportDamage( class AFightActor* reporter, class AFightActor* damageMaker, float damage, bool killed );
+    void ReleaseAlive();
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -45,7 +46,6 @@ protected:
     bool hasActorAlive( const amap& holder ) const noexcept;
 
     void CheckResult();
-    void ReleaseAlive();
 
     amap m_map_attacker, m_map_defencer;
 public:	

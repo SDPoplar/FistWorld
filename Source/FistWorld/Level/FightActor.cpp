@@ -43,7 +43,6 @@ AFightActor::AFightActor() : TickAfterTurnOn(), m_o_warrior_binded( nullptr ), m
     this->m_comp_namepanel = CreateDefaultSubobject<UFighterNamePanelComponent>( TEXT( "Name panel" ) );
     this->m_comp_namepanel->SetupAttachment( RootComponent );
     this->m_comp_namepanel->SetRelativeLocation( FVector( 0, 0, 120.0f ) );
-
 }
 
 UPawnMovementComponent* AFightActor::GetMovementComponent() const

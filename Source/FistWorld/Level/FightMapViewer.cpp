@@ -5,7 +5,7 @@
 
 AFightMapViewer::AFightMapViewer() : ACommonMapViewer()
 {
-    this->m_f_def_arm_len = 500;
+    this->m_f_def_arm_len = 800;
 }
 
 void AFightMapViewer::SetupPlayerInputComponent( UInputComponent* PlayerInputComponent )
@@ -13,5 +13,4 @@ void AFightMapViewer::SetupPlayerInputComponent( UInputComponent* PlayerInputCom
     ACommonMapViewer::SetupPlayerInputComponent( PlayerInputComponent );
 
     PlayerInputComponent->BindAxis( "ZoomCamera", this, &AFightMapViewer::ZoomCamera );
-    PlayerInputComponent->BindAction( "ResetCamera", IE_Released, this, &AFightMapViewer::ResetCamera );
 }

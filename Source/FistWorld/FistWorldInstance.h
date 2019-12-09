@@ -46,6 +46,7 @@ public:
     UFUNCTION( BlueprintCallable )
     int GetCurrentChapter() const noexcept;
 
+    void PlusRound( void );
     UFUNCTION( BlueprintCallable )
     int GetCurrentRound() const noexcept;
 

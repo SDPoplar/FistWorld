@@ -17,6 +17,7 @@ public:
 	ACommonMapViewer();
 
     void ResetCamera( void );
+    void SaveCameraOrigin();
     void ZoomCamera( float volume );
     void MoveForward( float volume );
     void MoveRight( float volume );
@@ -40,6 +41,7 @@ protected:
     class UFloatingPawnMovement* m_comp_move;
 
     float m_f_def_arm_len;
+    FVector m_vec_camera_origin;
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

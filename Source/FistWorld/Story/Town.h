@@ -44,6 +44,7 @@ public:
     int GetCurrent() const noexcept;
     float GetPercent() const noexcept;
     bool IsFull() const noexcept;
+    void Ballance();
 
 protected:
     int m_n_max;

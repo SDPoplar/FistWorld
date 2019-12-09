@@ -46,6 +46,7 @@ public:
 
     void SetDefencer( TArray<class UWarrior*> warriors );
     void BindReporter( class AFightReporter* reporter );
+    void ReleaseReporter( void );
 
     TArray<class UWarrior*>& GetDefencerWarriors();
 

@@ -127,7 +127,6 @@ bool AWorldMapMode::FinishRound()
                 towns.Push( rec );
             }
         }
-        UE_LOG( LogTemp, Display, TEXT( "%d towns found" ), towns.Num() );
         for( auto tr : towns )
         {
             if( !RoundAi( tr ) )
@@ -137,7 +136,16 @@ bool AWorldMapMode::FinishRound()
         }
     }
 
-    //  town develop
+    // ballance town development
+    gi->PlusRound();
+    if( gi->GetCurrentRound() % 3 == 0 )
+    {
+        for( auto town : gi->GetTownList() )
+        {
+            town->GetAgricultureDevelopment().Ballance();
+            town->GetBusinessDevelopment().Ballance();
+        }
+    }
 
     // reset warrior status
     for( auto warrior : gi->GetWarriorList() )

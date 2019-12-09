@@ -13,6 +13,8 @@ UTown::UTown() : HasMoneyAndFood(), HasSoldier(), m_n_town_id( 0 ), m_s_town_nam
     {
         UTown::g_lib = LoadObject<UDataTable>( nullptr, TEXT( "DataTable'/Game/Datatables/Data_TownBase.Data_TownBase'" ) );
     }
+    this->m_o_agriculture.BindSaver( &this->m_n_food );
+    this->m_o_business.BindSaver( &this->m_n_money );
 }
 
 UTown::~UTown()
@@ -251,4 +253,12 @@ float DevelopableProperty::GetPercent( void ) const noexcept
 bool DevelopableProperty::IsFull() const noexcept
 {
     return this->GetCurrent() >= this->GetMax();
+}
+
+void DevelopableProperty::Ballance()
+{
+    if( this->m_p_saver )
+    {
+        *(this->m_p_saver) += (this->GetCurrent() / 10);
+    }
 }

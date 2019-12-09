@@ -4,6 +4,7 @@
 #include "Story/Kingdom.h"
 #include "Story/Town.h"
 #include "Story/Warrior.h"
+#include "Level/FightReporter.h"
 
 UFight::UFight( UKingdom* attackerKingdom, UTown* fromTown, UTown* toTown ) : m_o_attacker_kingdom( attackerKingdom ),
     m_o_from_town( fromTown ), m_o_to_town( toTown )
@@ -78,4 +79,12 @@ void UFightIns::SetDefencer( TArray<UWarrior*> defencers )
 void UFightIns::BindReporter( AFightReporter* reporter )
 {
     this->m_o_reporter = reporter;
+}
+
+void UFightIns::ReleaseReporter( void )
+{
+    if( this->m_o_reporter && this->m_o_reporter->IsValidLowLevelFast() )
+    {
+        this->m_o_reporter->ReleaseAlive();
+    }
 }

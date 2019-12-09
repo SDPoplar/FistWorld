@@ -8,7 +8,7 @@
 #include "GameFramework/FloatingPawnMovement.h"
 
 // Sets default values
-ACommonMapViewer::ACommonMapViewer() : m_f_def_arm_len( 200.0f )
+ACommonMapViewer::ACommonMapViewer() : m_f_def_arm_len( 400.0f ), m_vec_camera_origin( FVector( 0 ) )
 {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
     PrimaryActorTick.bCanEverTick = true;
@@ -32,7 +32,7 @@ ACommonMapViewer::ACommonMapViewer() : m_f_def_arm_len( 200.0f )
 void ACommonMapViewer::BeginPlay()
 {
 	Super::BeginPlay();
-	
+    this->SaveCameraOrigin();
     this->ResetCamera();
 }
 
@@ -47,8 +47,13 @@ void ACommonMapViewer::Tick(float DeltaTime)
 void ACommonMapViewer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
+    PlayerInputComponent->BindAction( "ResetCamera", IE_Released, this, &ACommonMapViewer::ResetCamera );
 }
 
+void ACommonMapViewer::SaveCameraOrigin()
+{
+    this->m_vec_camera_origin = this->GetActorLocation();
+}
 
 void ACommonMapViewer::PointTo( AActor* target )
 {
@@ -86,5 +91,6 @@ void ACommonMapViewer::ZoomCamera( float volume )
 
 void ACommonMapViewer::ResetCamera( void )
 {
+    this->SetActorLocation( this->m_vec_camera_origin );
     this->m_comp_camera_arm->TargetArmLength = this->m_f_def_arm_len;
 }

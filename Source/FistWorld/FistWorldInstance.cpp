@@ -240,6 +240,11 @@ int UFistWorldInstance::GetCurrentChapter() const noexcept
     return this->m_n_chapter;
 }
 
+void UFistWorldInstance::PlusRound( void )
+{
+    this->m_n_round++;
+}
+
 int UFistWorldInstance::GetCurrentRound() const noexcept
 {
     return this->m_n_round;

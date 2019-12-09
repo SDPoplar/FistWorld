@@ -32,3 +32,8 @@ int RandomMaker::_intRange( int min, int max )
 {
     return this->m_struct_stream.RandRange( min, max );
 }
+
+bool RandomMaker::WillHappen( int percent )
+{
+    return RandomMaker::IntRange( 0, 100 ) < percent;
+}
