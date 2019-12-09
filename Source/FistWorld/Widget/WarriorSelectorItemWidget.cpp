@@ -2,6 +2,7 @@
 
 #include "WarriorSelectorItemWidget.h"
 #include "Static/Lang/CommonTemplate.h"
+#include "Slate/WarriorListView.h"
 
 #define CHECKWARRIOR( def ) do { if( !this->IsWarriorBinded() ) { return def; } } while( false )
 #define CHECKWARRIOR_TEXT CHECKWARRIOR( FText::GetEmpty() )
@@ -87,4 +88,17 @@ FText UWarriorSelectorItemWidget::GetWarriorLevelTooltip() const noexcept
     CHECKWARRIOR_TEXT;
     return FText::FormatOrdered<FText, int>( txtLevelTooltipTemplate,
         this->m_warrior->GetWarriorTypeString(), this->m_warrior->GetWarriorLevel() );
+}
+
+ESlateVisibility UWarriorSelectorItemWidget::GetSelectFlagVisibility() const noexcept
+{
+    CHECKWARRIOR( ESlateVisibility::Collapsed );
+    auto list = Cast<UWarriorListView>( this->GetOwningListView() );
+    if( !list || ( list->GetSelectionMode() != ESelectionMode::Multi ) )
+    {
+        return ESlateVisibility::Collapsed;
+    }
+    
+    return list->IsWarriorSelected( this->m_warrior->GetWarriorId() )
+        ? ESlateVisibility::SelfHitTestInvisible : ESlateVisibility::Collapsed;
 }

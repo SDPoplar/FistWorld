@@ -7,16 +7,17 @@
 #include "FistWorldInstance.h"
 
 USelectWarriorWidget::USelectWarriorWidget( const FObjectInitializer& ObjectInitializer )
-    : UWorldTaskStepWidget( ObjectInitializer ), m_list_view( nullptr )
+    : UWorldTaskStepWidget( ObjectInitializer )
 {}
 
 void USelectWarriorWidget::LoadListByTown( int townId, bool playerWarrior, bool showBusy )
 {
-    if( !this->m_list_view || !this->m_list_view->IsValidLowLevelFast() )
+    auto list = this->GetWarriorListView();
+    if( !list )
     {
         return;
     }
-    this->m_list_view->ClearListItems();
+    list->Clear();
     auto gi = UFistWorldInstance::GetInstance( this );
     if( !gi )
     {
@@ -36,12 +37,7 @@ void USelectWarriorWidget::LoadListByTown( int townId, bool playerWarrior, bool 
         {
             UWarriorIns *ins = NewObject<UWarriorIns>( this );
             *ins = warrior;
-            this->m_list_view->AddItem( ins );
+            list->AddItem( ins );
         }
     }
-}
-
-void USelectWarriorWidget::BindWarriorListView( UListView* view )
-{
-    this->m_list_view = view;
 }

@@ -59,6 +59,9 @@ protected:
     FText GetSoldierNumTooltip() const noexcept;
 
     UFUNCTION( BlueprintCallable )
+    ESlateVisibility GetSelectFlagVisibility() const noexcept;
+
+    UFUNCTION( BlueprintCallable )
     bool IsWarriorBinded() const noexcept;
 
     UWarriorIns* m_warrior;

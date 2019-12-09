@@ -10,33 +10,20 @@
 
 bool UMultiWarriorSelectWidget::WarriorSelected()
 {
-    if( !this->m_list_view )
-    {
-        return false;
-    }
-    TArray<UObject*> all;
-    if( !this->m_list_view->GetSelectedItems( all ) )
-    {
-        return false;
-    }
-    auto pc = Cast<ACommonMapController>( UGameplayStatics::GetPlayerController( this, 0 ) );
+    auto list = this->GetWarriorListView();
+    auto pc = list ? Cast<ACommonMapController>( UGameplayStatics::GetPlayerController( this, 0 ) ) : nullptr;
     if( !pc || !pc->HasTask() || ( pc->GetTask()->GetStep() != ETaskStep::CHOOSING_TARGET_WARRIOR ) )
     {
         return false;
     }
     auto task = Cast<UMultiWarriorTownTask>( pc->GetTask() );
-    auto gi = task ? UFistWorldInstance::GetInstance( this ) : nullptr;
-    if( !gi )
+    if( !task )
     {
         return false;
     }
-    for( auto item : all )
+    for( auto item : list->GetSelectedWarriors() )
     {
-        UWarriorIns* ins = Cast<UWarriorIns>( item );
-        if( ins )
-        {
-            task->AppendWarrior( gi->FindWarrior( ins->GetWarriorId() ) );
-        }
+        task->AppendWarrior( item );
     }
     bool result = task->WarriorSetted();
     if( result )

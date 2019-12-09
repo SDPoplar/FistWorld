@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Widget/WorldTaskStepWidget.h"
+#include "Slate/WarriorListView.h"
 #include "SelectWarriorWidget.generated.h"
 
 /**
@@ -18,9 +19,7 @@ public:
     USelectWarriorWidget( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get() );
     void LoadListByTown( int townId, bool playerWarrior = true, bool showBusy = false );
 
-    UFUNCTION( BlueprintCallable )
-    void BindWarriorListView( class UListView* view );
-
 protected:
-    class UListView* m_list_view;
+    UFUNCTION( BlueprintImplementableEvent )
+    UWarriorListView* GetWarriorListView();
 };

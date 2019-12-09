@@ -24,5 +24,5 @@ int UMultiWarriorTownTask::EachWarrior( bool(warriorProc)( class UWarrior*, void
 
 bool UMultiWarriorTownTask::WarriorSetted()
 {
-    return true;
+    return this->m_arr_warriors.Num() > 0;
 }

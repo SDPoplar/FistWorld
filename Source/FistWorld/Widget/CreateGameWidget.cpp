@@ -25,7 +25,7 @@ TArray<FCreatableChapter> UCreateGameWidget::GetAllChapters()
 
 UDataTable* UCreateGameWidget::GetChapterTable()
 {
-    if( !UCreateGameWidget::chapters )
+    if( !UCreateGameWidget::chapters || UCreateGameWidget::chapters->IsValidLowLevelFast() )
     {
         UCreateGameWidget::chapters = LoadObject<UDataTable>( nullptr,
             TEXT( "DataTable'/Game/Datatables/Data_CreatableChapters.Data_CreatableChapters'" ) );
