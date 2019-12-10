@@ -3,15 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28315.86
 MinimumVisualStudioVersion = 10.0.40219.1
+<<<<<<< HEAD
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engine", "Engine", "{6B47EC65-C66D-4F5D-8AA6-E75810F7EC51}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Games", "Games", "{802565ED-0040-4302-851A-85B4455F0FF4}"
+=======
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engine", "Engine", "{34816623-8A17-40DC-AE6A-5C10A6909015}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Games", "Games", "{181FBB4F-6585-44F2-9797-BAC4285331CD}"
+>>>>>>> e5da2db7efda76cf5e02f3f68423fc64f0fccfa3
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UE4", "Intermediate\ProjectFiles\UE4.vcxproj", "{3C3ACF55-EF25-4288-8D03-747BCBBE17B9}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FistWorld", "Intermediate\ProjectFiles\FistWorld.vcxproj", "{FFE1576B-F704-4040-90D3-3796079040D8}"
 EndProject
+<<<<<<< HEAD
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Visualizers", "Visualizers", "{B2DD6E0F-3EEF-47C2-AF27-37BB6ED8F75A}"
+=======
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Visualizers", "Visualizers", "{D578123E-961D-4D2C-AB3C-1FA1602C77D5}"
+>>>>>>> e5da2db7efda76cf5e02f3f68423fc64f0fccfa3
 	ProjectSection(SolutionItems) = preProject
 		..\..\..\Program Files\Epic Games\UE_4.23\Engine\Extras\VisualStudioDebugging\UE4.natvis = ..\..\..\Program Files\Epic Games\UE_4.23\Engine\Extras\VisualStudioDebugging\UE4.natvis
 	EndProjectSection
@@ -81,7 +91,12 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+<<<<<<< HEAD
 		{3C3ACF55-EF25-4288-8D03-747BCBBE17B9} = {6B47EC65-C66D-4F5D-8AA6-E75810F7EC51}
 		{FFE1576B-F704-4040-90D3-3796079040D8} = {802565ED-0040-4302-851A-85B4455F0FF4}
+=======
+		{4DEB7EA3-C919-4C77-80DF-4D17E498E9A9} = {34816623-8A17-40DC-AE6A-5C10A6909015}
+		{BA282EC2-E9B6-480C-987B-0650464380E4} = {181FBB4F-6585-44F2-9797-BAC4285331CD}
+>>>>>>> e5da2db7efda76cf5e02f3f68423fc64f0fccfa3
 	EndGlobalSection
 EndGlobal
