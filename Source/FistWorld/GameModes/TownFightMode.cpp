@@ -103,8 +103,10 @@ bool ATownFightMode::LoadFight( UFight* fight )
             : level->GetDefenceStartPoint() );
         player->SaveCameraOrigin();
     }
-    reporter->TurnOn();
-    return true;
+    
+    auto pc = AFightMapController::Get( this );
+    auto hud = pc ? pc->GetFightHud() : nullptr;
+    return hud && hud->PopFightCountDown( 3, reporter );
 }
 
 TArray<UWarrior*> ATownFightMode::AiChooseDefencer( UTown* town, int max )
