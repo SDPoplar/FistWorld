@@ -19,7 +19,12 @@ void HasMoneyAndFood::SetMoney( int money )
 void HasMoneyAndFood::IncreaseMoney( int money )
 {
     this->m_n_money += money;
-    
+
+    // this is a common class, reserve the following lines, even seems no need in one child class
+    if( m_n_money < 0 )
+    {
+        this->m_n_money = 0;
+    }
 }
 
 int HasMoneyAndFood::GetMoney( void ) const noexcept
