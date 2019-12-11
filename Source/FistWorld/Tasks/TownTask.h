@@ -21,6 +21,10 @@ public:
     virtual bool SetTargetTown( class UTown* town );
     bool CloseTownWidgetAfterCreate() const noexcept;
     bool Inited() const noexcept;
+    int GetTaskCost( ) const noexcept; //Tobe tested!
+
+    void SetTaskCostRate( float nTaskCostRate = 1.0 ) noexcept;  //Tobe tested!
+    void PopAlert( const char* sAlerMessage = "You can't do this!" ) const noexcept;//Tobe tested!
 
 protected:
     class AWorldMapHud* GetMapHud() const;
@@ -29,4 +33,5 @@ protected:
     class UTown* m_o_target_town;
     class AWorldMapController* m_o_pc;
     bool m_b_hide_townwidget_after_create;
+    int m_n_taskCost;
 };

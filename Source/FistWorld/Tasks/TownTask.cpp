@@ -48,3 +48,18 @@ AWorldMapHud* UTownTask::GetMapHud() const
 {
     return this->GetHud<AWorldMapHud>();
 }
+
+int UTownTask::GetTaskCost( void ) const noexcept //Tobe tested!
+{
+    return this->m_n_taskCost;
+}
+
+void UTownTask::PopAlert( const char* sAlerMessage ) const noexcept //Tobe tested!
+{
+    this->m_o_hud->PopupAlert( FText::FromString( sAlerMessage ) );
+}
+
+void UTownTask::SetTaskCostRate( float nTaskCostRate ) noexcept //Tobe tested!
+{
+    this->m_n_taskCost *= nTaskCostRate;
+}
