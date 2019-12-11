@@ -18,6 +18,7 @@ public:
     USingleWarriorTownTask( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get() );
 
     virtual bool SetTargetWarrior( class UWarrior* warrior );
+    virtual bool Excute() override;
 
 protected:
     class UWarrior* m_o_warrior;

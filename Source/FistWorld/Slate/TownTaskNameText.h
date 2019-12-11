@@ -11,7 +11,16 @@
  */
 
 UCLASS()
-class FISTWORLD_API UAgricultureDevTaskText : public UCommonAliFontText
+class FISTWORLD_API UTownTaskNameText : public UCommonAliFontText
+{
+    GENERATED_BODY()
+
+public:
+    UTownTaskNameText( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get() );
+};
+
+UCLASS()
+class FISTWORLD_API UAgricultureDevTaskText : public UTownTaskNameText
 {
 	GENERATED_BODY()
 	
@@ -20,7 +29,7 @@ public:
 };
 
 UCLASS()
-class FISTWORLD_API UBusinessDevTaskText : public UCommonAliFontText
+class FISTWORLD_API UBusinessDevTaskText : public UTownTaskNameText
 {
     GENERATED_BODY()
 
@@ -29,7 +38,7 @@ public:
 };
 
 UCLASS()
-class FISTWORLD_API UConscriptTaskText : public UCommonAliFontText
+class FISTWORLD_API UConscriptTaskText : public UTownTaskNameText
 {
     GENERATED_BODY()
 
@@ -38,7 +47,7 @@ public:
 };
 
 UCLASS()
-class FISTWORLD_API UExpenditionTaskText : public UCommonAliFontText
+class FISTWORLD_API UExpenditionTaskText : public UTownTaskNameText
 {
     GENERATED_BODY()
 
@@ -47,7 +56,7 @@ public:
 };
 
 UCLASS()
-class FISTWORLD_API ULevyTaskText : public UCommonAliFontText
+class FISTWORLD_API ULevyTaskText : public UTownTaskNameText
 {
     GENERATED_BODY()
 
@@ -56,7 +65,7 @@ public:
 };
 
 UCLASS()
-class FISTWORLD_API USearchTaskText : public UCommonAliFontText
+class FISTWORLD_API USearchTaskText : public UTownTaskNameText
 {
     GENERATED_BODY()
 
@@ -65,7 +74,7 @@ public:
 };
 
 UCLASS()
-class FISTWORLD_API USubsidyTaskText : public UCommonAliFontText
+class FISTWORLD_API USubsidyTaskText : public UTownTaskNameText
 {
     GENERATED_BODY()
 
@@ -74,7 +83,7 @@ public:
 };
 
 UCLASS()
-class FISTWORLD_API UTransportTaskText : public UCommonAliFontText
+class FISTWORLD_API UTransportTaskText : public UTownTaskNameText
 {
     GENERATED_BODY()
 
@@ -83,10 +92,28 @@ public:
 };
 
 UCLASS()
-class FISTWORLD_API UAssignSoldierTaskText : public UCommonAliFontText
+class FISTWORLD_API UAssignSoldierTaskText : public UTownTaskNameText
 {
     GENERATED_BODY()
 
 public:
     UAssignSoldierTaskText( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get() );
+};
+
+UCLASS()
+class FISTWORLD_API UInduceCapitulateTaskText : public UTownTaskNameText
+{
+    GENERATED_BODY()
+
+public:
+    UInduceCapitulateTaskText( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get() );
+};
+
+UCLASS()
+class FISTWORLD_API UExecuteWarriorTaskText : public UTownTaskNameText
+{
+    GENERATED_BODY()
+
+public:
+    UExecuteWarriorTaskText( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get() );
 };

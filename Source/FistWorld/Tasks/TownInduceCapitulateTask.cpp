@@ -5,65 +5,37 @@
 #include "Huds/WorldMapHud.h"
 #include "Story/Town.h"
 #include "Story/Warrior.h"
-#include "Kismet/GameplayStatics.h"
+#include "RandomMaker.h"
+#include "Static/Lang/WorldMessage.h"
 
-UTownInduceCapitulateTask::UTownInduceCapitulateTask( const FObjectInitializer& ObjectInitializer ) : USingleWarriorTownTask( ObjectInitializer ), m_o_enermy_warrior( nullptr )
-{}
-
-bool UTownInduceCapitulateTask::SetTargetWarrior( UWarrior* warrior )
+UTownInduceCapitulateTask::UTownInduceCapitulateTask( const FObjectInitializer& ObjectInitializer )
+    : UPrisonTownTask( ObjectInitializer )
 {
-    return USingleWarriorTownTask::SetTargetWarrior( warrior ) && this->Excute( );
+    this->m_n_taskCost = 50;
 }
 
-
-
-bool UTownInduceCapitulateTask::SetPrision( UWarrior* warrior )
+bool UTownInduceCapitulateTask::Excute()
 {
-    this->m_o_enermy_warrior = warrior;
-    return !!warrior;
-}
-
-void UTownInduceCapitulateTask::DemandPrisionSurrender( )
-{
-    
-        
-    if( BeginInduceCapitulate( ) )
+    if( !this->m_o_target_warrior || !USingleWarriorTownTask::Excute() )
     {
-        InduceCapitulateSuccess( );
+        this->MarkAsCanceled();
+        return false;
+    }
+    bool success = RandomMaker::WillHappen( this->m_o_warrior->GetIntel() - this->m_o_target_warrior->GetIntel() + 20 );
+    if( success )
+    {
+        this->m_o_target_warrior->SetBelongKingdom( this->m_o_town->GetKingdomId() );
+        this->m_o_target_warrior->SetStatus( EWarriorStatus::NORMAL );
+        this->m_o_warrior->SetWarriorExp( this->m_o_warrior->GetWarriorExp() + 20 );
+        this->m_b_create_by_ai || this->ShowNotice( FText::FormatOrdered<FText>( txtInduceCapitulateSuccess,
+            FText::FromString( m_o_target_warrior->GetWarriorName() ) ) );
     }
     else
     {
-        InduceCapitulateFail( );
+        this->m_b_create_by_ai || this->ShowNotice( FText::FormatOrdered<FText>( txtInduceCapitulateFailed,
+            FText::FromString( m_o_target_warrior->GetWarriorName() ) ) );
     }
-    
-}
-
-bool UTownInduceCapitulateTask::BeginInduceCapitulate( )
-{
-    //TODO:: decide success or not
-    return true;
-}
-
-void UTownInduceCapitulateTask::InduceCapitulateSuccess( )
-{
-    this->m_o_enermy_warrior->SetBelongKingdom( this->m_o_warrior->GetBelongKingdom( ) );
-    this->m_o_enermy_warrior->SetStatus( EWarriorStatus::NORMAL );
-}
-
-void UTownInduceCapitulateTask::InduceCapitulateFail( )
-{
-    //TODO:: some effects of this induce capitulate attempt
-}
-
-bool UTownInduceCapitulateTask::Excute( )
-{
-
-    if( !this->m_o_town || !this->m_o_warrior || !this->m_o_enermy_warrior )
-    {
-        return false;
-    }
-
-    DemandPrisionSurrender( );
-
+    this->m_o_warrior->SetStatus( EWarriorStatus::WORKING );
+    this->MarkAsFinished();
     return true;
 }

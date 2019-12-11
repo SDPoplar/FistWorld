@@ -11,6 +11,7 @@
 #include "Tasks/TownAssignSoldierTask.h"
 #include "Tasks/TownExpenditionTask.h"
 #include "Tasks/TownInduceCapitulateTask.h"
+#include "Tasks/TownExecuteWarriorTask.h"
 #include "Controllers/WorldMapController.h"
 #include "Huds/WorldMapHud.h"
 #include "Widget/SingleWarriorSelectWidget.h"
@@ -59,9 +60,14 @@ bool UShowPlayerTownWidget::CreateExpenditionTask()
     return this->CreateMultiWarriorTask( []( UObject* outer )->UTownTask* { return NewObject<UTownExpenditionTask>( outer ); } );
 }
 
-bool UShowPlayerTownWidget::CreateInduceCapitulateTask( )
+bool UShowPlayerTownWidget::CreateInduceCapitulateTask()
 {
     return this->CreateSingleWarriorTask( []( UObject* outer )->UTownTask* { return NewObject<UTownInduceCapitulateTask>( outer ); } );
+}
+
+bool UShowPlayerTownWidget::CreateExecuteWarriorTask()
+{
+    return this->CreateSingleWarriorTask( []( UObject* outer )->UTownTask* { return NewObject<UTownExecuteWarriorTask>( outer ); } );
 }
 
 bool UShowPlayerTownWidget::CreateTownTask( UTownTask*( taskmaker )( UObject* ), AWorldMapController*& pc )
@@ -77,15 +83,7 @@ bool UShowPlayerTownWidget::CreateTownTask( UTownTask*( taskmaker )( UObject* ),
         return false;
     }
     task->MarkAsPlayerCreate();
-    task->SetBaseTown( this->m_town );
-    
-    if( task->GetTaskCost( ) > m_town->GetMoney( ) )
-    {
-        task->PopAlert( "You don't have enough money to finish this task!" );
-        return false;
-    }
-
-    return task->Inited() && pc->OverrideTask( task );
+    return task->SetBaseTown( this->m_town ) && task->Inited() && pc->OverrideTask( task );
 }
 
 bool UShowPlayerTownWidget::CreateSingleWarriorTask( UTownTask*( taskMaker )( UObject* ) )

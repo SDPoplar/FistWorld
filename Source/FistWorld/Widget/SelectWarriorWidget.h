@@ -18,6 +18,7 @@ class FISTWORLD_API USelectWarriorWidget : public UWorldTaskStepWidget
 public:
     USelectWarriorWidget( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get() );
     void LoadListByTown( int townId, bool playerWarrior = true, bool showBusy = false );
+    void LoadListByPrison( int townId );
 
 protected:
     UFUNCTION( BlueprintImplementableEvent )

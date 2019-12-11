@@ -43,7 +43,10 @@ public:
     bool CreateExpenditionTask();
 
     UFUNCTION( BlueprintCallable )
-    bool CreateInduceCapitulateTask( );
+    bool CreateInduceCapitulateTask();
+
+    UFUNCTION( BlueprintCallable )
+    bool CreateExecuteWarriorTask();
 
     bool CreateTownTask( class UTownTask* ( taskMaker )(UObject*), class AWorldMapController*& );
     bool CreateSingleWarriorTask( class UTownTask* (taskMaker)(UObject*) );

@@ -3,6 +3,7 @@
 #include "SingleWarriorSelectWidget.h"
 #include "Controllers/WorldMapController.h"
 #include "Story/Warrior.h"
+#include "Tasks/ExcutableTask.h"
 
 void USingleWarriorSelectWidget::WarriorSelected( UWarriorIns* warrior )
 {
@@ -16,7 +17,7 @@ void USingleWarriorSelectWidget::WarriorSelected( UWarriorIns* warrior )
         return;
     }
 
-    if( pc->SetTaskSelectingWarrior( warrior ) )
+    if( pc->SetTaskSelectingWarrior( warrior ) && ( pc->GetTask()->GetStep() != ETaskStep::CHOOSING_TARGET_WARRIOR ) )
     {
         this->Quit();
     }

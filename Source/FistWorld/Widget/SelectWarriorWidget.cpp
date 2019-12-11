@@ -41,3 +41,24 @@ void USelectWarriorWidget::LoadListByTown( int townId, bool playerWarrior, bool 
         }
     }
 }
+
+void USelectWarriorWidget::LoadListByPrison( int townId )
+{
+    auto list = this->GetWarriorListView();
+    auto gi = list ? UFistWorldInstance::GetInstance( this ) : nullptr;
+    if( !gi )
+    {
+        return;
+    }
+    list->Clear();
+    for( UWarrior* warrior : gi->GetWarriorList() )
+    {
+        if( ( warrior->GetInTown() != townId ) || ( warrior->GetStatus() != EWarriorStatus::PRISON ) )
+        {
+            continue;
+        }
+        UWarriorIns* ins = NewObject<UWarriorIns>( this );
+        *ins = warrior;
+        list->AddItem( ins );
+    }
+}

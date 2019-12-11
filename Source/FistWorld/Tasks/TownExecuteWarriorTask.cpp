@@ -1,0 +1,26 @@
+// Copyright 2019
+
+#include "TownExecuteWarriorTask.h"
+#include "Huds/WorldMapHud.h"
+#include "Story/Town.h"
+#include "Story/Warrior.h"
+#include "Static/Lang/WorldMessage.h"
+
+UTownExecuteWarriorTask::UTownExecuteWarriorTask( const FObjectInitializer& ObjectInitializer )
+    : UPrisonTownTask( ObjectInitializer )
+{}
+
+bool UTownExecuteWarriorTask::Excute()
+{
+    if( !this->m_o_target_warrior || !USingleWarriorTownTask::Excute() )
+    {
+        this->MarkAsCanceled();
+        return false;
+    }
+    this->m_o_target_warrior->SetStatus( EWarriorStatus::DEAD );
+    this->m_o_warrior->SetStatus( EWarriorStatus::WORKING );
+    this->m_b_create_by_ai || this->ShowNotice( FText::FormatOrdered<FText>( txtExecuteWarriorResult,
+            FText::FromString( this->m_o_target_warrior->GetWarriorName() ) ) );
+    this->MarkAsFinished();
+    return true;
+}
