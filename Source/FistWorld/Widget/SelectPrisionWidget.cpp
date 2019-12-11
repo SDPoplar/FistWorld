@@ -11,7 +11,7 @@ USelectPrisionWidget::USelectPrisionWidget( const FObjectInitializer& ObjectInit
     : UWorldTaskStepWidget( ObjectInitializer )
 {}
 
-void USelectPrisionWidget::LoadListByTown( int townId, bool playerWarrior )
+void USelectPrisionWidget::LoadPrisionList( )
 {
     auto list = this->GetPrisionListView( );
     if( !list )
@@ -26,14 +26,7 @@ void USelectPrisionWidget::LoadListByTown( int townId, bool playerWarrior )
     }
     for( UWarrior* warrior : gi->GetWarriorList( ) )
     {
-        if( warrior->GetInTown( ) != townId )
-        {
-            continue;
-        }
-        if( playerWarrior != UKingdom::OwnByPlayer( warrior->GetBelongKingdom( ) ) )
-        {
-            continue;
-        }
+        
         if( ( warrior->GetStatus( ) == EWarriorStatus::PRISON ) )
         {
             UWarriorIns* ins = NewObject<UWarriorIns>( this );
