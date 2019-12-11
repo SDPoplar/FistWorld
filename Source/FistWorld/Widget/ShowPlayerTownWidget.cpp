@@ -84,6 +84,8 @@ bool UShowPlayerTownWidget::CreateTownTask( UTownTask*( taskmaker )( UObject* ),
         return false;
     }
 
+    m_town->IncreaseMoney( -( task->GetTaskCost( ) ) );
+
     return task->Inited() && pc->OverrideTask( task );
 }
 
