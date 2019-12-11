@@ -17,31 +17,23 @@ bool UTownInduceCapitulateTask::SetTargetWarrior( UWarrior* warrior )
 
 
 
-bool UTownInduceCapitulateTask::SetEnermyWarrior( UWarrior* warrior )
+bool UTownInduceCapitulateTask::SetPrision( UWarrior* warrior )
 {
     this->m_o_enermy_warrior = warrior;
     return !!warrior;
 }
 
-void UTownInduceCapitulateTask::DemandForSurrender( )
+void UTownInduceCapitulateTask::DemandPrisionSurrender( )
 {
-    int nChoice = DoWhatToEnermyWarrior( );
-
-    if( nChoice == 1 )
+    
+        
+    if( BeginInduceCapitulate( ) )
     {
-        ExecuteWarrior( );
-        return;
+        InduceCapitulateSuccess( );
     }
-    else 
+    else
     {
-        if( BeginInduceCapitulate( ) )
-        {
-            InduceCapitulateSuccess( );
-        }
-        else
-        {
-
-        }
+        InduceCapitulateFail( );
     }
     
 }
@@ -52,27 +44,13 @@ bool UTownInduceCapitulateTask::BeginInduceCapitulate( )
     return true;
 }
 
-int UTownInduceCapitulateTask::DoWhatToEnermyWarrior( )
-{
-    //TODO: Do you want to execute the enermy warrior or induce him to capitulate
-    //( 1 ) execute him   ( 2 ) induce him to capitulate
-
-    return 1;
-}
-
-void UTownInduceCapitulateTask::ExecuteWarrior( )
-{
-    this->m_o_enermy_warrior->SetStatus( EWarriorStatus::DEAD );
-}
-
-
 void UTownInduceCapitulateTask::InduceCapitulateSuccess( )
 {
     this->m_o_enermy_warrior->SetBelongKingdom( this->m_o_warrior->GetBelongKingdom( ) );
     this->m_o_enermy_warrior->SetStatus( EWarriorStatus::NORMAL );
 }
 
-void UTownInduceCapitulateTask::InduceCapitulateFaile( )
+void UTownInduceCapitulateTask::InduceCapitulateFail( )
 {
     //TODO:: some effects of this induce capitulate attempt
 }
@@ -85,7 +63,7 @@ bool UTownInduceCapitulateTask::Excute( )
         return false;
     }
 
-    DemandForSurrender( );
+    DemandPrisionSurrender( );
 
     return true;
 }

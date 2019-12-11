@@ -19,17 +19,15 @@ public:
     virtual ~UTownInduceCapitulateTask( ) {}
 
     bool SetTargetWarrior( class UWarrior* );
-    bool SetEnermyWarrior( class UWarrior* );
+    bool SetPrision( class UWarrior* );
 
     bool Excute( ) override;
 
-    int DoWhatToEnermyWarrior( );
-    void DemandForSurrender( );
+    void DemandPrisionSurrender( );
 
-    void ExecuteWarrior( );
     bool BeginInduceCapitulate( );
     void InduceCapitulateSuccess( );
-    void InduceCapitulateFaile( );
+    void InduceCapitulateFail( );
 
     
 
