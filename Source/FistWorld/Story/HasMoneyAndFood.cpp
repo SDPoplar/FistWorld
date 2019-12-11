@@ -19,10 +19,7 @@ void HasMoneyAndFood::SetMoney( int money )
 void HasMoneyAndFood::IncreaseMoney( int money )
 {
     this->m_n_money += money;
-    if( m_n_money < 0 )
-    {
-        this->m_n_money = 0;
-    }
+    
 }
 
 int HasMoneyAndFood::GetMoney( void ) const noexcept
