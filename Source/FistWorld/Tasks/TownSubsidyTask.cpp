@@ -14,9 +14,13 @@ bool UTownSubsidyTask::SetTargetWarrior( UWarrior* warrior )
     {
         return false;
     }
+    if( this->m_b_create_by_ai )
+    {
+        return true;
+    }
     auto gi = UFistWorldInstance::GetInstance( this );
     auto kingdom = gi ? gi->GetMyKingdom() : nullptr;
-    return kingdom && this->m_o_hud->PopupTransportVolumeSetter( kingdom->GetFood(), kingdom->GetMoney() );
+    return kingdom && this->GetMapHud()->PopupTransportVolumeSetter( kingdom->GetFood(), kingdom->GetMoney() );
 }
 
 bool UTownSubsidyTask::Excute()

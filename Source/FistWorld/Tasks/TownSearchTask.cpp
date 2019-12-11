@@ -22,7 +22,7 @@ bool UTownSearchTask::Excute()
     }
     //  TODO: find something
     
-    this->m_o_hud->PopupAlert( FText::FromString( "100 money found" ) );
+    this->ShowNotice( FText::FromString( "100 money found" ) );
     this->m_o_town->IncreaseMoney( 100 );
     this->m_o_warrior->SetStatus( EWarriorStatus::WORKING );
     this->MarkAsFinished();

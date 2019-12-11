@@ -10,8 +10,8 @@
 
 bool UTownLevyTask::SetTargetWarrior( UWarrior* warrior )
 {
-    return UTownTransportTask::SetTargetWarrior( warrior )
-        && m_o_hud->PopupTransportVolumeSetter( this->m_o_town->GetFood(), this->m_o_town->GetMoney() );
+    return UTownTransportTask::SetTargetWarrior( warrior ) && ( this->m_b_create_by_ai
+        || this->GetMapHud()->PopupTransportVolumeSetter( this->m_o_town->GetFood(), this->m_o_town->GetMoney() ) );
 }
 
 bool UTownLevyTask::Excute()

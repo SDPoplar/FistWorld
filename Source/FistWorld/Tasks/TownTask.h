@@ -23,9 +23,10 @@ public:
     bool Inited() const noexcept;
 
 protected:
+    class AWorldMapHud* GetMapHud() const;
+
     class UTown* m_o_town;
     class UTown* m_o_target_town;
     class AWorldMapController* m_o_pc;
-    class AWorldMapHud* m_o_hud;
     bool m_b_hide_townwidget_after_create;
 };

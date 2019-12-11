@@ -12,10 +12,14 @@ bool UTownConscriptTask::SetTargetWarrior( UWarrior* warrior )
     {
         return false;
     }
+    if( this->m_b_create_by_ai )
+    {
+        return true;
+    }
 
     int max = ( warrior->GetStrong() + warrior->GetIntel() ) / 20 * 50;
     max = max ? max : 100;
-    return this->m_o_hud->PopupSoldierNumSetter( max );
+    return this->GetMapHud()->PopupSoldierNumSetter( max );
 }
 
 bool UTownConscriptTask::Excute()

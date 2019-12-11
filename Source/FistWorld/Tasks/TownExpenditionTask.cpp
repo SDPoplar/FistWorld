@@ -6,6 +6,7 @@
 #include "FistWorldInstance.h"
 #include "Controllers/WorldMapController.h"
 #include "Huds/WorldMapHud.h"
+#include "Static/Lang/WorldMessage.h"
 
 UTownExpenditionTask::UTownExpenditionTask( const FObjectInitializer& ObjectInitliazer )
     : UMultiWarriorTownTask( ObjectInitliazer )
@@ -50,12 +51,12 @@ bool UTownExpenditionTask::Excute()
         }, (void*)fight );
     if( !fight->IsValid() )
     {
-        this->m_o_hud->PopupFailed( FText::FromString( "Create fight failed" ) );
+        this->ShowError( txtCreateFightFailed );
         this->MarkAsCanceled();
         return false;
     }
     gi->AppendFight( fight );
     this->MarkAsFinished();
-    this->m_o_hud->PopupSuccess( FText::FromString( "Fight will start when this round finish" ) );
+    this->ShowNotice( txtFightCreated );
     return true;
 }

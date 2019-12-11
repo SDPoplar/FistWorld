@@ -70,6 +70,7 @@ bool UShowPlayerTownWidget::CreateTownTask( UTownTask*( taskmaker )( UObject* ),
     {
         return false;
     }
+    task->MarkAsPlayerCreate();
     task->SetBaseTown( this->m_town );
     //  TODO: check task cost
     return task->Inited() && pc->OverrideTask( task );

@@ -8,7 +8,7 @@
 #include "FistWorldInstance.h"
 #include "Kismet/GameplayStatics.h"
 
-#include "Static/Lang/TacticsNotice.h"
+#include "Static/Lang/WorldMessage.h"
 
 #include "Story/Kingdom.h"
 #include "Story/Town.h"

@@ -1,17 +1,25 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "ExcutableTask.h"
 #include "Static/Lang/TaskStep.h"
+#include "Kismet/GameplayStatics.h"
+#include "Huds/CommonMapHud.h"
 
-UExcutableTask::UExcutableTask( const FObjectInitializer& ObjectInitializer )
-    : UObject( ObjectInitializer ), m_e_step( ETaskStep::CREATING )
+UExcutableTask::UExcutableTask( const FObjectInitializer& ObjectInitializer ) : UObject( ObjectInitializer ),
+    m_o_hud( nullptr ), m_e_step( ETaskStep::CREATING ), m_b_create_by_ai( true )
 {
     this->AddToRoot();
 }
 
 UExcutableTask::~UExcutableTask()
 {}
+
+void UExcutableTask::MarkAsPlayerCreate()
+{
+    this->m_b_create_by_ai = false;
+    auto pc = UGameplayStatics::GetPlayerController( this, 0 );
+    this->m_o_hud = Cast<ACommonMapHud>( pc ? pc->GetHUD() : nullptr );
+}
 
 bool UExcutableTask::Excute()
 {
@@ -70,4 +78,14 @@ bool UExcutableTask::CanCancel( void ) const noexcept
         && (this->m_e_step != ETaskStep::FINISHED)
         && (this->m_e_step != ETaskStep::CANCELED)
         && true;
+}
+
+bool UExcutableTask::ShowNotice( FText content )
+{
+    return !this->m_b_create_by_ai && this->m_o_hud && this->m_o_hud->PopupAlert( content );
+}
+
+bool UExcutableTask::ShowError( FText message )
+{
+    return !this->m_b_create_by_ai && this->m_o_hud && this->m_o_hud->PopupFailed( message );
 }

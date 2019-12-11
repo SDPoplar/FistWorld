@@ -30,6 +30,7 @@ public:
 	UExcutableTask( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get() );
 	virtual ~UExcutableTask();
 
+    void MarkAsPlayerCreate();
     static void LoadDescribes();
 
     //  bool SetTargetTown( class UTown* town );
@@ -44,5 +45,15 @@ public:
     bool CanCancel() const noexcept;
 
 protected:
+    bool ShowNotice( FText content );
+    bool ShowError( FText message );
+
+    template<class T>
+    T* GetHud() const {
+        return Cast<T>( this->m_o_hud );
+    }
+
+    class ACommonMapHud* m_o_hud;
     ETaskStep m_e_step;
+    bool m_b_create_by_ai;
 };
