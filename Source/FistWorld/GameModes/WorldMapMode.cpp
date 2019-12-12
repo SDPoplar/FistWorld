@@ -13,76 +13,13 @@
 #include "Story/Kingdom.h"
 #include "Story/Town.h"
 #include "Story/Warrior.h"
+#include "Level/KingdomRoundAi.h"
 
 AWorldMapMode::AWorldMapMode()
 {
     HUDClass = AWorldMapHud::StaticClass();
     DefaultPawnClass = AWorldMapViewer::StaticClass();
     PlayerControllerClass = AWorldMapController::StaticClass();
-}
-
-struct townrec
-{
-    UKingdom* kingdom;
-    UTown* town;
-    TArray<UWarrior*> warriors;
-};
-
-#define STATISTICS_WARRIOR do {                 \
-    warrior = rec.warriors.Pop();               \
-    int cangivesoldier = warrior->GetMaxSoldierNumber() - warrior->GetSoldierNumber();  \
-    int gived = 0;                              \
-    if( rec.town->GetSoldierNumber() > 0 )      \
-    { /* give soldier to warrior */ }           \
-    cangivesoldier -= gived;                    \
-    needsoldier += cangivesoldier;              \
-} while( false )
-
-
-bool RoundAi( townrec rec )
-{
-    int needsoldier = 0;
-    UWarrior* warrior;
-    while( (rec.warriors.Num() > 0) && ( rec.town->GetMoney() > 20 )    // 20 -> agriculture develop cost
-        && (rec.town->GetAgricultureDevelopment().GetPercent() < 0.8) )
-    {
-        STATISTICS_WARRIOR;
-        //  create and excute a agriculture develop task with warrior
-    }
-    while( (rec.warriors.Num() > 0) && (rec.town->GetMoney() > 20)    // 20 -> business develop cost
-        && (rec.town->GetBusinessDevelopment().GetPercent() < 0.8) )
-    {
-        STATISTICS_WARRIOR;
-        //  create and excute a business develop task with warrior
-    }
-    while( (rec.warriors.Num() > 0) && (rec.town->GetMoney() > 20)    // 20 -> agriculture develop cost
-        && !rec.town->GetAgricultureDevelopment().IsFull() )
-    {
-        STATISTICS_WARRIOR;
-        //  create and excute a agriculture develop task with warrior
-    }
-    while( (rec.warriors.Num() > 0) && (rec.town->GetMoney() > 20)    // 20 -> agriculture develop cost
-        && !rec.town->GetBusinessDevelopment().IsFull() )
-    {
-        STATISTICS_WARRIOR;
-        //  create and excute a business develop task with warrior
-    }
-    if( (rec.town->GetFood() > 5000) && (needsoldier > 0) )
-    {
-        //  make soldier
-    }
-    int sumsoldier = 0;
-    for( auto w : rec.warriors )
-    {
-        sumsoldier += w->GetSoldierNumber();
-    }
-    if( (rec.town->GetFood() > 3000) && (rec.warriors.Num() > 3) && ( sumsoldier > 2000 )
-        && ( false /* has hostil town nearby */ ) )
-    {
-        //  make fight
-    }
-
-    return true;
 }
 
 bool AWorldMapMode::FinishRound()
@@ -104,16 +41,14 @@ bool AWorldMapMode::FinishRound()
         }
         hud->PopupAlert( FText::FormatOrdered<FText>( txtKindomRound, FText::FromString( kingdom->GetKingdomName() ) ) );
         UE_LOG( LogTemp, Display, TEXT( "%s 's round" ), *(kingdom->GetKingdomName()) );
-        TArray<townrec> towns;
+        TArray<FTownStatistics> towns;
         for( auto town : gi->GetTownList() )
         {
             if( town->GetKingdomId() != kingdom->GetKingdomId() )
             {
                 continue;
             }
-            townrec rec;
-            rec.kingdom = kingdom;
-            rec.town = town;
+            FTownStatistics rec( town );
             for( auto warrior : gi->GetWarriorList() )
             {
                 if( (warrior->GetInTown() != town->GetTownId()) || (warrior->GetStatus() != EWarriorStatus::NORMAL) )
@@ -127,13 +62,8 @@ bool AWorldMapMode::FinishRound()
                 towns.Push( rec );
             }
         }
-        for( auto tr : towns )
-        {
-            if( !RoundAi( tr ) )
-            {
-                break;
-            }
-        }
+        UKingdomRoundAi::Create( this, gi->GetCurrentChapter(), gi->GetCurrentRound() )
+            ->BindKingdom( kingdom )->SetTownStatistics( towns )->DoRound();
     }
 
     // ballance town development
