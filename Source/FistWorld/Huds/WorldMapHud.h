@@ -20,7 +20,7 @@ public:
     class USingleWarriorSelectWidget* PopupSingleWarriorSelector();
     class UMultiWarriorSelectWidget* PopupMultiWarriorSelector();
     bool PopupTransportVolumeSetter( int maxFood, int maxMoney );
-    bool PopupSoldierNumSetter( int max );
+    bool PopupSoldierNumSetter( int max, int current = 0 );
 
 protected:
     void PopupPlayerTownWidget( class UTown* town );

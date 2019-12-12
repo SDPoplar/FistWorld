@@ -168,7 +168,7 @@ bool AWorldMapHud::PopupTransportVolumeSetter( int maxFood, int maxMoney )
     return true;
 }
 
-bool AWorldMapHud::PopupSoldierNumSetter( int max )
+bool AWorldMapHud::PopupSoldierNumSetter( int max, int current )
 {
     auto widget = this->GetSoldierNumWidget();
     if( !widget )
@@ -176,6 +176,6 @@ bool AWorldMapHud::PopupSoldierNumSetter( int max )
         return false;
     }
     this->PopupWidget( widget );
-    widget->SetMax( max );
+    widget->Init( max, current );
     return true;
 }

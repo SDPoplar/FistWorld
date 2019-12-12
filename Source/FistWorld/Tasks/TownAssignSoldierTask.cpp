@@ -19,19 +19,20 @@ bool UTownAssignSoldierTask::SetTargetWarrior( UWarrior* warrior )
     }
 
     int canhave = warrior->GetMaxSoldierNumber();
-    int townhave = this->m_o_town->GetSoldierNumber();
+    int townhave = this->m_o_town->GetSoldierNumber() + this->m_o_warrior->GetSoldierNumber();
     int max = ( canhave < townhave ) ? canhave : townhave;
-    return this->GetMapHud()->PopupSoldierNumSetter( max );
+    return this->GetMapHud()->PopupSoldierNumSetter( max, this->m_o_warrior->GetSoldierNumber() );
 }
 
 bool UTownAssignSoldierTask::Excute()
 {
-    if( !this->m_o_town || !this->m_o_warrior || (this->m_n_soldier_num <= 0) )
+    if( !this->m_o_town || !this->m_o_warrior || (this->m_n_soldier_num < 0) )
     {
         return false;
     }
-    this->m_o_town->IncreaseSoldierNumber( -1 * this->GetSoldierNumber() );
-    this->m_o_warrior->IncreaseSoldierNumber( this->GetSoldierNumber() );
+    int delta = this->GetSoldierNumber() - this->m_o_warrior->GetSoldierNumber();
+    this->m_o_town->IncreaseSoldierNumber( -1 * delta );
+    this->m_o_warrior->SetSoldierNumber( this->GetSoldierNumber() );
     this->MarkAsFinished();
     return true;
 }

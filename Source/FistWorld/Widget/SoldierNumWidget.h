@@ -15,7 +15,7 @@ class FISTWORLD_API USoldierNumWidget : public UWorldTaskStepWidget
 	GENERATED_BODY()
 public:
     UFUNCTION( BlueprintImplementableEvent )
-    void SetMax( int max );
+    void Init( int max, int current );
 
     UFUNCTION( BlueprintCallable )
     bool SetTaskSoldierNum( const class UIntegerSliderWidget* slider );

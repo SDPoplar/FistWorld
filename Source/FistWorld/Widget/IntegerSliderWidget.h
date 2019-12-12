@@ -16,10 +16,8 @@ class FISTWORLD_API UIntegerSliderWidget : public UUserWidget
 	GENERATED_BODY()
 	
 public:
-    /*
     UFUNCTION( BlueprintCallable )
-    void Init();
-    */
+    void Init( int max, int current = 0 );
 
     UPROPERTY( EditAnywhere )
     FText sliderTitle;

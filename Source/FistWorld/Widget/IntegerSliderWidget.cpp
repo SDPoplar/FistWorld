@@ -2,15 +2,20 @@
 
 #include "IntegerSliderWidget.h"
 
-void UIntegerSliderWidget::SetMax( int max )
+void UIntegerSliderWidget::Init( int max, int current )
 {
+    this->m_n_current = current;
     this->m_n_max = max;
     USlider* slider = this->GetSlider();
     if( slider )
     {
-        slider->SetValue( 0 );
+        slider->SetValue( 1.0 * current / max );
     }
-    this->m_n_current = 0;
+}
+
+void UIntegerSliderWidget::SetMax( int max )
+{
+    this->Init( max );
 }
 
 int UIntegerSliderWidget::GetValue() const noexcept
