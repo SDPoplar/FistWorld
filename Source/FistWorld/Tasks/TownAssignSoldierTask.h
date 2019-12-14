@@ -14,6 +14,7 @@ class FISTWORLD_API UTownAssignSoldierTask : public UTownSoldierNumTask
 {
 	GENERATED_BODY()
 public:
+    UTownAssignSoldierTask( );
     bool SetTargetWarrior( class UWarrior* warrior ) override;
     bool Excute() override;
 };

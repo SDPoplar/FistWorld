@@ -5,7 +5,9 @@
 #include "Story/Warrior.h"
 
 UTownBusinessDevelopTask::UTownBusinessDevelopTask() : USingleWarriorTownTask()
-{}
+{
+    m_n_taskCost = 200;
+}
 
 bool UTownBusinessDevelopTask::SetTargetWarrior( UWarrior* warrior )
 {

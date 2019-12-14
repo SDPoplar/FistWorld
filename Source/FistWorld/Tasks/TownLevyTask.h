@@ -16,6 +16,7 @@ class FISTWORLD_API UTownLevyTask : public UTownTransportTask
 	GENERATED_BODY()
 	
 public:
+    UTownLevyTask( );
     bool SetTargetWarrior( class UWarrior* warrior ) override;
     bool Excute() override;
 

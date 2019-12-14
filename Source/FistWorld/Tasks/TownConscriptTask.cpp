@@ -6,6 +6,11 @@
 #include "Controllers/WorldMapController.h"
 #include "Huds/WorldMapHud.h"
 
+UTownConscriptTask::UTownConscriptTask( )
+{
+    m_n_taskCost = 150;
+}
+
 bool UTownConscriptTask::SetTargetWarrior( UWarrior* warrior )
 {
     if( !UTownSoldierNumTask::SetTargetWarrior( warrior ) )

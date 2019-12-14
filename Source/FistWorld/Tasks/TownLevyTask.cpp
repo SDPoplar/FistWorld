@@ -8,6 +8,11 @@
 #include "Huds/WorldMapHud.h"
 #include "FistWorldInstance.h"
 
+UTownLevyTask::UTownLevyTask( )
+{
+    m_n_taskCost = 0;
+}
+
 bool UTownLevyTask::SetTargetWarrior( UWarrior* warrior )
 {
     return UTownTransportTask::SetTargetWarrior( warrior ) && ( this->m_b_create_by_ai

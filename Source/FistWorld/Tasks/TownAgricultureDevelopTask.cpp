@@ -5,7 +5,9 @@
 #include "Story/Warrior.h"
 
 UTownAgricultureDevelopTask::UTownAgricultureDevelopTask() : USingleWarriorTownTask()
-{}
+{
+    m_n_taskCost = 100;
+}
 
 bool UTownAgricultureDevelopTask::SetTargetWarrior( UWarrior* warrior )
 {

@@ -3,6 +3,11 @@
 #include "TownTransportTask.h"
 #include "Story/Warrior.h"
 
+UTownTransportTask::UTownTransportTask( )
+{
+    m_n_taskCost = 80;
+}
+
 bool UTownTransportTask::SetTargetWarrior( UWarrior* warrior )
 {
     if( !USingleWarriorTownTask::SetTargetWarrior( warrior ) )

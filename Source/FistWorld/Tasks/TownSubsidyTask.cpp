@@ -8,6 +8,11 @@
 #include "Huds/WorldMapHud.h"
 #include "FistWorldInstance.h"
 
+UTownSubsidyTask::UTownSubsidyTask( )
+{
+    m_n_taskCost = 30;
+}
+
 bool UTownSubsidyTask::SetTargetWarrior( UWarrior* warrior )
 {
     if( !UTownTransportTask::SetTargetWarrior( warrior ) )

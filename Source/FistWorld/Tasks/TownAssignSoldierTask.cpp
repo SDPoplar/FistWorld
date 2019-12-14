@@ -7,6 +7,11 @@
 #include "Controllers/WorldMapController.h"
 #include "Huds/WorldMapHud.h"
 
+UTownAssignSoldierTask::UTownAssignSoldierTask( )
+{
+    m_n_taskCost = 0;
+}
+
 bool UTownAssignSoldierTask::SetTargetWarrior( UWarrior* warrior )
 {
     if( !UTownSoldierNumTask::SetTargetWarrior( warrior ) )

@@ -8,7 +8,9 @@
 
 UPrisonTownTask::UPrisonTownTask( const FObjectInitializer& ObjectInitializer )
     : USingleWarriorTownTask( ObjectInitializer ), m_o_target_warrior( nullptr )
-{}
+{
+    m_n_taskCost = 0;
+}
 
 bool UPrisonTownTask::SetTargetWarrior( UWarrior* warrior )
 {

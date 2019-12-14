@@ -7,7 +7,9 @@
 #include "Kismet/GameplayStatics.h"
 
 UTownSearchTask::UTownSearchTask( const FObjectInitializer& ObjectInitializer ) : USingleWarriorTownTask( ObjectInitializer )
-{}
+{
+    m_n_taskCost = 50;
+}
 
 bool UTownSearchTask::SetTargetWarrior( UWarrior* warrior )
 {

@@ -12,6 +12,7 @@ UTownExpenditionTask::UTownExpenditionTask( const FObjectInitializer& ObjectInit
     : UMultiWarriorTownTask( ObjectInitliazer )
 {
     this->m_b_hide_townwidget_after_create = true;
+    m_n_taskCost = 250;
 }
 
 bool UTownExpenditionTask::WarriorSetted()
