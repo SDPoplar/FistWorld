@@ -90,9 +90,18 @@ int UTown::AppendArrive( UTown* town )
     return this->m_arr_can_arrive.Num();
 }
 
-bool UTown::CanArrive( UTown* town ) const noexcept
+bool UTown::CanArrive( UTown* town, const TownArriveMode mode ) const noexcept
 {
-    return ~this->m_arr_can_arrive.Find( town );
+    if( mode.ShouldDeny( this, town ) )
+    {
+        return false;
+    }
+    if( this->m_arr_can_arrive.Find( town ) != INDEX_NONE )
+    {
+        return true;
+    }
+    //  TODO: check mode.CanBeRecursion()
+    return false;
 }
 
 EElemGrade UTown::GetGrade() const noexcept
@@ -261,4 +270,21 @@ void DevelopableProperty::Ballance()
     {
         *(this->m_p_saver) += (this->GetCurrent() / 10);
     }
+}
+
+//  TownArriveMode
+TownArriveMode TownArriveMode::Direct = TownArriveMode( false, true, true, true );
+TownArriveMode TownArriveMode::DirectFriendly = TownArriveMode( false, false, true, false );
+TownArriveMode TownArriveMode::DirectHostile = TownArriveMode( false, true, false, false );
+TownArriveMode TownArriveMode::DirectUnoccpied = TownArriveMode( false, false, false, true );
+TownArriveMode TownArriveMode::DirectAttack = TownArriveMode( false, true, false, true );
+TownArriveMode TownArriveMode::RecursionFriendly = TownArriveMode( true, false, true, false );
+
+bool TownArriveMode::ShouldDeny( const UTown* from, const UTown* to ) const noexcept
+{
+    return false
+        || ( !this->CanBeFriendly() && (from->GetKingdomId() == to->GetKingdomId()) )
+        || ( !this->CanBeUnoccupied() && !to->OwnByKingdom() )
+        || ( !this->CanBeHostile() && (from->GetKingdomId() != to->GetKingdomId()) )
+        || false;
 }
