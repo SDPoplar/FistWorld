@@ -5,7 +5,7 @@
 
 UTownTransportTask::UTownTransportTask( )
 {
-    m_n_taskCost = 80;
+    m_n_taskCost = 120;
 }
 
 bool UTownTransportTask::SetTargetWarrior( UWarrior* warrior )

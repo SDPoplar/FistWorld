@@ -33,6 +33,7 @@ bool UTownConscriptTask::Excute()
     {
         return false;
     }
+    this->m_o_town->IncreaseMoney( -1 * this->GetTaskCost( ) );
     this->m_o_town->IncreaseSoldierNumber( this->GetSoldierNumber() );
     this->m_o_warrior->SetStatus( EWarriorStatus::WORKING );
     this->MarkAsFinished();

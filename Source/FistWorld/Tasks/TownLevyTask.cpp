@@ -10,7 +10,7 @@
 
 UTownLevyTask::UTownLevyTask( )
 {
-    m_n_taskCost = 0;
+    m_n_taskCost = 20;
 }
 
 bool UTownLevyTask::SetTargetWarrior( UWarrior* warrior )
@@ -27,6 +27,7 @@ bool UTownLevyTask::Excute()
     {
         return false;
     }
+    this->m_o_town->IncreaseMoney( -1 * this->GetTaskCost( ) );
     this->m_o_town->IncreaseFood( -1 * this->GetFood() );
     this->m_o_town->IncreaseMoney( -1 * this->GetMoney() );
     kingdom->IncreaseFood( this->GetFood() );

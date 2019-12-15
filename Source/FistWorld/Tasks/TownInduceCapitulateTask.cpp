@@ -21,6 +21,7 @@ bool UTownInduceCapitulateTask::Excute()
         this->MarkAsCanceled();
         return false;
     }
+    this->m_o_town->IncreaseMoney( -1 * this->GetTaskCost( ) );
     bool success = RandomMaker::WillHappen( this->m_o_warrior->GetIntel() - this->m_o_target_warrior->GetIntel() + 20 );
     if( success )
     {

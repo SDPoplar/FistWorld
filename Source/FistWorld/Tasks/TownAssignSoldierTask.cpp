@@ -35,6 +35,7 @@ bool UTownAssignSoldierTask::Excute()
     {
         return false;
     }
+    this->m_o_town->IncreaseMoney( -1 * this->GetTaskCost( ) );
     int delta = this->GetSoldierNumber() - this->m_o_warrior->GetSoldierNumber();
     this->m_o_town->IncreaseSoldierNumber( -1 * delta );
     this->m_o_warrior->SetSoldierNumber( this->GetSoldierNumber() );

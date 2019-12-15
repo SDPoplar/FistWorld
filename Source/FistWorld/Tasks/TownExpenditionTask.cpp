@@ -12,7 +12,7 @@ UTownExpenditionTask::UTownExpenditionTask( const FObjectInitializer& ObjectInit
     : UMultiWarriorTownTask( ObjectInitliazer )
 {
     this->m_b_hide_townwidget_after_create = true;
-    m_n_taskCost = 250;
+    m_n_taskCost = 350;
 }
 
 bool UTownExpenditionTask::WarriorSetted()
@@ -39,6 +39,7 @@ bool UTownExpenditionTask::Excute()
     {
         return false;
     }
+    this->m_o_town->IncreaseMoney( -1 * this->GetTaskCost( ) );
     this->EachWarrior(
         []( UWarrior* warrior, void* f )->bool {
             if( warrior->GetStatus() != EWarriorStatus::NORMAL )

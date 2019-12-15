@@ -10,7 +10,7 @@
 
 UTownSubsidyTask::UTownSubsidyTask( )
 {
-    m_n_taskCost = 30;
+    m_n_taskCost = 20;
 }
 
 bool UTownSubsidyTask::SetTargetWarrior( UWarrior* warrior )
@@ -36,6 +36,7 @@ bool UTownSubsidyTask::Excute()
     {
         return false;
     }
+    this->m_o_town->IncreaseMoney( -1 * this->GetTaskCost( ) );
     kingdom->IncreaseFood( -1 * this->GetFood() );
     kingdom->IncreaseMoney( -1 * this->GetMoney() );
     this->m_o_town->IncreaseFood( this->GetFood() );

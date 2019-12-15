@@ -8,7 +8,7 @@
 
 UTownSearchTask::UTownSearchTask( const FObjectInitializer& ObjectInitializer ) : USingleWarriorTownTask( ObjectInitializer )
 {
-    m_n_taskCost = 50;
+    m_n_taskCost = 0;
 }
 
 bool UTownSearchTask::SetTargetWarrior( UWarrior* warrior )
@@ -23,7 +23,7 @@ bool UTownSearchTask::Excute()
         return false;
     }
     //  TODO: find something
-    
+    this->m_o_town->IncreaseMoney( -1 * this->GetTaskCost( ) );
     this->ShowNotice( FText::FromString( "100 money found" ) );
     this->m_o_town->IncreaseMoney( 100 );
     this->m_o_warrior->SetStatus( EWarriorStatus::WORKING );
