@@ -16,7 +16,7 @@ class FISTWORLD_API UTownTransportTask : public USingleWarriorTownTask, public H
 	GENERATED_BODY()
 	
 public:
-    UTownTransportTask( );
+    UTownTransportTask( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get() );
     virtual bool SetTargetWarrior( class UWarrior* warrior ) override;
     virtual bool SetTransportVolume( int food, int money );
 };

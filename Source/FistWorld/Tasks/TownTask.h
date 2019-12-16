@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "ExcutableTask.h"
+#include "Story/Town.h"
 #include "TownTask.generated.h"
 
 /**
@@ -17,8 +18,8 @@ public:
 	UTownTask( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get() );
 	virtual ~UTownTask();
 
-    bool SetBaseTown( class UTown* town );
-    virtual bool SetTargetTown( class UTown* town );
+    bool SetBaseTown( UTown* town );
+    virtual bool SetTargetTown( UTown* town );
     bool CloseTownWidgetAfterCreate() const noexcept;
     bool Inited() const noexcept;
     int GetTaskCost() const noexcept;
@@ -37,4 +38,5 @@ protected:
     class AWorldMapController* m_o_pc;
     bool m_b_hide_townwidget_after_create;
     int m_n_taskCost;
+    TownArriveMode m_o_target_arrive_mode;
 };
