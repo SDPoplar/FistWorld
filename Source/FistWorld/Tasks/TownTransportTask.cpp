@@ -3,7 +3,8 @@
 #include "TownTransportTask.h"
 #include "Story/Warrior.h"
 
-UTownTransportTask::UTownTransportTask( )
+UTownTransportTask::UTownTransportTask( const FObjectInitializer& ObjectInitializer )
+    : USingleWarriorTownTask( ObjectInitializer ), HasMoneyAndFood()
 {
     m_n_taskCost = 120;
 }
