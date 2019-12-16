@@ -29,6 +29,16 @@ public:
     int max_agriculture;
 };
 
+UENUM( BlueprintType )
+enum class EArriveStatus : uint8
+{
+    CanArrive,
+    NoPathFound,
+    Friendly,
+    Hostile,
+    Unoccupied,
+};
+
 class TownArriveMode
 {
 public:
@@ -40,7 +50,7 @@ public:
     bool CanBeFriendly() const noexcept { return this->m_b_friendly; }
     bool CanBeUnoccupied() const noexcept { return this->m_b_unoccupied; }
 
-    bool ShouldDeny( const class UTown* from, const class UTown* to ) const noexcept;
+    EArriveStatus CheckArriveStatus( const class UTown* from, const class UTown* to ) const noexcept;
 
     static TownArriveMode Default() { return TownArriveMode::Direct; }
     static TownArriveMode Direct;
@@ -96,7 +106,7 @@ public:
     void SetOwnerKingdom( int kingdomId );
     int AppendArrive( UTown* town );
     //  virtual bool CanArrive( int townId );
-    virtual bool CanArrive( UTown* town, const TownArriveMode = TownArriveMode::Default() ) const noexcept;
+    virtual EArriveStatus GetArriveStatus( UTown* town, const TownArriveMode = TownArriveMode::Default() ) const noexcept;
     virtual EElemGrade GetGrade() const noexcept override;
 
     DevelopableProperty& GetBusinessDevelopment();
