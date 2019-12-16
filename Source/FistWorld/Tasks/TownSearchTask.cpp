@@ -18,12 +18,12 @@ bool UTownSearchTask::SetTargetWarrior( UWarrior* warrior )
 
 bool UTownSearchTask::Excute()
 {
-    if( !this->m_o_town || !this->m_o_warrior )
+    if( !this->m_o_town || !this->m_o_warrior || !USingleWarriorTownTask::Excute( ) )
     {
+        MarkAsCanceled( );
         return false;
     }
     //  TODO: find something
-    this->m_o_town->IncreaseMoney( -1 * this->GetTaskCost( ) );
     this->ShowNotice( FText::FromString( "100 money found" ) );
     this->m_o_town->IncreaseMoney( 100 );
     this->m_o_warrior->SetStatus( EWarriorStatus::WORKING );

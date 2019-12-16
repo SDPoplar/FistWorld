@@ -29,11 +29,12 @@ bool UTownConscriptTask::SetTargetWarrior( UWarrior* warrior )
 
 bool UTownConscriptTask::Excute()
 {
-    if( !this->m_o_town || !this->m_o_warrior || (this->m_n_soldier_num <= 0) )
+    if( !this->m_o_town || !this->m_o_warrior || ( this->m_n_soldier_num <= 0 ) || !USingleWarriorTownTask::Excute( ) )
     {
+        this->MarkAsCanceled( );
         return false;
     }
-    this->m_o_town->IncreaseMoney( -1 * this->GetTaskCost( ) );
+
     this->m_o_town->IncreaseSoldierNumber( this->GetSoldierNumber() );
     this->m_o_warrior->SetStatus( EWarriorStatus::WORKING );
     this->MarkAsFinished();

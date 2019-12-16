@@ -31,11 +31,12 @@ bool UTownAssignSoldierTask::SetTargetWarrior( UWarrior* warrior )
 
 bool UTownAssignSoldierTask::Excute()
 {
-    if( !this->m_o_town || !this->m_o_warrior || (this->m_n_soldier_num < 0) )
+ 
+    if( ( this->m_n_soldier_num < 0 ) || !this->m_o_town || !this->m_o_warrior || !USingleWarriorTownTask::Excute( ) )
     {
+        this->MarkAsCanceled( );
         return false;
     }
-    this->m_o_town->IncreaseMoney( -1 * this->GetTaskCost( ) );
     int delta = this->GetSoldierNumber() - this->m_o_warrior->GetSoldierNumber();
     this->m_o_town->IncreaseSoldierNumber( -1 * delta );
     this->m_o_warrior->SetSoldierNumber( this->GetSoldierNumber() );

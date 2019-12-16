@@ -16,8 +16,12 @@ bool UTownBusinessDevelopTask::SetTargetWarrior( UWarrior* warrior )
 
 bool UTownBusinessDevelopTask::Excute()
 {
+    if( !this->m_o_town || !this->m_o_warrior || !USingleWarriorTownTask::Excute( ) )
+    {
+        this->MarkAsCanceled( );
+        return false;
+    }
     this->m_o_town->GetBusinessDevelopment().IncreaseCurrent( this->m_o_warrior->GetIntel() );
-    this->m_o_town->IncreaseMoney( -1 * this->GetTaskCost( ) );
     this->m_o_warrior->SetStatus( EWarriorStatus::WORKING );
     this->MarkAsFinished();
     return true;

@@ -23,8 +23,9 @@ bool UTownLevyTask::Excute()
 {
     auto gi = UFistWorldInstance::GetInstance( this );
     auto kingdom = gi ? gi->GetMyKingdom() : nullptr;
-    if( !kingdom )
+    if( !kingdom || !USingleWarriorTownTask::Excute() )
     {
+        MarkAsCanceled( );
         return false;
     }
     this->m_o_town->IncreaseMoney( -1 * this->GetTaskCost( ) );

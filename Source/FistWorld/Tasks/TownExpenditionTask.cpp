@@ -35,6 +35,7 @@ bool UTownExpenditionTask::Excute()
     if( this->m_o_town->GetKingdomId( ) == this->m_o_target_town->GetKingdomId( ) )
     {
         this->ShowNotice( FText::FromString( "You can't attack your own town!!!" ) );
+        this->MarkAsCanceled( );
         return false;
     }
     auto gi = UFistWorldInstance::GetInstance( this );
