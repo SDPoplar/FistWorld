@@ -27,12 +27,10 @@ bool AWorldMapMode::FinishRound()
     auto gi = UFistWorldInstance::GetInstance( this );
     auto pc = gi ? UGameplayStatics::GetPlayerController( this, 0 ) : nullptr;
     auto hud = pc ? Cast<AWorldMapHud>( pc->GetHUD() ) : nullptr;
-    if( !hud )
-    {
-        return false;
-    }
-    hud->PopupAlert( FText::FromString( "Preparing for a new round..." ) );
-    
+
+    hud && hud->PopupAlert( FText::FromString( "Preparing for a new round..." ) );
+    gi->PlusRound();
+
     for( auto kingdom : gi->GetKingdomList() )
     {
         if( kingdom->IsPlayerKingdom() )
@@ -40,7 +38,6 @@ bool AWorldMapMode::FinishRound()
             continue;
         }
         hud->PopupAlert( FText::FormatOrdered<FText>( txtKindomRound, FText::FromString( kingdom->GetKingdomName() ) ) );
-        UE_LOG( LogTemp, Display, TEXT( "%s 's round" ), *(kingdom->GetKingdomName()) );
         TArray<FTownStatistics> towns;
         for( auto town : gi->GetTownList() )
         {
@@ -62,20 +59,14 @@ bool AWorldMapMode::FinishRound()
                 towns.Push( rec );
             }
         }
-        UKingdomRoundAi::Create( this, gi->GetCurrentChapter(), gi->GetCurrentRound() )
-            ->BindKingdom( kingdom )->SetTownStatistics( towns )->DoRound();
-    }
-
-    // ballance town development
-    gi->PlusRound();
-    if( gi->GetCurrentRound() % 3 == 0 )
-    {
-        for( auto town : gi->GetTownList() )
+        auto ai = UKingdomRoundAi::Create( this, gi->GetCurrentChapter(), gi->GetCurrentRound() );
+        if( ai )
         {
-            town->GetAgricultureDevelopment().Ballance();
-            town->GetBusinessDevelopment().Ballance();
+            ai->BindKingdom( kingdom )->SetTownStatistics( towns )->DoRound();
         }
     }
+
+    this->TownBallance( gi );
 
     // reset warrior status
     for( auto warrior : gi->GetWarriorList() )
@@ -86,14 +77,23 @@ bool AWorldMapMode::FinishRound()
         }
     }
 
-    if( hud )
-    {
-        hud->PopupAlert( FText::FromString( "New Round!" ) );
-    }
+    hud && hud->PopupAlert( FText::FromString( "New Round!" ) );
 
     if( gi->HasFight() )
     {
         UGameplayStatics::OpenLevel( this, "LV_Fight" );
     }
     return true;
+}
+
+void AWorldMapMode::TownBallance( UFistWorldInstance* gi )
+{
+    if( gi->GetCurrentRound() % 3 == 0 )
+    {
+        for( auto town : gi->GetTownList() )
+        {
+            town->GetAgricultureDevelopment().Ballance();
+            town->GetBusinessDevelopment().Ballance();
+        }
+    }
 }

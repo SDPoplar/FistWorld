@@ -4,6 +4,7 @@ const FText txtKindomRound = NSLOCTEXT( "WorldMessage", "KingdomRound", "[{0}]�
 
 const FText txtCannotArrive = NSLOCTEXT( "WorldMessage", "CannotArrive", "无法到达" );
 const FText txtFriendlyTargetGiven = NSLOCTEXT( "WorldMessage", "FriendlyTargetGiven", "不能选择友方目标" );
+const FText txtUseSelfAsTarget = NSLOCTEXT( "WorldMessage", "UseSelfAsTarget", "不能以当前城镇作为目标" );
 const FText txtCreateFightFailed = NSLOCTEXT( "WorldMessage", "CreateFightFailed", "战斗创建失败" );
 const FText txtFightCreated = NSLOCTEXT( "WorldMessage", "FightCreated", "部队已出发" );
 const FText txtNotEnoughMoney = NSLOCTEXT( "WorldMessage", "NotEnoughMoney", "金钱不足" );

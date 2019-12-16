@@ -35,6 +35,14 @@ public:
 
 protected:
     virtual bool Round();
+    virtual bool TownRound( FTownStatistics& town ) { return true; }
+    virtual void DevTown( FTownStatistics& town );
+
+    /*
+        int GiveSoldlier( FTownStatistics& town );
+        @return: soldier num still need
+    */
+    int GiveSoldlier( FTownStatistics& town );
     UKingdomRoundAi* SetCurrentRound( int round );
 
     bool AgricultureDevTask( class UTown* town, class UWarrior* warrior );
@@ -52,5 +60,32 @@ class FISTWORLD_API UKingdomRoundAi_Chapter1 : public UKingdomRoundAi
     GENERATED_BODY()
 
 public:
-    bool Round() override;
+    bool TownRound( FTownStatistics& town ) override;
+};
+
+UCLASS()
+class FISTWORLD_API UKingdomRoundAi_Chapter2 : public UKingdomRoundAi
+{
+    GENERATED_BODY()
+
+public:
+    bool TownRound( FTownStatistics& town ) override;
+};
+
+UCLASS()
+class FISTWORLD_API UKingdomRoundAi_Chapter3 : public UKingdomRoundAi
+{
+    GENERATED_BODY()
+
+public:
+    bool TownRound( FTownStatistics& town ) override;
+};
+
+UCLASS()
+class FISTWORLD_API UKingdomRoundAi_Chapter4 : public UKingdomRoundAi
+{
+    GENERATED_BODY()
+
+public:
+    bool TownRound( FTownStatistics& town ) override;
 };

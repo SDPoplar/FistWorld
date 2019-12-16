@@ -18,6 +18,7 @@ public:
     AWorldMapMode();
 
     bool FinishRound();
+    void TownBallance( class UFistWorldInstance* gi );
 
 protected:
 };
