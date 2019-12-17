@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 const FText txtKindomRound = NSLOCTEXT( "WorldMessage", "KingdomRound", "[{0}]王国 策略中……" );
+const FText txtNewRoundStart = NSLOCTEXT( "WorldMessage", "NewRoundStart", "新的回合" );
 
 const FText txtCannotArrive = NSLOCTEXT( "WorldMessage", "CannotArrive", "无法到达" );
 const FText txtFriendlyTargetGiven = NSLOCTEXT( "WorldMessage", "FriendlyTargetGiven", "不能选择友方目标" );

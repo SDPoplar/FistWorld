@@ -48,8 +48,10 @@ public:
     UFUNCTION( BlueprintCallable )
     bool CreateExecuteWarriorTask();
 
+    /*
     UFUNCTION( BlueprintCallable )
-    bool createWarriorDeploymentTask( );
+    bool CreateWarriorDeploymentTask();
+    */
 
     bool CreateTownTask( class UTownTask* ( taskMaker )(UObject*), class AWorldMapController*& );
     bool CreateSingleWarriorTask( class UTownTask* (taskMaker)(UObject*) );

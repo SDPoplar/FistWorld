@@ -13,7 +13,6 @@
 #include "Story/Kingdom.h"
 #include "Story/Town.h"
 #include "Story/Warrior.h"
-#include "Level/KingdomRoundAi.h"
 
 AWorldMapMode::AWorldMapMode()
 {
@@ -22,13 +21,37 @@ AWorldMapMode::AWorldMapMode()
     PlayerControllerClass = AWorldMapController::StaticClass();
 }
 
+TArray<FTownStatistics> AWorldMapMode::GetTownStaticsByKingdom( UFistWorldInstance* gi, UKingdom* kingdom, bool shouldHaveWarrior )
+{
+    TArray<FTownStatistics> towns;
+    for( auto town : gi->GetTownList() )
+    {
+        if( town->GetKingdomId() != kingdom->GetKingdomId() )
+        {
+            continue;
+        }
+        FTownStatistics rec( town );
+        for( auto warrior : gi->GetWarriorList() )
+        {
+            if( (warrior->GetInTown() != town->GetTownId()) || (warrior->GetStatus() != EWarriorStatus::NORMAL) )
+            {
+                continue;
+            }
+        }
+        if( !shouldHaveWarrior ||(  rec.warriors.Num() > 0 ) )
+        {
+            towns.Push( rec );
+        }
+    }
+    return towns;
+}
+
 bool AWorldMapMode::FinishRound()
 {
     auto gi = UFistWorldInstance::GetInstance( this );
     auto pc = gi ? UGameplayStatics::GetPlayerController( this, 0 ) : nullptr;
     auto hud = pc ? Cast<AWorldMapHud>( pc->GetHUD() ) : nullptr;
 
-    hud && hud->PopupAlert( FText::FromString( "Preparing for a new round..." ) );
     gi->PlusRound();
 
     for( auto kingdom : gi->GetKingdomList() )
@@ -37,32 +60,12 @@ bool AWorldMapMode::FinishRound()
         {
             continue;
         }
-        hud->PopupAlert( FText::FormatOrdered<FText>( txtKindomRound, FText::FromString( kingdom->GetKingdomName() ) ) );
-        TArray<FTownStatistics> towns;
-        for( auto town : gi->GetTownList() )
-        {
-            if( town->GetKingdomId() != kingdom->GetKingdomId() )
-            {
-                continue;
-            }
-            FTownStatistics rec( town );
-            for( auto warrior : gi->GetWarriorList() )
-            {
-                if( (warrior->GetInTown() != town->GetTownId()) || (warrior->GetStatus() != EWarriorStatus::NORMAL) )
-                {
-                    continue;
-                }
-                rec.warriors.Push( warrior );
-            }
-            if( rec.warriors.Num() > 0 )
-            {
-                towns.Push( rec );
-            }
-        }
+        hud && hud->PopupAlert( FText::FormatOrdered<FText>( txtKindomRound, FText::FromString( kingdom->GetKingdomName() ) ) );
+        
         auto ai = UKingdomRoundAi::Create( this, gi->GetCurrentChapter(), gi->GetCurrentRound() );
         if( ai )
         {
-            ai->BindKingdom( kingdom )->SetTownStatistics( towns )->DoRound();
+            ai->BindKingdom( kingdom )->SetTownStatistics( this->GetTownStaticsByKingdom( gi, kingdom, true ) )->DoRound();
         }
     }
 
@@ -77,7 +80,7 @@ bool AWorldMapMode::FinishRound()
         }
     }
 
-    hud && hud->PopupAlert( FText::FromString( "New Round!" ) );
+    hud && hud->PopupAlert( txtNewRoundStart );
 
     if( gi->HasFight() )
     {
@@ -94,6 +97,27 @@ void AWorldMapMode::TownBallance( UFistWorldInstance* gi )
         {
             town->GetAgricultureDevelopment().Ballance();
             town->GetBusinessDevelopment().Ballance();
+        }
+    }
+    for( auto kingdom : gi->GetKingdomList() )
+    {
+        for( auto statis : this->GetTownStaticsByKingdom( gi, kingdom, false ) )
+        {
+            int sumsoldier = 0;
+            for( auto warrior : statis.warriors )
+            {
+                sumsoldier += warrior->GetSoldierNumber();
+            }
+            statis.town->IncreaseFood( ( sumsoldier + statis.town->GetSoldierNumber() ) / -10 );
+            if( statis.town->GetFood() )
+            {
+                continue;
+            }
+            statis.town->SetSoldierNumber( statis.town->GetSoldierNumber() / 2 );
+            for( auto warrior : statis.warriors )
+            {
+                warrior->SetSoldierNumber( warrior->GetSoldierNumber() / 2 );
+            }
         }
     }
 }

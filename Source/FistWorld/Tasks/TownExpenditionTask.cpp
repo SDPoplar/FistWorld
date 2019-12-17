@@ -33,15 +33,6 @@ bool UTownExpenditionTask::SetTargetTown( UTown* town )
 
 bool UTownExpenditionTask::Excute()
 {
-<<<<<<< HEAD
-    if( this->m_o_town->GetKingdomId( ) == this->m_o_target_town->GetKingdomId( ) )
-    {
-        this->ShowNotice( FText::FromString( "You can't attack your own town!!!" ) );
-        this->MarkAsCanceled( );
-        return false;
-    }
-=======
->>>>>>> 4e93079bb3b2a9a37e403ec2beca6e642efa7866
     auto gi = UFistWorldInstance::GetInstance( this );
     auto kingdom = gi ? gi->GetPlayerKingdom() : nullptr;
     auto fight = kingdom ? new UFight( kingdom, this->m_o_town, this->m_o_target_town ) : nullptr;

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "Level/KingdomRoundAi.h"
 #include "WorldMapMode.generated.h"
 
 /**
@@ -21,4 +22,5 @@ public:
     void TownBallance( class UFistWorldInstance* gi );
 
 protected:
+    TArray<FTownStatistics> GetTownStaticsByKingdom( class UFistWorldInstance* gi, class UKingdom* kingdom, bool shouldHaveWarrior );
 };
