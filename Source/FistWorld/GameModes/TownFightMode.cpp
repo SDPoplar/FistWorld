@@ -56,16 +56,26 @@ void ATownFightMode::LoadFirstFight( void )
         UGameplayStatics::OpenLevel( this, "LV_World" );
         return;
     }
-    this->LoadFight( gi->GetFightList().Pop() );
-}
-
-bool ATownFightMode::LoadFight( UFight* fight )
-{
+    auto fight = gi->GetFightList().Pop();
     this->m_o_current_fight = NewObject<UFightIns>( this );
     this->m_o_current_fight->AddToRoot();
-    *( this->m_o_current_fight ) = fight;
-    this->m_o_current_fight->SetDefencer( this->AiChooseDefencer( fight->GetTargetTown(), 9 ) );
+    *(this->m_o_current_fight) = fight;
     delete fight;
+    auto pc = UGameplayStatics::GetPlayerController( this, 0 );
+    auto hud = pc ? Cast<AFightMapHud>( pc->GetHUD() ) : nullptr;
+    if( fight->GetAttackerKingdom()->IsPlayerKingdom() )
+    {
+        hud&& hud->PopPlayerDefencerChooser( this->m_o_current_fight );
+    }
+    else
+    {
+        this->m_o_current_fight->SetDefencer( this->AiChooseDefencer( fight->GetTargetTown(), 9 ) );
+        this->StartFight() || ( hud && hud->PopupFailed( FText::AsCultureInvariant( "Start fight failed" ) ) );
+    }
+}
+
+bool ATownFightMode::StartFight()
+{
     if( this->m_o_current_fight->GetDefencerWarriors().Num() == 0 )
     {
         UE_LOG( LogTemp, Display, TEXT( "No defencer, so attacker win" ) );
@@ -89,7 +99,7 @@ bool ATownFightMode::LoadFight( UFight* fight )
         fighter->SetActorLocation( level->GetAttackerNextBirthPoint() );
         reporter->AppendAttacker( fighter );
     }
-    for( auto item : this->AiChooseDefencer( this->m_o_current_fight->GetTargetTown(), 9 ) )
+    for( auto item : this->m_o_current_fight->GetDefencerWarriors() )
     {
         auto fighter = AFightActor::SpawnWarrior( item, world );
         fighter->SetActorLocation( level->GetDefencerNextBirthPoint() );

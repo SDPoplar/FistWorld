@@ -3,7 +3,7 @@
 #include "FightMapHud.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Widget/FightResultWidget.h"
-#include "Widget/PlayerChooseDefenceWarriorWidget.h"
+#include "Widget/ChooseDefenceWarriorWidget.h"
 #include "Widget/FightCountDownWidget.h"
 
 AFightMapHud::AFightMapHud( const FObjectInitializer& ObjectInitializer ) : ACommonMapHud( ObjectInitializer ),
@@ -18,8 +18,8 @@ m_widget_result( nullptr ), m_widget_player_defencer_chooser( nullptr ), m_widge
     static ConstructorHelpers::FClassFinder<UFightResultWidget> fightresult(
         TEXT( "/Game/Levels/Res_lv_Fight/Widget_Fight_FightResult" ) );
     fightresultClass = fightresult.Succeeded() ? fightresult.Class : nullptr;
-    static ConstructorHelpers::FClassFinder<UPlayerChooseDefenceWarriorWidget> pdchooser(
-        TEXT( "/Game/Levels/Res_lv_Fight/Widget_Fight_PlayerChooseDefencer" ) );
+    static ConstructorHelpers::FClassFinder<UChooseDefenceWarriorWidget> pdchooser(
+        TEXT( "/Game/Levels/Res_lv_Fight/Widget_Fight_ChooseDefencer" ) );
     defencerClass = pdchooser.Succeeded() ? pdchooser.Class : nullptr;
     static ConstructorHelpers::FClassFinder<UFightCountDownWidget> countdown(
         TEXT( "/Game/Levels/Res_lv_Fight/Widget_Fight_CountDown" ) );
@@ -38,13 +38,13 @@ UFightResultWidget* AFightMapHud::GetFightResultWidget()
     return this->m_widget_result;
 }
 
-UPlayerChooseDefenceWarriorWidget* AFightMapHud::GetPlayerDefencerChooser()
+UChooseDefenceWarriorWidget* AFightMapHud::GetPlayerDefencerChooser()
 {
     if( (!this->m_widget_player_defencer_chooser || !this->m_widget_player_defencer_chooser->IsValidLowLevelFast() )
         && this->defencerClass )
     {
         UWorld* world = this->GetWorld();
-        this->m_widget_player_defencer_chooser = Cast<UPlayerChooseDefenceWarriorWidget>(
+        this->m_widget_player_defencer_chooser = Cast<UChooseDefenceWarriorWidget>(
             UUserWidget::CreateWidgetInstance( *world, this->defencerClass, "defencer chooser" ) );
         this->m_widget_player_defencer_chooser->AddToViewport( 20 );
     }
@@ -63,9 +63,15 @@ UFightCountDownWidget* AFightMapHud::GetFightCountDownWidget()
     return this->m_widget_fight_count_down;
 }
 
-bool AFightMapHud::PopPlayerDefencerChooser( int townId )
+bool AFightMapHud::PopPlayerDefencerChooser( UFightIns* fight )
 {
-    return !!this->GetPlayerDefencerChooser();
+    auto widget = this->GetPlayerDefencerChooser();
+    if( widget && widget->BindFightIns( fight ) )
+    {
+        this->PopupWidget( widget );
+        return true;
+    }
+    return false;
 }
 
 bool AFightMapHud::PopFightCountDown( int seconds, AFightReporter* reporter )
