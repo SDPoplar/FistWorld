@@ -12,3 +12,4 @@ const FText txtTransportTaskName = NSLOCTEXT( "TownTaskName", "Transport", "输�
 const FText txtAssignSoldierTaskName = NSLOCTEXT( "TownTaskName", "AssignSoldier", "分配" );
 const FText txtInduceCapitulateTaskName = NSLOCTEXT( "TownTaskName", "InduceCapitulate", "招降" );
 const FText txtExecuteWarriorTaskName = NSLOCTEXT( "TownTaskName", "ExecuteWarrior", "处斩" );
+const FText txtWarriorDeploymentTaskName = NSLOCTEXT( "TownTaskName", "WarriorDeployment", "调动" );

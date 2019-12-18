@@ -71,12 +71,17 @@ bool UShowPlayerTownWidget::CreateExecuteWarriorTask()
     return this->CreateSingleWarriorTask( []( UObject* outer )->UTownTask* { return NewObject<UTownExecuteWarriorTask>( outer ); } );
 }
 
-/*
-bool UShowPlayerTownWidget::CreateWarriorDeploymentTask( )
+bool UShowPlayerTownWidget::CreateWarriorDeploymentTask()
 {
-    return this->CreateMultiWarriorTask( []( UObject* outer )->UTownTask* { return NewObject<UTownWarriorDeploymentTask>( outer ); } );
+    //  return this->CreateMultiWarriorTask( []( UObject* outer )->UTownTask* { return NewObject<UTownWarriorDeploymentTask>( outer ); } );
+    return false;
 }
-*/
+
+bool UShowPlayerTownWidget::CreateTransportTask()
+{
+    //  return this->CreateSingleWarriorTask( []( UObject* outer )->UTownTask* { return NewObject<>( outer ); } );
+    return false;
+}
 
 bool UShowPlayerTownWidget::CreateTownTask( UTownTask*( taskmaker )( UObject* ), AWorldMapController*& pc )
 {
