@@ -2,7 +2,6 @@
 
 #include "TownTask.h"
 #include "Level/TownActor.h"
-#include "Story/Town.h"
 #include "Story/Warrior.h"
 #include "Controllers/WorldMapController.h"
 #include "Huds/WorldMapHud.h"
@@ -10,7 +9,7 @@
 
 UTownTask::UTownTask( const FObjectInitializer& ObjectInitializer ) : UExcutableTask( ObjectInitializer ),
     m_o_town( nullptr ), m_o_target_town( nullptr ), m_o_pc( nullptr ), m_b_hide_townwidget_after_create( false ),
-    m_n_taskCost( 0 )
+    m_n_taskCost( 0 ), m_o_target_arrive_mode( TownArriveMode::Default() )
 {}
 
 UTownTask::~UTownTask()
@@ -25,19 +24,28 @@ bool UTownTask::SetBaseTown( UTown* town )
     {
         return true;
     }
-    if( !this->m_b_create_by_ai )
-    {
-        this->ShowError( txtNotEnoughMoney );
-    }
+    this->m_b_create_by_ai || this->ShowError( txtNotEnoughMoney );
     this->MarkAsCanceled();
     return false;
 }
 
 bool UTownTask::SetTargetTown( UTown* town )
 {
-    if( !this->m_o_town->CanArrive( town ) )
+    EArriveStatus status = this->m_o_town->GetArriveStatus( town, this->m_o_target_arrive_mode );
+    if( status != EArriveStatus::CanArrive )
     {
-        this->ShowError( txtCannotArrive );
+        if( !this->m_b_create_by_ai )
+        {
+            switch( status )
+            {
+                case EArriveStatus::Friendly:
+                    this->ShowError( txtFriendlyTargetGiven );
+                    break;
+                default:
+                    this->ShowError( txtCannotArrive );
+            }
+        }
+        this->MarkAsCanceled();
         return false;
     }
     this->m_o_target_town = town;

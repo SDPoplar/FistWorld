@@ -29,6 +29,45 @@ public:
     int max_agriculture;
 };
 
+UENUM( BlueprintType )
+enum class EArriveStatus : uint8
+{
+    CanArrive,
+    NoPathFound,
+    Friendly,
+    Hostile,
+    Unoccupied,
+};
+
+class TownArriveMode
+{
+public:
+    TownArriveMode( bool r = false, bool h = false, bool f = false, bool u = false )
+        : m_b_recursion( r ), m_b_hostile( h ), m_b_friendly( f ), m_b_unoccupied( u ) {}
+
+    bool CanBeRecursion() const noexcept { return this->m_b_recursion; }
+    bool CanBeHostile() const noexcept { return this->m_b_hostile; }
+    bool CanBeFriendly() const noexcept { return this->m_b_friendly; }
+    bool CanBeUnoccupied() const noexcept { return this->m_b_unoccupied; }
+
+    EArriveStatus CheckArriveStatus( const class UTown* from, const class UTown* to ) const noexcept;
+
+    static TownArriveMode Default() { return TownArriveMode::Direct; }
+    static TownArriveMode Direct;
+    static TownArriveMode DirectFriendly;
+    static TownArriveMode DirectHostile;
+    static TownArriveMode DirectUnoccpied;
+    static TownArriveMode DirectAttack;
+    static TownArriveMode RecursionFriendly;
+
+protected:
+    bool m_b_recursion;
+    bool m_b_hostile;
+    bool m_b_friendly;
+    bool m_b_unoccupied;
+
+};
+
 class DevelopableProperty
 {
 public:
@@ -67,7 +106,7 @@ public:
     void SetOwnerKingdom( int kingdomId );
     int AppendArrive( UTown* town );
     //  virtual bool CanArrive( int townId );
-    virtual bool CanArrive( UTown* town ) const noexcept;
+    virtual EArriveStatus GetArriveStatus( UTown* town, const TownArriveMode = TownArriveMode::Default() ) const noexcept;
     virtual EElemGrade GetGrade() const noexcept override;
 
     DevelopableProperty& GetBusinessDevelopment();

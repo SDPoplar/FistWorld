@@ -45,7 +45,7 @@ bool UTownExpenditionTask::Excute()
     {
         return false;
     }
-    this->m_o_town->IncreaseMoney( -1 * this->GetTaskCost( ) );
+    
     this->EachWarrior(
         []( UWarrior* warrior, void* f )->bool {
             if( warrior->GetStatus() != EWarriorStatus::NORMAL )
