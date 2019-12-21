@@ -12,7 +12,7 @@
 #include "Tasks/TownExpenditionTask.h"
 #include "Tasks/TownInduceCapitulateTask.h"
 #include "Tasks/TownExecuteWarriorTask.h"
-#include "Tasks/TownWarriorDeploymentTask.h"
+//  #include "Tasks/TownWarriorDeploymentTask.h"
 #include "Controllers/WorldMapController.h"
 #include "Huds/WorldMapHud.h"
 #include "Widget/SingleWarriorSelectWidget.h"
@@ -71,11 +71,17 @@ bool UShowPlayerTownWidget::CreateExecuteWarriorTask()
     return this->CreateSingleWarriorTask( []( UObject* outer )->UTownTask* { return NewObject<UTownExecuteWarriorTask>( outer ); } );
 }
 
-bool UShowPlayerTownWidget::createWarriorDeploymentTask( )
+bool UShowPlayerTownWidget::CreateWarriorDeploymentTask()
 {
-    return this->CreateMultiWarriorTask( []( UObject* outer )->UTownTask* { return NewObject<UTownWarriorDeploymentTask>( outer ); } );
+    //  return this->CreateMultiWarriorTask( []( UObject* outer )->UTownTask* { return NewObject<UTownWarriorDeploymentTask>( outer ); } );
+    return false;
 }
 
+bool UShowPlayerTownWidget::CreateTransportTask()
+{
+    //  return this->CreateSingleWarriorTask( []( UObject* outer )->UTownTask* { return NewObject<>( outer ); } );
+    return false;
+}
 
 bool UShowPlayerTownWidget::CreateTownTask( UTownTask*( taskmaker )( UObject* ), AWorldMapController*& pc )
 {

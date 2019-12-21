@@ -117,3 +117,12 @@ class FISTWORLD_API UExecuteWarriorTaskText : public UTownTaskNameText
 public:
     UExecuteWarriorTaskText( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get() );
 };
+
+UCLASS()
+class FISTWORLD_API UWarriorDeploymentTaskText : public UTownTaskNameText
+{
+    GENERATED_BODY()
+
+public:
+    UWarriorDeploymentTaskText( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get() );
+};

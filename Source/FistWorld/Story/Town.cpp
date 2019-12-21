@@ -92,16 +92,32 @@ int UTown::AppendArrive( UTown* town )
 
 EArriveStatus UTown::GetArriveStatus( UTown* town, const TownArriveMode mode ) const noexcept
 {
-    EArriveStatus status;
-    if( ( status = mode.CheckArriveStatus( this, town ) ) != EArriveStatus::CanArrive )
+
+    if( town == this )
     {
-        return status;
+        return EArriveStatus::Self;
     }
-    if( this->m_arr_can_arrive.Find( town ) != INDEX_NONE )
+    if( !mode.IsFriendlyMode( ) && ( this->GetKingdomId( ) == town->GetKingdomId( ) ) )
+    {
+        return EArriveStatus::Friendly;
+    }
+    if( !mode.IsAttackMode( ) && ( this->GetKingdomId( ) == town->GetKingdomId( ) ) )
+    {
+        return EArriveStatus::Hostile;
+    }
+    if( mode.IsDirectMode( ) && ( this->m_arr_can_arrive.Find( town ) != INDEX_NONE ) )
     {
         return EArriveStatus::CanArrive;
     }
-    //  TODO: check mode.CanBeRecursion()
+    if( !mode.IsDirectMode( ) && mode.IsAttackMode( ) && this->HaveAttackPath( town ) )
+    {
+        return EArriveStatus::CanArrive;
+    }
+    TArray<const UTown*> history;
+    if( !mode.IsDirectMode( ) && mode.IsFriendlyMode( ) && this->FindFriendlyPath( town, history ) )
+    {
+        return EArriveStatus::CanArrive;
+    }
     return EArriveStatus::NoPathFound;
 }
 
@@ -133,6 +149,63 @@ UTown* UTown::GetFirstRunAwayTarget( void ) const noexcept
         }
     }
     return nullptr;
+}
+
+TArray<UTown*> UTown::GetHostileNeighbours( int kingdomLimit ) const noexcept
+{
+    TArray<UTown*> ret;
+    for( auto t : this->m_arr_can_arrive )
+    {
+        if( this->GetKingdomId() == t->GetKingdomId() )
+        {
+            continue;
+        }
+        if( kingdomLimit && (kingdomLimit != t->GetKingdomId()) )
+        {
+            continue;
+        }
+        ret.Push( t );
+    }
+    return ret;
+}
+
+TArray<UTown*> UTown::GetFriendlyNeighbour() const noexcept
+{
+    TArray<UTown*> ret;
+    for( auto t : this->m_arr_can_arrive )
+    {
+        if( t->GetKingdomId() == this->GetKingdomId() )
+        {
+            ret.Push( t );
+        }
+    }
+    return ret;
+}
+
+bool UTown::FindFriendlyPath( const UTown* target, TArray<const UTown*> path ) const noexcept
+{
+    path.Push( this );
+    for( auto t : this->GetFriendlyNeighbour() )
+    {
+        if( ( t == target ) || ( path.Find( t ) == INDEX_NONE ) && t->FindFriendlyPath( target, path ) )
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool UTown::HaveAttackPath( const UTown* target ) const noexcept
+{
+    for( auto t : target->GetHostileNeighbours( this->GetKingdomId() ) )
+    {
+        TArray<const UTown*> history;
+        if( this->FindFriendlyPath( t, history ) )
+        {
+            return true;
+        }
+    }
+    return false;
 }
 
 int UTownIns::GetTownId() const noexcept
@@ -274,26 +347,10 @@ void DevelopableProperty::Ballance()
 }
 
 //  TownArriveMode
-TownArriveMode TownArriveMode::Direct = TownArriveMode( false, true, true, true );
-TownArriveMode TownArriveMode::DirectFriendly = TownArriveMode( false, false, true, false );
-TownArriveMode TownArriveMode::DirectHostile = TownArriveMode( false, true, false, false );
-TownArriveMode TownArriveMode::DirectUnoccpied = TownArriveMode( false, false, false, true );
-TownArriveMode TownArriveMode::DirectAttack = TownArriveMode( false, true, false, true );
-TownArriveMode TownArriveMode::RecursionFriendly = TownArriveMode( true, false, true, false );
 
-EArriveStatus TownArriveMode::CheckArriveStatus( const UTown* from, const UTown* to ) const noexcept
-{
-    if( !this->CanBeFriendly() && (from->GetKingdomId() == to->GetKingdomId()) )
-    {
-        return EArriveStatus::Friendly;
-    }
-    if( !this->CanBeUnoccupied() && !to->OwnByKingdom() )
-    {
-        return EArriveStatus::Unoccupied;
-    }
-    if( !this->CanBeHostile() && (from->GetKingdomId() != to->GetKingdomId()) )
-    {
-        return EArriveStatus::Hostile;
-    }
-    return EArriveStatus::CanArrive;
-}
+TownArriveMode TownArriveMode::Direct = TownArriveMode( false, true, true );
+TownArriveMode TownArriveMode::DirectFriendly = TownArriveMode( false, false, true );
+TownArriveMode TownArriveMode::DirectAttack = TownArriveMode( false, true, false );
+TownArriveMode TownArriveMode::RecursionFriendly = TownArriveMode( true, false, true );
+TownArriveMode TownArriveMode::RecursionAttack = TownArriveMode( true, true, false );
+

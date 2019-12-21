@@ -156,6 +156,11 @@ int UWarrior::GetWarriorExp() const noexcept
     return this->m_n_exp;
 }
 
+bool UWarrior::StatusIn( const TArray<EWarriorStatus> status ) const noexcept
+{
+    return status.Find( this->m_e_status ) != INDEX_NONE;
+}
+
 int UWarrior::GetMaxSoldierNumber() const noexcept
 {
     return ( this->GetStrong() + this->GetIntel() ) * (this->GetWarriorLevel() + 5);

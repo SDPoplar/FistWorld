@@ -74,3 +74,9 @@ UExecuteWarriorTaskText::UExecuteWarriorTaskText( const FObjectInitializer& Obje
 {
     this->InitContent( txtExecuteWarriorTaskName, 24 );
 }
+
+UWarriorDeploymentTaskText::UWarriorDeploymentTaskText( const FObjectInitializer& ObjectInitializer )
+    : UTownTaskNameText( ObjectInitializer )
+{
+    this->InitContent( txtWarriorDeploymentTaskName, 24 );
+}

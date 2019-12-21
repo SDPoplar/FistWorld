@@ -18,18 +18,18 @@ public:
     AFightMapHud( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get() );
     class UFightResultWidget* GetFightResultWidget();
 
-    bool PopPlayerDefencerChooser( int townId );
+    bool PopPlayerDefencerChooser( class UFightIns* fight );
     bool PopFightCountDown( int seconds, class AFightReporter* reporter );
 
 protected:
-    class UPlayerChooseDefenceWarriorWidget* GetPlayerDefencerChooser();
+    class UChooseDefenceWarriorWidget* GetPlayerDefencerChooser();
     class UFightCountDownWidget* GetFightCountDownWidget();
 
     TSubclassOf<class UFightResultWidget> fightresultClass;
     class UFightResultWidget* m_widget_result;
 
-    TSubclassOf<class UPlayerChooseDefenceWarriorWidget> defencerClass;
-    class UPlayerChooseDefenceWarriorWidget* m_widget_player_defencer_chooser;
+    TSubclassOf<class UChooseDefenceWarriorWidget> defencerClass;
+    class UChooseDefenceWarriorWidget* m_widget_player_defencer_chooser;
 
     TSubclassOf<class UFightCountDownWidget> countdownClass;
     class UFightCountDownWidget* m_widget_fight_count_down;

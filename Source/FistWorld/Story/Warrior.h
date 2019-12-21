@@ -78,6 +78,7 @@ public:
     virtual int GetWarriorLevel() const noexcept;
     void SetWarriorExp( int exp );
     virtual int GetWarriorExp() const noexcept;
+    bool StatusIn( const TArray<EWarriorStatus> status ) const noexcept;
 
     virtual int GetMaxSoldierNumber() const noexcept override;
 

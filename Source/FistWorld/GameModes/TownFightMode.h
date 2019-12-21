@@ -27,8 +27,9 @@ public:
     void AttackerWin();
     void DefencerWin();
 
+    bool StartFight();
+
 protected:
-    bool LoadFight( class UFight* fight );
     TArray<class UWarrior*> AiChooseDefencer( class UTown* town, int max );
 
     class UFightIns* m_o_current_fight;
