@@ -63,7 +63,7 @@ void ATownFightMode::LoadFirstFight( void )
     delete fight;
     auto pc = UGameplayStatics::GetPlayerController( this, 0 );
     auto hud = pc ? Cast<AFightMapHud>( pc->GetHUD() ) : nullptr;
-    if( fight->GetAttackerKingdom()->IsPlayerKingdom() )
+    if( this->m_o_current_fight->IsPlayerDefence() )
     {
         hud&& hud->PopPlayerDefencerChooser( this->m_o_current_fight );
     }

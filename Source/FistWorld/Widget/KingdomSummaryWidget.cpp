@@ -8,6 +8,7 @@
 #include "FistWorldInstance.h"
 #include "Kismet/GameplayStatics.h"
 #include "Tasks/ExcutableTask.h"
+#include "Static/Lang/WorldMessage.h"
 
 UKingdomSummaryWidget* UKingdomSummaryWidget::Create( TSubclassOf<UKingdomSummaryWidget> clsName, UWorld* world, FName widgetName )
 {
@@ -92,4 +93,10 @@ FText UKingdomSummaryWidget::GetPlayerKingdomMoney() const noexcept
     char num[ 12 ];
     sprintf_s( num, 12, "%d", kingdom ? kingdom->GetMoney() : 0 );
     return FText::FromString( num );
+}
+
+FText UKingdomSummaryWidget::GetCurrentRound() const noexcept
+{
+    auto gi = UFistWorldInstance::GetInstance( this );
+    return gi ? FText::FormatOrdered<int>( txtCurrentRound, gi->GetCurrentRound() ) : FText::GetEmpty();
 }

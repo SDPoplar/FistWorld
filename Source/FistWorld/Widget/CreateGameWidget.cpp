@@ -6,82 +6,31 @@
 #include "FistWorldInstance.h"
 #include "Widget/MainMenu.h"
 
-UDataTable* UCreateGameWidget::chapters = nullptr;
-
-TArray<FCreatableChapter> UCreateGameWidget::GetAllChapters()
+bool UCreateGameWidget::RefreshChapter()
 {
-    TArray<FCreatableChapter> ret;
-    if( !UCreateGameWidget::GetChapterTable() )
+    auto list = this->GetChapterList();
+    if( !list )
     {
-        return ret;
+        return false;
     }
-    for( auto item : UCreateGameWidget::chapters->GetRowNames() )
+    list->ClearListItems();
+    for( auto ins : UChapterIns::GetAllChapterIns( this ) )
     {
-        FCreatableChapter *cursor = UCreateGameWidget::chapters->FindRow<FCreatableChapter>( item, FString( TEXT( "" ) ) );
-        ret.Push( *cursor );
+        UE_LOG( LogTemp, Display, TEXT( "Chapter %s found" ), *(ins->GetChapterName()) );
+        list->AddItem( ins );
     }
-    return ret;
+    return true;
 }
 
-UDataTable* UCreateGameWidget::GetChapterTable()
+bool UCreateGameWidget::CreateGame()
 {
-    if( !UCreateGameWidget::chapters || UCreateGameWidget::chapters->IsValidLowLevelFast() )
+    auto list = this->GetChapterList();
+    auto chap = list ? list->GetSelectedChapterId() : 0;
+    if( chap == 0 )
     {
-        UCreateGameWidget::chapters = LoadObject<UDataTable>( nullptr,
-            TEXT( "DataTable'/Game/Datatables/Data_CreatableChapters.Data_CreatableChapters'" ) );
-        check( UCreateGameWidget::chapters && "Failed to load chapters" );
+        return false;
     }
-    return UCreateGameWidget::chapters;
-}
-
-TArray<FString> UCreateGameWidget::DebugDatatable()
-{
-    TArray<FString> ret;
-    auto table = UCreateGameWidget::GetChapterTable();
-    if( !table )
-    {
-        UE_LOG( LogTemp, Error, TEXT( "Failed to load chapter datatable" ) );
-        return ret;
-    }
-    for( FName name : table->GetRowNames() )
-    {
-        ret.Push( name.ToString() );
-    }
-    return ret;
-}
-
-UComboBoxString* UCreateGameWidget::RefreshChapter( UComboBoxString* holder )
-{
-    FString current = ( holder->GetOptionCount() > 0 ) ? holder->GetSelectedOption() : TEXT( "" );
-    holder->ClearOptions();
-    for( auto item : this->GetAllChapters() )
-    {
-        holder->AddOption( item.name );
-    }
-    if( holder->GetOptionCount() == 0 )
-    {
-        return holder;
-    }
-    if( ( current != TEXT( "" ) ) && ( holder->FindOptionIndex( current ) >= 0 ) )
-    {
-        holder->SetSelectedOption( current );
-    }
-    else
-    {
-        holder->SetSelectedIndex( 0 );
-    }
-    return holder;
-}
-
-FString UCreateGameWidget::GetChapterDescribe( int optIndex )
-{
-    //  todo: return describe for given chapter
-    return FString( "Hello world" );
-}
-
-bool UCreateGameWidget::CreateGame( int optIndex, int kingdomId )
-{
-    if( !UFistWorldSave::CreateNewSave( 1, 1 ) || !UFistWorldInstance::GetInstance( this )->LoadGame() )
+    if( !UFistWorldSave::CreateNewSave( chap, 1 ) || !UFistWorldInstance::GetInstance( this )->LoadGame() )
     {
         return false;
     }
@@ -91,6 +40,12 @@ bool UCreateGameWidget::CreateGame( int optIndex, int kingdomId )
         this->m_parent->StartExistsGame();
     }
     return true;
+}
+
+bool UCreateGameWidget::CanClickCreate()
+{
+    auto list = this->GetChapterList();
+    return list && (list->GetNumItemsSelected() > 0);
 }
 
 void UCreateGameWidget::BindParent( UMainMenu* parent )

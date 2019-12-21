@@ -36,6 +36,16 @@ bool UFight::IsPlayerAttack() const noexcept
     return this->m_o_attacker_kingdom->IsPlayerKingdom();
 }
 
+bool UFight::IsPlayerDefence() const noexcept
+{
+    return this->m_o_to_town->OwnByPlayer();
+}
+
+bool UFight::IsPlayerFight() const noexcept
+{
+    return this->IsPlayerAttack() || this->IsPlayerDefence();
+}
+
 UTown* UFight::GetTargetTown() const noexcept
 {
     return this->m_o_to_town;

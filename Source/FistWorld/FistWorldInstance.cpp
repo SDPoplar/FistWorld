@@ -98,7 +98,7 @@ bool UFistWorldInstance::LoadGame()
         this->m_towns.Push( ins );
     }
 
-    this->m_n_chapter = save->chapter;
+    this->m_o_chapter.SetChapterId( save->chapter, true );
     this->m_n_round = save->round;
 
     return true;
@@ -237,7 +237,17 @@ int UFistWorldInstance::CountPlayerWarrior() const noexcept
 
 int UFistWorldInstance::GetCurrentChapter() const noexcept
 {
-    return this->m_n_chapter;
+    return this->m_o_chapter.GetChapterId();
+}
+
+FString UFistWorldInstance::GetCurrentChapterName() const noexcept
+{
+    return this->m_o_chapter.GetChapterName();
+}
+
+FText UFistWorldInstance::GetCurrentChapterNameText() const noexcept
+{
+    return FText::FromString( this->GetCurrentChapterName() );
 }
 
 void UFistWorldInstance::PlusRound( void )
