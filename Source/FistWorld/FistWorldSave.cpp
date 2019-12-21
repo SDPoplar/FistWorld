@@ -171,7 +171,7 @@ bool UFistWorldSave::CreateNewSave( int chapter, int kingdomId )
         save->kingdoms.Push( ins );
     }
     save->chapter = chapter;
-    save->round = 0;
+    save->round = 1;
     return save->SaveToSlot( 0 );
 }
 

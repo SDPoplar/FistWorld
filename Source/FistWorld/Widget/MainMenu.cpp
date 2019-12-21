@@ -64,6 +64,7 @@ void UMainMenu::ShowCreateGameWidget()
     if( this->createGameWidget )
     {
         this->createGameWidget->Popup();
+        this->createGameWidget->RefreshChapter();
     }
 }
 

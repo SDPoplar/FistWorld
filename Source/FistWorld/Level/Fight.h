@@ -21,6 +21,8 @@ public:
     int AppendAttackerWarrior( class UWarrior* warrior );
     TArray<class UWarrior*>& GetAttackerWarriors();
     bool IsPlayerAttack() const noexcept;
+    bool IsPlayerDefence() const noexcept;
+    bool IsPlayerFight() const noexcept;
     class UKingdom* GetAttackerKingdom() const noexcept;
     class UTown* GetFromTown() const noexcept;
     class UTown* GetTargetTown() const noexcept;

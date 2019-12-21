@@ -9,6 +9,8 @@
 #include "Tasks/TownAgricultureDevelopTask.h"
 #include "Tasks/TownBusinessDevelopTask.h"
 #include "Tasks/TownConscriptTask.h"
+#include "Tasks/TownExpenditionTask.h"
+#include "RandomMaker.h"
 
 UKingdomRoundAi::UKingdomRoundAi( const FObjectInitializer& ObjectInitializer )
     : UObject( ObjectInitializer ), m_n_round( 0 ), m_o_kingdom( nullptr )
@@ -125,6 +127,32 @@ bool UKingdomRoundAi::ConscriptTask( UTown* town, UWarrior* warrior )
     return false;
 }
 
+bool UKingdomRoundAi::FightTask( UTown* from, UTown* target, TArray<UWarrior*> warriors )
+{
+    auto task = NewObject<UTownExpenditionTask>( this );
+    if( !task->SetBaseTown( from ) )
+    {
+        return false;
+    }
+    for( auto w : warriors )
+    {
+        task->AppendWarrior( w );
+    }
+    return task->WarriorSetted() && task->SetTargetTown( target );
+}
+
+UTown* GetFirstPlayerTown( TArray<UTown*> towns )
+{
+    for( auto t : towns )
+    {
+        if( t->OwnByPlayer() )
+        {
+            return t;
+        }
+    }
+    return nullptr;
+}
+
 bool UKingdomRoundAi_Chapter1::TownRound( FTownStatistics& rec )
 {
     int needsoldier = this->GiveSoldlier( rec );
@@ -143,7 +171,9 @@ bool UKingdomRoundAi_Chapter1::TownRound( FTownStatistics& rec )
     if( ( this->m_n_round > 30 ) && (rec.town->GetFood() > 3000) && (rec.warriors.Num() > 3) && ( sumsoldier > 2000 ) )
     {
         auto nearbyHosile = rec.town->GetHostileNeighbours();
-        UTown* fightTarget = nearbyHosile.Num() ? nearbyHosile[ 0 ] : nullptr;
+        UTown* attackTarget = nearbyHosile.Num() && RandomMaker::WillHappen( 10 )
+            ? GetFirstPlayerTown( nearbyHosile ) : nullptr;
+        attackTarget && this->FightTask( rec.town, attackTarget, rec.warriors );
     }
 
     return true;
@@ -167,7 +197,9 @@ bool UKingdomRoundAi_Chapter2::TownRound( FTownStatistics& rec )
     if( (this->m_n_round > 20) && (rec.town->GetFood() > 3000) && (rec.warriors.Num() > 3) && (sumsoldier > 2000) )
     {
         auto nearbyHosile = rec.town->GetHostileNeighbours();
-        UTown* fightTarget = nearbyHosile.Num() ? nearbyHosile[ 0 ] : nullptr;
+        UTown* fightTarget = nearbyHosile.Num() && RandomMaker::WillHappen( 15 )
+            ? GetFirstPlayerTown( nearbyHosile ) : nullptr;
+        fightTarget && this->FightTask( rec.town, fightTarget, rec.warriors );
     }
 
     return true;
@@ -192,6 +224,10 @@ bool UKingdomRoundAi_Chapter3::TownRound( FTownStatistics& rec )
     {
         auto nearbyHosile = rec.town->GetHostileNeighbours();
         UTown* fightTarget = nearbyHosile.Num() ? nearbyHosile[ 0 ] : nullptr;
+        if( fightTarget && RandomMaker::WillHappen( 15 ) )
+        {
+            this->FightTask( rec.town, fightTarget, rec.warriors );
+        }
     }
 
     return true;
@@ -216,6 +252,10 @@ bool UKingdomRoundAi_Chapter4::TownRound( FTownStatistics& rec )
     {
         auto nearbyHosile = rec.town->GetHostileNeighbours();
         UTown* fightTarget = nearbyHosile.Num() ? nearbyHosile[ 0 ] : nullptr;
+        if( fightTarget && RandomMaker::WillHappen( 30 ) )
+        {
+            this->FightTask( rec.town, fightTarget, rec.warriors );
+        }
     }
 
     return true;

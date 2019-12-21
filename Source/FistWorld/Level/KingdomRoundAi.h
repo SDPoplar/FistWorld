@@ -48,6 +48,7 @@ protected:
     bool AgricultureDevTask( class UTown* town, class UWarrior* warrior );
     bool BusinessDevTask( class UTown* town, class UWarrior* warrior );
     bool ConscriptTask( class UTown* town, class UWarrior* warrior );
+    bool FightTask( class UTown* from, class UTown* target, TArray<class UWarrior*> warriors );
 
     int m_n_round;
     class UKingdom* m_o_kingdom;

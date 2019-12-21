@@ -3,55 +3,31 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Widget/PopupMenuWidget.h"
-#include "Engine/DataTable.h"
+#include "Widget/PopupWidget.h"
+#include "Slate/ChapterList.h"
 #include "CreateGameWidget.generated.h"
-
-USTRUCT( BlueprintType )
-struct FCreatableChapter : public FTableRowBase
-{
-    GENERATED_USTRUCT_BODY()
-
-public:
-    UPROPERTY( BlueprintReadOnly )
-    int id;
-
-    UPROPERTY( BlueprintReadOnly )
-    FString name;
-
-    UPROPERTY( BlueprintReadOnly )
-    FString describe;
-};
-
-class UComboBoxString;
 
 /**
  * 
  */
 UCLASS()
-class FISTWORLD_API UCreateGameWidget : public UPopupMenuWidget
+class FISTWORLD_API UCreateGameWidget : public UPopupWidget
 {
 	GENERATED_BODY()
 public:
     UFUNCTION( BlueprintCallable )
-    TArray<FCreatableChapter> GetAllChapters();
+    bool RefreshChapter();
 
     UFUNCTION( BlueprintCallable )
-    TArray<FString> DebugDatatable();
+    bool CreateGame();
 
     UFUNCTION( BlueprintCallable )
-    UComboBoxString* RefreshChapter( UComboBoxString* holder );
-
-    UFUNCTION( BlueprintCallable )
-    FString GetChapterDescribe( int nChapChooserOptionIndex );
-
-    UFUNCTION( BlueprintCallable )
-    bool CreateGame( int nChapChooserOptionIndex, int kingdomId );
+    bool CanClickCreate();
 
     void BindParent( class UMainMenu* parent );
 protected:
-    static UDataTable* GetChapterTable();
-    static UDataTable* chapters;
+    UFUNCTION( BlueprintImplementableEvent )
+    UChapterList* GetChapterList();
 
     class UMainMenu* m_parent;
 };

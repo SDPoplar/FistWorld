@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
 //  #include "FistWorldSave.h"
+#include "Story/Chapter.h"
 #include "Story/Kingdom.h"
 //  #include "Engine/DataTable.h"
 #include "FistWorldInstance.generated.h"
@@ -46,6 +47,12 @@ public:
     UFUNCTION( BlueprintCallable )
     int GetCurrentChapter() const noexcept;
 
+    UFUNCTION( BlueprintCallable )
+    FString GetCurrentChapterName() const noexcept;
+
+    UFUNCTION( BlueprintCallable )
+    FText GetCurrentChapterNameText() const noexcept;
+
     void PlusRound( void );
     UFUNCTION( BlueprintCallable )
     int GetCurrentRound() const noexcept;
@@ -72,7 +79,7 @@ protected:
 
     bool m_b_game_exists;
 
-    int m_n_chapter;
+    UChapter m_o_chapter;
     int m_n_round;
 
     //  static UDataTable* g_chapters;

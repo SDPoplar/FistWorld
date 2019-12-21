@@ -44,6 +44,9 @@ public:
     UFUNCTION( BlueprintCallable )
     FText GetPlayerKingdomMoney() const noexcept;
 
+    UFUNCTION( BlueprintCallable )
+    FText GetCurrentRound() const noexcept;
+
 protected:
     UKingdom* m_o_kingdom;
 
