@@ -12,6 +12,8 @@ UTownTransportTask::UTownTransportTask( const FObjectInitializer& ObjectInitiali
     : USingleWarriorTownTask( ObjectInitializer ), HasMoneyAndFood()
 {
     m_n_taskCost = 120;
+    this->m_b_hide_townwidget_after_create = true;
+    //this->m_o_target_arrive_mode = TownArriveMode::RecursionFriendly;
 }
 
 bool UTownTransportTask::SetTargetWarrior( UWarrior* warrior )
@@ -20,10 +22,8 @@ bool UTownTransportTask::SetTargetWarrior( UWarrior* warrior )
     {
         return false;
     }
-    this->m_e_step = ETaskStep::SETTING_TRANSPORT_VOLUME; 
-    auto gi = UFistWorldInstance::GetInstance( this );
-    auto kingdom = gi ? gi->GetMyKingdom( ) : nullptr;
-    return kingdom && this->GetMapHud( )->PopupTransportVolumeSetter( kingdom->GetFood( ), kingdom->GetMoney( ) );
+    this->m_e_step = ETaskStep::CHOOSING_TARGET_TOWN;
+    return true;
 }
 
 bool UTownTransportTask::SetTransportVolume( int food, int money )
@@ -31,14 +31,24 @@ bool UTownTransportTask::SetTransportVolume( int food, int money )
     
     this->SetFood( food );
     this->SetMoney( money );
-    return this->Excute();
+    return this->Excute( );
+}
+
+bool UTownTransportTask::SetTargetTown( UTown* town )
+{
+    this->m_e_step = ETaskStep::SETTING_TRANSPORT_VOLUME;
+    auto gi = UFistWorldInstance::GetInstance( this );
+    auto kingdom = gi ? gi->GetMyKingdom( ) : nullptr;
+    return UTownTask::SetTargetTown( town ) && kingdom && this->GetMapHud( )->PopupTransportVolumeSetter( this->m_o_town->GetFood( ), this->m_o_town->GetMoney( ) ) && this->Excute( );
 }
 
 bool UTownTransportTask::Excute( )
 {
-    if( !UTownTask::Excute( ) )
+    auto gi = UFistWorldInstance::GetInstance( this );
+    auto kingdom = gi ? gi->GetMyKingdom( ) : nullptr;
+    if( !kingdom || !USingleWarriorTownTask::Excute( ) )
     {
-        this->MarkAsCanceled( );
+        MarkAsCanceled( );
         return false;
     }
 

@@ -37,7 +37,7 @@ bool UTownSubsidyTask::Excute()
         MarkAsCanceled( );
         return false;
     }
-    this->m_o_town->IncreaseMoney( -1 * this->GetTaskCost( ) );
+    
     kingdom->IncreaseFood( -1 * this->GetFood() );
     kingdom->IncreaseMoney( -1 * this->GetMoney() );
     this->m_o_town->IncreaseFood( this->GetFood() );
