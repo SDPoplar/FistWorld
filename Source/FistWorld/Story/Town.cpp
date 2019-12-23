@@ -92,28 +92,29 @@ int UTown::AppendArrive( UTown* town )
 
 EArriveStatus UTown::GetArriveStatus( UTown* town, const TownArriveMode mode ) const noexcept
 {
+
     if( town == this )
     {
         return EArriveStatus::Self;
     }
-    if( !mode.IsFriendlyMode() && (this->GetKingdomId() == town->GetKingdomId()) )
+    if( !mode.IsFriendlyMode( ) && ( this->GetKingdomId( ) == town->GetKingdomId( ) ) )
     {
         return EArriveStatus::Friendly;
     }
-    if( !mode.IsAttackMode() && (this->GetKingdomId() == town->GetKingdomId()) )
+    if( !mode.IsAttackMode( ) && ( this->GetKingdomId( ) == town->GetKingdomId( ) ) )
     {
         return EArriveStatus::Hostile;
     }
-    if( mode.IsDirectMode() && ( this->m_arr_can_arrive.Find( town ) != INDEX_NONE ) )
+    if( mode.IsDirectMode( ) && ( this->m_arr_can_arrive.Find( town ) != INDEX_NONE ) )
     {
         return EArriveStatus::CanArrive;
     }
-    if( !mode.IsDirectMode() && mode.IsAttackMode() && this->HaveAttackPath( town ) )
+    if( !mode.IsDirectMode( ) && mode.IsAttackMode( ) && this->HaveAttackPath( town ) )
     {
         return EArriveStatus::CanArrive;
     }
     TArray<const UTown*> history;
-    if( !mode.IsDirectMode() && mode.IsFriendlyMode() && this->FindFriendlyPath( town, history ) )
+    if( !mode.IsDirectMode( ) && mode.IsFriendlyMode( ) && this->FindFriendlyPath( town, history ) )
     {
         return EArriveStatus::CanArrive;
     }
@@ -346,8 +347,10 @@ void DevelopableProperty::Ballance()
 }
 
 //  TownArriveMode
+
 TownArriveMode TownArriveMode::Direct = TownArriveMode( false, true, true );
 TownArriveMode TownArriveMode::DirectFriendly = TownArriveMode( false, false, true );
 TownArriveMode TownArriveMode::DirectAttack = TownArriveMode( false, true, false );
 TownArriveMode TownArriveMode::RecursionFriendly = TownArriveMode( true, false, true );
 TownArriveMode TownArriveMode::RecursionAttack = TownArriveMode( true, true, false );
+

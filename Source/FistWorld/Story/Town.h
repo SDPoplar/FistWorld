@@ -43,14 +43,23 @@ enum class EArriveStatus : uint8
 class TownArriveMode
 {
 public:
+
     TownArriveMode( bool direct = false, bool attack = false, bool friendly = false )
         : m_b_direct( direct ), m_b_attack( attack ), m_b_friendly( friendly ) {}
 
-    bool IsDirectMode() const noexcept { return this->m_b_direct; }
-    bool IsAttackMode() const noexcept { return this->m_b_attack; }
-    bool IsFriendlyMode() const noexcept { return this->m_b_friendly; }
-    
-    static TownArriveMode Default() { return TownArriveMode::Direct; }
+    bool IsDirectMode( ) const noexcept {
+        return this->m_b_direct;
+    }
+    bool IsAttackMode( ) const noexcept {
+        return this->m_b_attack;
+    }
+    bool IsFriendlyMode( ) const noexcept {
+        return this->m_b_friendly;
+    }
+
+    static TownArriveMode Default( ) {
+        return TownArriveMode::Direct;
+    }
     static TownArriveMode Direct;
     static TownArriveMode DirectFriendly;
     static TownArriveMode DirectAttack;
@@ -61,6 +70,7 @@ protected:
     bool m_b_direct;
     bool m_b_attack;
     bool m_b_friendly;
+
 
 };
 
@@ -101,10 +111,12 @@ public:
     virtual int GetKingdomId() const noexcept;
     void SetOwnerKingdom( int kingdomId );
     int AppendArrive( UTown* town );
+
     TArray<UTown*> GetFriendlyNeighbour() const noexcept;
     TArray<UTown*> GetHostileNeighbours( int kingdomLimit = 0 ) const noexcept;
     bool FindFriendlyPath( const UTown* target, TArray<const UTown*> path ) const noexcept;
     bool HaveAttackPath( const UTown* target ) const noexcept;
+
     virtual EArriveStatus GetArriveStatus( UTown* town, const TownArriveMode = TownArriveMode::Default() ) const noexcept;
     virtual EElemGrade GetGrade() const noexcept override;
 

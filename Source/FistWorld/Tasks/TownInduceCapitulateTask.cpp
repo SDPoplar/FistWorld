@@ -29,7 +29,7 @@ bool UTownInduceCapitulateTask::Excute()
         this->m_o_target_warrior->SetStatus( EWarriorStatus::NORMAL );
         this->m_o_warrior->SetWarriorExp( this->m_o_warrior->GetWarriorExp() + 20 );
         this->m_b_create_by_ai || this->ShowNotice( FText::FormatOrdered<FText>( txtInduceCapitulateSuccess,
-            FText::FromString( m_o_target_warrior->GetWarriorName() ) ) );
+            FText::FromString( m_o_target_warrior->GetWarriorName() )  ) );
     }
     else
     {
