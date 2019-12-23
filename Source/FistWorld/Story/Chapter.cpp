@@ -24,12 +24,12 @@ UDataTable* UChapter::GetChapterData()
 FCreatableChapter* UChapter::FindChapterData() const noexcept
 {
     UDataTable* all = UChapter::GetChapterData();
-    return all ? all->FindRow<FCreatableChapter>( "id", []( int id )->FString
+    return all ? all->FindRow<FCreatableChapter>( []( int id )->FName
         {
             char buff[ 8 ] = "";
             sprintf_s( buff, 8, "%d", id );
-            return FString( buff );
-        }( this->m_n_chap_id ) ) : nullptr;
+            return FName( buff );
+        }( this->m_n_chap_id ), "id" ) : nullptr;
 }
 
 bool UChapter::SetChapterId( int id, bool loadData )

@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-const FText txtCurrentRound = NSLOCTEXT( "WorldMessage", "CurrentRound", "第{0}回合" );
+const FText txtCurrentRound = NSLOCTEXT( "WorldMessage", "CurrentRound", "{0} 第{1}回合" );
 const FText txtKindomRound = NSLOCTEXT( "WorldMessage", "KingdomRound", "[{0}]王国 策略中……" );
 const FText txtNewRoundStart = NSLOCTEXT( "WorldMessage", "NewRoundStart", "新的回合" );
 
