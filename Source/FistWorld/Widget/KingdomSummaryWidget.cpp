@@ -98,5 +98,7 @@ FText UKingdomSummaryWidget::GetPlayerKingdomMoney() const noexcept
 FText UKingdomSummaryWidget::GetCurrentRound() const noexcept
 {
     auto gi = UFistWorldInstance::GetInstance( this );
-    return gi ? FText::FormatOrdered<int>( txtCurrentRound, gi->GetCurrentRound() ) : FText::GetEmpty();
+    return gi ? FText::FormatOrdered<FText, int>(
+            txtCurrentRound, gi->GetCurrentChapterNameText(), gi->GetCurrentRound()
+        ) : FText::GetEmpty();
 }
