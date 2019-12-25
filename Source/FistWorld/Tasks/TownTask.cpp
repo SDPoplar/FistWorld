@@ -38,20 +38,16 @@ bool UTownTask::SetTargetTown( UTown* town )
         {
             switch( status )
             {
-
-                case EArriveStatus::Self:
+            case EArriveStatus::Self:
                 this->ShowError( txtUseSelfAsTarget );
                 break;
                 
-                case EArriveStatus::Friendly:
+            case EArriveStatus::Friendly:
                 this->ShowError( txtFriendlyTargetGiven );
                 break;
-                
-                default:
+
+            default:
                 this->ShowError( txtCannotArrive );
-
-            
-
             }
         }
         this->MarkAsCanceled();

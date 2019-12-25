@@ -9,16 +9,16 @@
 /**
  *
  */
-UCLASS( )
+UCLASS()
 class FISTWORLD_API UTownExpenditionTask : public UMultiWarriorTownTask
 {
-    GENERATED_BODY( )
+    GENERATED_BODY()
 
 public:
-    UTownExpenditionTask( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get( ) );
-    virtual ~UTownExpenditionTask( ) {}
+    UTownExpenditionTask( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get() );
+    virtual ~UTownExpenditionTask() {}
 
-    bool WarriorSetted( ) override;
-    bool Excute( ) override;
+    bool WarriorSetted() override;
+    bool Excute() override;
     bool SetTargetTown( class UTown* town ) override;
 };
