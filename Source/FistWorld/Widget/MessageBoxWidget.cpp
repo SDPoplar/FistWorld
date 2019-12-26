@@ -2,30 +2,41 @@
 
 #include "MessageBoxWidget.h"
 
-UMessageBoxWidget::UMessageBoxWidget( const FObjectInitializer& ObjectInitializer ) : UPopupWidget( ObjectInitializer )
+UMessageBoxWidget::UMessageBoxWidget( const FObjectInitializer& ObjectInitializer )
+    : UPopupWidget( ObjectInitializer ), m_f_display_time( 0.0f )
 {}
 
 void UMessageBoxWidget::SetDisplayContent( EMessageUseIcon type, FText content )
 {
-    this->m_e_type = type;
-    this->m_s_content = content;
-    this->m_display_time = time( nullptr );
+    if( this->messages.Num() == 0 )
+    {
+        this->m_f_display_time = this->GetWorld()->GetRealTimeSeconds();
+    }
+    this->messages.Add( FMessageContent( type, content ) );
 }
 
 FText UMessageBoxWidget::GetContent() const noexcept
 {
-    return ( this->IsValidLowLevelFast() && this->IsInViewport() ) ? this->m_s_content : FText::FromString( "" );
+    return this->messages.Num() ? this->messages[ 0 ].content : FText::GetEmpty();
 }
 
 EMessageUseIcon UMessageBoxWidget::GetType() const noexcept
 {
-    return ( this->IsValidLowLevelFast() && this->IsInViewport() ) ? this->m_e_type : EMessageUseIcon::ALERT;
+    return this->messages.Num() ? this->messages[ 0 ].type : EMessageUseIcon::ALERT;
 }
 
 void UMessageBoxWidget::CheckLifetime()
 {
-    if( time( nullptr ) - this->m_display_time > this->lifeTime )
+    auto now = this->GetWorld()->GetRealTimeSeconds();
+    int lifeTime = ( this->messages.Num() > 1 ) ? 1 : 3;
+    if( now - this->m_f_display_time > lifeTime )
+    {
+        this->messages.RemoveAt( 0 );
+        this->m_f_display_time = now;
+    }
+    if( !this->messages.Num() )
     {
         this->Quit();
+        this->m_f_display_time = 0;
     }
 }

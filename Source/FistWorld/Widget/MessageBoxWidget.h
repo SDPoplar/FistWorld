@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "Widget/PopupWidget.h"
-#include <ctime>
 #include "MessageBoxWidget.generated.h"
 
 UENUM( BlueprintType )
@@ -14,6 +13,19 @@ enum class EMessageUseIcon : uint8
     DANGER,
     SUCCESS,
     FAILED
+};
+
+USTRUCT()
+struct FMessageContent
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+    FMessageContent( EMessageUseIcon _type = EMessageUseIcon::ALERT, FText _content = FText::GetEmpty() )
+        : type( _type ), content( _content ) {}
+
+    EMessageUseIcon type;
+    FText content;
 };
 
 /**
@@ -38,11 +50,7 @@ public:
     UFUNCTION( BlueprintCallable )
     void CheckLifetime();
 
-    UPROPERTY( EditDefaultsOnly )
-    int lifeTime;
 protected:
-
-    EMessageUseIcon m_e_type;
-    FText m_s_content;
-    time_t m_display_time;
+    TArray<FMessageContent> messages;
+    float m_f_display_time;
 };
