@@ -21,6 +21,7 @@ public:
     class UMultiWarriorSelectWidget* PopupMultiWarriorSelector();
     bool PopupTransportVolumeSetter( int maxFood, int maxMoney );
     bool PopupSoldierNumSetter( int max, int current = 0 );
+    bool PopupGameResult( bool playerWin );
 
 protected:
     void PopupPlayerTownWidget( class UTown* town );
@@ -31,6 +32,7 @@ protected:
     class USingleWarriorSelectWidget* GetSingleWarriorSelectWidget();
     class UMultiWarriorSelectWidget* GetMultiWarriorSelectWidget();
     class USoldierNumWidget* GetSoldierNumWidget();
+    class UGameResultWidget* GetGameResultWidget();
 
     virtual void BeginPlay() override;
     void LoadTopSummaryWidget();
@@ -51,4 +53,7 @@ protected:
 
     TSubclassOf<class USoldierNumWidget> soldiernumClass;
     class USoldierNumWidget* m_widget_soldier_num;
+
+    TSubclassOf<class UGameResultWidget> gameresultClass;
+    class UGameResultWidget* m_widget_game_result;
 };

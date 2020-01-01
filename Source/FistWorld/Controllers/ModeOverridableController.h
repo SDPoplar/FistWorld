@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/PlayerController.h"
+#include "Controllers/FistWorldController.h"
 #include "ModeOverridableController.generated.h"
 
 enum class EInputMode : int
@@ -17,10 +17,11 @@ enum class EInputMode : int
  * 
  */
 UCLASS()
-class FISTWORLD_API AModeOverridableController : public APlayerController
+class FISTWORLD_API AModeOverridableController : public AFistWorldController
 {
 	GENERATED_BODY()
 public:
+    AModeOverridableController( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get() );
 
     void PushInputMode( const FInputModeGameAndUI& mode );
     void PushInputMode( const FInputModeGameOnly& mode );

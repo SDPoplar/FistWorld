@@ -26,6 +26,8 @@ ACommonMapController::~ACommonMapController()
 
 void ACommonMapController::BeginPlay()
 {
+    Super::BeginPlay();
+
     this->bEnableClickEvents = true;
     //  this->bEnableTouchOverEvents = true;
     this->bEnableMouseOverEvents = true;

@@ -9,6 +9,7 @@
 #include "Widget/TownTransportVolumeWidget.h"
 #include "Widget/SoldierNumWidget.h"
 #include "Widget/ConfirmBackWidget.h"
+#include "Widget/GameResultWidget.h"
 #include "UObject/ConstructorHelpers.h"
 #include "FistWorldInstance.h"
 #include "FistWorldInstance.h"
@@ -16,7 +17,8 @@
 #include "Story/Town.h"
 
 AWorldMapHud::AWorldMapHud() : ACommonMapHud(), m_widget_town_player( nullptr ), m_widget_transport( nullptr ),
-    m_widget_single_warrior_select( nullptr ), m_widget_multi_warrior_select( nullptr ), m_widget_soldier_num( nullptr )
+    m_widget_single_warrior_select( nullptr ), m_widget_multi_warrior_select( nullptr ), m_widget_soldier_num( nullptr ),
+    m_widget_game_result( nullptr )
 {
     static ConstructorHelpers::FClassFinder<USysMenuWidget> sysmenufinder( TEXT( "/Game/Levels/Res_lv_World/Widget_World_SysMenu" ) );
     sysmenuClass = sysmenufinder.Succeeded() ? sysmenufinder.Class : nullptr;
@@ -34,6 +36,8 @@ AWorldMapHud::AWorldMapHud() : ACommonMapHud(), m_widget_town_player( nullptr ),
     soldiernumClass = soldiernumwidget.Succeeded() ? soldiernumwidget.Class : nullptr;
     static ConstructorHelpers::FClassFinder<UConfirmBackWidget> confirmback( TEXT( "/Game/Levels/Res_lv_World/Widget_World_ConfirmBack" ) );
     confirmbackClass = confirmback.Succeeded() ? confirmback.Class : nullptr;
+    static ConstructorHelpers::FClassFinder<UGameResultWidget> gameresult( TEXT( "/Game/Levels/Res_lv_World/Widget_World_GameResult" ) );
+    gameresultClass = gameresult.Succeeded() ? gameresult.Class : nullptr;
 }
 
 void AWorldMapHud::BeginPlay()
@@ -136,6 +140,18 @@ UTownTransportVolumeWidget* AWorldMapHud::GetTransportVolumeWidget()
     return this->m_widget_transport;
 }
 
+UGameResultWidget* AWorldMapHud::GetGameResultWidget()
+{
+    if( !this->m_widget_game_result && this->gameresultClass )
+    {
+        UWorld* world = this->GetWorld();
+        this->m_widget_game_result = Cast<UGameResultWidget>(
+            UUserWidget::CreateWidgetInstance( *world, this->gameresultClass, "Game result" ) );
+        this->m_widget_game_result->AddToViewport( 105 );
+    }
+    return this->m_widget_game_result;
+}
+
 USingleWarriorSelectWidget* AWorldMapHud::PopupSingleWarriorSelector()
 {
     auto widget = this->GetSingleWarriorSelectWidget();
@@ -177,5 +193,17 @@ bool AWorldMapHud::PopupSoldierNumSetter( int max, int current )
     }
     this->PopupWidget( widget );
     widget->Init( max, current );
+    return true;
+}
+
+bool AWorldMapHud::PopupGameResult( bool playerWin )
+{
+    auto widget = this->GetGameResultWidget();
+    if( !widget )
+    {
+        return false;
+    }
+    this->PopupWidget( widget );
+    widget->SetResult( playerWin );
     return true;
 }

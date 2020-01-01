@@ -3,6 +3,10 @@
 
 #include "ModeOverridableController.h"
 
+AModeOverridableController::AModeOverridableController( const FObjectInitializer& ObjectInitializer )
+    : AFistWorldController( ObjectInitializer )
+{}
+
 void AModeOverridableController::PushInputMode( const FInputModeUIOnly& mode )
 {
     this->uohis.Push( mode );

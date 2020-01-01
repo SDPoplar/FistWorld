@@ -21,6 +21,9 @@ public:
     bool FinishRound();
     void TownBallance( class UFistWorldInstance* gi );
 
+    void StartPlay() override;
 protected:
     TArray<FTownStatistics> GetTownStaticsByKingdom( class UFistWorldInstance* gi, class UKingdom* kingdom, bool shouldHaveWarrior );
+
+    void CheckKingdomAlive();
 };

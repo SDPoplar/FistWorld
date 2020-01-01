@@ -21,6 +21,13 @@ AWorldMapMode::AWorldMapMode()
     PlayerControllerClass = AWorldMapController::StaticClass();
 }
 
+void AWorldMapMode::StartPlay()
+{
+    Super::StartPlay();
+
+    this->CheckKingdomAlive();
+}
+
 TArray<FTownStatistics> AWorldMapMode::GetTownStaticsByKingdom( UFistWorldInstance* gi, UKingdom* kingdom, bool shouldHaveWarrior )
 {
     TArray<FTownStatistics> towns;
@@ -119,5 +126,54 @@ void AWorldMapMode::TownBallance( UFistWorldInstance* gi )
                 warrior->SetSoldierNumber( warrior->GetSoldierNumber() / 2 );
             }
         }
+    }
+}
+
+bool HasTown( int kingdomId, UFistWorldInstance* gi )
+{
+    for( auto town : gi->GetTownList() )
+    {
+        if( town->GetKingdomId() == kingdomId )
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+void AWorldMapMode::CheckKingdomAlive()
+{
+    auto gi = UFistWorldInstance::GetInstance( this );
+    int alive = 0;
+    auto pc = UGameplayStatics::GetPlayerController( this, 0 );
+    auto hud = pc ? Cast<AWorldMapHud>( pc->GetHUD() ) : nullptr;
+    //  TArray<UKingdom*> died;     //  use this if the follow 'for' crashes on 'Remove'
+    for( auto kingdom : gi->GetKingdomList() )
+    {
+        if( HasTown( kingdom->GetKingdomId(), gi ) )
+        {
+            alive++;
+            continue;
+        }
+        if( kingdom->IsPlayerKingdom() )
+        {
+            hud->PopupGameResult( false );
+            return;
+        }
+
+        hud->PopupAlert( FText::FormatOrdered<FText>( txtKingdomDie, FText::FromString( kingdom->GetKingdomName() ) ) );
+        gi->GetKingdomList().Remove( kingdom );
+        //  died.Add( kingdom );
+    }
+    /*
+    for( auto kingdom : died )
+    {
+        hud->PopupAlert( FText::FormatOrdered<FText>( txtKingdomDie, FText::FromString( kingdom->GetKingdomName() ) ) );
+        gi->GetKingdomList().Remove( kingdom );
+    }
+    */
+    if( alive <= 1 )
+    {
+        hud->PopupGameResult( true );
     }
 }

@@ -3,16 +3,19 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/PlayerController.h"
+#include "Controllers/FistWorldController.h"
 #include "MenuController.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class FISTWORLD_API AMenuController : public APlayerController
+class FISTWORLD_API AMenuController : public AFistWorldController
 {
 	GENERATED_BODY()
+
 public:
-    //AMenuController( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get() );
+    AMenuController( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get() );
+
+    virtual void BeginPlay() override;
 };
