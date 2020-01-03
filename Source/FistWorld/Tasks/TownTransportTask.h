@@ -19,6 +19,6 @@ public:
     UTownTransportTask( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get() );
     virtual bool SetTargetWarrior( class UWarrior* warrior ) override;
     virtual bool SetTransportVolume( int food, int money );
-    bool SetTargetTown( UTown* town );
-    bool Excute( ) override;
+    bool SetTargetTown( UTown* town ) override;
+    bool Excute() override;
 };

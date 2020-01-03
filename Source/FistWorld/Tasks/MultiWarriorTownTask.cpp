@@ -27,7 +27,7 @@ bool UMultiWarriorTownTask::WarriorSetted()
     return this->m_arr_warriors.Num() > 0;
 }
 
-bool UMultiWarriorTownTask::Excute( )
+bool UMultiWarriorTownTask::Excute()
 {
-    return UTownTask::Excute( );
+    return UTownTask::Excute();
 }

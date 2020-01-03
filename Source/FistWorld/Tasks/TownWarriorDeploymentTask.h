@@ -16,10 +16,10 @@ class FISTWORLD_API UTownWarriorDeploymentTask : public UMultiWarriorTownTask
 
 public:
     UTownWarriorDeploymentTask( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get( ) );
-    virtual ~UTownWarriorDeploymentTask( ) {}
+    //  virtual ~UTownWarriorDeploymentTask( ) {}
 
-    bool WarriorSetted( ) override;
-    bool Excute( ) override;
+    bool WarriorSetted() override;
+    bool Excute() override;
     bool SetTargetTown( class UTown* town ) override;
 	
 };

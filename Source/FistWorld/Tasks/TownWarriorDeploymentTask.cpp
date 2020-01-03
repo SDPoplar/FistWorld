@@ -13,13 +13,13 @@ UTownWarriorDeploymentTask::UTownWarriorDeploymentTask( const FObjectInitializer
    : UMultiWarriorTownTask( ObjectInitializer )
 {
     this->m_b_hide_townwidget_after_create = true;
-    m_n_taskCost = 150;
-    //this->m_o_target_arrive_mode = TownArriveMode::DirectFriendly;
+    this->m_n_taskCost = 150;
+    this->m_o_target_arrive_mode = TownArriveMode::RecursionFriendly;
 }
 
-bool UTownWarriorDeploymentTask::WarriorSetted( )
+bool UTownWarriorDeploymentTask::WarriorSetted()
 {
-    if( !UMultiWarriorTownTask::WarriorSetted( ) )
+    if( !UMultiWarriorTownTask::WarriorSetted() )
     {
         return false;
     }
@@ -29,33 +29,25 @@ bool UTownWarriorDeploymentTask::WarriorSetted( )
 
 bool UTownWarriorDeploymentTask::SetTargetTown( UTown* town )
 {
-    return UTownTask::SetTargetTown( town ) && this->Excute( );;
+    return UTownTask::SetTargetTown( town ) && this->Excute();
 }
 
-bool UTownWarriorDeploymentTask::Excute( )
+bool UTownWarriorDeploymentTask::Excute()
 {
-    if( !UTownTask::Excute( ) )
+    if( !UTownTask::Excute() )
     {
-        this->MarkAsCanceled( );
+        this->MarkAsCanceled();
         return false;
-    }
-
-    
-    if( this->m_o_town->GetKingdomId( ) != this->m_o_target_town->GetKingdomId( ) )
-    {
-        this->ShowNotice( FText::FromString( "You can't deploy warriors to an enermy town!!!" ) );
-        this->MarkAsCanceled( );
-        return false;
-    }
-    
+    } 
 
     for( auto warrior : this->m_arr_warriors )
     {
-        warrior->SetInTown( m_o_target_town->GetTownId( ) );
+        warrior->SetInTown( m_o_target_town->GetTownId() );
         warrior->SetStatus( EWarriorStatus::WORKING );
     }
     
-    this->MarkAsFinished( );
-    this->ShowNotice( txtDeploymentStart );
+    this->MarkAsFinished();
+    this->ShowNotice( FText::FormatOrdered<FText>( txtDeploymentSuccess,
+        FText::FromString( this->m_o_target_town->GetTownName() ) ) );
     return true;
 }

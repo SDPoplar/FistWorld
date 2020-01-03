@@ -280,3 +280,17 @@ TArray<UFight*>& UFistWorldInstance::GetFightList()
 {
     return this->m_fights;
 }
+
+UFight* UFistWorldInstance::PopFirstAiFight()
+{
+    for( auto fight : this->m_fights )
+    {
+        if( fight->IsPlayerFight() )
+        {
+            continue;
+        }
+        this->m_fights.Remove( fight );
+        return fight;
+    }
+    return nullptr;
+}

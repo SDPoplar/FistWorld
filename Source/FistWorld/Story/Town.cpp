@@ -100,7 +100,7 @@ EArriveStatus UTown::GetArriveStatus( UTown* town, const TownArriveMode mode ) c
     {
         return EArriveStatus::Friendly;
     }
-    if( !mode.IsAttackMode() && ( this->GetKingdomId() == town->GetKingdomId() ) )
+    if( !mode.IsAttackMode() && ( this->GetKingdomId() != town->GetKingdomId() ) )
     {
         return EArriveStatus::Hostile;
     }

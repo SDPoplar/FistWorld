@@ -46,6 +46,10 @@ bool UTownTask::SetTargetTown( UTown* town )
                 this->ShowError( txtFriendlyTargetGiven );
                 break;
 
+            case EArriveStatus::Hostile:
+                this->ShowError( txtHostileTargetGiven );
+                break;
+
             default:
                 this->ShowError( txtCannotArrive );
             }

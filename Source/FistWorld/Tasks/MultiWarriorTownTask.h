@@ -18,7 +18,7 @@ public:
     int AppendWarrior( class UWarrior* warrior );
     int EachWarrior( bool(warriorProc)( class UWarrior*, void* ), void* res = nullptr );
     virtual bool WarriorSetted();
-    bool Excute( );
+    virtual bool Excute() override;
 
 protected:
     TArray<class UWarrior*> m_arr_warriors;

@@ -47,19 +47,11 @@ public:
     TownArriveMode( bool direct = false, bool attack = false, bool friendly = false )
         : m_b_direct( direct ), m_b_attack( attack ), m_b_friendly( friendly ) {}
 
-    bool IsDirectMode( ) const noexcept {
-        return this->m_b_direct;
-    }
-    bool IsAttackMode( ) const noexcept {
-        return this->m_b_attack;
-    }
-    bool IsFriendlyMode( ) const noexcept {
-        return this->m_b_friendly;
-    }
+    bool IsDirectMode() const noexcept { return this->m_b_direct; }
+    bool IsAttackMode() const noexcept { return this->m_b_attack; }
+    bool IsFriendlyMode() const noexcept { return this->m_b_friendly; }
 
-    static TownArriveMode Default( ) {
-        return TownArriveMode::Direct;
-    }
+    static TownArriveMode Default() { return TownArriveMode::Direct; }
     static TownArriveMode Direct;
     static TownArriveMode DirectFriendly;
     static TownArriveMode DirectAttack;
