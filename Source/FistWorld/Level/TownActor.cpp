@@ -18,7 +18,7 @@ ATownActor::ATownActor( const FObjectInitializer& ObjectInitializer ) : AActor( 
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-    this->bCanBeDamaged = false;
+    this->SetCanBeDamaged( false );
 
     this->m_mesh_town = CreateDefaultSubobject<UStaticMeshComponent>( TEXT( "Mesh" ) );
     RootComponent = this->m_mesh_town;

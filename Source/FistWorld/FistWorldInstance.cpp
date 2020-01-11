@@ -281,7 +281,7 @@ TArray<UFight*>& UFistWorldInstance::GetFightList()
     return this->m_fights;
 }
 
-UFight* UFistWorldInstance::PopFirstAiFight()
+bool UFistWorldInstance::PopFirstAiFight( UFight*& _fight )
 {
     for( auto fight : this->m_fights )
     {
@@ -289,8 +289,9 @@ UFight* UFistWorldInstance::PopFirstAiFight()
         {
             continue;
         }
+        _fight = fight;
         this->m_fights.Remove( fight );
-        return fight;
+        return true;
     }
-    return nullptr;
+    return false;
 }

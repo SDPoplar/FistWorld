@@ -12,7 +12,7 @@ ACommonMapViewer::ACommonMapViewer() : m_f_def_arm_len( 400.0f ), m_vec_camera_o
 {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
     PrimaryActorTick.bCanEverTick = true;
-    this->bCanBeDamaged = false;
+    this->SetCanBeDamaged( false );
     RootComponent = CreateDefaultSubobject<USceneComponent>( "Root comp" );
     this->m_comp_sphere = CreateDefaultSubobject<USphereComponent>( "Sphere comp" );
     this->m_comp_sphere->SetSphereRadius( 50.0f );

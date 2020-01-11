@@ -53,19 +53,20 @@ bool UTownTransportTask::Excute()
     }
 
     this->m_o_warrior->SetStatus( EWarriorStatus::WORKING );
-    bool success = RandomMaker::WillHappen( 90 );
 
     this->m_o_town->IncreaseMoney( -1 * m_n_money );
     this->m_o_town->IncreaseFood( -1 * m_n_food );
-    if( success )
+    if( RandomMaker::WillHappen( 90 ) )
     {
         this->m_o_target_town->IncreaseMoney( m_n_money );
         this->m_o_target_town->IncreaseFood( m_n_food );
+        this->ShowNotice( txtTransportSuccess );
+    }
+    else
+    {
+        this->ShowNotice( txtTransportFailed );
     }
 
-    this->ShowNotice( success ? txtTransportSuccess : txtTransportFailed );
-
     MarkAsFinished();
-
     return true;
 }

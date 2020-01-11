@@ -9,6 +9,7 @@
 UENUM( BlueprintType )
 enum class EElemGrade : uint8
 {
+    UNKOWN = 0,
     NORMAL = 1,
     GOOD = 2,
     RARE = 3,

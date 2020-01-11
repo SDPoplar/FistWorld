@@ -27,6 +27,7 @@ class UChapter
 {
 public:
     UChapter();
+    virtual ~UChapter() {}
 
     bool SetChapterId( int id, bool loadData = false );
     virtual int GetChapterId() const noexcept;

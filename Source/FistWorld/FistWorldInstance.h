@@ -62,7 +62,7 @@ public:
 
     int AppendFight( class UFight* fight );
     bool HasFight() const noexcept;
-    class UFight* PopFirstAiFight();
+    bool PopFirstAiFight( class UFight*& fight );
 
     TArray<class UWarrior*>& GetWarriorList();
     TArray<class UTown*>& GetTownList();

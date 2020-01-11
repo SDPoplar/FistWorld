@@ -87,6 +87,13 @@ bool AWorldMapMode::FinishRound()
         }
     }
 
+    UFight* aiFight = nullptr;
+    while( gi->PopFirstAiFight( aiFight ) )
+    {
+        //  auto finish ai fight
+        delete aiFight;
+    }
+    this->CheckKingdomAlive();
     hud && hud->PopupAlert( txtNewRoundStart );
 
     if( gi->HasFight() )

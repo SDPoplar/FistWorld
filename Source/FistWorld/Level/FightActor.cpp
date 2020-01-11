@@ -21,7 +21,7 @@ AFightActor::AFightActor() : TickAfterTurnOn(), m_o_warrior_binded( nullptr ), m
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-    bCanBeDamaged = true;
+    this->SetCanBeDamaged( false );
     this->bCanAffectNavigationGeneration = true;
 
     RootComponent = CreateDefaultSubobject<USceneComponent>( "root comp" );
