@@ -98,6 +98,58 @@ bool UFistWorldInstance::LoadGame()
         this->m_towns.Push( ins );
     }
 
+    this->m_fights.Empty();
+    for( auto item : save->fights )
+    {
+        UTown* fromTown = nullptr;
+        UTown* toTown = nullptr;
+        UKingdom* attackerKingdom = nullptr;
+
+        for( auto town : m_towns )
+        {
+            if( town->GetTownId() == item.FromTownId )
+            {
+                fromTown = town;
+                break;
+            }
+        }
+
+        for( auto town : m_towns )
+        {
+            if( town->GetTownId() == item.TargetTownId )
+            {
+                toTown = town;
+                break;
+            }
+        }
+
+        for( auto kingdom : m_kingdoms )
+        {
+            if( kingdom->GetKingdomId() == item.AttackerKingdomId )
+            {
+                attackerKingdom = kingdom;
+                break;
+            }
+        }
+
+        auto ins = new UFight( attackerKingdom, fromTown, toTown );
+
+        for( auto warrior : m_warriors )
+        {
+            for( auto warriorId : item.AttackerWarriors )
+            {
+                if( warriorId == warrior->GetWarriorId() )
+                {
+                    ins->AppendAttackerWarrior( warrior );
+                    break;
+                }
+            }
+        }
+
+        this->m_fights.Push( ins );
+
+    }
+
     this->m_o_chapter.SetChapterId( save->chapter, true );
     this->m_n_round = save->round;
 

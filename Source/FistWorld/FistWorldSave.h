@@ -6,6 +6,7 @@
 #include "GameFramework/SaveGame.h"
 #include "Story/Warrior.h"
 #include "Engine/DataTable.h"
+#include "Level/Fight.h"
 #include "FistWorldSave.generated.h"
 
 USTRUCT( BlueprintType )
@@ -184,6 +185,8 @@ struct FSaveFight
     GENERATED_USTRUCT_BODY()
 
 public:
+    FSaveFight( const class UFight& Fight );
+
     UPROPERTY()
         int FromTownId;
 

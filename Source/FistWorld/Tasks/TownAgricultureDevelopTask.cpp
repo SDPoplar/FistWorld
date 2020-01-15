@@ -22,7 +22,6 @@ bool UTownAgricultureDevelopTask::Excute()
         return false;
     }
     
-    this->m_o_town->IncreaseMoney( -1 * this->GetTaskCost( ) );
     this->m_o_town->GetAgricultureDevelopment().IncreaseCurrent( this->m_o_warrior->GetStrong() );
     this->m_o_warrior->SetStatus( EWarriorStatus::WORKING );
     this->MarkAsFinished();

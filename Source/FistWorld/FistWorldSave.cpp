@@ -97,6 +97,19 @@ FSaveWarrior::FSaveWarrior( const UWarrior& ins )
     this->Soldiers = ins.GetSoldierNumber();
 }
 
+FSaveFight::FSaveFight( const UFight& Fight )
+{
+    this->FromTownId = Fight.GetFromTown()->GetTownId();
+    this->TargetTownId = Fight.GetTargetTown()->GetTownId();
+    this->AttackerKingdomId = Fight.GetAttackerKingdom()->GetKingdomId();
+
+    for( auto item : const_cast< UFight& >(Fight).GetAttackerWarriors() )
+    {
+        this->AttackerWarriors.Push( item->GetWarriorId() );
+    }
+       
+}
+
 //  ===================== UFistWorldSave ====================================================
 
 const FString UFistWorldSave::SaveSlotName = TEXT( "fistworld" );

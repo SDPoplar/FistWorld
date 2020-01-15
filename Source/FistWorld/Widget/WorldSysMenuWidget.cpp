@@ -32,6 +32,10 @@ bool UWorldSysMenuWidget::SaveCurrentGame()
     {
         save->warriors.Push( FSaveWarrior( *item ) );
     }
+    for( auto item : gi->GetFightList() )
+    {
+        save->fights.Push( FSaveFight( *item ) );
+    }
     bool saveResult = save->SaveToSlot( 0 );
     auto pc = AWorldMapController::GetInstance( this );
     auto hud = pc ? pc->GetWorldMapHud() : nullptr;
