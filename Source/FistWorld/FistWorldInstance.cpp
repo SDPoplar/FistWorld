@@ -101,49 +101,15 @@ bool UFistWorldInstance::LoadGame()
     this->m_fights.Empty();
     for( auto item : save->fights )
     {
-        UTown* fromTown = nullptr;
-        UTown* toTown = nullptr;
-        UKingdom* attackerKingdom = nullptr;
-
-        for( auto town : m_towns )
-        {
-            if( town->GetTownId() == item.FromTownId )
-            {
-                fromTown = town;
-                break;
-            }
-        }
-
-        for( auto town : m_towns )
-        {
-            if( town->GetTownId() == item.TargetTownId )
-            {
-                toTown = town;
-                break;
-            }
-        }
-
-        for( auto kingdom : m_kingdoms )
-        {
-            if( kingdom->GetKingdomId() == item.AttackerKingdomId )
-            {
-                attackerKingdom = kingdom;
-                break;
-            }
-        }
+        UTown* fromTown = this->FindTown( item.FromTownId );
+        UTown* toTown = this->FindTown( item.TargetTownId );
+        UKingdom* attackerKingdom = this->FindKingdom( item.AttackerKingdomId );
 
         auto ins = new UFight( attackerKingdom, fromTown, toTown );
 
-        for( auto warrior : m_warriors )
+        for( auto warriorId : item.AttackerWarriors )
         {
-            for( auto warriorId : item.AttackerWarriors )
-            {
-                if( warriorId == warrior->GetWarriorId() )
-                {
-                    ins->AppendAttackerWarrior( warrior );
-                    break;
-                }
-            }
+            ins->AppendAttackerWarrior( this->FindWarrior( warriorId ) );
         }
 
         this->m_fights.Push( ins );

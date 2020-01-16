@@ -185,6 +185,7 @@ struct FSaveFight
     GENERATED_USTRUCT_BODY()
 
 public:
+    FSaveFight();
     FSaveFight( const class UFight& Fight );
 
     UPROPERTY()

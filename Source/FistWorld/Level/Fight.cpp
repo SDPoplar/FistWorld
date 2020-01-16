@@ -31,6 +31,16 @@ TArray<UWarrior*>& UFight::GetAttackerWarriors()
     return this->m_attacker_warriors;
 }
 
+TArray<int> UFight::GetAttackerWarriorIds() const
+{
+    TArray<int> ret;
+    for( auto w : this->m_attacker_warriors )
+    {
+        ret.Push( w->GetWarriorId() );
+    }
+    return ret;
+}
+
 bool UFight::IsPlayerAttack() const noexcept
 {
     return this->m_o_attacker_kingdom->IsPlayerKingdom();

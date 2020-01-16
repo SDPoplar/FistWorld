@@ -20,6 +20,7 @@ public:
     bool IsValid() const noexcept;
     int AppendAttackerWarrior( class UWarrior* warrior );
     TArray<class UWarrior*>& GetAttackerWarriors();
+    TArray<int> GetAttackerWarriorIds() const;
     bool IsPlayerAttack() const noexcept;
     bool IsPlayerDefence() const noexcept;
     bool IsPlayerFight() const noexcept;

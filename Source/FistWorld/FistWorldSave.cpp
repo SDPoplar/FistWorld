@@ -97,15 +97,18 @@ FSaveWarrior::FSaveWarrior( const UWarrior& ins )
     this->Soldiers = ins.GetSoldierNumber();
 }
 
+FSaveFight::FSaveFight() : FromTownId( 0 ), TargetTownId( 0 ), AttackerKingdomId( 0 )
+{}
+
 FSaveFight::FSaveFight( const UFight& Fight )
 {
     this->FromTownId = Fight.GetFromTown()->GetTownId();
     this->TargetTownId = Fight.GetTargetTown()->GetTownId();
     this->AttackerKingdomId = Fight.GetAttackerKingdom()->GetKingdomId();
 
-    for( auto item : const_cast< UFight& >(Fight).GetAttackerWarriors() )
+    for( auto item : Fight.GetAttackerWarriorIds() )
     {
-        this->AttackerWarriors.Push( item->GetWarriorId() );
+        this->AttackerWarriors.Push( item );
     }
        
 }
