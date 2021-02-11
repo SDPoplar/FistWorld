@@ -23,7 +23,7 @@ void UTownNamePanelComponent::InitWidget()
     UNamePanelComponent::InitWidget();
     ATownActor* ta = Cast<ATownActor>( this->GetOwner() );
     UTown* town = ta ? ta->GetTown() : nullptr;
-    UTownNamePanelWidget* widget = town ? Cast<UTownNamePanelWidget>( this->Widget ) : nullptr;
+    UTownNamePanelWidget* widget = town ? Cast<UTownNamePanelWidget>( this->GetWidget() ) : nullptr;
     this->SetVisibility( !!widget );
     if( !widget )
     {

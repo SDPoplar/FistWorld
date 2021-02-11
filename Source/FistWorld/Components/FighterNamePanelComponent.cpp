@@ -21,7 +21,7 @@ void UFighterNamePanelComponent::InitWidget()
 {
     UNamePanelComponent::InitWidget();
     UFighterNamePanelWidget* widget;
-    if( ( widget = Cast<UFighterNamePanelWidget>( this->Widget ) ) == nullptr )
+    if( ( widget = Cast<UFighterNamePanelWidget>( this->GetWidget() ) ) == nullptr )
     {
         //  UE_LOG( LogTemp, Error, TEXT( "%s - Failed to load widget" ), *( this->GetClass()->GetName() ) );
         return;

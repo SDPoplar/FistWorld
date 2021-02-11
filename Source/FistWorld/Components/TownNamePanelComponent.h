@@ -18,6 +18,6 @@ public:
     UTownNamePanelComponent( const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get() );
 
 protected:
-    class UTownNamePanelWidget* GetWidget() const noexcept;
+    //class UTownNamePanelWidget* GetWidget() const noexcept;
     void InitWidget() override;
 };
